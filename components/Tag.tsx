@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface TagPosition {
   top?: number;
   right?: number;
@@ -20,9 +22,16 @@ const getTagPosition = (
   return styles;
 };
 
-const tagComponents: Record<string, (n: number) => React.ReactNode> = {
-  max: () => (
-    <div className="size-2.5 bg-black relative" style={{
+const tagSizes = {
+  xs: "size-[0.5rem]",
+  sm: "size-2.5",
+  md: "size-3",
+  lg: "size-4"
+};
+
+const tagComponents: Record<string, (n: number, size: "xs" | "sm" | "md" | "lg") => React.ReactNode> = {
+  max: (_, size) => (
+    <div className={`${tagSizes[size]} bg-black relative`} style={{
       clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
     }}>
       <div className="absolute inset-[1px] bg-yellow-200" style={{
@@ -36,14 +45,14 @@ const tagComponents: Record<string, (n: number) => React.ReactNode> = {
   ),
 };
 
-export const Tag = ({ tag, n }: { tag: string; n: number }) => {
+export const Tag = ({ tag, n, size = "xs", className }: { tag: string; n: number; size?: "xs" | "sm" | "md" | "lg"; className?: string }) => {
   const TagComponent = tagComponents[tag.toLowerCase()];
 
   if (!TagComponent) return null;
 
   return (
-    <div className="absolute z-10" style={getTagPosition(n, { top: 0, right: 0 })}>
-      {TagComponent(n)}
+    <div className={cn("absolute z-10", className)} style={getTagPosition(n, { top: 0, right: 0 })}>
+      {TagComponent(n, size)}
     </div>
   );
 };

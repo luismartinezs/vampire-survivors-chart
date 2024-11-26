@@ -43,14 +43,6 @@ export const weaponEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.garlic }, '+', { item: items.pummarola }, '=', { item: items.soulEater }]
   },
   {
-    id: 11,
-    elements: [{ item: items.clock_lancet }, '+', { item: items.silver_ring, tags: ['max'] }, '+', { item: items.goldRing, tags: ['max'] }, '=', { item: items.infiniteCorridor }]
-  },
-  {
-    id: 12,
-    elements: [{ item: items.laurel }, '+', { item: items.metaglio_left, tags: ['max'] }, '+', { item: items.metaglio_right, tags: ['max'] }, '=', { item: items.crimsonShroud }]
-  },
-  {
     id: 13,
     elements: [{ item: items.song_of_mana }, '+', { item: items.skull_o_maniac }, '=', { item: items.mannajja }]
   },
@@ -65,6 +57,14 @@ export const weaponEvolutions: TWeaponEvolution[] = [
   {
     id: 16,
     elements: [{ item: items.king_bible }, '+', { item: items.spellbinder }, '=', { item: items.unholyVespers }]
-  }
+  },
+  {
+    id: 11,
+    elements: [{ item: items.clock_lancet }, '+', { item: items.silver_ring, tags: ['max'] }, '+', { item: items.goldRing, tags: ['max'] }, '=', { item: items.infiniteCorridor }]
+  },
+  {
+    id: 12,
+    elements: [{ item: items.laurel }, '+', { item: items.metaglio_left, tags: ['max'] }, '+', { item: items.metaglio_right, tags: ['max'] }, '=', { item: items.crimsonShroud }]
+  },
 
 ]

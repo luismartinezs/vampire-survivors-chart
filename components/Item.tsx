@@ -3,11 +3,12 @@ import type { TItem } from "@/data/types";
 interface ItemProps {
   item: TItem;
   className?: string;
-  size?: "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg";
 }
 
 export function Item({ item, className, size = "md" }: ItemProps) {
   const sizeClasses = {
+    xs: "size-6",
     sm: "size-8",
     md: "size-12",
     lg: "size-16",
