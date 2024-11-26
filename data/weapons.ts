@@ -196,11 +196,11 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
   },
   phas3r: {
     name: 'Phas3r',
-    image: 'icon-laser'
+    image: 'icon-phas3r'
   },
   photonstorm: {
     name: 'Photonstorm',
-    image: 'icon-laser_'
+    image: 'icon-phas3r_'
   },
   glass_fandango: {
     name: 'Glass Fandango',
