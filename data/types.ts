@@ -8,10 +8,12 @@ export interface TItem {
 
 export type TOperand = '+' | '=' | '→' | '⇒'
 
-export type TEvolutionElement = {
+export type TEvolutionItem = {
   item: TItem
   tags?: string[]
-} | TOperand
+}
+
+export type TEvolutionElement = TEvolutionItem | TOperand
 
 export type TDlc = 'base' | 'lotm' | 'todf' | 'em' | 'og' | 'otc'
 
