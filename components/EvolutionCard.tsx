@@ -7,14 +7,45 @@ import {
   TEvolutionElement,
   TItem,
   TOperand,
+  TDlc,
 } from "@/data/types";
+
+const dlcClasses: Record<TDlc, {bg: string, border: string}> = {
+  base: {
+    bg: "bg-base-700/50",
+    border: "border-base-500"
+  },
+  lotm: {
+    bg: "bg-lotm-700/50",
+    border: "border-lotm-500"
+  },
+  todf: {
+    bg: "bg-todf-700/50",
+    border: "border-todf-500"
+  },
+  em: {
+    bg: "bg-em-700/30",
+    border: "border-em-700"
+  },
+  og: {
+    bg: "bg-og-700/50",
+    border: "border-og-500"
+  },
+  otc: {
+    bg: "bg-otc-700/50",
+    border: "border-otc-500"
+  }
+};
+
 export default function EvolutionCard({
   evolution,
 }: {
   evolution: TWeaponEvolution;
 }) {
+  const dlcClass = dlcClasses[evolution.dlc || 'base'];
+
   return (
-    <div className="bg-primary-700/50 rounded border border-primary-500 p-1 sm:p-2">
+    <div className={`${dlcClass.bg} rounded border ${dlcClass.border} p-1 sm:p-2`}>
       <div className="flex items-center justify-between">
         {evolution.elements.map((element: TEvolutionElement, index) => {
           const isEven = index % 2 === 0;

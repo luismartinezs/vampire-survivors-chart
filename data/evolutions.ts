@@ -112,9 +112,84 @@ const baseEvolutions: TWeaponEvolution[] = [
   }
 ]
 
-const lotmEvolutions: TWeaponEvolution[] = []
-const todfEvolutions: TWeaponEvolution[] = []
-const emEvolutions: TWeaponEvolution[] = []
+const lotmEvolutions: TWeaponEvolution[] = [
+  {
+    id: 29,
+    elements: [{ item: items.silverWind }, '+', { item: items.pummarola, tags: ['max'] }, '=', { item: items.festiveWind }]
+  },
+  {
+    id: 30,
+    elements: [{ item: items.fourSeasons }, '+', { item: items.candelabrador, tags: ['max'] }, '=', { item: items.godaiShuffle }]
+  },
+  {
+    id: 31,
+    elements: [{ item: items.summonNight }, '+', { item: items.duplicator, tags: ['max'] }, '=', { item: items.echoOfNight }]
+  },
+  {
+    id: 32,
+    elements: [{ item: items.mirageRobe }, '+', { item: items.attractorb, tags: ['max'] }, '=', { item: items.jOdore }]
+  },
+  {
+    id: 33,
+    elements: [{ item: items.nightSword }, '+', { item: items.stone_mask, tags: ['max'] }, '=', { item: items.muramasa }]
+  },
+  {
+    id: 34,
+    elements: [{ item: items.milleBolleBlu }, '+', { item: items.spellbinder, tags: ['max'] }, '=', { item: items.booRooBolle }]
+  }
+]
+const todfEvolutions: TWeaponEvolution[] = [
+  {
+    id: 35,
+    elements: [{ item: items.spellString }, '+', { item: items.spellStream }, '+', { item: items.spellStrike }, '=', { item: items.spellStorm }]
+  },
+  {
+    id: 36,
+    elements: [{ item: items.eskizzibur }, '+', { item: items.armor, tags: ['max'] }, '=', { item: items.legionnaire }]
+  },
+  {
+    id: 37,
+    elements: [{ item: items.flashArrow }, '+', { item: items.bracer, tags: ['max'] }, '=', { item: items.millionaire }]
+  },
+  {
+    id: 38,
+    elements: [{ item: items.prismaticMissile }, '+', { item: items.crown, tags: ['max'] }, '=', { item: items.luminaire }]
+  },
+  {
+    id: 39,
+    elements: [{ item: items.shadowServant }, '+', { item: items.skull_o_maniac, tags: ['max'] }, '=', { item: items.ophion }]
+  }
+]
+const emEvolutions: TWeaponEvolution[] = [
+  {
+    id: 40,
+    elements: [{ item: items.report }, '+', { item: items.miniCrewmate, tags: ['max'] }, '=', { item: items.emergencyMeeting }]
+  },
+  {
+    id: 41,
+    elements: [{ item: items.luckySwipe }, '+', { item: items.miniEngineer, tags: ['max'] }, '=', { item: items.crossedWires }]
+  },
+  {
+    id: 42,
+    elements: [{ item: items.lifesignScan }, '+', { item: items.miniGhost, tags: ['max'] }, '=', { item: items.paranormalScan }]
+  },
+  {
+    id: 43,
+    elements: [{ item: items.justVent }, '+', { item: items.miniShapeshifter, tags: ['max'] }, '=', { item: items.unjustEjection }]
+  },
+  {
+    id: 44,
+    elements: [{ item: items.clearDebris }, '+', { item: items.miniGuardian, tags: ['max'] }, '=', { item: items.clearAsteroids }]
+  },
+  {
+    id: 45,
+    elements: [{ item: items.sharpTongue }, '+', { item: items.miniImpostor, tags: ['max'] }, '=', { item: items.impostongue }]
+  },
+  {
+    id: 46,
+    elements: [{ item: items.scienceRocks }, '+', { item: items.miniScientist, tags: ['max'] }, '=', { item: items.rocketScience }]
+  }
+]
 const ogEvolutions: TWeaponEvolution[] = []
 const otcEvolutions: TWeaponEvolution[] = []
 
