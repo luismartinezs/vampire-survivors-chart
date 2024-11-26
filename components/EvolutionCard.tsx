@@ -12,27 +12,27 @@ import {
 
 const dlcClasses: Record<TDlc, {bg: string, border: string}> = {
   base: {
-    bg: "bg-base-700/50",
+    bg: "bg-base-300/50",
     border: "border-base-500"
   },
   lotm: {
-    bg: "bg-lotm-700/50",
+    bg: "bg-lotm-300/50",
     border: "border-lotm-500"
   },
   todf: {
-    bg: "bg-todf-700/50",
+    bg: "bg-todf-300/50",
     border: "border-todf-500"
   },
   em: {
-    bg: "bg-em-700/30",
+    bg: "bg-em-300/50",
     border: "border-em-700"
   },
   og: {
-    bg: "bg-og-700/50",
+    bg: "bg-og-300/50",
     border: "border-og-500"
   },
   otc: {
-    bg: "bg-otc-700/50",
+    bg: "bg-otc-300/50",
     border: "border-otc-500"
   }
 };

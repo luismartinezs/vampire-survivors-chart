@@ -12,95 +12,95 @@ export default {
   	extend: {
   		colors: {
   			primary: {
-  				'50': '#faf6f6',   // Increased brightness, slight desaturation for better contrast
-  				'100': '#f2e9e9',  // Warmer undertone
-  				'200': '#e6d5d5',  // Increased saturation for richer mid-tones
-  				'300': '#d4b8b8',  // Slightly warmer hue
-  				'400': '#bc9595',  // More saturated for better visual hierarchy
-  				'500': '#a17575',  // Increased saturation while maintaining value
-  				'600': '#855d5d',  // Smoother transition to darker shades
-  				'700': '#5c3f3f',  // Better gradation between 600 and 800
-  				'800': '#2b1a1a',  // Original color maintained
-  				'900': '#1d1111',  // Darker with maintained hue
-  				'950': '#0a0707'   // Deeper shadows while preserving color character
+  				'50': '#fff0f0',   // More saturated pink undertone
+  				'100': '#ffe1e1',  // Warmer pink undertone
+  				'200': '#ffc7c7',  // Increased saturation
+  				'300': '#ffa3a3',  // More vivid coral
+  				'400': '#ff8585',  // Brighter red
+  				'500': '#a17575',  // Keeping original
+  				'600': '#855d5d',  // Keeping original
+  				'700': '#5c3f3f',  // Keeping original
+  				'800': '#2b1a1a',  // Keeping original
+  				'900': '#1d1111',  // Keeping original
+  				'950': '#0a0707'   // Keeping original
   			},
 				base: {
-					'50': '#faf6f6',   // Increased brightness, slight desaturation for better contrast
-  				'100': '#f2e9e9',  // Warmer undertone
-  				'200': '#e6d5d5',  // Increased saturation for richer mid-tones
-  				'300': '#d4b8b8',  // Slightly warmer hue
-  				'400': '#bc9595',  // More saturated for better visual hierarchy
-  				'500': '#a17575',  // Increased saturation while maintaining value
-  				'600': '#855d5d',  // Smoother transition to darker shades
-  				'700': '#5c3f3f',  // Better gradation between 600 and 800
-  				'800': '#2b1a1a',  // Original color maintained
-  				'900': '#1d1111',  // Darker with maintained hue
-  				'950': '#0a0707'   // Deeper shadows while preserving color character
+					'50': '#fff2f0',   // Warmer brownish undertone
+  				'100': '#ffe4e1',  // Slightly brown tinted pink
+  				'200': '#ffcec7',  // Warmer coral with brown
+  				'300': '#ffb3a3',  // Muted brownish coral
+  				'400': '#ff9585',  // Brown-tinted red
+  				'500': '#a17d75',  // Brownish red
+  				'600': '#856559',  // Deeper brown red
+  				'700': '#5c443f',  // Rich brown red
+  				'800': '#2b1d1a',  // Dark brown red
+  				'900': '#1d1311',  // Very dark brown red
+  				'950': '#0a0807'   // Deepest brown red
 				},
 				lotm: {
-					'50': '#f5f7fa',   // Very light blue-gray
-					'100': '#ebeef3',  // Light blue-gray
-					'200': '#d8dfe8',  // Pale blue
-					'300': '#bbc6d6',  // Light steel blue
-					'400': '#95a5bf',  // Steel blue
-					'500': '#7485a6',  // Medium blue-gray
-					'600': '#5d6b8c',  // Darker blue-gray
-					'700': '#445272',  // Deep blue-gray
-					'800': '#2c3754',  // Very dark blue
-					'900': '#1c243a',  // Nearly black blue
-					'950': '#0d111d'   // Darkest blue-black
+					'50': '#e6f0ff',   // Brighter, more saturated blue tint
+					'100': '#cce0ff',  // Increased blue saturation
+					'200': '#99c1ff',  // More vivid blue
+					'300': '#66a3ff',  // Bright sky blue
+					'400': '#3385ff',  // Vibrant royal blue
+					'500': '#0066ff',  // Pure blue
+					'600': '#0052cc',  // Deep blue
+					'700': '#003d99',  // Rich navy blue
+					'800': '#002966',  // Dark navy
+					'900': '#001433',  // Very dark navy
+					'950': '#000919'   // Deepest navy
 				},
 				todf: {
-					'50': '#f2f8f5',   // Very light green-gray
-					'100': '#e6f1eb',  // Light green-gray
-					'200': '#cce3d7',  // Pale green
-					'300': '#b3d5c3',  // Light sage
-					'400': '#8ab8a1',  // Medium sage
-					'500': '#699b82',  // Forest green
-					'600': '#4d7d65',  // Deep forest
-					'700': '#355f4a',  // Dark forest
-					'800': '#1e4130',  // Very dark green
-					'900': '#0f2d1f',  // Nearly black green
-					'950': '#051610'   // Darkest green-black
+					'50': '#ecfdf4',   // More saturated green tint
+					'100': '#ddfbe9',  // Brighter green
+					'200': '#bbf7d6',  // More vivid pale green
+					'300': '#86efb9',  // Increased saturation
+					'400': '#4ade8f',  // Brighter sage
+					'500': '#699b82',  // Keeping original
+					'600': '#4d7d65',  // Keeping original
+					'700': '#355f4a',  // Keeping original
+					'800': '#1e4130',  // Keeping original
+					'900': '#0f2d1f',  // Keeping original
+					'950': '#051610'   // Keeping original
 				},
 				em: {
-					'50': '#fde5e5',   // Very light muted red
-					'100': '#fcd6d6',  // Light muted red
-					'200': '#fbb8b8',  // Pale muted red
-					'300': '#f99999',  // Light muted coral
-					'400': '#f67070',  // Muted coral red
-					'500': '#e84d4d',  // Medium muted red
-					'600': '#d13333',  // Darker muted red
-					'700': '#a01f1f',  // Deep muted red (darker)
-					'800': '#801717',  // Very dark muted red (darker)
-					'900': '#601111',  // Nearly black muted red (darker)
-					'950': '#2d0909'   // Darkest muted red-black (darker)
+					'50': '#fff0f5',   // Pink-red tint
+					'100': '#ffe0eb',  // Light pink-red
+					'200': '#ffc1d7',  // Soft pink-red
+					'300': '#ff9ec0',  // Medium pink-red
+					'400': '#ff7aa8',  // Bright pink-red
+					'500': '#ff5690',  // Strong pink-red
+					'600': '#e63d77',  // Deep pink-red
+					'700': '#cc2960',  // Rich pink-red
+					'800': '#991f47',  // Dark pink-red
+					'900': '#66142f',  // Very dark pink-red
+					'950': '#330a18'   // Deepest pink-red
 				},
 				og: {
-					'50': '#f8f9fa',   // Very light metallic
-					'100': '#f1f3f5',  // Light metallic
-					'200': '#e9ecef',  // Pale silver
-					'300': '#dee2e6',  // Light gray
-					'400': '#ced4da',  // Medium silver
-					'500': '#adb5bd',  // Steel gray
-					'600': '#868e96',  // Dark silver
-					'700': '#495057',  // Deep metallic
-					'800': '#343a40',  // Very dark gray
-					'900': '#212529',  // Nearly black metallic
-					'950': '#121416'   // Darkest metallic-black
+					'50': '#f8faff',   // More saturated metallic tint
+					'100': '#f1f5ff',  // Brighter metallic
+					'200': '#e5edff',  // More vivid silver
+					'300': '#d1e1ff',  // Increased saturation
+					'400': '#b8d1ff',  // Brighter steel
+					'500': '#adb5bd',  // Keeping original
+					'600': '#868e96',  // Keeping original
+					'700': '#495057',  // Keeping original
+					'800': '#343a40',  // Keeping original
+					'900': '#212529',  // Keeping original
+					'950': '#121416'   // Keeping original
 				},
 				otc: {
-					'50': '#fffbeb',   // Very light gold
-					'100': '#fef3c7',  // Light gold
-					'200': '#fde68a',  // Pale gold
-					'300': '#fcd34d',  // Light golden
-					'400': '#fbbf24',  // Medium gold
-					'500': '#f59e0b',  // Rich gold
-					'600': '#d97706',  // Darker gold
-					'700': '#b45309',  // Deep gold
-					'800': '#92400e',  // Very dark gold
-					'900': '#78350f',  // Nearly black gold
-					'950': '#451a03'   // Darkest gold-black
+					'50': '#fff7e6',   // More saturated gold tint
+					'100': '#ffefcc',  // Brighter gold
+					'200': '#ffe4a3',  // More vivid pale gold
+					'300': '#ffd97a',  // Increased saturation
+					'400': '#ffcd52',  // Brighter golden
+					'500': '#f59e0b',  // Keeping original
+					'600': '#d97706',  // Keeping original
+					'700': '#b45309',  // Keeping original
+					'800': '#92400e',  // Keeping original
+					'900': '#78350f',  // Keeping original
+					'950': '#451a03'   // Keeping original
 				},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
