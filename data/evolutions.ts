@@ -190,7 +190,52 @@ const emEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.scienceRocks }, '+', { item: items.miniScientist, tags: ['max'] }, '=', { item: items.rocketScience }]
   }
 ]
-const ogEvolutions: TWeaponEvolution[] = []
+const ogEvolutions: TWeaponEvolution[] = [
+  {
+    id: 47,
+    elements: [{ item: items.longGun }, '+', { item: items.weaponPowerUp }, '=', { item: items.prototypeA }]
+  },
+  {
+    id: 48,
+    elements: [{ item: items.shortGun }, '+', { item: items.weaponPowerUp }, '+', { item: items.bracer }, '=', { item: items.prototypeB }]
+  },
+  {
+    id: 49,
+    elements: [{ item: items.spreadShot }, '+', { item: items.weaponPowerUp }, '+', { item: items.emptyTome }, '=', { item: items.prototypeC }]
+  },
+  {
+    id: 50,
+    elements: [{ item: items.cuLaser }, '+', { item: items.weaponPowerUp }, '+', { item: items.tiragisu }, '=', { item: items.prontoBeam }]
+  },
+  {
+    id: 51,
+    elements: [{ item: items.firearm }, '+', { item: items.weaponPowerUp }, '+', { item: items.candelabrador }, '=', { item: items.fireL3GS }]
+  },
+  {
+    id: 52,
+    elements: [{ item: items.sonicBloom }, '+', { item: items.weaponPowerUp }, '+', { item: items.armor }, '=', { item: items.waveBeam }]
+  },
+  {
+    id: 53,
+    elements: [{ item: items.homingMissile }, '+', { item: items.weaponPowerUp }, '+', { item: items.duplicator }, '=', { item: items.multistageMissiles }]
+  },
+  {
+    id: 54,
+    elements: [{ item: items.diverMines }, '+', { item: items.weaponPowerUp }, '+', { item: items.attractorb }, '=', { item: items.atmoTorpedo }]
+  },
+  {
+    id: 55,
+    elements: [{ item: items.bladeCrossbow }, '+', { item: items.weaponPowerUp }, '+', { item: items.clover }, '=', { item: items.bfc2000Ad }]
+  },
+  {
+    id: 56,
+    elements: [{ item: items.prismLass }, '+', { item: items.weaponPowerUp }, '+', { item: items.wings }, '=', { item: items.timeWarp }]
+  },
+  {
+    id: 57,
+    elements: [{ item: items.metalClaw }, '+', { item: items.weaponPowerUp }, '+', { item: items.hollow_heart }, '=', { item: items.bigFuzzyFist }]
+  }
+]
 const otcEvolutions: TWeaponEvolution[] = []
 
 export const evolutions = [

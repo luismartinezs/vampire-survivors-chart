@@ -388,6 +388,94 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
     name: 'Rocket Science',
     image: 'icon-rocks_'
   },
+  longGun: {
+    name: 'Long Gun',
+    image: 'icon-longgun'
+  },
+  prototypeA: {
+    name: 'Prototype A',
+    image: 'icon-longgun_'
+  },
+  shortGun: {
+    name: 'Short Gun',
+    image: 'icon-shortgun'
+  },
+  prototypeB: {
+    name: 'Prototype B',
+    image: 'icon-shortgun_'
+  },
+  spreadShot: {
+    name: 'Spread Shot',
+    image: 'icon-spreadshot'
+  },
+  prototypeC: {
+    name: 'Prototype C',
+    image: 'icon-spreadshot_'
+  },
+  cuLaser: {
+    name: 'C-U-Laser',
+    image: 'icon-laser'
+  },
+  prontoBeam: {
+    name: 'Pronto Beam',
+    image: 'icon-laser_'
+  },
+  firearm: {
+    name: 'Firearm',
+    image: 'icon-firearm'
+  },
+  fireL3GS: {
+    name: 'Fire-L3GS',
+    image: 'icon-firearm_'
+  },
+  sonicBloom: {
+    name: 'Sonic Bloom',
+    image: 'icon-sonic'
+  },
+  waveBeam: {
+    name: 'Wave Beam',
+    image: 'icon-sonic_'
+  },
+  homingMissile: {
+    name: 'Homing Missile',
+    image: 'icon-homingmiss'
+  },
+  multistageMissiles: {
+    name: 'Multistage Missiles',
+    image: 'icon-homingmiss_'
+  },
+  diverMines: {
+    name: 'Diver Mines',
+    image: 'icon-mines'
+  },
+  atmoTorpedo: {
+    name: 'Atmo-Torpedo',
+    image: 'icon-mines_'
+  },
+  bladeCrossbow: {
+    name: 'Blade Crossbow',
+    image: 'icon-crossbow'
+  },
+  bfc2000Ad: {
+    name: 'BFC2000-AD',
+    image: 'icon-crossbow_'
+  },
+  prismLass: {
+    name: 'Prism Lass',
+    image: 'icon-lass'
+  },
+  timeWarp: {
+    name: 'Time Warp',
+    image: 'icon-lass_'
+  },
+  metalClaw: {
+    name: 'Metal Claw',
+    image: 'icon-claw'
+  },
+  bigFuzzyFist: {
+    name: 'Big Fuzzy Fist',
+    image: 'icon-claw_'
+  }
 }
 
 
