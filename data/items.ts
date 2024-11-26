@@ -14,6 +14,10 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
     name: 'Bracer',
     image: 'icon-speed'
   },
+  armor: {
+    name: 'Armor',
+    image: 'icon-armor'
+  },
   candelabrador: {
     name: 'Candelabrador',
     image: 'icon-area'
@@ -69,7 +73,20 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
   skull_o_maniac: {
     name: "Skull O'Maniac",
     image: 'icon-curse'
-  }
+  },
+  tiragisu: {
+    name: 'Tiragisú',
+    image: 'icon-revival'
+  },
+  torronas_box: {
+    name: "Torrona's Box",
+    image: 'icon-torrona'
+  },
+  stone_mask: {
+    name: 'Stone Mask',
+    image: 'icon-greed'
+  },
+  // missing: parm aegis, karoma's mana
 }
 
 const _weapons: Record<string, Omit<TItem, 'type'>> = {
@@ -117,8 +134,8 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
     name: 'Rune Tracer',
     image: 'icon-runetracer'
   },
-  nineFold: {
-    name: 'Nine Fold',
+  noFuture: {
+    name: 'NO FUTURE',
     image: 'icon-runetracer_'
   },
   firewand: {
@@ -220,7 +237,104 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
   mannajja: {
     name: 'Mannajja',
     image: 'icon-mana_'
-  }
+  },
+  phiera_del_tuphello: {
+    name: 'Phiera Der Tuphello',
+    image: 'icon-guns1'
+  },
+  eight_the_sparrow: {
+    name: 'Eight The Sparrow',
+    image: 'icon-guns2'
+  },
+  phieraggi: {
+    name: 'Phieraggi',
+    image: 'icon-guns_'
+  },
+  flames_of_muspell: {
+    name: 'Flames of Muspell',
+    image: 'icon-flame'
+  },
+  ashes_of_muspell: {
+    name: 'Ashes of Muspell',
+    image: 'icon-flame_'
+  },
+  victory_sword: {
+    name: 'Victory Sword',
+    image: 'icon-sword'
+  },
+  sole_solution: {
+    name: 'Sole Solution',
+    image: 'icon-sword_'
+  },
+  bracelet: {
+    name: 'Bracelet',
+    image: 'icon-bracelet'
+  },
+  bi_bracelet: {
+    name: 'Bi-Bracelet',
+    image: 'icon-bracelet_'
+  },
+  tri_bracelet: {
+    name: 'Tri-Bracelet',
+    image: 'icon-bracelet__'
+  },
+  santa_javelin: {
+    name: 'Santa Javelin',
+    image: 'icon-javelin'
+  },
+  seraphic_cry: {
+    name: 'Seraphic Cry',
+    image: 'icon-javelin_'
+  },
+  pako_battiliar: {
+    name: 'Pako Battiliar',
+    image: 'icon-pako'
+  },
+  mazo_familiar: {
+    name: 'Mazo Familiar',
+    image: 'icon-pako_'
+  },
+  phas3r: {
+    name: 'Phas3r',
+    image: 'icon-laser'
+  },
+  photonstorm: {
+    name: 'Photonstorm',
+    image: 'icon-laser_'
+  },
+  glass_fandango: {
+    name: 'Glass Fandango',
+    image: 'icon-fandango'
+  },
+  celestial_voulge: {
+    name: 'Celestial Voulge',
+    image: 'icon-fandango_'
+  },
+  vento_sacro: {
+    name: 'Vento Sacro',
+    image: 'icon-vento'
+  },
+  fuwalafuwaloo: {
+    name: 'Fuwalafuwaloo',
+    image: 'icon-vento_'
+  },
+  shadow_pinion: {
+    name: 'Shadow Pinion',
+    image: 'icon-pinion'
+  },
+  valkyrie_turner: {
+    name: 'Valkyrie Turner',
+    image: 'icon-pinion_'
+  },
+  gatti_amari: {
+    name: 'Gatti Amari',
+    image: 'icon-cat'
+  },
+  vicious_hunger: {
+    name: 'Vicious Hunger',
+    image: 'icon-cat_'
+  },
+
 }
 
 // typescript... too complicated
