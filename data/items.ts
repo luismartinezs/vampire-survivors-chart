@@ -1,6 +1,7 @@
+import { mergeIntoNestedObjects } from "@/lib/utils";
 import { TItem } from "./types";
 
-export const passives: Record<string, TItem> = {
+const _passives: Record<string, Omit<TItem, 'type'>> = {
   hollowHeart: {
     name: 'Hollow Heart',
     image: 'icon-health'
@@ -71,7 +72,7 @@ export const passives: Record<string, TItem> = {
   }
 }
 
-export const weapons: Record<string, TItem> = {
+const _weapons: Record<string, Omit<TItem, 'type'>> = {
   whip: {
     name: 'Whip',
     image: 'icon-whip'
@@ -221,5 +222,15 @@ export const weapons: Record<string, TItem> = {
     image: 'icon-mana_'
   }
 }
+
+// typescript... too complicated
+export const passives = mergeIntoNestedObjects<
+  typeof _passives,
+  { type: 'passive' }
+>(_passives, { type: 'passive' as const }) as Record<string, TItem>;
+export const weapons = mergeIntoNestedObjects<
+  typeof _weapons,
+  { type: 'weapon' }
+>(_weapons, { type: 'weapon' as const }) as Record<string, TItem>;
 
 export const items = { ...passives, ...weapons }

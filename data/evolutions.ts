@@ -1,10 +1,10 @@
 import { TWeaponEvolution } from "./types"
 import { items } from "./items";
 
-export const weaponEvolutions: TWeaponEvolution[] = [
+const baseEvolutions: TWeaponEvolution[] = [
   {
     id: 1,
-    elements: [{ item: items.whip }, '+', { item: items.hollowHeart }, '=', { item: items.bloodyTear }]
+    elements: [{ item: items.whip }, '+', { item: items.hollowHeart }, '=', { item: items.bloodyTear }],
   },
   {
     id: 2,
@@ -66,5 +66,8 @@ export const weaponEvolutions: TWeaponEvolution[] = [
     id: 12,
     elements: [{ item: items.laurel }, '+', { item: items.metaglio_left, tags: ['max'] }, '+', { item: items.metaglio_right, tags: ['max'] }, '=', { item: items.crimsonShroud }]
   },
+]
 
+export const evolutions = [
+  ...baseEvolutions.map((evolution) => ({ ...evolution, dlc: 'base' as const })),
 ]
