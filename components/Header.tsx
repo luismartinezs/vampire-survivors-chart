@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 export default function Header() {
   return (
-    <header className="bg-primary-900/50 text-white py-4 border-b-2 border-primary-500 shadow-lg shadow-primary-950/50">
+    <header className="bg-primary-900/50 text-white py-4 border-b border-primary-500/50 shadow-lg shadow-primary-950/50">
       <div className="container mx-auto px-4">
         <h1
           className={cn(
