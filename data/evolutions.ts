@@ -233,7 +233,7 @@ const ogEvolutions: TWeaponEvolution[] = [
   },
   {
     id: 57,
-    elements: [{ item: items.metalClaw }, '+', { item: items.weaponPowerUp }, '+', { item: items.hollow_heart }, '=', { item: items.bigFuzzyFist }]
+    elements: [{ item: items.metalClaw }, '+', { item: items.weaponPowerUp }, '+', { item: items.hollowHeart }, '=', { item: items.bigFuzzyFist }]
   }
 ]
 const otcEvolutions: TWeaponEvolution[] = []
