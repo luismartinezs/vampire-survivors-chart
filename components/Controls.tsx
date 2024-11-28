@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/Button";
 import { TDlc } from "@/data/types";
-import { GoldCircle } from "./GoldCircle";
 
 const DLC_LABELS: Record<TDlc, string> = {
   base: "Base Game",
@@ -66,10 +65,6 @@ export function Controls({
   return (
     <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
       <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
-        <div className="flex items-center gap-1">
-          <GoldCircle size="sm" />
-          <span className="text-xs md:text-base text-white">=&nbsp;MAX</span>
-        </div>
         <Button
           variant="outline"
           onClick={onToggleSortByPassive}

@@ -71,14 +71,6 @@ const baseEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.glass_fandango }, '+', { item: items.wings, tags: ['max'] }, '=', { item: items.celestial_voulge }]
   },
   {
-    id: 18,
-    elements: [{ item: items.clock_lancet }, '+', { item: items.silver_ring, tags: ['max'] }, '+', { item: items.goldRing, tags: ['max'] }, '=', { item: items.infiniteCorridor }]
-  },
-  {
-    id: 19,
-    elements: [{ item: items.laurel }, '+', { item: items.metaglio_left, tags: ['max'] }, '+', { item: items.metaglio_right, tags: ['max'] }, '=', { item: items.crimsonShroud }]
-  },
-  {
     id: 20,
     elements: [{ item: items.phas3r }, '+', { item: items.emptyTome, tags: ['max'] }, '=', { item: items.photonstorm }]
   },
@@ -95,10 +87,6 @@ const baseEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.bracelet }, '⇒', { item: items.bi_bracelet }, '⇒', { item: items.tri_bracelet }]
   },
   {
-    id: 25,
-    elements: [{ item: items.phiera_del_tuphello }, '+', { item: items.eight_the_sparrow }, '+', { item: items.tiragisu }, '=', { item: items.phieraggi }]
-  },
-  {
     id: 26,
     elements: [{ item: items.peachone }, '+', { item: items.ebonyWings }, '=', { item: items.vandalier }]
   },
@@ -109,7 +97,19 @@ const baseEvolutions: TWeaponEvolution[] = [
   {
     id: 28,
     elements: [{ item: items.victory_sword }, '+', { item: items.torronas_box, tags: ['max'] }, '=', { item: items.sole_solution }]
-  }
+  },
+  {
+    id: 25,
+    elements: [{ item: items.phiera_del_tuphello }, '+', { item: items.eight_the_sparrow }, '+', { item: items.tiragisu }, '=', { item: items.phieraggi }]
+  },
+  {
+    id: 18,
+    elements: [{ item: items.clock_lancet }, '+', { item: items.silver_ring, tags: ['max'] }, '+', { item: items.goldRing, tags: ['max'] }, '=', { item: items.infiniteCorridor }]
+  },
+  {
+    id: 19,
+    elements: [{ item: items.laurel }, '+', { item: items.metaglio_left, tags: ['max'] }, '+', { item: items.metaglio_right, tags: ['max'] }, '=', { item: items.crimsonShroud }]
+  },
 ]
 
 const lotmEvolutions: TWeaponEvolution[] = [
@@ -363,7 +363,7 @@ const otcEvolutions: TWeaponEvolution[] = [
   },
   {
     id: 89,
-    elements: [{ item: items.alucartSworb }, '⇒', { item: items.alucardSwords }]
+    elements: [{ item: items.alucartSworb }, '⇒', { item: items.alucardSwords }, '⇒', { item: items.alucardShield, tags: ['six-evo'] }]
   },
   {
     id: 90,
@@ -377,14 +377,7 @@ const otcEvolutions: TWeaponEvolution[] = [
     id: 92,
     elements: [{ item: items.opticalShot }, '+', { item: items.karomas_mana, tags: ['max'] }, '=', { item: items.acerbatus }]
   },
-  {
-    id: 93,
-    elements: [{ item: items.centralisCustos }, '+', { item: items.dextroCustos }, '+', { item: items.sinestroCustos }, '=', { item: items.trinumCustodem }]
-  },
-  {
-    id: 94,
-    elements: [{ item: items.dominusAgony }, '+', { item: items.dominusAnger }, '+', { item: items.dominusHatred }, '=', { item: items.powerOfSire }]
-  },
+
   {
     id: 95,
     elements: [{ item: items.sonicDash }, '+', { item: items.wings, tags: ['max'] }, '=', { item: items.rapidusFio }]
@@ -400,6 +393,14 @@ const otcEvolutions: TWeaponEvolution[] = [
   {
     id: 98,
     elements: [{ item: items.volLuminatio }, '+', { item: items.volUmbra }, '=', { item: items.universitas }]
+  },
+  {
+    id: 93,
+    elements: [{ item: items.centralisCustos }, '+', { item: items.dextroCustos }, '+', { item: items.sinestroCustos }, '=', { item: items.trinumCustodem }]
+  },
+  {
+    id: 94,
+    elements: [{ item: items.dominusAgony }, '+', { item: items.dominusAnger }, '+', { item: items.dominusHatred }, '=', { item: items.powerOfSire }]
   },
   {
     id: 99,

@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { GoldCircle } from "./GoldCircle";
+import { RedCircle } from "./RedCircle";
 
 interface TagPosition {
   top?: number;
@@ -25,6 +26,7 @@ const getTagPosition = (
 
 const tagComponents: Record<string, (n: number, size: "xs" | "sm" | "md" | "lg") => React.ReactNode> = {
   max: (_, size) => <GoldCircle size={size} />,
+  "six-evo": (_, size) => <RedCircle size={size} />,
 };
 
 export const Tag = ({ tag, n, size = "xs", className }: { tag: string; n: number; size?: "xs" | "sm" | "md" | "lg"; className?: string }) => {

@@ -6,6 +6,7 @@ import EvolutionCard from "@/components/EvolutionCard";
 import { evolutions } from "@/data/evolutions";
 import { Controls } from "@/components/Controls";
 import { TDlc, TEvolutionItem } from "@/data/types";
+import { Legend } from "@/components/Legend";
 
 const ignoredPassives = ["Weapon Power-Up"];
 
@@ -76,7 +77,7 @@ export default function Home() {
 
   return (
    <>
-     <main className="min-h-screen max-w-screen-2xl mx-auto py-4 2xl:px-0 px-4">
+     <main className="max-w-screen-2xl mx-auto py-4 2xl:px-0 px-4">
        <div className="w-full flex items-center gap-8 justify-center mb-4">
          <Controls
            sortByPassive={sortByPassive}
@@ -85,11 +86,12 @@ export default function Home() {
            onToggleDlc={toggleDlc}
          />
        </div>
-       <div className="flex flex-wrap justify-center gap-0.5 sm:gap-1 lg:gap-2">
+       <div className="flex flex-wrap justify-center gap-[0.35rem] sm:gap-1 lg:gap-2">
          {filteredAndSortedEvolutions.map((evolution) => (
            <EvolutionCard key={evolution.id} evolution={evolution} />
          ))}
        </div>
+       <Legend className="mt-4" />
      </main>
     </>
   );
