@@ -11,7 +11,7 @@ export default function Header() {
             "text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-200 to-primary-400 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tracking-wide capitalize"
           )}
         >
-          Vampire Survivors Weapon Evolutions
+          Vampire Survivors Evolution Chart
         </h1>
       </div>
     </header>

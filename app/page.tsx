@@ -75,20 +75,22 @@ export default function Home() {
   }, [selectedDlcs, sortByPassive, getPassiveName]);
 
   return (
-    <main className="min-h-screen max-w-screen-2xl mx-auto py-4 2xl:px-0 px-4">
-      <div className="w-full flex items-center gap-8 justify-center mb-4">
-        <Controls
-          sortByPassive={sortByPassive}
-          onToggleSortByPassive={toggleSortByPassive}
-          selectedDlcs={selectedDlcs}
-          onToggleDlc={toggleDlc}
-        />
-      </div>
-      <div className="flex flex-wrap justify-center gap-0.5 sm:gap-1 lg:gap-2">
-        {filteredAndSortedEvolutions.map((evolution) => (
-          <EvolutionCard key={evolution.id} evolution={evolution} />
-        ))}
-      </div>
-    </main>
+   <>
+     <main className="min-h-screen max-w-screen-2xl mx-auto py-4 2xl:px-0 px-4">
+       <div className="w-full flex items-center gap-8 justify-center mb-4">
+         <Controls
+           sortByPassive={sortByPassive}
+           onToggleSortByPassive={toggleSortByPassive}
+           selectedDlcs={selectedDlcs}
+           onToggleDlc={toggleDlc}
+         />
+       </div>
+       <div className="flex flex-wrap justify-center gap-0.5 sm:gap-1 lg:gap-2">
+         {filteredAndSortedEvolutions.map((evolution) => (
+           <EvolutionCard key={evolution.id} evolution={evolution} />
+         ))}
+       </div>
+     </main>
+    </>
   );
 }
