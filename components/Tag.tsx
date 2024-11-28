@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { GoldCircle } from "./GoldCircle";
 
 interface TagPosition {
   top?: number;
@@ -22,27 +23,8 @@ const getTagPosition = (
   return styles;
 };
 
-const tagSizes = {
-  xs: "size-[0.5rem]",
-  sm: "size-2.5",
-  md: "size-3",
-  lg: "size-4"
-};
-
 const tagComponents: Record<string, (n: number, size: "xs" | "sm" | "md" | "lg") => React.ReactNode> = {
-  max: (_, size) => (
-    <div className={`${tagSizes[size]} bg-black relative`} style={{
-      clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
-    }}>
-      <div className="absolute inset-[1px] bg-yellow-200" style={{
-        clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
-      }}>
-        <div className="absolute inset-[1px] bg-yellow-600" style={{
-          clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
-        }} />
-      </div>
-    </div>
-  ),
+  max: (_, size) => <GoldCircle size={size} />,
 };
 
 export const Tag = ({ tag, n, size = "xs", className }: { tag: string; n: number; size?: "xs" | "sm" | "md" | "lg"; className?: string }) => {
