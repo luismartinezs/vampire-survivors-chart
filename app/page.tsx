@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import EvolutionCard from "@/components/EvolutionCard";
-import { Items } from "@/components/Items";
+// import { Items } from "@/components/Items";
 import { evolutions } from "@/data/evolutions";
 import { Controls } from "@/components/Controls";
 import { TDlc, TEvolutionItem } from "@/data/types";
@@ -87,9 +87,9 @@ export default function Home() {
           <EvolutionCard key={evolution.id} evolution={evolution} />
         ))}
       </div>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <Items />
-      </div>
+      </div> */}
     </main>
   );
 }
