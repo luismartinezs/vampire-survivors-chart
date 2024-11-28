@@ -1,3 +1,5 @@
+const currentYear = new Date().getFullYear();
+
 export function Footer() {
   return (
     <footer className="mt-auto bg-black/40 border-t border-white/10">
@@ -7,7 +9,7 @@ export function Footer() {
             Vampire Survivors Evolution Chart
           </p>
           <div className="text-xs text-white/60">
-            <span>© {new Date().getFullYear()} </span>
+            <span>© {currentYear} </span>
             <a
               href="https://appforgelabs.com"
               target="_blank"
