@@ -17,7 +17,7 @@ export function Operand({ type, className }: OperandProps) {
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded-full font-semibold",
+        "flex items-center justify-center rounded-full font-semibold text-xs sm:text-sm md:text-lg",
         className
       )}
     >

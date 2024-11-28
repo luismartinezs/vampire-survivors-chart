@@ -65,11 +65,8 @@ export default function EvolutionCard({
                   </Fragment>
                 ))}
                 <Item item={itemElement.item} size="xs" className="sm:hidden" />
-                <Item
-                  item={itemElement.item}
-                  size="sm"
-                  className="hidden sm:block"
-                />
+                <Item item={itemElement.item} size="sm" className="hidden md:hidden sm:block" />
+                <Item item={itemElement.item} size="md" className="hidden md:block" />
               </div>
             );
           } else {
