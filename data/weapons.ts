@@ -475,6 +475,374 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
   bigFuzzyFist: {
     name: 'Big Fuzzy Fist',
     image: 'icon-claw_'
+  },
+  alchemyWhip: {
+    name: 'Alchemy Whip',
+    image: 'icon-Alchemy_Whip'
+  },
+  dragonWaterWhip: {
+    name: 'Dragon Water Whip',
+    image: 'icon-Dragon_Water_Whip'
+  },
+  platinumWhip: {
+    name: 'Platinum Whip',
+    image: 'icon-Platinum_Whip'
+  },
+  sonicWhip: {
+    name: 'Sonic Whip',
+    image: 'icon-Sonic_Whip'
+  },
+  windWhip: {
+    name: 'Wind Whip',
+    image: 'icon-Wind_Whip'
+  },
+  alucardSpear: {
+    name: 'Alucard Spear',
+    image: 'icon-Alucard_Spear'
+  },
+  alucartSworb: {
+    name: 'Alucart Sworb',
+    image: 'icon-Alucart_Sworb'
+  },
+  centralisCustos: {
+    name: 'Centralis Custos',
+    image: 'icon-Centralis_Custos'
+  },
+  confodere: {
+    name: 'Confodere',
+    image: 'icon-Confodere'
+  },
+  curvedKnife: {
+    name: 'Curved Knife',
+    image: 'icon-Curved_Knife'
+  },
+  dextroCustos: {
+    name: 'Dextro Custos',
+    image: 'icon-Dextro_Custos'
+  },
+  discus: {
+    name: 'Discus',
+    image: 'icon-Discus'
+  },
+  dominusAgony: {
+    name: 'Dominus Agony',
+    image: 'icon-Dominus_Agony'
+  },
+  dominusAnger: {
+    name: 'Dominus Anger',
+    image: 'icon-Dominus_Anger'
+  },
+  dominusHatred: {
+    name: 'Dominus Hatred',
+    image: 'icon-Dominus_Hatred'
+  },
+  endoGears: {
+    name: 'Endo Gears',
+    image: 'icon-Endo_Gears'
+  },
+  epiHead: {
+    name: 'Epi Head',
+    image: 'icon-Epi_Head'
+  },
+  fulgur: {
+    name: 'Fulgur',
+    image: 'icon-Fulgur'
+  },
+  galeForce: {
+    name: 'Gale Force',
+    image: 'icon-Gale_Force'
+  },
+  globus: {
+    name: 'Globus',
+    image: 'icon-Globus'
+  },
+  guardiansTarge: {
+    name: 'Guardians Targe',
+    image: 'icon-Guardians_Targe'
+  },
+  handGrenade: {
+    name: 'Hand Grenade',
+    image: 'icon-Hand_Grenade'
+  },
+  hex: {
+    name: 'Hex',
+    image: 'icon-Hex'
+  },
+  iceFang: {
+    name: 'Ice Fang',
+    image: 'icon-Ice_Fang'
+  },
+  ironBall: {
+    name: 'Iron Ball',
+    image: 'icon-Iron_Ball'
+  },
+  ironShield: {
+    name: 'Iron Shield',
+    image: 'icon-Iron_Shield'
+  },
+  javelin: {
+    name: 'Javelin',
+    image: 'icon-Javelin'
+  },
+  jetBlackWhip: {
+    name: 'Jet Black Whip',
+    image: 'icon-Jet_Black_Whip'
+  },
+  keremetBubbles: {
+    name: 'Keremet Bubbles',
+    image: 'icon-Keremet_Bubbles'
+  },
+  luminatio: {
+    name: 'Luminatio',
+    image: 'icon-Luminatio'
+  },
+  mace: {
+    name: 'Mace',
+    image: 'icon-Mace'
+  },
+  myoLift: {
+    name: 'Myo Lift',
+    image: 'icon-Myo_Lift'
+  },
+  opticalShot: {
+    name: 'Optical Shot',
+    image: 'icon-Optical_Shot'
+  },
+  periPendulum: {
+    name: 'Peri Pendulum',
+    image: 'icon-Peri_Pendulum'
+  },
+  ragingFire: {
+    name: 'Raging Fire',
+    image: 'icon-Raging_Fire'
+  },
+  refectio: {
+    name: 'Refectio',
+    image: 'icon-Refectio'
+  },
+  rockRiot: {
+    name: 'Rock Riot',
+    image: 'icon-Rock_Riot'
+  },
+  shuriken: {
+    name: 'Shuriken',
+    image: 'icon-Shuriken'
+  },
+  silverRevolver: {
+    name: 'Silver Revolver',
+    image: 'icon-Silver_Revolver'
+  },
+  sinestroCustos: {
+    name: 'Sinestro Custos',
+    image: 'icon-Sinestro_Custos'
+  },
+  sonicDash: {
+    name: 'Sonic Dash',
+    image: 'icon-Sonic_Dash'
+  },
+  starFlail: {
+    name: 'Star Flail',
+    image: 'icon-Star_Flail'
+  },
+  trident: {
+    name: 'Trident',
+    image: 'icon-Trident'
+  },
+  tyrfing: {
+    name: 'Tyrfing',
+    image: 'icon-Tyrfing'
+  },
+  umbra: {
+    name: 'Umbra',
+    image: 'icon-Umbra'
+  },
+  vanitasWhip: {
+    name: 'Vanitas Whip',
+    image: 'icon-Vanitas_Whip'
+  },
+  vibhutiWhip: {
+    name: 'Vibhuti Whip',
+    image: 'icon-Vibhuti_Whip'
+  },
+  wineGlass: {
+    name: 'Wine Glass',
+    image: 'icon-Wine_Glass'
+  },
+  acerbatus: {
+    name: 'Acerbatus',
+    image: 'icon-Acerbatus'
+  },
+  alucardShield: {
+    name: 'Alucard Shield',
+    image: 'icon-Alucard_Shield'
+  },
+  alucardSwords: {
+    name: 'Alucard Swords',
+    image: 'icon-Alucard_Swords'
+  },
+  nitesco: {
+    name: 'Nitesco',
+    image: 'icon-Anima_of_Dracula'
+  },
+  aurablasterTip: {
+    name: 'Aurablaster Tip',
+    image: 'icon-Aurablaster_Tip'
+  },
+  bwakaKnife: {
+    name: 'Bwaka Knife',
+    image: 'icon-Bwaka_Knife'
+  },
+  clockTower: {
+    name: 'Clock Tower',
+    image: 'icon-Clock_Tower'
+  },
+  cocytus: {
+    name: 'Cocytus',
+    image: 'icon-Cocytus'
+  },
+  crissaegrimTip: {
+    name: 'Crissaegrim Tip',
+    image: 'icon-Crissaegrim_Tip'
+  },
+  crossCrasherTip: {
+    name: 'Cross Crasher Tip',
+    image: 'icon-Cross_Crasher_Tip'
+  },
+  darkIronShield: {
+    name: 'Dark Iron Shield',
+    image: 'icon-Dark_Iron_Shield'
+  },
+  daybreakerTip: {
+    name: 'Daybreaker Tip',
+    image: 'icon-Daybreaker_Tip'
+  },
+  gemmaTorpor: {
+    name: 'Gemma Torpor',
+    image: 'icon-Gemma_Torpor'
+  },
+  gungnirSouris: {
+    name: 'Gungnir Souris',
+    image: 'icon-GungnirSouris'
+  },
+  hydrostormerTip: {
+    name: 'Hydrostormer Tip',
+    image: 'icon-Hydrostormer_Tip'
+  },
+  jewelGun: {
+    name: 'Jewel Gun',
+    image: 'icon-Jewel_Gun'
+  },
+  keremetMorbus: {
+    name: 'Keremet Morbus',
+    image: 'icon-Keremet_Morbus'
+  },
+  longInus: {
+    name: 'Long Inus',
+    image: 'icon-Long_Inus'
+  },
+  mealTicket: {
+    name: 'Meal Ticket',
+    image: 'icon-Meal_Ticket'
+  },
+  melioConfodere: {
+    name: 'Melio Confodere',
+    image: 'icon-Melio_Confodere'
+  },
+  moonRod: {
+    name: 'Moon Rod',
+    image: 'icon-Moon_Rod'
+  },
+  mormegilTip: {
+    name: 'Mormegil Tip',
+    image: 'icon-Mormegil_Tip'
+  },
+  nightmare: {
+    name: 'Nightmare',
+    image: 'icon-Nightmare'
+  },
+  pneumaTempestas: {
+    name: 'Pneuma Tempestas',
+    image: 'icon-Pneuma_Tempestas'
+  },
+  powerOfSire: {
+    name: 'Power of Sire',
+    image: 'icon-Power_of_Sire'
+  },
+  rapidusFio: {
+    name: 'Rapidus Fio',
+    image: 'icon-Rapidus_Fio'
+  },
+  runeSword: {
+    name: 'Rune Sword',
+    image: 'icon-Rune_Sword'
+  },
+  sacredBeastsTowerShield: {
+    name: 'Sacred Beasts Tower Shield',
+    image: 'icon-Sacred_Beasts_Tower_Shield'
+  },
+  salamender: {
+    name: 'Salamender',
+    image: 'icon-Salamender'
+  },
+  sanctuary: {
+    name: 'Sanctuary',
+    image: 'icon-Sanctuary'
+  },
+  spiritTornadoTip: {
+    name: 'Spirit Tornado Tip',
+    image: 'icon-Spirit_Tornado_Tip'
+  },
+  stamazza: {
+    name: 'Stamazza',
+    image: 'icon-Stamazza'
+  },
+  stellarBlade: {
+    name: 'Stellar Blade',
+    image: 'icon-Stellar_Blade'
+  },
+  tenebrisTonitrus: {
+    name: 'Tenebris Tonitrus',
+    image: 'icon-Tenebris_Tonitrus'
+  },
+  theRpg: {
+    name: 'The RPG',
+    image: 'icon-The_RPG'
+  },
+  thunderboltSpear: {
+    name: 'Thunderbolt Spear',
+    image: 'icon-Thunderbolt_Spear'
+  },
+  trinumCustodem: {
+    name: 'Trinum Custodem',
+    image: 'icon-Trinum_Custodem'
+  },
+  universitas: {
+    name: 'Universitas',
+    image: 'icon-Universitas'
+  },
+  vampireKiller: {
+    name: 'Vampire Killer',
+    image: 'icon-Vampire_Killer'
+  },
+  volConfodere: {
+    name: 'Vol Confodere',
+    image: 'icon-Vol_Confodere'
+  },
+  volLuminatio: {
+    name: 'Vol Luminatio',
+    image: 'icon-Vol_Luminatio'
+  },
+  volUmbra: {
+    name: 'Vol Umbra',
+    image: 'icon-Vol_Umbra'
+  },
+  wreckingBall: {
+    name: 'Wrecking Ball',
+    image: 'icon-Wrecking_Ball'
+  },
+  yagyuShuriken: {
+    name: 'Yagyu Shuriken',
+    image: 'icon-Yagyu_Shuriken'
   }
 }
 

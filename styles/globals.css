@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @import './icons.css';
+@import './ode/passives.css';
+@import './ode/weapons.css';
+@import './ode/evolutions.css';
 
 .pixelated {
   image-rendering: pixelated;

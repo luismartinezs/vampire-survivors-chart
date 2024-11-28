@@ -1,5 +1,10 @@
 To convert a PNG image to a base64-encoded string suitable for use in a CSS file, you can use a command-line tool like `base64`. Here's how you can do it:
 
+## Batch download images
+
+E.g. by running: `curl -s https://vampire-survivors.fandom.com/wiki/Weapons#Base_Weapons | grep -Eo '/vampire-survivors/images/[0-9]+/[0-9]+/[^"]+\.png' | sed 's|^|https://static.wikia.nocookie.net|' | xargs -n 1 -P 5 wget -P ~/Downloads
+`
+
 ### Using the Command Line
 
 1. **Open your terminal.**

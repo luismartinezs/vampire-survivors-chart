@@ -121,8 +121,15 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
   weaponPowerUp: {
     name: 'Weapon Power-Up',
     image: 'icon-powerup'
+  },
+  parm_aegis: {
+    name: 'Parm Aegis',
+    image: 'icon-Parm_Aegis'
+  },
+  karomas_mana: {
+    name: "Karoma's Mana",
+    image: 'icon-Karomas_Mana'
   }
-  // missing: parm aegis, karoma's mana
 }
 
 // typescript... too complicated

@@ -236,7 +236,176 @@ const ogEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.metalClaw }, '+', { item: items.weaponPowerUp }, '+', { item: items.hollowHeart }, '=', { item: items.bigFuzzyFist }]
   }
 ]
-const otcEvolutions: TWeaponEvolution[] = []
+const otcEvolutions: TWeaponEvolution[] = [
+  {
+    id: 58,
+    elements: [{ item: items.alchemyWhip }, '+', { item: items.tiragisu }, '=', { item: items.vampireKiller }]
+  },
+  {
+    id: 59,
+    elements: [{ item: items.windWhip }, '+', { item: items.crown }, '=', { item: items.spiritTornadoTip }]
+  },
+  {
+    id: 60,
+    elements: [{ item: items.platinumWhip }, '+', { item: items.clover }, '=', { item: items.crossCrasherTip }]
+  },
+  {
+    id: 61,
+    elements: [{ item: items.dragonWaterWhip }, '+', { item: items.attractorb }, '=', { item: items.hydrostormerTip }]
+  },
+  {
+    id: 62,
+    elements: [{ item: items.sonicWhip }, '+', { item: items.skull_o_maniac }, '=', { item: items.crissaegrimTip }]
+  },
+  {
+    id: 63,
+    elements: [{ item: items.jetBlackWhip }, '+', { item: items.stone_mask }, '=', { item: items.mormegilTip }]
+  },
+  {
+    id: 64,
+    elements: [{ item: items.vibhutiWhip }, '+', { item: items.candelabrador }, '=', { item: items.daybreakerTip }]
+  },
+  {
+    id: 65,
+    elements: [{ item: items.vanitasWhip }, '+', { item: items.hollowHeart }, '=', { item: items.aurablasterTip }]
+  },
+  {
+    id: 66,
+    elements: [{ item: items.shuriken }, '+', { item: items.emptyTome }, '=', { item: items.yagyuShuriken }]
+  },
+  {
+    id: 67,
+    elements: [{ item: items.curvedKnife }, '+', { item: items.bracer }, '=', { item: items.bwakaKnife }]
+  },
+  {
+    id: 68,
+    elements: [{ item: items.javelin }, '+', { item: items.spellbinder }, '=', { item: items.longInus }]
+  },
+  {
+    id: 69,
+    elements: [{ item: items.discus }, '+', { item: items.parm_aegis, tags: ['max'] }, '=', { item: items.stellarBlade }]
+  },
+  {
+    id: 70,
+    elements: [{ item: items.ironBall }, '+', { item: items.armor }, '=', { item: items.wreckingBall }]
+  },
+  {
+    id: 71,
+    elements: [{ item: items.silverRevolver }, '+', { item: items.karomas_mana }, '=', { item: items.jewelGun }]
+  },
+  {
+    id: 72,
+    elements: [{ item: items.handGrenade }, '+', { item: items.candelabrador, tags: ['max'] }, '=', { item: items.theRpg }]
+  },
+  {
+    id: 73,
+    elements: [{ item: items.wineGlass }, '+', { item: items.tiragisu, tags: ['max'] }, '=', { item: items.mealTicket }]
+  },
+  {
+    id: 74,
+    elements: [{ item: items.ragingFire }, '+', { item: items.spinach, tags: ['max'] }, '=', { item: items.salamender }]
+  },
+  {
+    id: 75,
+    elements: [{ item: items.iceFang }, '+', { item: items.spellbinder, tags: ['max'] }, '=', { item: items.cocytus }]
+  },
+  {
+    id: 76,
+    elements: [{ item: items.galeForce }, '+', { item: items.bracer, tags: ['max'] }, '=', { item: items.pneumaTempestas }]
+  },
+  {
+    id: 77,
+    elements: [{ item: items.rockRiot }, '+', { item: items.stone_mask, tags: ['max'] }, '=', { item: items.gemmaTorpor }]
+  },
+  {
+    id: 78,
+    elements: [{ item: items.fulgur }, '+', { item: items.duplicator, tags: ['max'] }, '=', { item: items.tenebrisTonitrus }]
+  },
+  {
+    id: 79,
+    elements: [{ item: items.keremetBubbles }, '+', { item: items.armor, tags: ['max'] }, '=', { item: items.keremetMorbus }]
+  },
+  {
+    id: 80,
+    elements: [{ item: items.hex }, '+', { item: items.skull_o_maniac, tags: ['max'] }, '=', { item: items.nightmare }]
+  },
+  {
+    id: 81,
+    elements: [{ item: items.refectio }, '+', { item: items.clover, tags: ['max'] }, '=', { item: items.sanctuary }]
+  },
+  {
+    id: 82,
+    elements: [{ item: items.mace }, '+', { item: items.hollowHeart, tags: ['max'] }, '=', { item: items.stamazza }]
+  },
+  {
+    id: 83,
+    elements: [{ item: items.starFlail }, '+', { item: items.pummarola, tags: ['max'] }, '=', { item: items.moonRod }]
+  },
+  {
+    id: 84,
+    elements: [{ item: items.alucardSpear }, '+', { item: items.wings }, '=', { item: items.thunderboltSpear }]
+  },
+  {
+    id: 85,
+    elements: [{ item: items.trident }, '+', { item: items.duplicator, tags: ['max'] }, '=', { item: items.gungnirSouris }]
+  },
+  {
+    id: 86,
+    elements: [{ item: items.ironShield }, '+', { item: items.parm_aegis }, '=', { item: items.darkIronShield }]
+  },
+  {
+    id: 87,
+    elements: [{ item: items.guardiansTarge }, '+', { item: items.pummarola }, '=', { item: items.sacredBeastsTowerShield }]
+  },
+  {
+    id: 88,
+    elements: [{ item: items.tyrfing }, '+', { item: items.spinach }, '=', { item: items.runeSword }]
+  },
+  {
+    id: 89,
+    elements: [{ item: items.alucartSworb }, '⇒', { item: items.alucardSwords }]
+  },
+  {
+    id: 90,
+    elements: [{ item: items.confodere }, '⇒', { item: items.volConfodere }, '⇒', { item: items.melioConfodere }]
+  },
+  {
+    id: 91,
+    elements: [{ item: items.globus }, '+', { item: items.emptyTome, tags: ['max'] }, '=', { item: items.nitesco }]
+  },
+  {
+    id: 92,
+    elements: [{ item: items.opticalShot }, '+', { item: items.karomas_mana, tags: ['max'] }, '=', { item: items.acerbatus }]
+  },
+  {
+    id: 93,
+    elements: [{ item: items.centralisCustos }, '+', { item: items.dextroCustos }, '+', { item: items.sinestroCustos }, '=', { item: items.trinumCustodem }]
+  },
+  {
+    id: 94,
+    elements: [{ item: items.dominusAgony }, '+', { item: items.dominusAnger }, '+', { item: items.dominusHatred }, '=', { item: items.powerOfSire }]
+  },
+  {
+    id: 95,
+    elements: [{ item: items.sonicDash }, '+', { item: items.wings, tags: ['max'] }, '=', { item: items.rapidusFio }]
+  },
+  {
+    id: 96,
+    elements: [{ item: items.luminatio }, '+', { item: items.crown, tags: ['max'] }, '=', { item: items.volLuminatio }]
+  },
+  {
+    id: 97,
+    elements: [{ item: items.umbra }, '+', { item: items.attractorb, tags: ['max'] }, '=', { item: items.volUmbra }]
+  },
+  {
+    id: 98,
+    elements: [{ item: items.volLuminatio }, '+', { item: items.volUmbra }, '=', { item: items.universitas }]
+  },
+  {
+    id: 99,
+    elements: [{ item: items.endoGears }, '+', { item: items.periPendulum }, '+', { item: items.myoLift }, '+', { item: items.epiHead }, '=', { item: items.clockTower }]
+  }
+]
 
 export const evolutions = [
   ...baseEvolutions.map((evolution) => ({ ...evolution, dlc: 'base' as const })),
