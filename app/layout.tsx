@@ -4,6 +4,9 @@ import { SansFont } from "@/fonts";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 
+// cloudflare pages compat
+export const runtime = 'edge';
+
 export const metadata: Metadata = {
   title: "Vampire Survivors Weapon Evolutions",
   description: "A guide to weapon evolutions in Vampire Survivors",
