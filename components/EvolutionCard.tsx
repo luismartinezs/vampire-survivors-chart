@@ -1,5 +1,4 @@
 import { Fragment } from "react";
-import { Item } from "./Item";
 import { Operand } from "./Operand";
 import { Tag } from "./Tag";
 import {
@@ -10,6 +9,7 @@ import {
   TDlc,
 } from "@/data/types";
 import { base } from "@/data/constants";
+import { ResponsiveItem } from "./ResponsiveItem";
 
 const dlcClasses: Record<TDlc, {bg: string, border: string}> = {
   base: {
@@ -53,22 +53,11 @@ export default function EvolutionCard({
           if (isEven) {
             const itemElement = element as { item: TItem; tags?: string[] };
             return (
-              <div key={index} className="relative">
-                {itemElement.tags?.map((tag: string, idx: number) => (
-                  <Fragment key={idx}>
-                    <Tag tag={tag} n={idx} size="xs" className="sm:hidden" />
-                    <Tag
-                      tag={tag}
-                      n={idx}
-                      size="sm"
-                      className="hidden sm:block"
-                    />
-                  </Fragment>
-                ))}
-                <Item item={itemElement.item} size="xs" className="sm:hidden" />
-                <Item item={itemElement.item} size="sm" className="hidden md:hidden sm:block" />
-                <Item item={itemElement.item} size="md" className="hidden md:block" />
-              </div>
+              <ResponsiveItem
+                key={index}
+                item={itemElement.item}
+                tags={itemElement.tags}
+              />
             );
           } else {
             return <Operand key={index} type={element as TOperand} />;

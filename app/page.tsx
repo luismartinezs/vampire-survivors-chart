@@ -9,7 +9,10 @@ export default function Home() {
   const {
     sortByPassive,
     selectedDlcs,
+    selectedPassives,
     toggleDlc,
+    togglePassive,
+    resetPassives,
     toggleSortByPassive,
     filteredAndSortedEvolutions,
   } = useEvolutionControls();
@@ -23,6 +26,9 @@ export default function Home() {
             onToggleSortByPassive={toggleSortByPassive}
             selectedDlcs={selectedDlcs}
             onToggleDlc={toggleDlc}
+            selectedPassives={selectedPassives}
+            onTogglePassive={togglePassive}
+            onResetPassives={resetPassives}
           />
         </div>
         <div className="flex flex-wrap justify-center gap-[0.30rem] sm:gap-1 lg:gap-2">

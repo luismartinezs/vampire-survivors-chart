@@ -9,6 +9,7 @@ export function useEvolutionControls() {
   const [selectedDlcs, setSelectedDlcs] = useState<Set<TDlc>>(
     new Set(["base", "lotm", "todf", "em", "og", "otc"])
   );
+  const [selectedPassives, setSelectedPassives] = useState<Set<string>>(new Set());
 
   const toggleDlc = useCallback((dlc: TDlc) => {
     setSelectedDlcs((prev) => {
@@ -22,6 +23,22 @@ export function useEvolutionControls() {
       }
       return next;
     });
+  }, []);
+
+  const togglePassive = useCallback((passiveName: string) => {
+    setSelectedPassives((prev) => {
+      const next = new Set(prev);
+      if (next.has(passiveName)) {
+        next.delete(passiveName);
+      } else {
+        next.add(passiveName);
+      }
+      return next;
+    });
+  }, []);
+
+  const resetPassives = useCallback(() => {
+    setSelectedPassives(new Set());
   }, []);
 
   const toggleSortByPassive = useCallback(() => {
@@ -50,7 +67,22 @@ export function useEvolutionControls() {
 
   const filteredAndSortedEvolutions = useMemo(() => {
     return evolutions
-      .filter((evolution) => evolution.dlc && selectedDlcs.has(evolution.dlc))
+      .filter((evolution) => {
+        // First filter by DLC
+        if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) return false;
+
+        // Then filter by passives if any are selected
+        if (selectedPassives.size > 0) {
+          const evolutionPassives = evolution.elements
+            .filter((el): el is TEvolutionItem => typeof el !== "string")
+            .filter(el => el.item.type === "passive")
+            .map(el => el.item.name);
+
+          return evolutionPassives.some(passive => selectedPassives.has(passive));
+        }
+
+        return true;
+      })
       .sort((a, b) => {
         if (!sortByPassive) return 0;
 
@@ -85,12 +117,15 @@ export function useEvolutionControls() {
         // Within same tier, sort by name
         return aPassive.localeCompare(bPassive);
       });
-  }, [selectedDlcs, sortByPassive, getPassiveName]);
+  }, [selectedDlcs, sortByPassive, getPassiveName, selectedPassives]);
 
   return {
     sortByPassive,
     selectedDlcs,
+    selectedPassives,
     toggleDlc,
+    togglePassive,
+    resetPassives,
     toggleSortByPassive,
     filteredAndSortedEvolutions,
   };

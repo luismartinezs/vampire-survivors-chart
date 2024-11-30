@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/Button";
 import { TDlc } from "@/data/types";
+import { passives } from "@/data/passives";
+import { ResponsiveItem } from "./ResponsiveItem";
+import { Separator } from "./ui/separator";
+import { RotateCcw } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const DLC_LABELS: Record<TDlc, string> = {
   base: "Base Game",
@@ -49,11 +54,26 @@ const dlcClasses: Record<TDlc, { selected: string; unselected: string }> = {
   },
 };
 
+const ignoredPassives = [
+  "Mini Crewmate",
+  "Mini Engineer",
+  "Mini Ghost",
+  "Mini Shapeshifter",
+  "Mini Guardian",
+  "Mini Impostor",
+  "Mini Scientist",
+  "Mini Horse",
+  "Weapon Power-Up",
+];
+
 interface ControlsProps {
   sortByPassive: boolean;
   onToggleSortByPassive: () => void;
   selectedDlcs: Set<TDlc>;
   onToggleDlc: (dlc: TDlc) => void;
+  selectedPassives: Set<string>;
+  onTogglePassive: (passive: string) => void;
+  onResetPassives: () => void;
 }
 
 export function Controls({
@@ -61,7 +81,15 @@ export function Controls({
   onToggleSortByPassive,
   selectedDlcs,
   onToggleDlc,
+  selectedPassives,
+  onTogglePassive,
+  onResetPassives,
 }: ControlsProps) {
+  // Get unique passives, excluding ignored ones
+  const filteredPassives = Object.values(passives).filter(
+    (passive) => !ignoredPassives.includes(passive.name)
+  );
+
   return (
     <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
       <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
@@ -90,6 +118,41 @@ export function Controls({
             }
           >
             <span>{DLC_LABELS[dlc]}</span>
+          </Button>
+        ))}
+      </div>
+
+      <Separator className="w-full my-1" />
+
+      <div className="flex flex-wrap gap-1 sm:gap-2 justify-center items-stretch">
+        <Button
+          variant="outline"
+          onClick={onResetPassives}
+          size="sm"
+          aria-label="Reset Passives"
+          className={cn(
+            "p-1 aspect-square",
+            selectedPassives.size === 0
+              ? dlcClasses.base.selected
+              : dlcClasses.base.unselected
+          )}
+        >
+          <RotateCcw className="size-4 sm:size-6 md:size-8 lg:size-10 text-white" />
+        </Button>
+        {filteredPassives.map((passive) => (
+          <Button
+            key={passive.name}
+            variant="outline"
+            onClick={() => onTogglePassive(passive.name)}
+            size="sm"
+            className={`p-1 ${
+              selectedPassives.has(passive.name)
+                ? dlcClasses.base.selected
+                : dlcClasses.base.unselected
+            }`}
+            title={passive.name}
+          >
+            <ResponsiveItem item={passive} />
           </Button>
         ))}
       </div>
