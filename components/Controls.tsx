@@ -15,6 +15,23 @@ const DLC_LABELS: Record<TDlc, string> = {
   otc: "Ode To Castlevania",
 };
 
+const ignoredPassives = [
+  "Mini Crewmate",
+  "Mini Engineer",
+  "Mini Ghost",
+  "Mini Shapeshifter",
+  "Mini Guardian",
+  "Mini Impostor",
+  "Mini Scientist",
+  "Mini Horse",
+  "Weapon Power-Up",
+  "Silver Ring",
+  "Gold Ring",
+  "Metaglio Left",
+  "Metaglio Right",
+];
+
+
 const dlcClasses: Record<TDlc, { selected: string; unselected: string }> = {
   base: {
     selected:
@@ -53,19 +70,6 @@ const dlcClasses: Record<TDlc, { selected: string; unselected: string }> = {
       "bg-transparent text-otc-400 border border-otc-400 hover:bg-otc-500/10 hover:text-otc-300 focus:ring-2 focus:ring-otc-500 focus:outline-none transition-colors duration-200 active:scale-95",
   },
 };
-
-const ignoredPassives = [
-  "Mini Crewmate",
-  "Mini Engineer",
-  "Mini Ghost",
-  "Mini Shapeshifter",
-  "Mini Guardian",
-  "Mini Impostor",
-  "Mini Scientist",
-  "Mini Horse",
-  "Weapon Power-Up",
-];
-
 interface ControlsProps {
   sortByPassive: boolean;
   onToggleSortByPassive: () => void;
