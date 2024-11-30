@@ -1,9 +1,12 @@
+import { base, em, lotm, og, otc, todf } from "./constants"
+
 export type TItemType = 'weapon' | 'passive'
 
 export interface TItem {
   name: string
   image: string,
-  type: TItemType
+  type: TItemType,
+  dlc?: TDlc
 }
 
 export type TOperand = '+' | '=' | '→' | '⇒'
@@ -15,7 +18,7 @@ export type TEvolutionItem = {
 
 export type TEvolutionElement = TEvolutionItem | TOperand
 
-export type TDlc = 'base' | 'lotm' | 'todf' | 'em' | 'og' | 'otc'
+export type TDlc = typeof base | typeof lotm | typeof todf | typeof em | typeof og | typeof otc
 
 export interface TWeaponEvolution {
   id: number

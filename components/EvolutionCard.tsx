@@ -9,6 +9,7 @@ import {
   TOperand,
   TDlc,
 } from "@/data/types";
+import { base } from "@/data/constants";
 
 const dlcClasses: Record<TDlc, {bg: string, border: string}> = {
   base: {
@@ -42,7 +43,7 @@ export default function EvolutionCard({
 }: {
   evolution: TWeaponEvolution;
 }) {
-  const dlcClass = dlcClasses[evolution.dlc || 'base'];
+  const dlcClass = dlcClasses[evolution.dlc || base];
 
   return (
     <div className={`${dlcClass.bg} rounded border ${dlcClass.border} p-1 sm:p-2`}>
