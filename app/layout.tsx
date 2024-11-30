@@ -4,6 +4,7 @@ import { SansFont } from "@/fonts";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import Script from "next/script";
 
 // cloudflare pages compat
 export const runtime = 'edge';
@@ -74,6 +75,13 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            defer
+            src="https://umami-tau-tawny.vercel.app/script.js"
+            data-website-id="6dc8f1b3-ff3b-4d1b-a15d-3cd5951bc845"
+          />
+        )}
       </body>
     </html>
   );
