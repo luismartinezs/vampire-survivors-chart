@@ -22,6 +22,7 @@ export const GoldCircle = ({ size, className }: GoldCircleProps) => {
           clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
         }} />
       </div>
+      <div className="absolute top-[calc(50%-1px)] left-0 right-0 h-[2px] bg-yellow-900 z-10" />
     </div>
   );
 };

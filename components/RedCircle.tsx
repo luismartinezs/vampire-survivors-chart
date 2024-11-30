@@ -22,6 +22,7 @@ export const RedCircle = ({ size, className }: RedCircleProps) => {
           clipPath: 'polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)'
         }} />
       </div>
+      <div className="absolute left-[calc(50%-1px)] top-0 bottom-0 w-[2px] bg-red-900 z-10" />
     </div>
   );
 };
