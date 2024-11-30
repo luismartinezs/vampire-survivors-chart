@@ -65,11 +65,24 @@ export function useEvolutionControls() {
           (el) => typeof el !== "string" && el.item.type === "passive" && !ignoredPassives.includes(el.item.name)
         );
 
-        // If one has passive and other doesn't, the one with passive comes first
+        // Check if evolutions are from 'em' DLC
+        const aIsEm = a.dlc === 'em';
+        const bIsEm = b.dlc === 'em';
+
+        // First tier: Non-EM passives
+        // Second tier: EM passives
+        // Third tier: No passives
+
         if (aHasPassive && !bHasPassive) return -1;
         if (!aHasPassive && bHasPassive) return 1;
 
-        // If both have passives or both don't have passives, sort by name
+        // If both have passives, check EM status
+        if (aHasPassive && bHasPassive) {
+          if (!aIsEm && bIsEm) return -1;
+          if (aIsEm && !bIsEm) return 1;
+        }
+
+        // Within same tier, sort by name
         return aPassive.localeCompare(bPassive);
       });
   }, [selectedDlcs, sortByPassive, getPassiveName]);

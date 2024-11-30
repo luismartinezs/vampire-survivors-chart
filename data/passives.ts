@@ -1,5 +1,6 @@
 import { mergeIntoNestedObjects } from "@/lib/utils";
 import { TItem } from "./types";
+import { em } from "./constants";
 
 const _passives: Record<string, Omit<TItem, 'type'>> = {
   hollowHeart: {
@@ -88,35 +89,43 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
   },
   miniCrewmate: {
     name: 'Mini Crewmate',
-    image: 'icon-crewmate'
+    image: 'icon-crewmate',
+    dlc: em
   },
   miniEngineer: {
     name: 'Mini Engineer',
-    image: 'icon-engineer'
+    image: 'icon-engineer',
+    dlc: em
   },
   miniGhost: {
     name: 'Mini Ghost',
-    image: 'icon-ghost'
+    image: 'icon-ghost',
+    dlc: em
   },
   miniShapeshifter: {
     name: 'Mini Shapeshifter',
-    image: 'icon-shapeshifter'
+    image: 'icon-shapeshifter',
+    dlc: em
   },
   miniGuardian: {
     name: 'Mini Guardian',
-    image: 'icon-guardian'
+    image: 'icon-guardian',
+    dlc: em
   },
   miniImpostor: {
     name: 'Mini Impostor',
-    image: 'icon-impostor'
+    image: 'icon-impostor',
+    dlc: em
   },
   miniScientist: {
     name: 'Mini Scientist',
-    image: 'icon-scientist'
+    image: 'icon-scientist',
+    dlc: em
   },
   miniHorse: {
     name: 'Mini Horse',
-    image: 'icon-horse'
+    image: 'icon-horse',
+    dlc: em
   },
   weaponPowerUp: {
     name: 'Weapon Power-Up',
