@@ -1,49 +1,72 @@
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { TDlc, TEvolutionItem } from "@/data/types";
 import { evolutions } from "@/data/evolutions";
+import { useStorage } from "@/hooks/useStorage";
 
 const ignoredPassives = ["Weapon Power-Up"];
 
+interface EvolutionControlsState {
+  sortByPassive: boolean;
+  selectedDlcs: TDlc[];
+  selectedPassives: string[];
+}
+
 export function useEvolutionControls() {
-  const [sortByPassive, setSortByPassive] = useState(false);
-  const [selectedDlcs, setSelectedDlcs] = useState<Set<TDlc>>(
-    new Set(["base", "lotm", "todf", "em", "og", "otc"])
-  );
-  const [selectedPassives, setSelectedPassives] = useState<Set<string>>(new Set());
+  const [state, setState] = useStorage<EvolutionControlsState>("evolution-controls", {
+    sortByPassive: false,
+    selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc"],
+    selectedPassives: [],
+  });
+
+  // Convert arrays to Sets for easier operations
+  const selectedDlcs = new Set(state.selectedDlcs);
+  const selectedPassives = new Set(state.selectedPassives);
 
   const toggleDlc = useCallback((dlc: TDlc) => {
-    setSelectedDlcs((prev) => {
-      const next = new Set(prev);
-      if (next.has(dlc)) {
-        next.delete(dlc);
+    setState(prev => {
+      const nextDlcs = new Set(prev.selectedDlcs);
+      if (nextDlcs.has(dlc)) {
+        nextDlcs.delete(dlc);
         // Always keep at least one DLC selected
-        if (next.size === 0) next.add("base");
+        if (nextDlcs.size === 0) nextDlcs.add("base");
       } else {
-        next.add(dlc);
+        nextDlcs.add(dlc);
       }
-      return next;
+      return {
+        ...prev,
+        selectedDlcs: Array.from(nextDlcs)
+      };
     });
-  }, []);
+  }, [setState]);
 
   const togglePassive = useCallback((passiveName: string) => {
-    setSelectedPassives((prev) => {
-      const next = new Set(prev);
-      if (next.has(passiveName)) {
-        next.delete(passiveName);
+    setState(prev => {
+      const nextPassives = new Set(prev.selectedPassives);
+      if (nextPassives.has(passiveName)) {
+        nextPassives.delete(passiveName);
       } else {
-        next.add(passiveName);
+        nextPassives.add(passiveName);
       }
-      return next;
+      return {
+        ...prev,
+        selectedPassives: Array.from(nextPassives)
+      };
     });
-  }, []);
+  }, [setState]);
 
   const resetPassives = useCallback(() => {
-    setSelectedPassives(new Set());
-  }, []);
+    setState(prev => ({
+      ...prev,
+      selectedPassives: []
+    }));
+  }, [setState]);
 
   const toggleSortByPassive = useCallback(() => {
-    setSortByPassive((prev) => !prev);
-  }, []);
+    setState(prev => ({
+      ...prev,
+      sortByPassive: !prev.sortByPassive
+    }));
+  }, [setState]);
 
   const getPassiveName = useCallback((evolution: (typeof evolutions)[0]) => {
     let firstItemName: string | undefined;
@@ -84,7 +107,7 @@ export function useEvolutionControls() {
         return true;
       })
       .sort((a, b) => {
-        if (!sortByPassive) return 0;
+        if (!state.sortByPassive) return 0;
 
         const aPassive = getPassiveName(a);
         const bPassive = getPassiveName(b);
@@ -117,10 +140,10 @@ export function useEvolutionControls() {
         // Within same tier, sort by name
         return aPassive.localeCompare(bPassive);
       });
-  }, [selectedDlcs, sortByPassive, getPassiveName, selectedPassives]);
+  }, [selectedDlcs, state.sortByPassive, getPassiveName, selectedPassives]);
 
   return {
-    sortByPassive,
+    sortByPassive: state.sortByPassive,
     selectedDlcs,
     selectedPassives,
     toggleDlc,
