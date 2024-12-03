@@ -74,14 +74,14 @@ const useEvolutionFiltering = (
   selectedPassives: Set<string>
 ) => {
   return useMemo(() => {
-    let passiveFiltered = [];
-    let passiveUnfiltered = [];
+    let filtered = [];
+    let unfiltered = [];
 
     for (const evolution of sortedEvolutions) {
       if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) continue;
 
       if (selectedPassives.size === 0) {
-        passiveFiltered.push(evolution);
+        filtered.push(evolution);
         continue;
       }
 
@@ -91,15 +91,15 @@ const useEvolutionFiltering = (
         .map((el) => el.item.name);
 
       if (evolutionPassives.some((passive) => selectedPassives.has(passive))) {
-        passiveFiltered.push(evolution);
+        filtered.push(evolution);
       } else {
-        passiveUnfiltered.push(evolution);
+        unfiltered.push(evolution);
       }
     }
 
     return {
-      passiveFiltered,
-      passiveUnfiltered,
+      filtered,
+      unfiltered,
     };
   }, [sortedEvolutions, selectedDlcs, selectedPassives]);
 };
@@ -229,7 +229,7 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     getPassiveName
   );
 
-  const { passiveFiltered, passiveUnfiltered } = useEvolutionFiltering(
+  const { filtered, unfiltered } = useEvolutionFiltering(
     sortedEvolutions,
     selectedDlcs,
     selectedPassives
@@ -243,8 +243,8 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     togglePassive,
     resetPassives,
     toggleSortByPassive,
-    filteredEvolutions: passiveFiltered,
-    excludedEvolutions: passiveUnfiltered,
+    filteredEvolutions: filtered,
+    excludedEvolutions: unfiltered,
     selectedWeapons,
     toggleWeapon,
     resetWeapons,
