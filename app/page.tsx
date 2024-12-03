@@ -18,6 +18,9 @@ export default function Home() {
     toggleSortByPassive,
     filteredEvolutions,
     excludedEvolutions,
+    selectedWeapons,
+    toggleWeapon,
+    resetWeapons,
   } = useEvolutionControls();
 
   return (
@@ -32,6 +35,9 @@ export default function Home() {
             selectedPassives={selectedPassives}
             onTogglePassive={togglePassive}
             onResetPassives={resetPassives}
+            selectedWeapons={selectedWeapons}
+            onToggleWeapon={toggleWeapon}
+            onResetWeapons={resetWeapons}
           />
         </div>
         <EvolutionList>

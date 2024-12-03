@@ -12,12 +12,14 @@ interface EvolutionControlsState {
   sortByPassive: boolean;
   selectedDlcs: TDlc[];
   selectedPassives: string[];
+  selectedWeapons: string[];
 }
 
 const initialState: EvolutionControlsState = {
   sortByPassive: false,
   selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc"],
   selectedPassives: [],
+  selectedWeapons: [],
 };
 
 type UseEvolutionControlsReturn = {
@@ -30,6 +32,9 @@ type UseEvolutionControlsReturn = {
   toggleSortByPassive: () => void;
   filteredEvolutions: Evolution[];
   excludedEvolutions: Evolution[];
+  selectedWeapons: Set<string>;
+  toggleWeapon: (weaponName: string) => void;
+  resetWeapons: () => void;
 };
 
 const useEvolutionSorting = (
@@ -119,6 +124,10 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     () => new Set(state.selectedPassives),
     [state.selectedPassives]
   );
+  const selectedWeapons = useMemo(
+    () => new Set(state.selectedWeapons),
+    [state.selectedWeapons]
+  );
 
   const toggleDlc = useCallback(
     (dlc: TDlc) => {
@@ -156,12 +165,33 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     [setState]
   );
 
+  const toggleWeapon = useCallback(
+    (weaponName: string) => {
+      setState((prev) => ({
+        ...prev,
+        selectedWeapons: Array.from(
+          new Set(
+            prev.selectedWeapons?.includes(weaponName)
+              ? prev.selectedWeapons.filter((w) => w !== weaponName)
+              : [...(prev.selectedWeapons || []), weaponName]
+          )
+        ),
+      }));
+    },
+    [setState]
+  );
+
   const resetPassives = useCallback(
     () =>
       setState((prev) => ({
         ...prev,
         selectedPassives: [],
       })),
+    [setState]
+  );
+
+  const resetWeapons = useCallback(
+    () => setState((prev) => ({ ...prev, selectedWeapons: [] })),
     [setState]
   );
 
@@ -215,5 +245,8 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     toggleSortByPassive,
     filteredEvolutions: passiveFiltered,
     excludedEvolutions: passiveUnfiltered,
+    selectedWeapons,
+    toggleWeapon,
+    resetWeapons,
   };
 }

@@ -14,6 +14,9 @@ interface ControlsProps {
   selectedPassives: Set<string>;
   onTogglePassive: (passive: string) => void;
   onResetPassives: () => void;
+  selectedWeapons: Set<string>;
+  onToggleWeapon: (weapon: string) => void;
+  onResetWeapons: () => void;
 }
 
 export function Controls({
@@ -24,6 +27,9 @@ export function Controls({
   selectedPassives,
   onTogglePassive,
   onResetPassives,
+  selectedWeapons,
+  onToggleWeapon,
+  onResetWeapons,
 }: ControlsProps) {
   return (
     <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
@@ -53,7 +59,11 @@ export function Controls({
 
       <Separator className="w-full my-1" />
 
-      <WeaponControls />
+      <WeaponControls
+        selectedWeapons={selectedWeapons}
+        onToggleWeapon={onToggleWeapon}
+        onResetWeapons={onResetWeapons}
+      />
     </div>
   );
 }
