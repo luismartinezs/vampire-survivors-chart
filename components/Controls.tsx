@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/Button";
 import { TDlc } from "@/data/types";
-import { Separator } from "./ui/separator";
 import { dlcClasses } from "./controls/constants";
 import { DlcControls } from "./controls/DlcControls";
 import { PassiveControls } from "./controls/PassiveControls";

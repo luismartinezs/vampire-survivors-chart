@@ -21,7 +21,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 export function logger(
 	level: LogLevel = 'debug',
 	message: string,
-	data?: Record<string, any>
+	data?: Record<string, unknown>
 ) {
 	if (isBrowser && isProduction) {
 		return // Omit logs in production browser environment
@@ -61,29 +61,39 @@ export function logger(
 
 	switch (level) {
 		case 'info':
-			data
-				? console.info(formattedMessage, parseDataToLog(data))
-				: console.info(formattedMessage)
-			break
+			if (data) {
+				console.info(formattedMessage, parseDataToLog(data));
+			} else {
+				console.info(formattedMessage);
+			}
+			break;
 		case 'warn':
-			data
-				? console.warn(formattedMessage, parseDataToLog(data))
-				: console.warn(formattedMessage)
-			break
+			if (data) {
+				console.warn(formattedMessage, parseDataToLog(data));
+			} else {
+				console.warn(formattedMessage);
+			}
+			break;
 		case 'error':
-			data
-				? console.error(formattedMessage, parseDataToLog(data))
-				: console.error(formattedMessage)
-			break
+			if (data) {
+				console.error(formattedMessage, parseDataToLog(data));
+			} else {
+				console.error(formattedMessage);
+			}
+			break;
 		case 'debug':
-			data
-				? console.debug(formattedMessage, parseDataToLog(data))
-				: console.debug(formattedMessage)
-			break
+			if (data) {
+				console.debug(formattedMessage, parseDataToLog(data));
+			} else {
+				console.debug(formattedMessage);
+			}
+			break;
 		default:
-			data
-				? console.log(formattedMessage, JSON.stringify(data))
-				: console.log(formattedMessage)
+			if (data) {
+				console.log(formattedMessage, JSON.stringify(data));
+			} else {
+				console.log(formattedMessage);
+			}
 	}
 
 	// Here you could add additional functionality like:
