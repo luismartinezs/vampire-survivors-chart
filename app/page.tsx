@@ -4,6 +4,8 @@ import EvolutionCard from "@/components/EvolutionCard";
 import { Controls } from "@/components/Controls";
 import { Legend } from "@/components/Legend";
 import { useEvolutionControls } from "@/hooks/useEvolutionControls";
+import { EvolutionList } from "@/components/EvolutionList";
+import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   const {
@@ -14,7 +16,8 @@ export default function Home() {
     togglePassive,
     resetPassives,
     toggleSortByPassive,
-    filteredAndSortedEvolutions,
+    filteredEvolutions,
+    excludedEvolutions,
   } = useEvolutionControls();
 
   return (
@@ -31,11 +34,21 @@ export default function Home() {
             onResetPassives={resetPassives}
           />
         </div>
-        <div className="flex flex-wrap justify-center gap-[0.30rem] sm:gap-1 lg:gap-2">
-          {filteredAndSortedEvolutions.map((evolution) => (
+        <EvolutionList>
+          {filteredEvolutions.map((evolution) => (
             <EvolutionCard key={evolution.id} evolution={evolution} />
           ))}
-        </div>
+        </EvolutionList>
+        {excludedEvolutions.length > 0 && (
+          <>
+            <Separator className="my-4" />
+            <EvolutionList>
+              {excludedEvolutions.map((evolution) => (
+                <EvolutionCard key={evolution.id} evolution={evolution} />
+              ))}
+            </EvolutionList>
+          </>
+        )}
         <Legend className="mt-4" />
       </main>
     </>

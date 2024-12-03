@@ -28,40 +28,19 @@ type UseEvolutionControlsReturn = {
   togglePassive: (passiveName: string) => void;
   resetPassives: () => void;
   toggleSortByPassive: () => void;
-  filteredAndSortedEvolutions: Evolution[];
-};
-
-const useEvolutionFiltering = (
-  selectedDlcs: Set<TDlc>,
-  selectedPassives: Set<string>
-) => {
-  return useMemo(() => {
-    return evolutions.filter((evolution) => {
-      // First filter by DLC
-      if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) return false;
-
-      // Then filter by passives if any are selected
-      if (selectedPassives.size === 0) return true;
-
-      const evolutionPassives = evolution.elements
-        .filter((el): el is TEvolutionItem => typeof el !== "string")
-        .filter((el) => el.item.type === "passive")
-        .map((el) => el.item.name);
-
-      return evolutionPassives.some((passive) => selectedPassives.has(passive));
-    });
-  }, [selectedDlcs, selectedPassives]);
+  filteredEvolutions: Evolution[];
+  excludedEvolutions: Evolution[];
 };
 
 const useEvolutionSorting = (
-  filteredEvolutions: Evolution[],
+  evolutions: Evolution[],
   sortByPassive: boolean,
   getPassiveName: (evolution: Evolution) => string
 ) => {
   return useMemo(() => {
-    if (!sortByPassive) return filteredEvolutions;
+    if (!sortByPassive) return evolutions;
 
-    return [...filteredEvolutions].sort((a, b) => {
+    return [...evolutions].sort((a, b) => {
       const aPassive = getPassiveName(a);
       const bPassive = getPassiveName(b);
 
@@ -81,7 +60,43 @@ const useEvolutionSorting = (
 
       return aPassive.localeCompare(bPassive);
     });
-  }, [filteredEvolutions, sortByPassive, getPassiveName]);
+  }, [evolutions, sortByPassive, getPassiveName]);
+};
+
+const useEvolutionFiltering = (
+  sortedEvolutions: Evolution[],
+  selectedDlcs: Set<TDlc>,
+  selectedPassives: Set<string>
+) => {
+  return useMemo(() => {
+    let passiveFiltered = [];
+    let passiveUnfiltered = [];
+
+    for (const evolution of sortedEvolutions) {
+      if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) continue;
+
+      if (selectedPassives.size === 0) {
+        passiveUnfiltered.push(evolution);
+        continue;
+      }
+
+      const evolutionPassives = evolution.elements
+        .filter((el): el is TEvolutionItem => typeof el !== "string")
+        .filter((el) => el.item.type === "passive")
+        .map((el) => el.item.name);
+
+      if (evolutionPassives.some((passive) => selectedPassives.has(passive))) {
+        passiveFiltered.push(evolution);
+      } else {
+        passiveUnfiltered.push(evolution);
+      }
+    }
+
+    return {
+      passiveFiltered,
+      passiveUnfiltered,
+    };
+  }, [sortedEvolutions, selectedDlcs, selectedPassives]);
 };
 
 const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
@@ -178,11 +193,16 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     return firstNonIgnoredPassive?.item.name ?? firstItemName ?? "";
   }, []);
 
-  const filteredEvolutions = useEvolutionFiltering(selectedDlcs, selectedPassives);
-  const filteredAndSortedEvolutions = useEvolutionSorting(
-    filteredEvolutions,
+  const sortedEvolutions = useEvolutionSorting(
+    evolutions,
     state.sortByPassive,
     getPassiveName
+  );
+
+  const { passiveFiltered, passiveUnfiltered } = useEvolutionFiltering(
+    sortedEvolutions,
+    selectedDlcs,
+    selectedPassives
   );
 
   return {
@@ -193,6 +213,7 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     togglePassive,
     resetPassives,
     toggleSortByPassive,
-    filteredAndSortedEvolutions,
+    filteredEvolutions: passiveFiltered,
+    excludedEvolutions: passiveUnfiltered,
   };
 }
