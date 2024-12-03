@@ -5,6 +5,7 @@ import { ResponsiveItem } from "./ResponsiveItem";
 import { Separator } from "./ui/separator";
 import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { weapons } from "@/data/weapons";
 
 const DLC_LABELS: Record<TDlc, string> = {
   base: "Base Game",
@@ -80,6 +81,14 @@ interface ControlsProps {
   onResetPassives: () => void;
 }
 
+const ButtonList = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="flex flex-wrap gap-1 sm:gap-2 justify-center items-stretch">
+      {children}
+    </div>
+  );
+};
+
 export function Controls({
   sortByPassive,
   onToggleSortByPassive,
@@ -92,6 +101,9 @@ export function Controls({
   // Get unique passives, excluding ignored ones
   const filteredPassives = Object.values(passives).filter(
     (passive) => !ignoredPassives.includes(passive.name)
+  );
+  const filteredUnevolvedWeapons = Object.values(weapons).filter(
+    (weapon) => !weapon.evolved
   );
 
   return (
@@ -128,7 +140,7 @@ export function Controls({
 
       <Separator className="w-full my-1" />
 
-      <div className="flex flex-wrap gap-1 sm:gap-2 justify-center items-stretch">
+      <ButtonList>
         <Button
           variant="outline"
           onClick={onResetPassives}
@@ -159,7 +171,15 @@ export function Controls({
             <ResponsiveItem item={passive} />
           </Button>
         ))}
-      </div>
+      </ButtonList>
+      <Separator className="w-full my-1" />
+      <ButtonList>
+        {filteredUnevolvedWeapons.map((weapon) => (
+          <Button key={weapon.name} variant="outline" size="sm" className="p-1">
+            <ResponsiveItem item={weapon} />
+          </Button>
+        ))}
+      </ButtonList>
     </div>
   );
 }
