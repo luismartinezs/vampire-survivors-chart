@@ -22,7 +22,7 @@ export function Collapsible({
   );
 
   return (
-    <div className={cn("w-full transition-all duration-200", className)}>
+    <div className={cn("w-full", className)}>
       <Button
         variant="outline"
         onClick={() => setIsOpen(!isOpen)}
@@ -31,7 +31,7 @@ export function Collapsible({
           "text-xs sm:text-sm font-medium tracking-wide text-primary-100",
           "hover:bg-primary/10 active:bg-primary/20",
           "border border-primary-500 shadow-sm",
-          "transition-all duration-200 ease-in-out",
+          "transition-colors duration-200 ease-in-out",
           isOpen
             ? "rounded-t-[8px] sm:rounded-t-[12px] rounded-b-none border-b-0"
             : "rounded-[8px] sm:rounded-[12px]"
@@ -46,7 +46,7 @@ export function Collapsible({
       </Button>
       {isOpen && (
         <div className={cn(
-          "mt-0 p-1 sm:p-4 bg-transparent",
+          "w-full mt-0 p-1 sm:p-4 bg-transparent",
           "border border-primary-500 rounded-b-[8px] sm:rounded-b-[12px]",
           "animate-in fade-in-0 slide-in-from-top-1 duration-200"
         )}>

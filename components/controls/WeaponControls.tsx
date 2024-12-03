@@ -6,6 +6,7 @@ import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dlcClasses } from "./constants";
 import { Collapsible } from "../ui/Collapsible";
+import { base } from "@/data/constants";
 
 interface WeaponControlsProps {
   selectedWeapons: Set<string>;
@@ -48,8 +49,8 @@ export function WeaponControls({
             className={cn(
               "p-1",
               selectedWeapons.has(weapon.name)
-                ? dlcClasses.base.selected
-                : dlcClasses.base.unselected
+                ? dlcClasses[weapon.dlc || base].selected
+                : dlcClasses[weapon.dlc || base].unselected
             )}
             title={weapon.name}
           >

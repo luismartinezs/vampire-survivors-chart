@@ -32,23 +32,24 @@ export function Controls({
   onResetWeapons,
 }: ControlsProps) {
   return (
-    <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
-      <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
-        <Button
-          variant="outline"
-          onClick={onToggleSortByPassive}
-          size="sm"
-          className={
-            sortByPassive
-              ? dlcClasses.base.selected
-              : dlcClasses.base.unselected
-          }
-        >
-          Sort by Passive
-        </Button>
-        <DlcControls selectedDlcs={selectedDlcs} onToggleDlc={onToggleDlc} />
+    <div className="flex flex-col gap-1 w-full">
+      <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
+        <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
+          <Button
+            variant="outline"
+            onClick={onToggleSortByPassive}
+            size="sm"
+            className={
+              sortByPassive
+                ? dlcClasses.base.selected
+                : dlcClasses.base.unselected
+            }
+          >
+            Sort by Passive
+          </Button>
+          <DlcControls selectedDlcs={selectedDlcs} onToggleDlc={onToggleDlc} />
+        </div>
       </div>
-
       <PassiveControls
         selectedPassives={selectedPassives}
         onTogglePassive={onTogglePassive}

@@ -83,20 +83,29 @@ const useEvolutionFiltering = (
     let unfiltered = [];
 
     for (const evolution of sortedEvolutions) {
-      if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) continue;
+      if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) {
+        continue;
+      }
 
-      if (selectedPassives.size === 0 && selectedWeapons.size === 0) {
+      const arePassivesSelected = selectedPassives.size > 0;
+      const areWeaponsSelected = selectedWeapons.size > 0;
+
+      if (!arePassivesSelected && !areWeaponsSelected) {
         filtered.push(evolution);
         continue;
       }
 
-      const evolutionElements = evolution.elements.filter(isItem);
-      const evolutionPassives = evolutionElements
-        .filter((el) => el.item.type === "passive")
-        .map((el) => el.item.name);
-      const evolutionWeapons = evolutionElements
-        .filter((el) => el.item.type === "weapon" && !el.item.evolved)
-        .map((el) => el.item.name);
+      const evolutionItems = evolution.elements.filter(isItem);
+      const evolutionPassives = arePassivesSelected
+        ? evolutionItems
+          .filter((el) => el.item.type === "passive")
+          .map((el) => el.item.name)
+        : [];
+      const evolutionWeapons = areWeaponsSelected
+        ? evolutionItems
+          .filter((el) => el.item.type === "weapon" && !el.item.evolved)
+          .map((el) => el.item.name)
+        : [];
 
       if (
         evolutionPassives.some((passive) => selectedPassives.has(passive)) ||
