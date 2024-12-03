@@ -5,6 +5,7 @@ import { ButtonList } from "./ButtonList";
 import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { dlcClasses } from "./constants";
+import { Collapsible } from "../ui/Collapsible";
 
 interface WeaponControlsProps {
   selectedWeapons: Set<string>;
@@ -22,38 +23,40 @@ export function WeaponControls({
   );
 
   return (
-    <ButtonList>
-      <Button
-        variant="outline"
-        onClick={onResetWeapons}
-        size="sm"
-        aria-label="Reset Weapons"
-        className={cn(
-          "p-1 aspect-square",
-          selectedWeapons.size === 0
-            ? dlcClasses.base.selected
-            : dlcClasses.base.unselected
-        )}
-      >
-        <RotateCcw className="size-4 sm:size-6 md:size-8 lg:size-10 text-white" />
-      </Button>
-      {filteredUnevolvedWeapons.map((weapon) => (
+    <Collapsible title="Weapons" defaultOpen={false}>
+      <ButtonList>
         <Button
-          key={weapon.name}
           variant="outline"
-          onClick={() => onToggleWeapon(weapon.name)}
+          onClick={onResetWeapons}
           size="sm"
+          aria-label="Reset Weapons"
           className={cn(
-            "p-1",
-            selectedWeapons.has(weapon.name)
+            "p-1 aspect-square",
+            selectedWeapons.size === 0
               ? dlcClasses.base.selected
               : dlcClasses.base.unselected
           )}
-          title={weapon.name}
         >
-          <ResponsiveItem item={weapon} />
+          <RotateCcw className="size-4 sm:size-6 md:size-8 lg:size-10 text-white" />
         </Button>
-      ))}
-    </ButtonList>
+        {filteredUnevolvedWeapons.map((weapon) => (
+          <Button
+            key={weapon.name}
+            variant="outline"
+            onClick={() => onToggleWeapon(weapon.name)}
+            size="sm"
+            className={cn(
+              "p-1",
+              selectedWeapons.has(weapon.name)
+                ? dlcClasses.base.selected
+                : dlcClasses.base.unselected
+            )}
+            title={weapon.name}
+          >
+            <ResponsiveItem item={weapon} />
+          </Button>
+        ))}
+      </ButtonList>
+    </Collapsible>
   );
 }
