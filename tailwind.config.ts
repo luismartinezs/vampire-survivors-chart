@@ -74,7 +74,7 @@ export default {
 					'700': '#cc2960',  // Rich pink-red
 					'800': '#991f47',  // Dark pink-red
 					'900': '#66142f',  // Very dark pink-red
-					'950': '#330a18'   // Deepest pink-red
+					'950': '#1a0509'   // Deepest pink-red
 				},
 				og: {
 					'50': '#f8faff',   // More saturated metallic tint

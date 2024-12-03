@@ -49,16 +49,15 @@ export function Controls({
           <DlcControls selectedDlcs={selectedDlcs} onToggleDlc={onToggleDlc} />
         </div>
       </div>
-      <PassiveControls
-        selectedPassives={selectedPassives}
-        onTogglePassive={onTogglePassive}
-        onResetPassives={onResetPassives}
-      />
-
       <WeaponControls
         selectedWeapons={selectedWeapons}
         onToggleWeapon={onToggleWeapon}
         onResetWeapons={onResetWeapons}
+      />
+      <PassiveControls
+        selectedPassives={selectedPassives}
+        onTogglePassive={onTogglePassive}
+        onResetPassives={onResetPassives}
       />
     </div>
   );
