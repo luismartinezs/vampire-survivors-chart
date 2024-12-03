@@ -49,15 +49,11 @@ export function Controls({
         <DlcControls selectedDlcs={selectedDlcs} onToggleDlc={onToggleDlc} />
       </div>
 
-      <Separator className="w-full my-1" />
-
       <PassiveControls
         selectedPassives={selectedPassives}
         onTogglePassive={onTogglePassive}
         onResetPassives={onResetPassives}
       />
-
-      <Separator className="w-full my-1" />
 
       <WeaponControls
         selectedWeapons={selectedWeapons}

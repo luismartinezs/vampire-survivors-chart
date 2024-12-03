@@ -46,7 +46,7 @@ export function Collapsible({
       </Button>
       {isOpen && (
         <div className={cn(
-          "mt-0 p-0.5 sm:p-4 bg-transparent",
+          "mt-0 p-1 sm:p-4 bg-transparent",
           "border border-primary-500 rounded-b-[8px] sm:rounded-b-[12px]",
           "animate-in fade-in-0 slide-in-from-top-1 duration-200"
         )}>
