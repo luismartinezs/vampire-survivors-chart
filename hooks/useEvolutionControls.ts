@@ -1,9 +1,12 @@
 import { useCallback, useMemo } from "react";
-import { TDlc, TEvolutionItem } from "@/data/types";
+import { TDlc, TEvolutionItem, TWeaponEvolution } from "@/data/types";
 import { evolutions } from "@/data/evolutions";
 import { useStorage } from "@/hooks/useStorage";
 
-const ignoredPassives = ["Weapon Power-Up"];
+type Evolution = TWeaponEvolution;
+
+const IGNORED_PASSIVES = ["Weapon Power-Up"];
+const DEFAULT_DLC: TDlc = "base";
 
 interface EvolutionControlsState {
   sortByPassive: boolean;
@@ -11,136 +14,176 @@ interface EvolutionControlsState {
   selectedPassives: string[];
 }
 
-export function useEvolutionControls() {
-  const [state, setState] = useStorage<EvolutionControlsState>("evolution-controls", {
-    sortByPassive: false,
-    selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc"],
-    selectedPassives: [],
-  });
+const initialState: EvolutionControlsState = {
+  sortByPassive: false,
+  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc"],
+  selectedPassives: [],
+};
 
-  // Convert arrays to Sets for easier operations
-  const selectedDlcs = new Set(state.selectedDlcs);
-  const selectedPassives = new Set(state.selectedPassives);
+type UseEvolutionControlsReturn = {
+  sortByPassive: boolean;
+  selectedDlcs: Set<TDlc>;
+  selectedPassives: Set<string>;
+  toggleDlc: (dlc: TDlc) => void;
+  togglePassive: (passiveName: string) => void;
+  resetPassives: () => void;
+  toggleSortByPassive: () => void;
+  filteredAndSortedEvolutions: Evolution[];
+};
 
-  const toggleDlc = useCallback((dlc: TDlc) => {
-    setState(prev => {
-      const nextDlcs = new Set(prev.selectedDlcs);
-      if (nextDlcs.has(dlc)) {
-        nextDlcs.delete(dlc);
-        // Always keep at least one DLC selected
-        if (nextDlcs.size === 0) nextDlcs.add("base");
-      } else {
-        nextDlcs.add(dlc);
-      }
-      return {
-        ...prev,
-        selectedDlcs: Array.from(nextDlcs)
-      };
+const useEvolutionFiltering = (
+  selectedDlcs: Set<TDlc>,
+  selectedPassives: Set<string>
+) => {
+  return useMemo(() => {
+    return evolutions.filter((evolution) => {
+      // First filter by DLC
+      if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) return false;
+
+      // Then filter by passives if any are selected
+      if (selectedPassives.size === 0) return true;
+
+      const evolutionPassives = evolution.elements
+        .filter((el): el is TEvolutionItem => typeof el !== "string")
+        .filter((el) => el.item.type === "passive")
+        .map((el) => el.item.name);
+
+      return evolutionPassives.some((passive) => selectedPassives.has(passive));
     });
-  }, [setState]);
+  }, [selectedDlcs, selectedPassives]);
+};
 
-  const togglePassive = useCallback((passiveName: string) => {
-    setState(prev => {
-      const nextPassives = new Set(prev.selectedPassives);
-      if (nextPassives.has(passiveName)) {
-        nextPassives.delete(passiveName);
-      } else {
-        nextPassives.add(passiveName);
+const useEvolutionSorting = (
+  filteredEvolutions: Evolution[],
+  sortByPassive: boolean,
+  getPassiveName: (evolution: Evolution) => string
+) => {
+  return useMemo(() => {
+    if (!sortByPassive) return filteredEvolutions;
+
+    return [...filteredEvolutions].sort((a, b) => {
+      const aPassive = getPassiveName(a);
+      const bPassive = getPassiveName(b);
+
+      const aHasPassive = hasNonIgnoredPassive(a);
+      const bHasPassive = hasNonIgnoredPassive(b);
+      const aIsEm = a.dlc === "em";
+      const bIsEm = b.dlc === "em";
+
+      // Sorting priority:
+      // 1. Non-EM passives
+      // 2. EM passives
+      // 3. No passives
+      if (aHasPassive !== bHasPassive) return bHasPassive ? 1 : -1;
+      if (aHasPassive && bHasPassive && aIsEm !== bIsEm) {
+        return aIsEm ? 1 : -1;
       }
-      return {
-        ...prev,
-        selectedPassives: Array.from(nextPassives)
-      };
+
+      return aPassive.localeCompare(bPassive);
     });
-  }, [setState]);
+  }, [filteredEvolutions, sortByPassive, getPassiveName]);
+};
 
-  const resetPassives = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      selectedPassives: []
-    }));
-  }, [setState]);
+const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
+  return evolution.elements.some(
+    (el) =>
+      typeof el !== "string" &&
+      el.item.type === "passive" &&
+      !IGNORED_PASSIVES.includes(el.item.name)
+  );
+};
 
-  const toggleSortByPassive = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      sortByPassive: !prev.sortByPassive
-    }));
-  }, [setState]);
+export function useEvolutionControls(): UseEvolutionControlsReturn {
+  const [state, setState] = useStorage<EvolutionControlsState>(
+    "evolution-controls",
+    initialState
+  );
 
-  const getPassiveName = useCallback((evolution: (typeof evolutions)[0]) => {
+  const selectedDlcs = useMemo(() => new Set(state.selectedDlcs), [state.selectedDlcs]);
+  const selectedPassives = useMemo(
+    () => new Set(state.selectedPassives),
+    [state.selectedPassives]
+  );
+
+  const toggleDlc = useCallback(
+    (dlc: TDlc) => {
+      setState((prev) => {
+        const nextDlcs = new Set(prev.selectedDlcs);
+        if (nextDlcs.has(dlc)) {
+          nextDlcs.delete(dlc);
+          // Always keep at least one DLC selected
+          if (nextDlcs.size === 0) nextDlcs.add(DEFAULT_DLC);
+        } else {
+          nextDlcs.add(dlc);
+        }
+        return {
+          ...prev,
+          selectedDlcs: Array.from(nextDlcs),
+        };
+      });
+    },
+    [setState]
+  );
+
+  const togglePassive = useCallback(
+    (passiveName: string) => {
+      setState((prev) => ({
+        ...prev,
+        selectedPassives: Array.from(
+          new Set(
+            prev.selectedPassives.includes(passiveName)
+              ? prev.selectedPassives.filter((p) => p !== passiveName)
+              : [...prev.selectedPassives, passiveName]
+          )
+        ),
+      }));
+    },
+    [setState]
+  );
+
+  const resetPassives = useCallback(
+    () =>
+      setState((prev) => ({
+        ...prev,
+        selectedPassives: [],
+      })),
+    [setState]
+  );
+
+  const toggleSortByPassive = useCallback(
+    () =>
+      setState((prev) => ({
+        ...prev,
+        sortByPassive: !prev.sortByPassive,
+      })),
+    [setState]
+  );
+
+  const getPassiveName = useCallback((evolution: Evolution): string => {
     let firstItemName: string | undefined;
 
     const firstNonIgnoredPassive = evolution.elements.find((element) => {
-      if (typeof element === "string") {
-        return false;
-      }
+      if (typeof element === "string") return false;
 
       if (!firstItemName) {
         firstItemName = element.item.name;
       }
 
-      const isPassive = element.item.type === "passive";
-      const isNotIgnored = !ignoredPassives.includes(element.item.name);
-      return isPassive && isNotIgnored;
+      return (
+        element.item.type === "passive" &&
+        !IGNORED_PASSIVES.includes(element.item.name)
+      );
     }) as TEvolutionItem | undefined;
 
     return firstNonIgnoredPassive?.item.name ?? firstItemName ?? "";
   }, []);
 
-  const filteredAndSortedEvolutions = useMemo(() => {
-    return evolutions
-      .filter((evolution) => {
-        // First filter by DLC
-        if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) return false;
-
-        // Then filter by passives if any are selected
-        if (selectedPassives.size > 0) {
-          const evolutionPassives = evolution.elements
-            .filter((el): el is TEvolutionItem => typeof el !== "string")
-            .filter(el => el.item.type === "passive")
-            .map(el => el.item.name);
-
-          return evolutionPassives.some(passive => selectedPassives.has(passive));
-        }
-
-        return true;
-      })
-      .sort((a, b) => {
-        if (!state.sortByPassive) return 0;
-
-        const aPassive = getPassiveName(a);
-        const bPassive = getPassiveName(b);
-
-        // Check if either evolution has no passive
-        const aHasPassive = a.elements.some(
-          (el) => typeof el !== "string" && el.item.type === "passive" && !ignoredPassives.includes(el.item.name)
-        );
-        const bHasPassive = b.elements.some(
-          (el) => typeof el !== "string" && el.item.type === "passive" && !ignoredPassives.includes(el.item.name)
-        );
-
-        // Check if evolutions are from 'em' DLC
-        const aIsEm = a.dlc === 'em';
-        const bIsEm = b.dlc === 'em';
-
-        // First tier: Non-EM passives
-        // Second tier: EM passives
-        // Third tier: No passives
-
-        if (aHasPassive && !bHasPassive) return -1;
-        if (!aHasPassive && bHasPassive) return 1;
-
-        // If both have passives, check EM status
-        if (aHasPassive && bHasPassive) {
-          if (!aIsEm && bIsEm) return -1;
-          if (aIsEm && !bIsEm) return 1;
-        }
-
-        // Within same tier, sort by name
-        return aPassive.localeCompare(bPassive);
-      });
-  }, [selectedDlcs, state.sortByPassive, getPassiveName, selectedPassives]);
+  const filteredEvolutions = useEvolutionFiltering(selectedDlcs, selectedPassives);
+  const filteredAndSortedEvolutions = useEvolutionSorting(
+    filteredEvolutions,
+    state.sortByPassive,
+    getPassiveName
+  );
 
   return {
     sortByPassive: state.sortByPassive,
