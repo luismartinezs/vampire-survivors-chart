@@ -68,10 +68,15 @@ const useEvolutionSorting = (
   }, [evolutions, sortByPassive, getPassiveName]);
 };
 
+function isItem(item: TEvolutionItem | string): item is TEvolutionItem {
+  return typeof item !== "string";
+}
+
 const useEvolutionFiltering = (
   sortedEvolutions: Evolution[],
   selectedDlcs: Set<TDlc>,
-  selectedPassives: Set<string>
+  selectedPassives: Set<string>,
+  selectedWeapons: Set<string>
 ) => {
   return useMemo(() => {
     let filtered = [];
@@ -80,17 +85,23 @@ const useEvolutionFiltering = (
     for (const evolution of sortedEvolutions) {
       if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) continue;
 
-      if (selectedPassives.size === 0) {
+      if (selectedPassives.size === 0 && selectedWeapons.size === 0) {
         filtered.push(evolution);
         continue;
       }
 
-      const evolutionPassives = evolution.elements
-        .filter((el): el is TEvolutionItem => typeof el !== "string")
+      const evolutionElements = evolution.elements.filter(isItem);
+      const evolutionPassives = evolutionElements
         .filter((el) => el.item.type === "passive")
         .map((el) => el.item.name);
+      const evolutionWeapons = evolutionElements
+        .filter((el) => el.item.type === "weapon" && !el.item.evolved)
+        .map((el) => el.item.name);
 
-      if (evolutionPassives.some((passive) => selectedPassives.has(passive))) {
+      if (
+        evolutionPassives.some((passive) => selectedPassives.has(passive)) ||
+        evolutionWeapons.some((weapon) => selectedWeapons.has(weapon))
+      ) {
         filtered.push(evolution);
       } else {
         unfiltered.push(evolution);
@@ -101,7 +112,7 @@ const useEvolutionFiltering = (
       filtered,
       unfiltered,
     };
-  }, [sortedEvolutions, selectedDlcs, selectedPassives]);
+  }, [sortedEvolutions, selectedDlcs, selectedPassives, selectedWeapons]);
 };
 
 const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
@@ -232,7 +243,8 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
   const { filtered, unfiltered } = useEvolutionFiltering(
     sortedEvolutions,
     selectedDlcs,
-    selectedPassives
+    selectedPassives,
+    selectedWeapons
   );
 
   return {
