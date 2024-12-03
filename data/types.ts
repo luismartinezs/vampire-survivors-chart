@@ -6,6 +6,7 @@ export interface TItem {
   name: string
   image: string,
   type: TItemType,
+  evolved?: boolean,
   dlc?: TDlc
 }
 

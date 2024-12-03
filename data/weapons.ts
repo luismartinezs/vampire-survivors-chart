@@ -1,174 +1,626 @@
 import { mergeIntoNestedObjects } from "@/lib/utils"
 import { TItem } from "./types"
+import { base, lotm, todf, em, og, otc } from "./constants"
 
-const _weapons: Record<string, Omit<TItem, 'type'>> = {
+const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
   whip: {
     name: 'Whip',
-    image: 'icon-whip'
-  },
-  bloodyTear: {
-    name: 'Bloody Tear',
-    image: 'icon-whip_'
+    image: 'icon-whip',
+    dlc: base
   },
   magicWand: {
     name: 'Magic Wand',
-    image: 'icon-magicwand'
+    image: 'icon-magicwand',
+    dlc: base
+  },
+  knife: {
+    name: 'Knife',
+    image: 'icon-knife',
+    dlc: base
+  },
+  axe: {
+    name: 'Axe',
+    image: 'icon-axe',
+    dlc: base
+  },
+  cross: {
+    name: 'Cross',
+    image: 'icon-cross',
+    dlc: base
+  },
+  runeTracer: {
+    name: 'Rune Tracer',
+    image: 'icon-runetracer',
+    dlc: base
+  },
+  firewand: {
+    name: 'Fire Wand',
+    image: 'icon-firewand',
+    dlc: base
+  },
+  lightning: {
+    name: 'Lightning Ring',
+    image: 'icon-lightning',
+    dlc: base
+  },
+  peachone: {
+    name: 'Peachone',
+    image: 'icon-bird1',
+    dlc: base
+  },
+  ebonyWings: {
+    name: 'Ebony Wings',
+    image: 'icon-bird2',
+    dlc: base
+  },
+  garlic: {
+    name: 'Garlic',
+    image: 'icon-garlic',
+    dlc: base
+  },
+  king_bible: {
+    name: 'King Bible',
+    image: 'icon-bible',
+    dlc: base
+  },
+  santa_water: {
+    name: 'Santa Water',
+    image: 'icon-water',
+    dlc: base
+  },
+  pentagram: {
+    name: 'Pentagram',
+    image: 'icon-pentagram',
+    dlc: base
+  },
+  laurel: {
+    name: 'Laurel',
+    image: 'icon-laurel',
+    dlc: base
+  },
+  clock_lancet: {
+    name: 'Clock Lancet',
+    image: 'icon-lancet',
+    dlc: base
+  },
+  song_of_mana: {
+    name: 'Song of Mana',
+    image: 'icon-mana',
+    dlc: base
+  },
+  phiera_del_tuphello: {
+    name: 'Phiera Der Tuphello',
+    image: 'icon-guns1',
+    dlc: base
+  },
+  eight_the_sparrow: {
+    name: 'Eight The Sparrow',
+    image: 'icon-guns2',
+    dlc: base
+  },
+  flames_of_muspell: {
+    name: 'Flames of Muspell',
+    image: 'icon-flame',
+    dlc: base
+  },
+  victory_sword: {
+    name: 'Victory Sword',
+    image: 'icon-sword',
+    dlc: base
+  },
+  bracelet: {
+    name: 'Bracelet',
+    image: 'icon-bracelet',
+    dlc: base
+  },
+  santa_javelin: {
+    name: 'Santa Javelin',
+    image: 'icon-javelin',
+    dlc: base
+  },
+  pako_battiliar: {
+    name: 'Pako Battiliar',
+    image: 'icon-pako',
+    dlc: base
+  },
+  phas3r: {
+    name: 'Phas3r',
+    image: 'icon-phas3r',
+    dlc: base
+  },
+  glass_fandango: {
+    name: 'Glass Fandango',
+    image: 'icon-fandango',
+    dlc: base
+  },
+  vento_sacro: {
+    name: 'Vento Sacro',
+    image: 'icon-vento',
+    dlc: base
+  },
+  shadow_pinion: {
+    name: 'Shadow Pinion',
+    image: 'icon-pinion',
+    dlc: base
+  },
+  gatti_amari: {
+    name: 'Gatti Amari',
+    image: 'icon-cat',
+    dlc: base
+  },
+  silverWind: {
+    name: 'Silver Wind',
+    image: 'icon-wind',
+    dlc: lotm
+  },
+  summonNight: {
+    name: 'Summon Night',
+    image: 'icon-night',
+    dlc: lotm
+  },
+  mirageRobe: {
+    name: 'Mirage Robe',
+    image: 'icon-mirage',
+    dlc: lotm
+  },
+  milleBolleBlu: {
+    name: 'Mille Bolle Blu',
+    image: 'icon-bolle',
+    dlc: lotm
+  },
+  nightSword: {
+    name: 'Night Sword',
+    image: 'icon-muramasa',
+    dlc: lotm
+  },
+  fourSeasons: {
+    name: 'Four Seasons',
+    image: 'icon-seasons',
+    dlc: lotm
+  },
+  eskizzibur: {
+    name: 'Eskizzibur',
+    image: 'icon-eskizzibur',
+    dlc: todf
+  },
+  prismaticMissile: {
+    name: 'Prismatic Missile',
+    image: 'icon-prism',
+    dlc: todf
+  },
+  shadowServant: {
+    name: 'Shadow Servant',
+    image: 'icon-servant',
+    dlc: todf
+  },
+  flashArrow: {
+    name: 'Flash Arrow',
+    image: 'icon-arrow',
+    dlc: todf
+  },
+  spellString: {
+    name: 'Spell String',
+    image: 'icon-spell1',
+    dlc: todf
+  },
+  spellStream: {
+    name: 'Spell Stream',
+    image: 'icon-spell2',
+    dlc: todf
+  },
+  spellStrike: {
+    name: 'Spell Strike',
+    image: 'icon-spell3',
+    dlc: todf
+  },
+  luckySwipe: {
+    name: 'Lucky Swipe',
+    image: 'icon-swipe',
+    dlc: em
+  },
+  report: {
+    name: 'Report!',
+    image: 'icon-report',
+    dlc: em
+  },
+  lifesignScan: {
+    name: 'Lifesign Scan',
+    image: 'icon-scan',
+    dlc: em
+  },
+  justVent: {
+    name: 'Just Vent',
+    image: 'icon-vent',
+    dlc: em
+  },
+  clearDebris: {
+    name: 'Clear Debris',
+    image: 'icon-debris',
+    dlc: em
+  },
+  sharpTongue: {
+    name: 'Sharp Tongue',
+    image: 'icon-tongue',
+    dlc: em
+  },
+  scienceRocks: {
+    name: 'Science Rocks',
+    image: 'icon-rocks',
+    dlc: em
+  },
+  longGun: {
+    name: 'Long Gun',
+    image: 'icon-longgun',
+    dlc: og
+  },
+  shortGun: {
+    name: 'Short Gun',
+    image: 'icon-shortgun',
+    dlc: og
+  },
+  spreadShot: {
+    name: 'Spread Shot',
+    image: 'icon-spreadshot',
+    dlc: og
+  },
+  cuLaser: {
+    name: 'C-U-Laser',
+    image: 'icon-laser',
+    dlc: og
+  },
+  firearm: {
+    name: 'Firearm',
+    image: 'icon-firearm',
+    dlc: og
+  },
+  sonicBloom: {
+    name: 'Sonic Bloom',
+    image: 'icon-sonic',
+    dlc: og
+  },
+  homingMissile: {
+    name: 'Homing Missile',
+    image: 'icon-homingmiss',
+    dlc: og
+  },
+  diverMines: {
+    name: 'Diver Mines',
+    image: 'icon-mines',
+    dlc: og
+  },
+  bladeCrossbow: {
+    name: 'Blade Crossbow',
+    image: 'icon-crossbow',
+    dlc: og
+  },
+  prismLass: {
+    name: 'Prism Lass',
+    image: 'icon-lass',
+    dlc: og
+  },
+  metalClaw: {
+    name: 'Metal Claw',
+    image: 'icon-claw',
+    dlc: og
+  },
+  alchemyWhip: {
+    name: 'Alchemy Whip',
+    image: 'icon-Alchemy_Whip',
+    dlc: otc
+  },
+  dragonWaterWhip: {
+    name: 'Dragon Water Whip',
+    image: 'icon-Dragon_Water_Whip',
+    dlc: otc
+  },
+  platinumWhip: {
+    name: 'Platinum Whip',
+    image: 'icon-Platinum_Whip',
+    dlc: otc
+  },
+  sonicWhip: {
+    name: 'Sonic Whip',
+    image: 'icon-Sonic_Whip',
+    dlc: otc
+  },
+  windWhip: {
+    name: 'Wind Whip',
+    image: 'icon-Wind_Whip',
+    dlc: otc
+  },
+  alucardSpear: {
+    name: 'Alucard Spear',
+    image: 'icon-Alucard_Spear',
+    dlc: otc
+  },
+  alucartSworb: {
+    name: 'Alucart Sworb',
+    image: 'icon-Alucart_Sworb',
+    dlc: otc
+  },
+  centralisCustos: {
+    name: 'Centralis Custos',
+    image: 'icon-Centralis_Custos',
+    dlc: otc
+  },
+  confodere: {
+    name: 'Confodere',
+    image: 'icon-Confodere',
+    dlc: otc
+  },
+  curvedKnife: {
+    name: 'Curved Knife',
+    image: 'icon-Curved_Knife',
+    dlc: otc
+  },
+  dextroCustos: {
+    name: 'Dextro Custos',
+    image: 'icon-Dextro_Custos',
+    dlc: otc
+  },
+  discus: {
+    name: 'Discus',
+    image: 'icon-Discus',
+    dlc: otc
+  },
+  dominusAgony: {
+    name: 'Dominus Agony',
+    image: 'icon-Dominus_Agony',
+    dlc: otc
+  },
+  dominusAnger: {
+    name: 'Dominus Anger',
+    image: 'icon-Dominus_Anger',
+    dlc: otc
+  },
+  dominusHatred: {
+    name: 'Dominus Hatred',
+    image: 'icon-Dominus_Hatred',
+    dlc: otc
+  },
+  endoGears: {
+    name: 'Endo Gears',
+    image: 'icon-Endo_Gears',
+    dlc: otc
+  },
+  epiHead: {
+    name: 'Epi Head',
+    image: 'icon-Epi_Head',
+    dlc: otc
+  },
+  fulgur: {
+    name: 'Fulgur',
+    image: 'icon-Fulgur',
+    dlc: otc
+  },
+  galeForce: {
+    name: 'Gale Force',
+    image: 'icon-Gale_Force',
+    dlc: otc
+  },
+  globus: {
+    name: 'Globus',
+    image: 'icon-Globus',
+    dlc: otc
+  },
+  guardiansTarge: {
+    name: 'Guardians Targe',
+    image: 'icon-Guardians_Targe',
+    dlc: otc
+  },
+  handGrenade: {
+    name: 'Hand Grenade',
+    image: 'icon-Hand_Grenade',
+    dlc: otc
+  },
+  hex: {
+    name: 'Hex',
+    image: 'icon-Hex',
+    dlc: otc
+  },
+  iceFang: {
+    name: 'Ice Fang',
+    image: 'icon-Ice_Fang',
+    dlc: otc
+  },
+  ironBall: {
+    name: 'Iron Ball',
+    image: 'icon-Iron_Ball',
+    dlc: otc
+  },
+  ironShield: {
+    name: 'Iron Shield',
+    image: 'icon-Iron_Shield',
+    dlc: otc
+  },
+  javelin: {
+    name: 'Javelin',
+    image: 'icon-Javelin',
+    dlc: otc
+  },
+  jetBlackWhip: {
+    name: 'Jet Black Whip',
+    image: 'icon-Jet_Black_Whip',
+    dlc: otc
+  },
+  keremetBubbles: {
+    name: 'Keremet Bubbles',
+    image: 'icon-Keremet_Bubbles',
+    dlc: otc
+  },
+  luminatio: {
+    name: 'Luminatio',
+    image: 'icon-Luminatio',
+    dlc: otc
+  },
+  mace: {
+    name: 'Mace',
+    image: 'icon-Mace',
+    dlc: otc
+  },
+  myoLift: {
+    name: 'Myo Lift',
+    image: 'icon-Myo_Lift',
+    dlc: otc
+  },
+  opticalShot: {
+    name: 'Optical Shot',
+    image: 'icon-Optical_Shot',
+    dlc: otc
+  },
+  periPendulum: {
+    name: 'Peri Pendulum',
+    image: 'icon-Peri_Pendulum',
+    dlc: otc
+  },
+  ragingFire: {
+    name: 'Raging Fire',
+    image: 'icon-Raging_Fire',
+    dlc: otc
+  },
+  refectio: {
+    name: 'Refectio',
+    image: 'icon-Refectio',
+    dlc: otc
+  },
+  rockRiot: {
+    name: 'Rock Riot',
+    image: 'icon-Rock_Riot',
+    dlc: otc
+  },
+  shuriken: {
+    name: 'Shuriken',
+    image: 'icon-Shuriken',
+    dlc: otc
+  },
+  silverRevolver: {
+    name: 'Silver Revolver',
+    image: 'icon-Silver_Revolver',
+    dlc: otc
+  },
+  sinestroCustos: {
+    name: 'Sinestro Custos',
+    image: 'icon-Sinestro_Custos',
+    dlc: otc
+  },
+  sonicDash: {
+    name: 'Sonic Dash',
+    image: 'icon-Sonic_Dash',
+    dlc: otc
+  },
+  starFlail: {
+    name: 'Star Flail',
+    image: 'icon-Star_Flail',
+    dlc: otc
+  },
+  trident: {
+    name: 'Trident',
+    image: 'icon-Trident',
+    dlc: otc
+  },
+  tyrfing: {
+    name: 'Tyrfing',
+    image: 'icon-Tyrfing',
+    dlc: otc
+  },
+  umbra: {
+    name: 'Umbra',
+    image: 'icon-Umbra',
+    dlc: otc
+  },
+  vanitasWhip: {
+    name: 'Vanitas Whip',
+    image: 'icon-Vanitas_Whip',
+    dlc: otc
+  },
+  vibhutiWhip: {
+    name: 'Vibhuti Whip',
+    image: 'icon-Vibhuti_Whip',
+    dlc: otc
+  },
+  wineGlass: {
+    name: 'Wine Glass',
+    image: 'icon-Wine_Glass',
+    dlc: otc
+  },
+}
+
+const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
+  bloodyTear: {
+    name: 'Bloody Tear',
+    image: 'icon-whip_'
   },
   holyWand: {
     name: 'Holy Wand',
     image: 'icon-magicwand_'
   },
-  knife: {
-    name: 'Knife',
-    image: 'icon-knife'
-  },
   thousandEdge: {
     name: 'Thousand Edge',
     image: 'icon-knife_'
-  },
-  axe: {
-    name: 'Axe',
-    image: 'icon-axe'
   },
   deathSpiral: {
     name: 'Death Spiral',
     image: 'icon-axe_'
   },
-  cross: {
-    name: 'Cross',
-    image: 'icon-cross'
-  },
   heavenSword: {
     name: 'Heaven Sword',
     image: 'icon-cross_'
-  },
-  runeTracer: {
-    name: 'Rune Tracer',
-    image: 'icon-runetracer'
   },
   noFuture: {
     name: 'NO FUTURE',
     image: 'icon-runetracer_'
   },
-  firewand: {
-    name: 'Fire Wand',
-    image: 'icon-firewand'
-  },
   hellfire: {
     name: 'Hellfire',
     image: 'icon-firewand_'
-  },
-  lightning: {
-    name: 'Lightning Ring',
-    image: 'icon-lightning'
   },
   thunderLoop: {
     name: 'Thunder Loop',
     image: 'icon-lightning_'
   },
-  peachone: {
-    name: 'Peachone',
-    image: 'icon-bird1'
-  },
-  ebonyWings: {
-    name: 'Ebony Wings',
-    image: 'icon-bird2'
-  },
   vandalier: {
     name: 'Vandalier',
     image: 'icon-bird_'
-  },
-  garlic: {
-    name: 'Garlic',
-    image: 'icon-garlic'
   },
   soulEater: {
     name: 'Soul Eater',
     image: 'icon-garlic_'
   },
-  king_bible: {
-    name: 'King Bible',
-    image: 'icon-bible'
-  },
-  holyBible: {
-    name: 'Holy Bible',
-    image: 'icon-bible'
-  },
   unholyVespers: {
     name: 'Unholy Vespers',
     image: 'icon-bible_'
-  },
-  santa_water: {
-    name: 'Santa Water',
-    image: 'icon-water'
   },
   la_borra: {
     name: 'La Borra',
     image: 'icon-water_'
   },
-  pentagram: {
-    name: 'Pentagram',
-    image: 'icon-pentagram'
-  },
   gorgeous_moon: {
     name: 'Gorgeous Moon',
     image: 'icon-pentagram_'
-  },
-  laurel: {
-    name: 'Laurel',
-    image: 'icon-laurel'
   },
   crimsonShroud: {
     name: 'Crimson Shroud',
     image: 'icon-laurel_'
   },
-  clock_lancet: {
-    name: 'Clock Lancet',
-    image: 'icon-lancet'
-  },
   infiniteCorridor: {
     name: 'Infinite Corridor',
     image: 'icon-lancet_'
-  },
-  song_of_mana: {
-    name: 'Song of Mana',
-    image: 'icon-mana'
   },
   mannajja: {
     name: 'Mannajja',
     image: 'icon-mana_'
   },
-  phiera_del_tuphello: {
-    name: 'Phiera Der Tuphello',
-    image: 'icon-guns1'
-  },
-  eight_the_sparrow: {
-    name: 'Eight The Sparrow',
-    image: 'icon-guns2'
-  },
   phieraggi: {
     name: 'Phieraggi',
     image: 'icon-guns_'
-  },
-  flames_of_muspell: {
-    name: 'Flames of Muspell',
-    image: 'icon-flame'
   },
   ashes_of_muspell: {
     name: 'Ashes of Muspell',
     image: 'icon-flame_'
   },
-  victory_sword: {
-    name: 'Victory Sword',
-    image: 'icon-sword'
-  },
   sole_solution: {
     name: 'Sole Solution',
     image: 'icon-sword_'
-  },
-  bracelet: {
-    name: 'Bracelet',
-    image: 'icon-bracelet'
   },
   bi_bracelet: {
     name: 'Bi-Bracelet',
@@ -178,495 +630,149 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
     name: 'Tri-Bracelet',
     image: 'icon-bracelet__'
   },
-  santa_javelin: {
-    name: 'Santa Javelin',
-    image: 'icon-javelin'
-  },
   seraphic_cry: {
     name: 'Seraphic Cry',
     image: 'icon-javelin_'
-  },
-  pako_battiliar: {
-    name: 'Pako Battiliar',
-    image: 'icon-pako'
   },
   mazo_familiar: {
     name: 'Mazo Familiar',
     image: 'icon-pako_'
   },
-  phas3r: {
-    name: 'Phas3r',
-    image: 'icon-phas3r'
-  },
   photonstorm: {
     name: 'Photonstorm',
     image: 'icon-phas3r_'
-  },
-  glass_fandango: {
-    name: 'Glass Fandango',
-    image: 'icon-fandango'
   },
   celestial_voulge: {
     name: 'Celestial Voulge',
     image: 'icon-fandango_'
   },
-  vento_sacro: {
-    name: 'Vento Sacro',
-    image: 'icon-vento'
-  },
   fuwalafuwaloo: {
     name: 'Fuwalafuwaloo',
     image: 'icon-vento_'
-  },
-  shadow_pinion: {
-    name: 'Shadow Pinion',
-    image: 'icon-pinion'
   },
   valkyrie_turner: {
     name: 'Valkyrie Turner',
     image: 'icon-pinion_'
   },
-  gatti_amari: {
-    name: 'Gatti Amari',
-    image: 'icon-cat'
-  },
   vicious_hunger: {
     name: 'Vicious Hunger',
     image: 'icon-cat_'
-  },
-  silverWind: {
-    name: 'Silver Wind',
-    image: 'icon-wind'
   },
   festiveWind: {
     name: 'Festive Wind',
     image: 'icon-wind_'
   },
-  summonNight: {
-    name: 'Summon Night',
-    image: 'icon-night'
-  },
   echoOfNight: {
     name: 'Echo of Night',
     image: 'icon-night_'
-  },
-  mirageRobe: {
-    name: 'Mirage Robe',
-    image: 'icon-mirage'
   },
   jOdore: {
     name: 'J Odore',
     image: 'icon-mirage_'
   },
-  milleBolleBlu: {
-    name: 'Mille Bolle Blu',
-    image: 'icon-bolle'
-  },
   booRooBolle: {
     name: 'Boo Roo Bolle',
     image: 'icon-bolle_'
-  },
-  nightSword: {
-    name: 'Night Sword',
-    image: 'icon-muramasa'
   },
   muramasa: {
     name: 'Muramasa',
     image: 'icon-muramasa_'
   },
-  fourSeasons: {
-    name: 'Four Seasons',
-    image: 'icon-seasons'
-  },
   godaiShuffle: {
     name: 'Godai Shuffle',
     image: 'icon-seasons_'
-  },
-  // totf
-  eskizzibur: {
-    name: 'Eskizzibur',
-    image: 'icon-eskizzibur'
   },
   legionnaire: {
     name: 'Legionnaire',
     image: 'icon-eskizzibur_'
   },
-  prismaticMissile: {
-    name: 'Prismatic Missile',
-    image: 'icon-prism'
-  },
   luminaire: {
     name: 'Luminaire',
     image: 'icon-prism_'
-  },
-  shadowServant: {
-    name: 'Shadow Servant',
-    image: 'icon-servant'
   },
   ophion: {
     name: 'Ophion',
     image: 'icon-servant_'
   },
-  flashArrow: {
-    name: 'Flash Arrow',
-    image: 'icon-arrow'
-  },
   millionaire: {
     name: 'Millionaire',
     image: 'icon-arrow_'
-  },
-  spellString: {
-    name: 'Spell String',
-    image: 'icon-spell1'
-  },
-  spellStream: {
-    name: 'Spell Stream',
-    image: 'icon-spell2'
-  },
-  spellStrike: {
-    name: 'Spell Strike',
-    image: 'icon-spell3'
   },
   spellStorm: {
     name: 'Spell Storm',
     image: 'icon-spell_'
   },
-  // em
-  luckySwipe: {
-    name: 'Lucky Swipe',
-    image: 'icon-swipe'
-  },
   crossedWires: {
     name: 'Crossed Wires',
     image: 'icon-swipe_'
-  },
-  report: {
-    name: 'Report!',
-    image: 'icon-report'
   },
   emergencyMeeting: {
     name: 'Emergency Meeting',
     image: 'icon-report_'
   },
-  lifesignScan: {
-    name: 'Lifesign Scan',
-    image: 'icon-scan'
-  },
   paranormalScan: {
     name: 'Paranormal Scan',
     image: 'icon-scan_'
-  },
-  justVent: {
-    name: 'Just Vent',
-    image: 'icon-vent'
   },
   unjustEjection: {
     name: 'Unjust Ejection',
     image: 'icon-vent_'
   },
-  clearDebris: {
-    name: 'Clear Debris',
-    image: 'icon-debris'
-  },
   clearAsteroids: {
     name: 'Clear Asteroids',
     image: 'icon-debris_'
-  },
-  sharpTongue: {
-    name: 'Sharp Tongue',
-    image: 'icon-tongue'
   },
   impostongue: {
     name: 'Impostongue',
     image: 'icon-tongue_'
   },
-  scienceRocks: {
-    name: 'Science Rocks',
-    image: 'icon-rocks'
-  },
   rocketScience: {
     name: 'Rocket Science',
     image: 'icon-rocks_'
-  },
-  longGun: {
-    name: 'Long Gun',
-    image: 'icon-longgun'
   },
   prototypeA: {
     name: 'Prototype A',
     image: 'icon-longgun_'
   },
-  shortGun: {
-    name: 'Short Gun',
-    image: 'icon-shortgun'
-  },
   prototypeB: {
     name: 'Prototype B',
     image: 'icon-shortgun_'
-  },
-  spreadShot: {
-    name: 'Spread Shot',
-    image: 'icon-spreadshot'
   },
   prototypeC: {
     name: 'Prototype C',
     image: 'icon-spreadshot_'
   },
-  cuLaser: {
-    name: 'C-U-Laser',
-    image: 'icon-laser'
-  },
   prontoBeam: {
     name: 'Pronto Beam',
     image: 'icon-laser_'
-  },
-  firearm: {
-    name: 'Firearm',
-    image: 'icon-firearm'
   },
   fireL3GS: {
     name: 'Fire-L3GS',
     image: 'icon-firearm_'
   },
-  sonicBloom: {
-    name: 'Sonic Bloom',
-    image: 'icon-sonic'
-  },
   waveBeam: {
     name: 'Wave Beam',
     image: 'icon-sonic_'
-  },
-  homingMissile: {
-    name: 'Homing Missile',
-    image: 'icon-homingmiss'
   },
   multistageMissiles: {
     name: 'Multistage Missiles',
     image: 'icon-homingmiss_'
   },
-  diverMines: {
-    name: 'Diver Mines',
-    image: 'icon-mines'
-  },
   atmoTorpedo: {
     name: 'Atmo-Torpedo',
     image: 'icon-mines_'
-  },
-  bladeCrossbow: {
-    name: 'Blade Crossbow',
-    image: 'icon-crossbow'
   },
   bfc2000Ad: {
     name: 'BFC2000-AD',
     image: 'icon-crossbow_'
   },
-  prismLass: {
-    name: 'Prism Lass',
-    image: 'icon-lass'
-  },
   timeWarp: {
     name: 'Time Warp',
     image: 'icon-lass_'
   },
-  metalClaw: {
-    name: 'Metal Claw',
-    image: 'icon-claw'
-  },
   bigFuzzyFist: {
     name: 'Big Fuzzy Fist',
     image: 'icon-claw_'
-  },
-  alchemyWhip: {
-    name: 'Alchemy Whip',
-    image: 'icon-Alchemy_Whip'
-  },
-  dragonWaterWhip: {
-    name: 'Dragon Water Whip',
-    image: 'icon-Dragon_Water_Whip'
-  },
-  platinumWhip: {
-    name: 'Platinum Whip',
-    image: 'icon-Platinum_Whip'
-  },
-  sonicWhip: {
-    name: 'Sonic Whip',
-    image: 'icon-Sonic_Whip'
-  },
-  windWhip: {
-    name: 'Wind Whip',
-    image: 'icon-Wind_Whip'
-  },
-  alucardSpear: {
-    name: 'Alucard Spear',
-    image: 'icon-Alucard_Spear'
-  },
-  alucartSworb: {
-    name: 'Alucart Sworb',
-    image: 'icon-Alucart_Sworb'
-  },
-  centralisCustos: {
-    name: 'Centralis Custos',
-    image: 'icon-Centralis_Custos'
-  },
-  confodere: {
-    name: 'Confodere',
-    image: 'icon-Confodere'
-  },
-  curvedKnife: {
-    name: 'Curved Knife',
-    image: 'icon-Curved_Knife'
-  },
-  dextroCustos: {
-    name: 'Dextro Custos',
-    image: 'icon-Dextro_Custos'
-  },
-  discus: {
-    name: 'Discus',
-    image: 'icon-Discus'
-  },
-  dominusAgony: {
-    name: 'Dominus Agony',
-    image: 'icon-Dominus_Agony'
-  },
-  dominusAnger: {
-    name: 'Dominus Anger',
-    image: 'icon-Dominus_Anger'
-  },
-  dominusHatred: {
-    name: 'Dominus Hatred',
-    image: 'icon-Dominus_Hatred'
-  },
-  endoGears: {
-    name: 'Endo Gears',
-    image: 'icon-Endo_Gears'
-  },
-  epiHead: {
-    name: 'Epi Head',
-    image: 'icon-Epi_Head'
-  },
-  fulgur: {
-    name: 'Fulgur',
-    image: 'icon-Fulgur'
-  },
-  galeForce: {
-    name: 'Gale Force',
-    image: 'icon-Gale_Force'
-  },
-  globus: {
-    name: 'Globus',
-    image: 'icon-Globus'
-  },
-  guardiansTarge: {
-    name: 'Guardians Targe',
-    image: 'icon-Guardians_Targe'
-  },
-  handGrenade: {
-    name: 'Hand Grenade',
-    image: 'icon-Hand_Grenade'
-  },
-  hex: {
-    name: 'Hex',
-    image: 'icon-Hex'
-  },
-  iceFang: {
-    name: 'Ice Fang',
-    image: 'icon-Ice_Fang'
-  },
-  ironBall: {
-    name: 'Iron Ball',
-    image: 'icon-Iron_Ball'
-  },
-  ironShield: {
-    name: 'Iron Shield',
-    image: 'icon-Iron_Shield'
-  },
-  javelin: {
-    name: 'Javelin',
-    image: 'icon-Javelin'
-  },
-  jetBlackWhip: {
-    name: 'Jet Black Whip',
-    image: 'icon-Jet_Black_Whip'
-  },
-  keremetBubbles: {
-    name: 'Keremet Bubbles',
-    image: 'icon-Keremet_Bubbles'
-  },
-  luminatio: {
-    name: 'Luminatio',
-    image: 'icon-Luminatio'
-  },
-  mace: {
-    name: 'Mace',
-    image: 'icon-Mace'
-  },
-  myoLift: {
-    name: 'Myo Lift',
-    image: 'icon-Myo_Lift'
-  },
-  opticalShot: {
-    name: 'Optical Shot',
-    image: 'icon-Optical_Shot'
-  },
-  periPendulum: {
-    name: 'Peri Pendulum',
-    image: 'icon-Peri_Pendulum'
-  },
-  ragingFire: {
-    name: 'Raging Fire',
-    image: 'icon-Raging_Fire'
-  },
-  refectio: {
-    name: 'Refectio',
-    image: 'icon-Refectio'
-  },
-  rockRiot: {
-    name: 'Rock Riot',
-    image: 'icon-Rock_Riot'
-  },
-  shuriken: {
-    name: 'Shuriken',
-    image: 'icon-Shuriken'
-  },
-  silverRevolver: {
-    name: 'Silver Revolver',
-    image: 'icon-Silver_Revolver'
-  },
-  sinestroCustos: {
-    name: 'Sinestro Custos',
-    image: 'icon-Sinestro_Custos'
-  },
-  sonicDash: {
-    name: 'Sonic Dash',
-    image: 'icon-Sonic_Dash'
-  },
-  starFlail: {
-    name: 'Star Flail',
-    image: 'icon-Star_Flail'
-  },
-  trident: {
-    name: 'Trident',
-    image: 'icon-Trident'
-  },
-  tyrfing: {
-    name: 'Tyrfing',
-    image: 'icon-Tyrfing'
-  },
-  umbra: {
-    name: 'Umbra',
-    image: 'icon-Umbra'
-  },
-  vanitasWhip: {
-    name: 'Vanitas Whip',
-    image: 'icon-Vanitas_Whip'
-  },
-  vibhutiWhip: {
-    name: 'Vibhuti Whip',
-    image: 'icon-Vibhuti_Whip'
-  },
-  wineGlass: {
-    name: 'Wine Glass',
-    image: 'icon-Wine_Glass'
   },
   acerbatus: {
     name: 'Acerbatus',
@@ -846,6 +952,7 @@ const _weapons: Record<string, Omit<TItem, 'type'>> = {
   }
 }
 
+const _weapons = { ...mergeIntoNestedObjects(_baseWeapons, { evolved: false }), ...mergeIntoNestedObjects(_evolvedWeapons, { evolved: true }) }
 
 export const weapons = mergeIntoNestedObjects<
   typeof _weapons,
