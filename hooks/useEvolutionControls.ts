@@ -76,7 +76,7 @@ const useEvolutionFiltering = (
       if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) continue;
 
       if (selectedPassives.size === 0) {
-        passiveUnfiltered.push(evolution);
+        passiveFiltered.push(evolution);
         continue;
       }
 
