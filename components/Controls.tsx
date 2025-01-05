@@ -51,6 +51,7 @@ export function Controls({
       </div>
       <WeaponControls
         selectedWeapons={selectedWeapons}
+        selectedDlcs={selectedDlcs}
         onToggleWeapon={onToggleWeapon}
         onResetWeapons={onResetWeapons}
       />

@@ -7,20 +7,25 @@ import { cn } from "@/lib/utils";
 import { dlcClasses } from "./constants";
 import { Collapsible } from "../ui/Collapsible";
 import { base } from "@/data/constants";
+import { TDlc } from "@/data/types";
 
 interface WeaponControlsProps {
   selectedWeapons: Set<string>;
+  selectedDlcs: Set<TDlc>;
   onToggleWeapon: (weapon: string) => void;
   onResetWeapons: () => void;
 }
 
 export function WeaponControls({
   selectedWeapons,
+  selectedDlcs,
   onToggleWeapon,
   onResetWeapons,
 }: WeaponControlsProps) {
   const filteredUnevolvedWeapons = Object.values(weapons).filter(
-    (weapon) => !weapon.evolved
+    (weapon) =>
+      !weapon.evolved &&
+      (!weapon.dlc || selectedDlcs.has(weapon.dlc))
   );
 
   return (
