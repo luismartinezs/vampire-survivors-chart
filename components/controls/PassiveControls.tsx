@@ -31,13 +31,13 @@ export function PassiveControls({
           size="sm"
           aria-label="Reset Passives"
           className={cn(
-            "p-1 aspect-square",
+            "p-1 aspect-square h-full",
             selectedPassives.size === 0
               ? dlcClasses.base.selected
               : dlcClasses.base.unselected
           )}
         >
-          <RotateCcw className="size-4 sm:size-6 md:size-8 lg:size-10 text-white" />
+          <RotateCcw className="size-[100%] text-white" />
         </Button>
         {filteredPassives.map((passive) => (
           <Button
@@ -45,11 +45,12 @@ export function PassiveControls({
             variant="outline"
             onClick={() => onTogglePassive(passive.name)}
             size="sm"
-            className={`p-1 ${
+            className={cn(
+              "p-1 aspect-square",
               selectedPassives.has(passive.name)
                 ? dlcClasses.base.selected
                 : dlcClasses.base.unselected
-            }`}
+            )}
             title={passive.name}
           >
             <ResponsiveItem item={passive} />

@@ -19,7 +19,7 @@ export function ResponsiveItem({ item, tags }: ResponsiveItemProps) {
       ))}
       <Item item={item} size="xs" className="sm:hidden" />
       <Item item={item} size="sm" className="hidden md:hidden sm:block" />
-      <Item item={item} size="md" className="hidden md:block" />
+      <Item item={item} size="sm" className="hidden md:block" />
     </div>
   );
 }

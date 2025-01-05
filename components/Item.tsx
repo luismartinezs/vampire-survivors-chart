@@ -9,9 +9,9 @@ interface ItemProps {
 export function Item({ item, className, size = "md" }: ItemProps) {
   const sizeClasses = {
     xs: "size-[1.4rem]",
-    sm: "size-8",
-    md: "size-10",
-    lg: "size-12",
+    sm: "size-7",
+    md: "size-9",
+    lg: "size-11",
   };
 
   return (

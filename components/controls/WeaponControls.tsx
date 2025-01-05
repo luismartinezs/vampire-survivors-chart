@@ -32,13 +32,13 @@ export function WeaponControls({
           size="sm"
           aria-label="Reset Weapons"
           className={cn(
-            "p-1 aspect-square",
+            "p-1 aspect-square h-full",
             selectedWeapons.size === 0
               ? dlcClasses.base.selected
               : dlcClasses.base.unselected
           )}
         >
-          <RotateCcw className="size-4 sm:size-6 md:size-8 lg:size-10 text-white" />
+          <RotateCcw className="h-full w-full text-white" />
         </Button>
         {filteredUnevolvedWeapons.map((weapon) => (
           <Button
@@ -47,7 +47,7 @@ export function WeaponControls({
             onClick={() => onToggleWeapon(weapon.name)}
             size="sm"
             className={cn(
-              "p-1",
+              "p-1 aspect-square",
               selectedWeapons.has(weapon.name)
                 ? dlcClasses[weapon.dlc || base].selected
                 : dlcClasses[weapon.dlc || base].unselected
