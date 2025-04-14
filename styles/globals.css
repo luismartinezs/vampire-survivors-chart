@@ -6,6 +6,8 @@
 @import './ode/passives.css';
 @import './ode/weapons.css';
 @import './ode/evolutions.css';
+@import './ed/weapons.css';
+@import './ed/evolutions.css';
 
 .pixelated {
   image-rendering: pixelated;
