@@ -76,6 +76,10 @@ const baseEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.phas3r }, '+', { item: items.emptyTome, tags: ['max'] }, '=', { item: items.photonstorm }]
   },
   {
+    id: 115,
+    elements: [{ item: items.gazeOfGaea }, '+', { item: items.parm_aegis, tags: ['max'] }, '=', { item: items.embraceOfGaea }]
+  },
+  {
     id: 21,
     elements: [{ item: items.pako_battiliar }, '+', { item: items.hollowHeart, tags: ['max'] }, '=', { item: items.mazo_familiar }]
   },
@@ -471,7 +475,7 @@ const edEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.flamberge }, '⇒', { item: items.zweihander, tags: ['first-evo'] }, '⇒', { item: items.galatyn }]
   },
   {
-    id: 115,
+    id: 116,
     elements: [{ item: items.emeraldRapture }, '+', { item: items.crown }, '=', { item: items.emeraldWave }]
   },
 ]
