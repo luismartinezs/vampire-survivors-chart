@@ -148,6 +148,11 @@ const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
     image: 'icon-phas3r',
     dlc: base
   },
+  gazeOfGaea: {
+    name: 'Gaze of Gaea',
+    image: 'icon-Gaze_of_Gaea',
+    dlc: base
+  },
   silverWind: {
     name: 'Silver Wind',
     image: 'icon-wind',
@@ -543,7 +548,86 @@ const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
     image: 'icon-Epi_Head',
     dlc: otc
   },
-  // TODO add emerald diorama weapons
+  fleuret: {
+    name: 'Fleuret',
+    image: 'icon-Fleuret',
+    dlc: ed,
+  },
+  splashers: {
+    name: 'Splashers',
+    image: 'icon-Splashers',
+    dlc: ed,
+  },
+  superMissile: {
+    name: 'Super Missile',
+    image: 'icon-Super_Missile',
+    dlc: ed,
+  },
+  twinDragon: {
+    name: 'Twin Dragon',
+    image: 'icon-Twin_Dragon',
+    dlc: ed,
+  },
+  punch: {
+    name: 'Punch',
+    image: 'icon-Punch',
+    dlc: ed,
+  },
+  kick: {
+    name: 'Kick',
+    image: 'icon-Kick',
+    dlc: ed,
+  },
+  spiritRings: {
+    name: 'Spirit Rings',
+    image: 'icon-Spirit_Rings',
+    dlc: ed,
+  },
+  saberMachineGun: {
+    name: 'Saber Machine Gun',
+    image: 'icon-Saber_Machine_Gun',
+    dlc: ed,
+  },
+  eagleGun: {
+    name: 'Eagle Gun',
+    image: 'icon-Eagle_Gun',
+    dlc: ed,
+  },
+  townSword: {
+    name: 'Town Sword',
+    image: 'icon-Town_Sword',
+    dlc: ed,
+  },
+  sanguineStar: {
+    name: 'Sanguine Star',
+    image: 'icon-Sanguine_Star',
+    dlc: ed,
+  },
+  khukuri: {
+    name: 'Khukuri',
+    image: 'icon-Khukuri',
+    dlc: ed,
+  },
+  bullova: {
+    name: 'Bullova',
+    image: 'icon-Bullova',
+    dlc: ed,
+  },
+  glaive: {
+    name: 'Glaive',
+    image: 'icon-Glaive',
+    dlc: ed,
+  },
+  flamberge: {
+    name: 'Flamberge',
+    image: 'icon-Flamberge',
+    dlc: ed,
+  },
+  emeraldRapture: {
+    name: 'Emerald Rapture',
+    image: 'icon-Emerald_Rapture',
+    dlc: ed,
+  },
 }
 
 const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
@@ -658,6 +742,10 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
   vicious_hunger: {
     name: 'Vicious Hunger',
     image: 'icon-cat_'
+  },
+  embraceOfGaea: {
+    name: 'Embrace of Gaea',
+    image: 'icon-Embrace_of_Gaea',
   },
   festiveWind: {
     name: 'Festive Wind',
@@ -951,7 +1039,98 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
     name: 'Yagyu Shuriken',
     image: 'icon-Yagyu_Shuriken'
   },
-  // TODO add emerald diorama evolutions
+  dressSword: {
+    name: 'Dress Sword',
+    image: 'icon-Dress_Sword'
+  },
+  pursuantBlades: {
+    name: 'Pursuant Blades',
+    image: 'icon-Pursuant_Blades'
+  },
+  hydraCannon: {
+    name: 'Hydra Cannon',
+    image: 'icon-Hydra_Cannon'
+  },
+  gekkabijin: {
+    name: 'Gekkabijin',
+    image: 'icon-Gekkabijin'
+  },
+  pressurePoint: {
+    name: 'Pressure Point',
+    image: 'icon-Pressure_Point'
+  },
+  triangleKick: {
+    name: 'Triangle Kick',
+    image: 'icon-Triangle_Kick'
+  },
+  ringsOfCalamity: {
+    name: 'Rings of Calamity',
+    image: 'icon-Rings_of_Calamity'
+  },
+  hecatonMachineGun: {
+    name: 'Hecaton Machine Gun',
+    image: 'icon-Hecaton_Machine_Gun'
+  },
+  pendragon: {
+    name: 'Pendragon',
+    image: 'icon-Pendragon'
+  },
+  lordstar: {
+    name: 'Lordstar',
+    image: 'icon-Lordstar'
+  },
+  bloodChalice: {
+    name: 'Blood Chalice',
+    image: 'icon-Blood_Chalice'
+  },
+  jetstream: {
+    name: 'Jetstream',
+    image: 'icon-Jetstream'
+  },
+  falconwind: {
+    name: 'Falconwind',
+    image: 'icon-Falconwind'
+  },
+  featherSpear: {
+    name: 'Feather Spear',
+    image: 'icon-Feather_Spear'
+  },
+  zweihander: {
+    name: 'Zweihander',
+    image: 'icon-Zweihander'
+  },
+  emeraldWave: {
+    name: 'Emerald Wave',
+    image: 'icon-Emerald_Wave'
+  },
+  espadaRopera: {
+    name: 'Espada Ropera',
+    image: 'icon-Espada_Ropera'
+  },
+  hyperionBazooka: {
+    name: 'Hyperion Bazooka',
+    image: 'icon-Hyperion_Bazooka'
+  },
+  gildedHand: {
+    name: 'Gilded Hand',
+    image: 'icon-Gilded_Hand'
+  },
+  divergence: {
+    name: 'Divergence',
+    image: 'icon-Divergence'
+  },
+  dayblade: {
+    name: 'Dayblade',
+    image: 'icon-Dayblade'
+  },
+  lohengrin: {
+    name: 'Lohengrin',
+    image: 'icon-Lohengrin'
+  },
+  galatyn: {
+    name: 'Galatyn',
+    image: 'icon-Galatyn'
+  },
 }
 
 const _weapons = { ...mergeIntoNestedObjects(_baseWeapons, { evolved: false }), ...mergeIntoNestedObjects(_evolvedWeapons, { evolved: true }) }

@@ -138,6 +138,10 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
   karomas_mana: {
     name: "Karoma's Mana",
     image: 'icon-Karomas_Mana'
+  },
+  fiveMaxPassives: { // Pseudo-item for Spirit Rings evolution
+    name: '5',
+    image: 'icon-five-max'
   }
 }
 

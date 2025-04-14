@@ -8,6 +8,7 @@
 @import './ode/evolutions.css';
 @import './ed/weapons.css';
 @import './ed/evolutions.css';
+@import './misc.css';
 
 .pixelated {
   image-rendering: pixelated;

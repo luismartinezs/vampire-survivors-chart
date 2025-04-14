@@ -410,7 +410,70 @@ const otcEvolutions: TWeaponEvolution[] = [
 ]
 
 const edEvolutions: TWeaponEvolution[] = [
-  // TODO add emerald diorama evolutions
+  {
+    id: 100,
+    elements: [{ item: items.fleuret }, '⇒', { item: items.dressSword, tags: ['first-evo'] }, '⇒', { item: items.espadaRopera }]
+  },
+  {
+    id: 101,
+    elements: [{ item: items.splashers }, '+', { item: items.spellbinder }, '=', { item: items.pursuantBlades }]
+  },
+  {
+    id: 102,
+    elements: [{ item: items.superMissile }, '⇒', { item: items.hydraCannon, tags: ['first-evo'] }, '⇒', { item: items.hyperionBazooka }]
+  },
+  {
+    id: 103,
+    elements: [{ item: items.twinDragon }, '+', { item: items.karomas_mana }, '=', { item: items.gekkabijin }]
+  },
+  {
+    id: 104,
+    elements: [{ item: items.punch }, '⇒', { item: items.pressurePoint, tags: ['first-evo'] }, '⇒', { item: items.gildedHand }]
+  },
+  {
+    id: 105,
+    elements: [{ item: items.kick }, '+', { item: items.pummarola }, '=', { item: items.triangleKick }]
+  },
+  {
+    id: 106, // Requires max level Spirit Rings and 5 max level passive items
+    elements: [{ item: items.spiritRings }, '+', { item: items.fiveMaxPassives, tags: ['max'] }, '=', { item: items.ringsOfCalamity }]
+  },
+  {
+    id: 107,
+    elements: [{ item: items.saberMachineGun }, '⇒', { item: items.hecatonMachineGun, tags: ['first-evo'] }, '⇒', { item: items.divergence }]
+  },
+  {
+    id: 108,
+    elements: [{ item: items.eagleGun }, '+', { item: items.spinach }, '=', { item: items.pendragon }]
+  },
+  {
+    id: 109,
+    elements: [{ item: items.townSword }, '⇒', { item: items.lordstar, tags: ['first-evo'] }, '⇒', { item: items.dayblade }]
+  },
+  {
+    id: 110,
+    elements: [{ item: items.sanguineStar }, '+', { item: items.stone_mask }, '=', { item: items.bloodChalice }]
+  },
+  {
+    id: 111,
+    elements: [{ item: items.khukuri }, '+', { item: items.parm_aegis }, '=', { item: items.jetstream }]
+  },
+  {
+    id: 112,
+    elements: [{ item: items.bullova }, '+', { item: items.skull_o_maniac, tags: ['max'] }, '=', { item: items.falconwind }]
+  },
+  {
+    id: 113,
+    elements: [{ item: items.glaive }, '⇒', { item: items.featherSpear, tags: ['first-evo'] }, '⇒', { item: items.lohengrin }]
+  },
+  {
+    id: 114,
+    elements: [{ item: items.flamberge }, '⇒', { item: items.zweihander, tags: ['first-evo'] }, '⇒', { item: items.galatyn }]
+  },
+  {
+    id: 115,
+    elements: [{ item: items.emeraldRapture }, '+', { item: items.crown }, '=', { item: items.emeraldWave }]
+  },
 ]
 
 export const evolutions = [
