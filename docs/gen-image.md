@@ -2,8 +2,7 @@ To convert a PNG image to a base64-encoded string suitable for use in a CSS file
 
 ## Batch download images
 
-E.g. by running: `curl -s https://vampire-survivors.fandom.com/wiki/Weapons#Base_Weapons | grep -Eo '/vampire-survivors/images/[0-9]+/[0-9]+/[^"]+\.png' | sed 's|^|https://static.wikia.nocookie.net|' | xargs -n 1 -P 5 wget -P ~/Downloads
-`
+E.g. by running: `curl -s https://vampire-survivors.fandom.com/wiki/Weapons#Base_Weapons | grep -Eo '/vampire-survivors/images/[0-9]+/[0-9]+/[^"]+\.png' | sed 's|^|https://static.wikia.nocookie.net|' | xargs -n 1 -P 5 wget -P ~/Downloads`
 
 ### Using the Command Line
 
