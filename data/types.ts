@@ -1,6 +1,6 @@
 import { base, em, lotm, og, otc, todf, ed } from "./constants"
 
-export type TItemType = 'weapon' | 'passive'
+export type TItemType = 'weapon' | 'passive' | 'misc'
 
 export interface TItem {
   name: string

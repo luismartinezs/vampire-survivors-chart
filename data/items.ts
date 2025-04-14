@@ -1,10 +1,11 @@
 import { passives } from "./passives";
 import { weapons } from "./weapons";
-
-const misc = {
+import { TItem } from "./types";
+const misc: Record<string, TItem> = {
   fiveMaxPassives: {
     name: '5',
-    image: 'icon-five-max'
+    image: 'icon-five-max',
+    type: 'misc'
   }
 }
 
