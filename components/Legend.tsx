@@ -8,7 +8,7 @@ interface LegendProps {
 
 export function Legend({ className }: LegendProps) {
   return (
-    <div className={cn("flex flex-row gap-4 text-xs text-white/80 rounded p-2", className)}>
+    <div className={cn("flex flex-col gap-2 lg:flex-row lg:gap-4 text-xs text-white/80 rounded p-2 flex-wrap", className)}>
       <div className="flex items-center gap-1">
         <GoldCircle size="sm" />
         <span>=&nbsp;Max level passive</span>
