@@ -5,3 +5,4 @@ export const todf = "todf" as const;
 export const em = "em" as const;
 export const og = "og" as const;
 export const otc = "otc" as const;
+export const ed = "ed" as const;

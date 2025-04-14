@@ -17,7 +17,7 @@ interface EvolutionControlsState {
 
 const initialState: EvolutionControlsState = {
   sortByPassive: false,
-  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc"],
+  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed"],
   selectedPassives: [],
   selectedWeapons: [],
 };
@@ -79,8 +79,8 @@ const useEvolutionFiltering = (
   selectedWeapons: Set<string>
 ) => {
   return useMemo(() => {
-    let filtered = [];
-    let unfiltered = [];
+    const filtered = [];
+    const unfiltered = [];
 
     for (const evolution of sortedEvolutions) {
       if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) {

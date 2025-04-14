@@ -1,0 +1,28 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Project Guidelines
+
+## Build Commands
+- `pnpm dev` - Start dev server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+
+## Code Style
+- **Imports**: Use absolute paths with `@/` prefix (e.g., `@/components/Button`)
+- **Types**: Use TypeScript types prefixed with `T` (e.g., `TItem`, `TWeaponEvolution`)
+- **Components**: Use named exports for small components, default exports for page components
+- **Formatting**: Implicit - no Prettier config found, follow existing patterns
+- **React Patterns**: Functional components with explicit typings for props
+- **Styling**: Use Tailwind with `cn()` utility for conditional classes
+- **File Structure**: Group related components in directories
+
+## Naming Conventions
+- Components: PascalCase
+- Types: PascalCase with T prefix
+- Variables/Functions: camelCase
+- Constants: camelCase (not UPPER_CASE)

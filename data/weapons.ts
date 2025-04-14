@@ -1,6 +1,6 @@
 import { mergeIntoNestedObjects } from "@/lib/utils"
 import { TItem } from "./types"
-import { base, lotm, todf, em, og, otc } from "./constants"
+import { base, lotm, todf, em, og, otc, ed } from "./constants"
 
 const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
   whip: {
@@ -543,6 +543,7 @@ const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
     image: 'icon-Epi_Head',
     dlc: otc
   },
+  // TODO add emerald diorama weapons
 }
 
 const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
@@ -949,7 +950,8 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
   yagyuShuriken: {
     name: 'Yagyu Shuriken',
     image: 'icon-Yagyu_Shuriken'
-  }
+  },
+  // TODO add emerald diorama evolutions
 }
 
 const _weapons = { ...mergeIntoNestedObjects(_baseWeapons, { evolved: false }), ...mergeIntoNestedObjects(_evolvedWeapons, { evolved: true }) }

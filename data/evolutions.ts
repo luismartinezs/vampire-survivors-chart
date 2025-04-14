@@ -1,6 +1,6 @@
 import { TWeaponEvolution } from "./types"
 import { items } from "./items";
-import { base, otc, em, lotm, og, todf } from "./constants";
+import { base, otc, em, lotm, og, todf, ed } from "./constants";
 
 const baseEvolutions: TWeaponEvolution[] = [
   {
@@ -409,6 +409,10 @@ const otcEvolutions: TWeaponEvolution[] = [
   }
 ]
 
+const edEvolutions: TWeaponEvolution[] = [
+  // TODO add emerald diorama evolutions
+]
+
 export const evolutions = [
   ...baseEvolutions.map((evolution) => ({ ...evolution, dlc: base })),
   ...lotmEvolutions.map((evolution) => ({ ...evolution, dlc: lotm })),
@@ -416,4 +420,5 @@ export const evolutions = [
   ...emEvolutions.map((evolution) => ({ ...evolution, dlc: em })),
   ...ogEvolutions.map((evolution) => ({ ...evolution, dlc: og })),
   ...otcEvolutions.map((evolution) => ({ ...evolution, dlc: otc })),
+  ...edEvolutions.map((evolution) => ({ ...evolution, dlc: ed })),
 ]
