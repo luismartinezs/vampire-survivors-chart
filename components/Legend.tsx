@@ -17,6 +17,14 @@ export function Legend({ className }: LegendProps) {
         <RedCircle size="sm" />
         <span>=&nbsp;Requires 6+ weapon evolutions</span>
       </div>
+      <div className="flex items-center gap-1">
+        {/* No indicator needed per user request */}
+        <span>Rings of Calamity =&nbsp;Requires 5+ max level passives</span>
+      </div>
+      <div className="flex items-center gap-1">
+        {/* No indicator needed per user request */}
+        <span>Emerald Diorama evolutions =&nbsp;Require 1+ tech activations</span>
+      </div>
     </div>
   );
 }
