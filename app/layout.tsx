@@ -71,11 +71,11 @@ export default function RootLayout({
     <html lang="en" className="antialiased">
       <head>
         {process.env.NODE_ENV === "production" && (
-          <Script
+          <script
+            async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6379293593579449"
             crossOrigin="anonymous"
-            strategy="lazyOnload"
-          />
+          ></script>
         )}
       </head>
       <body
