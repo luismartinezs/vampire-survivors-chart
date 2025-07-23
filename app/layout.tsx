@@ -12,7 +12,7 @@ export const runtime = 'edge';
 export const metadata: Metadata = {
   title: "Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide",
   description: "Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations, evolution requirements, and upgrade paths.",
-  metadataBase: new URL('https://vampire-survivors-evolution-chart.appforgelabs.com'),
+  metadataBase: new URL('https://vsevochart.com'),
   keywords: "Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations",
   authors: [{ name: 'AppForgeLabs' }],
   openGraph: {
@@ -46,6 +46,9 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     title: 'Vampire Survivors Evolution Chart'
+  },
+  alternates: {
+    canonical: 'https://www.vsevochart.com'
   }
 };
 
@@ -76,11 +79,16 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         {process.env.NODE_ENV === "production" && (
-          <Script
-            defer
-            src="https://umami-tau-tawny.vercel.app/script.js"
-            data-website-id="6dc8f1b3-ff3b-4d1b-a15d-3cd5951bc845"
-          />
+          <>
+            {/* subdomain */}
+            <Script
+              defer
+              src="https://umami-tau-tawny.vercel.app/script.js"
+              data-website-id="6dc8f1b3-ff3b-4d1b-a15d-3cd5951bc845"
+            />
+            {/* base domain */}
+            <Script defer src="https://umami-tau-tawny.vercel.app/script.js" data-website-id="33b55ecb-9e67-44eb-9990-7864dd230f64"/>
+          </>
         )}
       </body>
     </html>
