@@ -4,6 +4,8 @@ import { SansFont } from "@/fonts";
 import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { FixedBottomRightStack } from "@/components/FixedBottomRightStack";
+import { FeaturebaseFeedbackLink } from "@/features/feedback";
 import Script from "next/script";
 
 // cloudflare pages compat
@@ -87,6 +89,11 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        
+        {/* Fixed bottom-right elements */}
+        <FixedBottomRightStack>
+          <FeaturebaseFeedbackLink />
+        </FixedBottomRightStack>
         {process.env.NODE_ENV !== "production" && (
           <>
             {/* subdomain */}
