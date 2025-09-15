@@ -89,12 +89,12 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
-        
+
         {/* Fixed bottom-right elements */}
         <FixedBottomRightStack>
           <FeaturebaseFeedbackLink />
         </FixedBottomRightStack>
-        {process.env.NODE_ENV !== "production" && (
+        {process.env.NODE_ENV === "production" && (
           <>
             {/* subdomain */}
             {/* <Script
