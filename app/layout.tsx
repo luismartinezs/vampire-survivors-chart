@@ -94,15 +94,8 @@ export default function RootLayout({
         <FixedBottomRightStack>
           <FeaturebaseFeedbackLink />
         </FixedBottomRightStack>
-        {process.env.NODE_ENV === "production" && (
+        {process.env.NODE_ENV !== "production" && (
           <>
-            {/* subdomain */}
-            {/* <Script
-              defer
-              src="https://umami-tau-tawny.vercel.app/script.js"
-              data-website-id="6dc8f1b3-ff3b-4d1b-a15d-3cd5951bc845"
-            /> */}
-            {/* base domain */}
             <Script
               src="https://umami-tau-tawny.vercel.app/script.js"
               data-website-id="33b55ecb-9e67-44eb-9990-7864dd230f64"
