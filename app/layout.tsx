@@ -94,7 +94,7 @@ export default function RootLayout({
         <FixedBottomRightStack>
           <FeaturebaseFeedbackLink />
         </FixedBottomRightStack>
-        {process.env.NODE_ENV !== "production" && (
+        {process.env.NODE_ENV === "production" && (
           <>
             <Script
               src="https://umami-tau-tawny.vercel.app/script.js"
