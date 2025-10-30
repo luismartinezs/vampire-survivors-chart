@@ -42,11 +42,14 @@ find "$SOURCE_DIR" -name "*.png" -type f | while read -r png_file; do
         continue
     fi
     
-    # Convert to WebP with good quality
-    if cwebp -q 90 "$png_file" -o "$webp_file" &> /dev/null; then
+    # Trim transparent pixels and convert to WebP with good quality
+    trimmed_png=$(mktemp --suffix=.png)
+    if convert "$png_file" -trim +repage "$trimmed_png" && cwebp -q 90 "$trimmed_png" -o "$webp_file" &> /dev/null; then
+        rm "$trimmed_png"
         echo "  ✓ Converted: $(basename "$png_file") → $(basename "$webp_file")"
         ((converted_count++))
     else
+        rm -f "$trimmed_png"
         echo "  ✗ Failed to convert: $png_file"
     fi
 done
