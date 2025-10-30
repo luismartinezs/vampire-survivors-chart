@@ -26,7 +26,7 @@ export function PassiveControls({
     <Collapsible title="Passives" defaultOpen>
       <ButtonList>
         <Button
-          variant="outline"
+          variant="outline-solid"
           onClick={onResetPassives}
           size="sm"
           aria-label="Reset Passives"
@@ -37,12 +37,12 @@ export function PassiveControls({
               : dlcClasses.base.unselected
           )}
         >
-          <RotateCcw className="size-[100%] text-white" />
+          <RotateCcw className="size-full text-white" />
         </Button>
         {filteredPassives.map((passive) => (
           <Button
             key={passive.name}
-            variant="outline"
+            variant="outline-solid"
             onClick={() => onTogglePassive(passive.name)}
             size="sm"
             className={cn(

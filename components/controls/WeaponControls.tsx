@@ -32,7 +32,7 @@ export function WeaponControls({
     <Collapsible title="Weapons" defaultOpen={false}>
       <ButtonList>
         <Button
-          variant="outline"
+          variant="outline-solid"
           onClick={onResetWeapons}
           size="sm"
           aria-label="Reset Weapons"
@@ -48,7 +48,7 @@ export function WeaponControls({
         {filteredUnevolvedWeapons.map((weapon) => (
           <Button
             key={weapon.name}
-            variant="outline"
+            variant="outline-solid"
             onClick={() => onToggleWeapon(weapon.name)}
             size="sm"
             className={cn(

@@ -1,14 +1,177 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@import './icons.css';
-@import './ode/passives.css';
-@import './ode/weapons.css';
-@import './ode/evolutions.css';
-@import './ed/weapons.css';
-@import './ed/evolutions.css';
-@import './misc.css';
+@import './icons.css' layer(utilities);
+@import './ode/passives.css' layer(utilities);
+@import './ode/weapons.css' layer(utilities);
+@import './ode/evolutions.css' layer(utilities);
+@import './ed/weapons.css' layer(utilities);
+@import './ed/evolutions.css' layer(utilities);
+@import './misc.css' layer(utilities);
+
+@plugin 'tailwindcss-animate';
+
+@theme {
+  --color-primary-50: #fff0f0;
+  --color-primary-100: #ffe1e1;
+  --color-primary-200: #ffc7c7;
+  --color-primary-300: #ffa3a3;
+  --color-primary-400: #ff8585;
+  --color-primary-500: #a17575;
+  --color-primary-600: #855d5d;
+  --color-primary-700: #5c3f3f;
+  --color-primary-800: #2b1a1a;
+  --color-primary-900: #1d1111;
+  --color-primary-950: #0a0707;
+
+  --color-base-50: #fff2f0;
+  --color-base-100: #ffe4e1;
+  --color-base-200: #ffcec7;
+  --color-base-300: #ffb3a3;
+  --color-base-400: #ff9585;
+  --color-base-500: #a17d75;
+  --color-base-600: #856559;
+  --color-base-700: #5c443f;
+  --color-base-800: #2b1d1a;
+  --color-base-900: #1d1311;
+  --color-base-950: #0a0807;
+
+  --color-lotm-50: #e6f0ff;
+  --color-lotm-100: #cce0ff;
+  --color-lotm-200: #99c1ff;
+  --color-lotm-300: #66a3ff;
+  --color-lotm-400: #3385ff;
+  --color-lotm-500: #0066ff;
+  --color-lotm-600: #0052cc;
+  --color-lotm-700: #003d99;
+  --color-lotm-800: #002966;
+  --color-lotm-900: #001433;
+  --color-lotm-950: #000919;
+
+  --color-todf-50: #ecfdf4;
+  --color-todf-100: #ddfbe9;
+  --color-todf-200: #bbf7d6;
+  --color-todf-300: #86efb9;
+  --color-todf-400: #4ade8f;
+  --color-todf-500: #699b82;
+  --color-todf-600: #4d7d65;
+  --color-todf-700: #355f4a;
+  --color-todf-800: #1e4130;
+  --color-todf-900: #0f2d1f;
+  --color-todf-950: #051610;
+
+  --color-em-50: #fff0f5;
+  --color-em-100: #ffe0eb;
+  --color-em-200: #ffc1d7;
+  --color-em-300: #ff9ec0;
+  --color-em-400: #ff7aa8;
+  --color-em-500: #ff5690;
+  --color-em-600: #e63d77;
+  --color-em-700: #cc2960;
+  --color-em-800: #991f47;
+  --color-em-900: #66142f;
+  --color-em-950: #1a0509;
+
+  --color-og-50: #f8faff;
+  --color-og-100: #f1f5ff;
+  --color-og-200: #e5edff;
+  --color-og-300: #d1e1ff;
+  --color-og-400: #b8d1ff;
+  --color-og-500: #adb5bd;
+  --color-og-600: #868e96;
+  --color-og-700: #495057;
+  --color-og-800: #343a40;
+  --color-og-900: #212529;
+  --color-og-950: #121416;
+
+  --color-otc-50: #fff7e6;
+  --color-otc-100: #ffefcc;
+  --color-otc-200: #ffe4a3;
+  --color-otc-300: #ffd97a;
+  --color-otc-400: #ffcd52;
+  --color-otc-500: #f59e0b;
+  --color-otc-600: #d97706;
+  --color-otc-700: #b45309;
+  --color-otc-800: #92400e;
+  --color-otc-900: #78350f;
+  --color-otc-950: #451a03;
+
+  --color-ed-50: #f0fdf4;
+  --color-ed-100: #dcfce7;
+  --color-ed-200: #bbf7d0;
+  --color-ed-300: #86efac;
+  --color-ed-400: #4ade80;
+  --color-ed-500: #22c55e;
+  --color-ed-600: #16a34a;
+  --color-ed-700: #15803d;
+  --color-ed-800: #166534;
+  --color-ed-900: #14532d;
+  --color-ed-950: #052e16;
+
+  --color-ante-50: #f0fdf4;
+  --color-ante-100: #dcfce7;
+  --color-ante-200: #bbf7d0;
+  --color-ante-300: #86efac;
+  --color-ante-400: #4ade80;
+  --color-ante-500: #22c55e;
+  --color-ante-600: #16a34a;
+  --color-ante-700: #15803d;
+  --color-ante-800: #166534;
+  --color-ante-900: #14532d;
+  --color-ante-950: #052e16;
+
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 .pixelated {
   image-rendering: pixelated;

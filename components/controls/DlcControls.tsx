@@ -13,7 +13,7 @@ export function DlcControls({ selectedDlcs, onToggleDlc }: DlcControlsProps) {
       {(Object.keys(DLC_LABELS) as TDlc[]).map((dlc) => (
         <Button
           key={dlc}
-          variant="outline"
+          variant="outline-solid"
           onClick={() => onToggleDlc(dlc)}
           size="sm"
           className={

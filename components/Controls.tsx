@@ -35,7 +35,7 @@ export function Controls({
       <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
         <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
           <Button
-            variant="outline"
+            variant="outline-solid"
             onClick={onToggleSortByPassive}
             size="sm"
             className={

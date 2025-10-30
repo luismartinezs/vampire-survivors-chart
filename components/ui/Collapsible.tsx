@@ -24,13 +24,13 @@ export function Collapsible({
   return (
     <div className={cn("w-full", className)}>
       <Button
-        variant="outline"
+        variant="outline-solid"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           "w-full flex items-center justify-between py-1 sm:py-3 px-2 sm:px-4",
           "text-xs sm:text-sm font-medium tracking-wide text-primary-100",
           "hover:bg-primary/10 active:bg-primary/20",
-          "border border-primary-500 shadow-sm",
+          "border border-primary-500 shadow-xs",
           "transition-colors duration-200 ease-in-out",
           isOpen
             ? "rounded-t-[8px] sm:rounded-t-[12px] rounded-b-none border-b-0"

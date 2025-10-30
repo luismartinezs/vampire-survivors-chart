@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="max-w-screen-2xl mx-auto py-4 2xl:px-0 px-1 sm:px-2 md:px-4">
+      <main className="max-w-(--breakpoint-2xl) mx-auto py-4 2xl:px-0 px-1 sm:px-2 md:px-4">
         <div className="w-full flex items-center gap-8 justify-center mb-4">
           <Controls
             sortByPassive={sortByPassive}
