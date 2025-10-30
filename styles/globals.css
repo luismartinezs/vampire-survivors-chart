@@ -187,6 +187,8 @@
   --radius-sm: calc(var(--radius) - 4px);
 }
 
+@import "./ante/display.css" layer(utilities);
+
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -208,5 +210,3 @@
 .pixelated {
   image-rendering: pixelated;
 }
-
-@import "./ante/display.css" layer(utilities);
