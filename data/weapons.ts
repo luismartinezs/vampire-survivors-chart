@@ -99,6 +99,10 @@ const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
     name: 'Pako Battiliar',
     image: 'icon-pako',
   },
+  ammo_appalate: {
+    name: 'Ammo Appalate',
+    image: 'icon-Ammo_Appalate'
+  },
   victory_sword: {
     name: 'Victory Sword',
     image: 'icon-sword',
@@ -626,6 +630,10 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
     name: 'Mazo Familiar',
     image: 'icon-pako_'
   },
+  gunastrophe: {
+    name: 'Gunastrophe',
+    image: 'icon-Gunastrophe'
+  },
   photonstorm: {
     name: 'Photonstorm',
     image: 'icon-phas3r_'
@@ -649,6 +657,10 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
   embraceOfGaea: {
     name: 'Embrace of Gaea',
     image: 'icon-Embrace_of_Gaea',
+  },
+  kyraStones: {
+    name: 'Kyra-Stones',
+    image: 'icon-Kyra-Stones',
   },
   festiveWind: {
     name: 'Festive Wind',

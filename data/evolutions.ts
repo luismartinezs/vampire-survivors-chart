@@ -84,6 +84,10 @@ const baseEvolutions: TWeaponEvolution[] = [
     elements: [{ item: items.pako_battiliar }, '+', { item: items.hollowHeart, tags: ['max'] }, '=', { item: items.mazo_familiar }]
   },
   {
+    id: 117,
+    elements: [{ item: items.ammo_appalate }, '+', { item: items.bracer }, '=', { item: items.gunastrophe }]
+  },
+  {
     id: 22,
     elements: [{ item: items.santa_javelin }, '+', { item: items.clover, tags: ['max'] }, '=', { item: items.seraphic_cry }]
   },

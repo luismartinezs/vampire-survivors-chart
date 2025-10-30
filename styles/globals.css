@@ -1,12 +1,20 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@import './icons.css' layer(utilities);
-@import './ode/passives.css' layer(utilities);
-@import './ode/weapons.css' layer(utilities);
-@import './ode/evolutions.css' layer(utilities);
-@import './ed/weapons.css' layer(utilities);
-@import './ed/evolutions.css' layer(utilities);
-@import './misc.css' layer(utilities);
+@import "./icons.css" layer(utilities);
+@import "./base/weapons.css" layer(utilities);
+@import "./base/evolutions.css" layer(utilities);
+@import "./ode/passives.css" layer(utilities);
+@import "./ode/weapons.css" layer(utilities);
+@import "./ode/evolutions.css" layer(utilities);
+@import "./otc/weapons.css" layer(utilities);
+@import "./otc/unions.css" layer(utilities);
+@import "./otc/evolutions.css" layer(utilities);
+@import "./ed/weapons.css" layer(utilities);
+@import "./ed/evolutions.css" layer(utilities);
+@import "./ante/passives.css" layer(utilities);
+@import "./ante/weapons.css" layer(utilities);
+@import "./ante/evolutions.css" layer(utilities);
+@import "./misc.css" layer(utilities);
 
 @plugin 'tailwindcss-animate';
 
@@ -176,4 +184,3 @@
 .pixelated {
   image-rendering: pixelated;
 }
-
