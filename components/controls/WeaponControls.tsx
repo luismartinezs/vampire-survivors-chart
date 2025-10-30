@@ -4,10 +4,11 @@ import { ResponsiveItem } from "../ResponsiveItem";
 import { ButtonList } from "./ButtonList";
 import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { DLC_LABELS, dlcClasses } from "./constants";
+import { dlcClasses } from "./constants";
 import { Collapsible } from "../ui/Collapsible";
 import { base } from "@/data/constants";
 import { TDlc } from "@/data/types";
+import { useMemo } from "react";
 
 interface WeaponControlsProps {
   selectedWeapons: Set<string>;
@@ -16,19 +17,18 @@ interface WeaponControlsProps {
   onResetWeapons: () => void;
 }
 
-const dlcOrder: TDlc[] = Object.keys(DLC_LABELS) as TDlc[];
-
 export function WeaponControls({
   selectedWeapons,
   selectedDlcs,
   onToggleWeapon,
   onResetWeapons,
 }: WeaponControlsProps) {
-  const filteredUnevolvedWeapons = Object.values(weapons).filter(
-    (weapon) =>
-      !weapon.evolved &&
-      (!weapon.dlc || selectedDlcs.has(weapon.dlc))
-  )
+  const filteredUnevolvedWeapons = useMemo(() => {
+    return Object.values(weapons).filter(
+      (weapon) =>
+        !weapon.evolved && (!weapon.dlc || selectedDlcs.has(weapon.dlc))
+    );
+  }, [selectedDlcs]);
 
   return (
     <Collapsible title="Weapons" defaultOpen={false}>

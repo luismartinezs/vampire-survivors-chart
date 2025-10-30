@@ -1,6 +1,6 @@
 - [x] add balatro dlc button (Ante Chamber)
 - [-] change colors to match collection more closely
-- [ ] find steamlined way to scrape icons to webp
+- [x] find steamlined way to scrape icons to webp
 - [ ] add new base game weapons
 - [ ] think about how to add evolved unions
 - [ ] add new OtC weapons
