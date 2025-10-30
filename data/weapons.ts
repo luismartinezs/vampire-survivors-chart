@@ -2,632 +2,535 @@ import { mergeIntoNestedObjects } from "@/lib/utils"
 import { TItem } from "./types"
 import { base, lotm, todf, em, og, otc, ed } from "./constants"
 
-const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
+const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   whip: {
     name: 'Whip',
-    image: 'icon-whip',
-    dlc: base
+    image: 'icon-whip'
   },
   magicWand: {
     name: 'Magic Wand',
-    image: 'icon-magicwand',
-    dlc: base
+    image: 'icon-magicwand'
   },
   knife: {
     name: 'Knife',
-    image: 'icon-knife',
-    dlc: base
+    image: 'icon-knife'
   },
   axe: {
     name: 'Axe',
-    image: 'icon-axe',
-    dlc: base
+    image: 'icon-axe'
   },
   cross: {
     name: 'Cross',
-    image: 'icon-cross',
-    dlc: base
+    image: 'icon-cross'
   },
   king_bible: {
     name: 'King Bible',
-    image: 'icon-bible',
-    dlc: base
+    image: 'icon-bible'
   },
   firewand: {
     name: 'Fire Wand',
-    image: 'icon-firewand',
-    dlc: base
+    image: 'icon-firewand'
   },
   garlic: {
     name: 'Garlic',
-    image: 'icon-garlic',
-    dlc: base
+    image: 'icon-garlic'
   },
   santa_water: {
     name: 'Santa Water',
-    image: 'icon-water',
-    dlc: base
+    image: 'icon-water'
   },
   runeTracer: {
     name: 'Rune Tracer',
-    image: 'icon-runetracer',
-    dlc: base
+    image: 'icon-runetracer'
   },
   lightning: {
     name: 'Lightning Ring',
     image: 'icon-lightning',
-    dlc: base
   },
   pentagram: {
     name: 'Pentagram',
     image: 'icon-pentagram',
-    dlc: base
   },
   peachone: {
     name: 'Peachone',
     image: 'icon-bird1',
-    dlc: base
   },
   ebonyWings: {
     name: 'Ebony Wings',
     image: 'icon-bird2',
-    dlc: base
   },
   phiera_del_tuphello: {
     name: 'Phiera Der Tuphello',
     image: 'icon-guns1',
-    dlc: base
   },
   eight_the_sparrow: {
     name: 'Eight The Sparrow',
     image: 'icon-guns2',
-    dlc: base
   },
   gatti_amari: {
     name: 'Gatti Amari',
     image: 'icon-cat',
-    dlc: base
   },
   song_of_mana: {
     name: 'Song of Mana',
     image: 'icon-mana',
-    dlc: base
   },
   shadow_pinion: {
     name: 'Shadow Pinion',
     image: 'icon-pinion',
-    dlc: base
   },
   clock_lancet: {
     name: 'Clock Lancet',
     image: 'icon-lancet',
-    dlc: base
   },
   laurel: {
     name: 'Laurel',
     image: 'icon-laurel',
-    dlc: base
   },
   vento_sacro: {
     name: 'Vento Sacro',
     image: 'icon-vento',
-    dlc: base
   },
   bracelet: {
     name: 'Bracelet',
     image: 'icon-bracelet',
-    dlc: base
   },
   pako_battiliar: {
     name: 'Pako Battiliar',
     image: 'icon-pako',
-    dlc: base
   },
   victory_sword: {
     name: 'Victory Sword',
     image: 'icon-sword',
-    dlc: base
   },
   flames_of_muspell: {
     name: 'Flames of Muspell',
     image: 'icon-flame',
-    dlc: base
   },
   glass_fandango: {
     name: 'Glass Fandango',
     image: 'icon-fandango',
-    dlc: base
   },
   santa_javelin: {
     name: 'Santa Javelin',
     image: 'icon-javelin',
-    dlc: base
   },
   phas3r: {
     name: 'Phas3r',
     image: 'icon-phas3r',
-    dlc: base
   },
   gazeOfGaea: {
     name: 'Gaze of Gaea',
     image: 'icon-Gaze_of_Gaea',
-    dlc: base
   },
+}
+
+const lotmWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   silverWind: {
     name: 'Silver Wind',
     image: 'icon-wind',
-    dlc: lotm
   },
   fourSeasons: {
     name: 'Four Seasons',
     image: 'icon-seasons',
-    dlc: lotm
   },
   summonNight: {
     name: 'Summon Night',
     image: 'icon-night',
-    dlc: lotm
   },
   mirageRobe: {
     name: 'Mirage Robe',
     image: 'icon-mirage',
-    dlc: lotm
   },
   milleBolleBlu: {
     name: 'Mille Bolle Blu',
     image: 'icon-bolle',
-    dlc: lotm
   },
   nightSword: {
     name: 'Night Sword',
     image: 'icon-muramasa',
-    dlc: lotm
   },
+}
+
+const todfWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   spellString: {
     name: 'Spell String',
     image: 'icon-spell1',
-    dlc: todf
   },
   spellStream: {
     name: 'Spell Stream',
     image: 'icon-spell2',
-    dlc: todf
   },
   spellStrike: {
     name: 'Spell Strike',
     image: 'icon-spell3',
-    dlc: todf
   },
   eskizzibur: {
     name: 'Eskizzibur',
     image: 'icon-eskizzibur',
-    dlc: todf
   },
   flashArrow: {
     name: 'Flash Arrow',
     image: 'icon-arrow',
-    dlc: todf
   },
   prismaticMissile: {
     name: 'Prismatic Missile',
     image: 'icon-prism',
-    dlc: todf
   },
   shadowServant: {
     name: 'Shadow Servant',
     image: 'icon-servant',
-    dlc: todf
   },
+}
+
+const emWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   report: {
     name: 'Report!',
     image: 'icon-report',
-    dlc: em
   },
   luckySwipe: {
     name: 'Lucky Swipe',
     image: 'icon-swipe',
-    dlc: em
   },
   lifesignScan: {
     name: 'Lifesign Scan',
     image: 'icon-scan',
-    dlc: em
   },
   justVent: {
     name: 'Just Vent',
     image: 'icon-vent',
-    dlc: em
   },
   clearDebris: {
     name: 'Clear Debris',
     image: 'icon-debris',
-    dlc: em
   },
   sharpTongue: {
     name: 'Sharp Tongue',
     image: 'icon-tongue',
-    dlc: em
   },
   scienceRocks: {
     name: 'Science Rocks',
     image: 'icon-rocks',
-    dlc: em
   },
+}
+
+const ogWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   longGun: {
     name: 'Long Gun',
     image: 'icon-longgun',
-    dlc: og
   },
   shortGun: {
     name: 'Short Gun',
     image: 'icon-shortgun',
-    dlc: og
   },
   spreadShot: {
     name: 'Spread Shot',
     image: 'icon-spreadshot',
-    dlc: og
   },
   cuLaser: {
     name: 'C-U-Laser',
     image: 'icon-laser',
-    dlc: og
   },
   firearm: {
     name: 'Firearm',
     image: 'icon-firearm',
-    dlc: og
   },
   sonicBloom: {
     name: 'Sonic Bloom',
     image: 'icon-sonic',
-    dlc: og
   },
   homingMissile: {
     name: 'Homing Missile',
     image: 'icon-homingmiss',
-    dlc: og
   },
   diverMines: {
     name: 'Diver Mines',
     image: 'icon-mines',
-    dlc: og
   },
   bladeCrossbow: {
     name: 'Blade Crossbow',
     image: 'icon-crossbow',
-    dlc: og
   },
   prismLass: {
     name: 'Prism Lass',
     image: 'icon-lass',
-    dlc: og
   },
   metalClaw: {
     name: 'Metal Claw',
     image: 'icon-claw',
-    dlc: og
   },
+}
+
+const otcWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   alchemyWhip: {
     name: 'Alchemy Whip',
     image: 'icon-Alchemy_Whip',
-    dlc: otc
   },
   windWhip: {
     name: 'Wind Whip',
     image: 'icon-Wind_Whip',
-    dlc: otc
   },
   platinumWhip: {
     name: 'Platinum Whip',
     image: 'icon-Platinum_Whip',
-    dlc: otc
   },
   dragonWaterWhip: {
     name: 'Dragon Water Whip',
     image: 'icon-Dragon_Water_Whip',
-    dlc: otc
   },
   sonicWhip: {
     name: 'Sonic Whip',
     image: 'icon-Sonic_Whip',
-    dlc: otc
   },
   jetBlackWhip: {
     name: 'Jet Black Whip',
     image: 'icon-Jet_Black_Whip',
-    dlc: otc
   },
   vibhutiWhip: {
     name: 'Vibhuti Whip',
     image: 'icon-Vibhuti_Whip',
-    dlc: otc
   },
   vanitasWhip: {
     name: 'Vanitas Whip',
     image: 'icon-Vanitas_Whip',
-    dlc: otc
   },
   shuriken: {
     name: 'Shuriken',
     image: 'icon-Shuriken',
-    dlc: otc
   },
   curvedKnife: {
     name: 'Curved Knife',
     image: 'icon-Curved_Knife',
-    dlc: otc
   },
   javelin: {
     name: 'Javelin',
     image: 'icon-Javelin',
-    dlc: otc
   },
   discus: {
     name: 'Discus',
     image: 'icon-Discus',
-    dlc: otc
   },
   ironBall: {
     name: 'Iron Ball',
     image: 'icon-Iron_Ball',
-    dlc: otc
   },
   handGrenade: {
     name: 'Hand Grenade',
     image: 'icon-Hand_Grenade',
-    dlc: otc
   },
   wineGlass: {
     name: 'Wine Glass',
     image: 'icon-Wine_Glass',
-    dlc: otc
   },
   ragingFire: {
     name: 'Raging Fire',
     image: 'icon-Raging_Fire',
-    dlc: otc
   },
   iceFang: {
     name: 'Ice Fang',
     image: 'icon-Ice_Fang',
-    dlc: otc
   },
   galeForce: {
     name: 'Gale Force',
     image: 'icon-Gale_Force',
-    dlc: otc
   },
   rockRiot: {
     name: 'Rock Riot',
     image: 'icon-Rock_Riot',
-    dlc: otc
   },
   fulgur: {
     name: 'Fulgur',
     image: 'icon-Fulgur',
-    dlc: otc
   },
   keremetBubbles: {
     name: 'Keremet Bubbles',
     image: 'icon-Keremet_Bubbles',
-    dlc: otc
   },
   hex: {
     name: 'Hex',
     image: 'icon-Hex',
-    dlc: otc
   },
   refectio: {
     name: 'Refectio',
     image: 'icon-Refectio',
-    dlc: otc
   },
   mace: {
     name: 'Mace',
     image: 'icon-Mace',
-    dlc: otc
   },
   starFlail: {
     name: 'Star Flail',
     image: 'icon-Star_Flail',
-    dlc: otc
   },
   alucardSpear: {
     name: 'Alucard Spear',
     image: 'icon-Alucard_Spear',
-    dlc: otc
   },
   trident: {
     name: 'Trident',
     image: 'icon-Trident',
-    dlc: otc
   },
   ironShield: {
     name: 'Iron Shield',
     image: 'icon-Iron_Shield',
-    dlc: otc
   },
   guardiansTarge: {
     name: 'Guardians Targe',
     image: 'icon-Guardians_Targe',
-    dlc: otc
   },
   alucartSworb: {
     name: 'Alucart Sworb',
     image: 'icon-Alucart_Sworb',
-    dlc: otc
   },
   silverRevolver: {
     name: 'Silver Revolver',
     image: 'icon-Silver_Revolver',
-    dlc: otc
   },
   tyrfing: {
     name: 'Tyrfing',
     image: 'icon-Tyrfing',
-    dlc: otc
   },
   confodere: {
     name: 'Confodere',
     image: 'icon-Confodere',
-    dlc: otc
   },
   opticalShot: {
     name: 'Optical Shot',
     image: 'icon-Optical_Shot',
-    dlc: otc
   },
   luminatio: {
     name: 'Luminatio',
     image: 'icon-Luminatio',
-    dlc: otc
   },
   umbra: {
     name: 'Umbra',
     image: 'icon-Umbra',
-    dlc: otc
   },
   globus: {
     name: 'Globus',
     image: 'icon-Globus',
-    dlc: otc
   },
   sonicDash: {
     name: 'Sonic Dash',
     image: 'icon-Sonic_Dash',
-    dlc: otc
   },
   dextroCustos: {
     name: 'Dextro Custos',
     image: 'icon-Dextro_Custos',
-    dlc: otc
   },
   sinestroCustos: {
     name: 'Sinestro Custos',
     image: 'icon-Sinestro_Custos',
-    dlc: otc
   },
   centralisCustos: {
     name: 'Centralis Custos',
     image: 'icon-Centralis_Custos',
-    dlc: otc
   },
   dominusAnger: {
     name: 'Dominus Anger',
     image: 'icon-Dominus_Anger',
-    dlc: otc
   },
   dominusHatred: {
     name: 'Dominus Hatred',
     image: 'icon-Dominus_Hatred',
-    dlc: otc
   },
   dominusAgony: {
     name: 'Dominus Agony',
     image: 'icon-Dominus_Agony',
-    dlc: otc
   },
   endoGears: {
     name: 'Endo Gears',
     image: 'icon-Endo_Gears',
-    dlc: otc
   },
   periPendulum: {
     name: 'Peri Pendulum',
     image: 'icon-Peri_Pendulum',
-    dlc: otc
   },
   myoLift: {
     name: 'Myo Lift',
     image: 'icon-Myo_Lift',
-    dlc: otc
   },
   epiHead: {
     name: 'Epi Head',
     image: 'icon-Epi_Head',
-    dlc: otc
   },
+}
+
+const edWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   fleuret: {
     name: 'Fleuret',
     image: 'icon-Fleuret',
-    dlc: ed,
   },
   splashers: {
     name: 'Splashers',
     image: 'icon-Splashers',
-    dlc: ed,
   },
   superMissile: {
     name: 'Super Missile',
     image: 'icon-Super_Missile',
-    dlc: ed,
   },
   twinDragon: {
     name: 'Twin Dragon',
     image: 'icon-Twin_Dragon',
-    dlc: ed,
   },
   punch: {
     name: 'Punch',
     image: 'icon-Punch',
-    dlc: ed,
   },
   kick: {
     name: 'Kick',
     image: 'icon-Kick',
-    dlc: ed,
   },
   spiritRings: {
     name: 'Spirit Rings',
     image: 'icon-Spirit_Rings',
-    dlc: ed,
   },
   saberMachineGun: {
     name: 'Saber Machine Gun',
     image: 'icon-Saber_Machine_Gun',
-    dlc: ed,
   },
   eagleGun: {
     name: 'Eagle Gun',
     image: 'icon-Eagle_Gun',
-    dlc: ed,
   },
   townSword: {
     name: 'Town Sword',
     image: 'icon-Town_Sword',
-    dlc: ed,
   },
   sanguineStar: {
     name: 'Sanguine Star',
     image: 'icon-Sanguine_Star',
-    dlc: ed,
   },
   khukuri: {
     name: 'Khukuri',
     image: 'icon-Khukuri',
-    dlc: ed,
   },
   bullova: {
     name: 'Bullova',
     image: 'icon-Bullova',
-    dlc: ed,
   },
   glaive: {
     name: 'Glaive',
     image: 'icon-Glaive',
-    dlc: ed,
   },
   flamberge: {
     name: 'Flamberge',
     image: 'icon-Flamberge',
-    dlc: ed,
   },
   emeraldRapture: {
     name: 'Emerald Rapture',
     image: 'icon-Emerald_Rapture',
-    dlc: ed,
   },
+}
+
+const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
+  ...mergeIntoNestedObjects(baseWeapons, { dlc: base }),
+  ...mergeIntoNestedObjects(edWeapons, { dlc: ed }),
+  ...mergeIntoNestedObjects(lotmWeapons, { dlc: lotm }),
+  ...mergeIntoNestedObjects(todfWeapons, { dlc: todf }),
+  ...mergeIntoNestedObjects(emWeapons, { dlc: em }),
+  ...mergeIntoNestedObjects(ogWeapons, { dlc: og }),
+  ...mergeIntoNestedObjects(otcWeapons, { dlc: otc }),
 }
 
 const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {

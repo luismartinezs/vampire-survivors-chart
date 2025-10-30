@@ -29,21 +29,6 @@ export function WeaponControls({
       !weapon.evolved &&
       (!weapon.dlc || selectedDlcs.has(weapon.dlc))
   )
-  .sort((a, b) => {
-      const aDlc = a.dlc || base;
-      const bDlc = b.dlc || base;
-      const aIndex = dlcOrder.indexOf(aDlc);
-      const bIndex = dlcOrder.indexOf(bDlc);
-
-      // Primary sort: DLC order
-      if (aIndex !== bIndex) {
-        return aIndex - bIndex;
-      }
-
-      // Secondary sort: alphabetical within same DLC
-      return a.name.localeCompare(b.name);
-    });
-
 
   return (
     <Collapsible title="Weapons" defaultOpen={false}>
