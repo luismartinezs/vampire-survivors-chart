@@ -100,12 +100,12 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
   },
   ante: {
     selected:
-      "bg-ante-300/60 text-ante-950 hover:text-ante-50 border border-ante-500 hover:bg-ante-400/50 focus:ring-2 focus:ring-ante-500 focus:outline-hidden transition-colors duration-200 active:scale-95 shadow-xs hover:shadow-md ring-inset ring-ante-900 ring-3 disabled:opacity-50 disabled:cursor-not-allowed aria-selected:bg-ante-400/70",
+      "ante-duotone-selected text-ante-red-950 hover:text-ante-red-50 border border-ante-blue-500 focus:ring-2 focus:ring-ante-red-500 focus:outline-hidden transition-colors duration-200 active:scale-95 shadow-xs hover:shadow-md ring-inset ring-ante-red-900 ring-3 disabled:opacity-50 disabled:cursor-not-allowed",
     unselected:
-      "bg-ante-300/20 text-ante-400 border border-ante-400 hover:bg-ante-500/10 hover:text-ante-300 focus:ring-2 focus:ring-ante-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
+      "ante-duotone-unselected text-ante-red-400 border border-ante-blue-400 hover:text-ante-red-300 focus:ring-2 focus:ring-ante-red-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
-      bg: "bg-ante-300/20",
-      border: "border-ante-500"
+      bg: "ante-duotone-card",
+      border: "border-ante-blue-500"
     }
   },
 };

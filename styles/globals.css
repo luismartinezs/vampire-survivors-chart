@@ -127,6 +127,30 @@
   --color-ante-900: #7c2d12;
   --color-ante-950: #431407;
 
+  --color-ante-blue-50: #f0f8fe;
+  --color-ante-blue-100: #deeffb;
+  --color-ante-blue-200: #c4e5f9;
+  --color-ante-blue-300: #9cd5f4;
+  --color-ante-blue-400: #6dbced;
+  --color-ante-blue-500: #4ba0e6;
+  --color-ante-blue-600: #3685da;
+  --color-ante-blue-700: #3176d1;
+  --color-ante-blue-800: #2a5aa3;
+  --color-ante-blue-900: #274d81;
+  --color-ante-blue-950: #1c314f;
+
+  --color-ante-red-50: #fff5ed;
+  --color-ante-red-100: #ffe9d5;
+  --color-ante-red-200: #fdcfab;
+  --color-ante-red-300: #fcad75;
+  --color-ante-red-400: #f9803e;
+  --color-ante-red-500: #f75d18;
+  --color-ante-red-600: #e8440e;
+  --color-ante-red-700: #cf340f;
+  --color-ante-red-800: #992813;
+  --color-ante-red-900: #7b2413;
+  --color-ante-red-950: #420e08;
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 
@@ -184,3 +208,5 @@
 .pixelated {
   image-rendering: pixelated;
 }
+
+@import "./ante/display.css" layer(utilities);

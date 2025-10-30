@@ -1,0 +1,48 @@
+.ante-duotone-selected {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ante-red-300) 60%, transparent) 50%,
+    color-mix(in oklab, var(--color-ante-blue-300) 60%, transparent) 50%
+  );
+}
+
+.ante-duotone-selected:hover {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ante-red-400) 50%, transparent) 50%,
+    color-mix(in oklab, var(--color-ante-blue-400) 50%, transparent) 50%
+  );
+}
+
+.ante-duotone-selected[aria-selected="true"] {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ante-red-400) 70%, transparent) 50%,
+    color-mix(in oklab, var(--color-ante-blue-400) 70%, transparent) 50%
+  );
+}
+
+.ante-duotone-unselected {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ante-red-300) 20%, transparent) 50%,
+    color-mix(in oklab, var(--color-ante-blue-300) 20%, transparent) 50%
+  );
+}
+
+.ante-duotone-unselected:hover {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ante-red-500) 10%, transparent) 50%,
+    color-mix(in oklab, var(--color-ante-blue-500) 10%, transparent) 50%
+  );
+}
+
+.ante-duotone-card {
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--color-ante-red-300) 20%, transparent) 50%,
+    color-mix(in oklab, var(--color-ante-blue-300) 20%, transparent) 50%
+  );
+}

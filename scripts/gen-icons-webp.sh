@@ -43,8 +43,11 @@ for image in "$SOURCE_DIR"/*.webp; do
     # 2. Removing special characters except hyphens and underscores
     css_classname=$(echo "$filename" | sed 's/ /_/g' | sed 's/[^a-zA-Z0-9_-]//g')
     
-    # Convert image to base64
-    base64_data=$(base64 -w 0 "$image")
+    # Trim transparent pixels and convert to base64
+    trimmed_image=$(mktemp --suffix=.webp)
+    convert "$image" -trim +repage "$trimmed_image"
+    base64_data=$(base64 -w 0 "$trimmed_image")
+    rm "$trimmed_image"
     
     # Append the CSS class to the output file
     echo ".icon-$css_classname { background-image: url('data:image/webp;base64,$base64_data'); }" >> "$OUTPUT_FILE"

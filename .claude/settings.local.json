@@ -9,7 +9,11 @@
       "Bash(mkdir:*)",
       "Bash(chmod:*)",
       "mcp__firecrawl__firecrawl_scrape",
-      "mcp__firecrawl__firecrawl_search"
+      "mcp__firecrawl__firecrawl_search",
+      "Bash(identify:*)",
+      "Bash(convert:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs"
     ],
     "deny": []
   }

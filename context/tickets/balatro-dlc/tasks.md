@@ -1,8 +1,9 @@
 - [x] add balatro dlc button (Ante Chamber)
 - [-] change colors to match collection more closely
 - [x] find steamlined way to scrape icons to webp
-- [ ] add new base game weapons
-- [ ] think about how to add evolved unions
-- [ ] add new OtC weapons
-- [ ] add new ante weapons and passive
+- [x] add new base game weapons
+- [x] think about how to add evolved unions
+- [x] add new OtC weapons
+- [x] add new ante weapons and passive
 - [ ] tweak ante dlc styles
+- [ ] trim icon empty space so all items appear same size
