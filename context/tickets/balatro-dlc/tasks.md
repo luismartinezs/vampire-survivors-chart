@@ -1,6 +1,7 @@
-- [ ] add balatro dlc button (Ante Chamber)
-- [ ] add balatro dlc styles
+- [x] add balatro dlc button (Ante Chamber)
+- [-] change colors to match collection more closely
 - [ ] add new base game weapons
 - [ ] think about how to add evolved unions
 - [ ] add new OtC weapons
-- [ ] add new AC weapons and passive
+- [ ] add new ante weapons and passive
+- [ ] tweak ante dlc styles
