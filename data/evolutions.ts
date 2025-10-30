@@ -85,7 +85,11 @@ const baseEvolutions: TWeaponEvolution[] = [
   },
   {
     id: 117,
-    elements: [{ item: items.ammo_appalate }, '+', { item: items.bracer }, '=', { item: items.gunastrophe }]
+    elements: [{ item: items.ammo_appalate }, '+', { item: items.bracer, tags: ['max'] }, '=', { item: items.gunastrophe }]
+  },
+  {
+    id: 118,
+    elements: [{ item: items.magiStone }, '+', { item: items.karomas_mana }, '=', { item: items.kyraStones }]
   },
   {
     id: 22,
@@ -414,6 +418,70 @@ const otcEvolutions: TWeaponEvolution[] = [
   {
     id: 99,
     elements: [{ item: items.endoGears }, '+', { item: items.periPendulum }, '+', { item: items.myoLift }, '+', { item: items.epiHead }, '=', { item: items.clockTower }]
+  },
+  {
+    id: 119,
+    elements: [{ item: items.anura }, '+', { item: items.soulEater }, '=', { item: items.darkFrogamorphosis }]
+  },
+  {
+    id: 120,
+    elements: [{ item: items.arrowOfGoth }, '+', { item: items.mannajja }, '=', { item: items.diesIrae }]
+  },
+  {
+    id: 121,
+    elements: [{ item: items.auraBlast }, '+', { item: items.hellfire }, '=', { item: items.kardiaPhlegeton }]
+  },
+  {
+    id: 122,
+    elements: [{ item: items.hydroStorm }, '+', { item: items.la_borra }, '=', { item: items.hydroPumpClimax }]
+  },
+  {
+    id: 123,
+    elements: [{ item: items.icebrand }, '+', { item: items.unholyVespers }, '=', { item: items.ninthCircle }]
+  },
+  {
+    id: 124,
+    elements: [{ item: items.kaiserKnuckle }, '+', { item: items.tri_bracelet }, '=', { item: items.lapisteTepisto }]
+  },
+  {
+    id: 125,
+    elements: [{ item: items.pocketKnife }, '+', { item: items.torronas_box, tags: ['max'] }, '=', { item: items.claimhSolais }]
+  },
+  {
+    id: 126,
+    elements: [{ item: items.soulSteal }, '+', { item: items.vicious_hunger }, '=', { item: items.powerOfLire }]
+  },
+  {
+    id: 127,
+    elements: [{ item: items.summonSpiritTornado }, '+', { item: items.gorgeous_moon }, '=', { item: items.venusCrescent }]
+  },
+  {
+    id: 128,
+    elements: [{ item: items.summonSpirit }, '+', { item: items.holyWand }, '=', { item: items.spiritOfLight }]
+  },
+  {
+    id: 129,
+    elements: [{ item: items.svarogStatue }, '+', { item: items.valkyrie_turner }, '=', { item: items.darknessIllusion }]
+  },
+  {
+    id: 130,
+    elements: [{ item: items.swordBrothers }, '+', { item: items.thunderLoop }, '=', { item: items.vjayaSisters }]
+  },
+  {
+    id: 131,
+    elements: [{ item: items.trollBomb }, '+', { item: items.noFuture }, '=', { item: items.carnageHeart }]
+  },
+  {
+    id: 132,
+    elements: [{ item: items.valmanway }, '+', { item: items.thousandEdge }, '=', { item: items.millionCut }]
+  },
+  {
+    id: 133,
+    elements: [{ item: items.darkRift }, '+', { item: items.deathSpiral }, '=', { item: items.legacyOfDeathSoulRiver }]
+  },
+  {
+    id: 134,
+    elements: [{ item: items.grandCross }, '+', { item: items.heavenSword }, '=', { item: items.archAngle }]
   }
 ]
 
@@ -485,7 +553,22 @@ const edEvolutions: TWeaponEvolution[] = [
 ]
 
 const anteEvolutions: TWeaponEvolution[] = [
-  // New evolutions for Ante Chamber DLC would go here
+  {
+    id: 135,
+    elements: [{ item: items.celestialBooster }, '+', { item: items.outerSaboteur, tags: ['max'] }, '=', { item: items.negativeSpace }]
+  },
+  {
+    id: 136,
+    elements: [{ item: items.fibonacciSpritz }, '+', { item: items.outerSaboteur, tags: ['max'] }, '=', { item: items.royalFlush }]
+  },
+  {
+    id: 137,
+    elements: [{ item: items.grosMichel }, '+', { item: items.outerSaboteur, tags: ['max'] }, '=', { item: items.cavendish }]
+  },
+  {
+    id: 138,
+    elements: [{ item: items.infernolatro }, '+', { item: items.outerSaboteur, tags: ['max'] }, '=', { item: items.naneInferno }]
+  }
 ]
 
 export const evolutions = [

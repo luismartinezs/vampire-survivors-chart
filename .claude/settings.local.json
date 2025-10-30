@@ -7,7 +7,9 @@
       "Bash(timeout 10 pnpm dev)",
       "Bash(pnpm list:*)",
       "Bash(mkdir:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "mcp__firecrawl__firecrawl_scrape",
+      "mcp__firecrawl__firecrawl_search"
     ],
     "deny": []
   }

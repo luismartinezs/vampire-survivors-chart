@@ -1,6 +1,6 @@
 import { mergeIntoNestedObjects } from "@/lib/utils";
 import { TItem } from "./types";
-import { em } from "./constants";
+import { em, ante } from "./constants";
 
 const _passives: Record<string, Omit<TItem, 'type'>> = {
   hollowHeart: {
@@ -138,6 +138,11 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
   karomas_mana: {
     name: "Karoma's Mana",
     image: 'icon-Karomas_Mana'
+  },
+  outerSaboteur: {
+    name: 'Outer Saboteur',
+    image: 'icon-Outer_Saboteur',
+    dlc: ante
   }
 }
 

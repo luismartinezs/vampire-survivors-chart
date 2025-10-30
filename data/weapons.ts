@@ -1,6 +1,6 @@
 import { mergeIntoNestedObjects } from "@/lib/utils"
 import { TItem } from "./types"
-import { base, lotm, todf, em, og, otc, ed } from "./constants"
+import { base, lotm, todf, em, og, otc, ed, ante } from "./constants"
 
 const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   whip: {
@@ -126,6 +126,10 @@ const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   gazeOfGaea: {
     name: 'Gaze of Gaea',
     image: 'icon-Gaze_of_Gaea',
+  },
+  magiStone: {
+    name: 'Magi-Stone',
+    image: 'icon-Magi-Stone',
   },
 }
 
@@ -458,6 +462,70 @@ const otcWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
     name: 'Epi Head',
     image: 'icon-Epi_Head',
   },
+  anura: {
+    name: 'Anura',
+    image: 'icon-Anura',
+  },
+  arrowOfGoth: {
+    name: 'Arrow of Goth',
+    image: 'icon-Arrow_of_Goth',
+  },
+  auraBlast: {
+    name: 'Aura Blast',
+    image: 'icon-Aura_Blast',
+  },
+  hydroStorm: {
+    name: 'Hydro Storm',
+    image: 'icon-Hydro_Storm',
+  },
+  icebrand: {
+    name: 'Icebrand',
+    image: 'icon-Icebrand',
+  },
+  kaiserKnuckle: {
+    name: 'Kaiser Knuckle',
+    image: 'icon-Kaiser_Knuckle',
+  },
+  pocketKnife: {
+    name: 'Pocket Knife',
+    image: 'icon-Pocket_Knife',
+  },
+  soulSteal: {
+    name: 'Soul Steal',
+    image: 'icon-Soul_Steal',
+  },
+  summonSpiritTornado: {
+    name: 'Summon Spirit Tornado',
+    image: 'icon-Spirit_Tornado',
+  },
+  summonSpirit: {
+    name: 'Summon Spirit',
+    image: 'icon-Summon_Spirit',
+  },
+  svarogStatue: {
+    name: 'Svarog Statue',
+    image: 'icon-Svarog_Statue',
+  },
+  swordBrothers: {
+    name: 'Sword Brothers',
+    image: 'icon-Sword_Brothers',
+  },
+  trollBomb: {
+    name: 'Troll Bomb',
+    image: 'icon-Troll_Bomb',
+  },
+  valmanway: {
+    name: 'Valmanway',
+    image: 'icon-Valmanway',
+  },
+  darkRift: {
+    name: 'Dark Rift',
+    image: 'icon-Dark_Rift',
+  },
+  grandCross: {
+    name: 'Grand Cross',
+    image: 'icon-Grand_Cross',
+  },
 }
 
 const edWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
@@ -527,9 +595,29 @@ const edWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   },
 }
 
+const anteWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
+  celestialBooster: {
+    name: 'Celestial Booster',
+    image: 'icon-Celestial_Booster',
+  },
+  fibonacciSpritz: {
+    name: 'Fibonacci Spritz',
+    image: 'icon-Fibonacci_Spritz',
+  },
+  grosMichel: {
+    name: 'Gros Michel',
+    image: 'icon-Gros_Michel',
+  },
+  infernolatro: {
+    name: 'Infernolatro',
+    image: 'icon-Infernolatro',
+  },
+}
+
 const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
   ...mergeIntoNestedObjects(baseWeapons, { dlc: base }),
   ...mergeIntoNestedObjects(edWeapons, { dlc: ed }),
+  ...mergeIntoNestedObjects(anteWeapons, { dlc: ante }),
   ...mergeIntoNestedObjects(lotmWeapons, { dlc: lotm }),
   ...mergeIntoNestedObjects(todfWeapons, { dlc: todf }),
   ...mergeIntoNestedObjects(emWeapons, { dlc: em }),
@@ -1045,6 +1133,86 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
   galatyn: {
     name: 'Galatyn',
     image: 'icon-Galatyn'
+  },
+  darkFrogamorphosis: {
+    name: 'Dark Frogamorphosis',
+    image: 'icon-Dark_Frogamorphosis',
+  },
+  diesIrae: {
+    name: 'Dies Irae',
+    image: 'icon-Dies_Irae',
+  },
+  kardiaPhlegeton: {
+    name: 'Kardía Phlegeton',
+    image: 'icon-Kardía_Phlegeton',
+  },
+  hydroPumpClimax: {
+    name: 'Hydro Pump Climax',
+    image: 'icon-Hydro_Pump_Climax',
+  },
+  ninthCircle: {
+    name: 'Ninth Circle',
+    image: 'icon-Ninth_Circle',
+  },
+  lapisteTepisto: {
+    name: 'Lapiste Tepisto',
+    image: 'icon-Lapiste_Tepisto',
+  },
+  claimhSolais: {
+    name: 'Claimh Solais',
+    image: 'icon-Claimh_Solais',
+  },
+  powerOfLire: {
+    name: 'Power of Lire',
+    image: 'icon-Power_of_Lire',
+  },
+  venusCrescent: {
+    name: 'Venus Crescent',
+    image: 'icon-Venus_Crescent',
+  },
+  spiritOfLight: {
+    name: 'Spirit of Light',
+    image: 'icon-Spirit_of_Light',
+  },
+  darknessIllusion: {
+    name: 'Darkness Illusion',
+    image: 'icon-Darkness_Illusion',
+  },
+  vjayaSisters: {
+    name: 'Vjaya Sisters',
+    image: 'icon-Vjaya_Sisters',
+  },
+  carnageHeart: {
+    name: 'Carnage Heart',
+    image: 'icon-Carnage_Heart',
+  },
+  millionCut: {
+    name: 'Million Cut',
+    image: 'icon-Million_Cut',
+  },
+  legacyOfDeathSoulRiver: {
+    name: 'Legacy of Death: Soul River',
+    image: 'icon-Legacy_of_Death-_Soul_River',
+  },
+  archAngle: {
+    name: 'Arch Angle',
+    image: 'icon-Arch_Angle',
+  },
+  negativeSpace: {
+    name: 'Negative Space',
+    image: 'icon-Negative_Space',
+  },
+  royalFlush: {
+    name: 'Royal Flush',
+    image: 'icon-Royal_Flush',
+  },
+  cavendish: {
+    name: 'Cavendish',
+    image: 'icon-Cavendish',
+  },
+  naneInferno: {
+    name: 'NaneInferno',
+    image: 'icon-NaneInferno',
   },
 }
 
