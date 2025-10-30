@@ -5,5 +5,7 @@
 - [x] think about how to add evolved unions
 - [x] add new OtC weapons
 - [x] add new ante weapons and passive
-- [ ] tweak ante dlc styles
-- [ ] trim icon empty space so all items appear same size
+- [x] tweak ante dlc styles
+- [x] trim icon empty space so all items appear same size
+- [ ] add passive button style for ante
+- [ ] review weapon and evolution order
