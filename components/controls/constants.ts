@@ -8,6 +8,7 @@ export const DLC_LABELS: Record<TDlc, string> = {
   og: "Operation Guns",
   otc: "Ode To Castlevania",
   ed: "Emerald Diorama",
+  ante: "Ante Chamber",
 };
 
 export const ignoredPassives = [
@@ -96,5 +97,15 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       bg: "bg-ed-300/20",
       border: "border-ed-500"
     }
-  }
+  },
+  ante: {
+    selected:
+      "bg-ante-300/60 text-ante-950 hover:text-ante-50 border border-ante-500 hover:bg-ante-400/50 focus:ring-2 focus:ring-ante-500 focus:outline-none transition-colors duration-200 active:scale-95 shadow-sm hover:shadow-md ring-inset ring-ante-900 ring disabled:opacity-50 disabled:cursor-not-allowed aria-selected:bg-ante-400/70",
+    unselected:
+      "bg-ante-300/20 text-ante-400 border border-ante-400 hover:bg-ante-500/10 hover:text-ante-300 focus:ring-2 focus:ring-ante-500 focus:outline-none transition-colors duration-200 active:scale-95",
+    card: {
+      bg: "bg-ante-300/20",
+      border: "border-ante-500"
+    }
+  },
 };

@@ -17,7 +17,7 @@ interface EvolutionControlsState {
 
 const initialState: EvolutionControlsState = {
   sortByPassive: false,
-  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed"],
+  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed", "ante"],
   selectedPassives: [],
   selectedWeapons: [],
 };

@@ -115,6 +115,19 @@ export default {
 					'900': '#14532d',  // Very dark emerald
 					'950': '#052e16'   // Deepest emerald
 				},
+				ante: {
+					'50': '#f0fdf4',   // Lightest emerald tint
+					'100': '#dcfce7',  // Very light emerald
+					'200': '#bbf7d0',  // Light emerald
+					'300': '#86efac',  // Soft emerald
+					'400': '#4ade80',  // Bright emerald
+					'500': '#22c55e',  // Pure emerald
+					'600': '#16a34a',  // Deep emerald
+					'700': '#15803d',  // Rich emerald
+					'800': '#166534',  // Dark emerald
+					'900': '#14532d',  // Very dark emerald
+					'950': '#052e16'   // Deepest emerald
+				},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {

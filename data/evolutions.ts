@@ -1,6 +1,6 @@
 import { TWeaponEvolution } from "./types"
 import { items } from "./items";
-import { base, otc, em, lotm, og, todf, ed } from "./constants";
+import { base, otc, em, lotm, og, todf, ed, ante } from "./constants";
 
 const baseEvolutions: TWeaponEvolution[] = [
   {
@@ -480,6 +480,10 @@ const edEvolutions: TWeaponEvolution[] = [
   },
 ]
 
+const anteEvolutions: TWeaponEvolution[] = [
+  // New evolutions for Ante Chamber DLC would go here
+]
+
 export const evolutions = [
   ...baseEvolutions.map((evolution) => ({ ...evolution, dlc: base })),
   ...lotmEvolutions.map((evolution) => ({ ...evolution, dlc: lotm })),
@@ -488,4 +492,5 @@ export const evolutions = [
   ...ogEvolutions.map((evolution) => ({ ...evolution, dlc: og })),
   ...otcEvolutions.map((evolution) => ({ ...evolution, dlc: otc })),
   ...edEvolutions.map((evolution) => ({ ...evolution, dlc: ed })),
+  ...anteEvolutions.map((evolution) => ({ ...evolution, dlc: ante })),
 ]
