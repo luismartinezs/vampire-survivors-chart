@@ -4,7 +4,7 @@ import { ResponsiveItem } from "../ResponsiveItem";
 import { ButtonList } from "./ButtonList";
 import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { dlcClasses } from "./constants";
+import { DLC_LABELS, dlcClasses } from "./constants";
 import { Collapsible } from "../ui/Collapsible";
 import { base } from "@/data/constants";
 import { TDlc } from "@/data/types";
@@ -16,6 +16,8 @@ interface WeaponControlsProps {
   onResetWeapons: () => void;
 }
 
+const dlcOrder: TDlc[] = Object.keys(DLC_LABELS) as TDlc[];
+
 export function WeaponControls({
   selectedWeapons,
   selectedDlcs,
@@ -26,7 +28,22 @@ export function WeaponControls({
     (weapon) =>
       !weapon.evolved &&
       (!weapon.dlc || selectedDlcs.has(weapon.dlc))
-  );
+  )
+  .sort((a, b) => {
+      const aDlc = a.dlc || base;
+      const bDlc = b.dlc || base;
+      const aIndex = dlcOrder.indexOf(aDlc);
+      const bIndex = dlcOrder.indexOf(bDlc);
+
+      // Primary sort: DLC order
+      if (aIndex !== bIndex) {
+        return aIndex - bIndex;
+      }
+
+      // Secondary sort: alphabetical within same DLC
+      return a.name.localeCompare(b.name);
+    });
+
 
   return (
     <Collapsible title="Weapons" defaultOpen={false}>

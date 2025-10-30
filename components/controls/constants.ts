@@ -2,13 +2,13 @@ import { TDlc } from "@/data/types";
 
 export const DLC_LABELS: Record<TDlc, string> = {
   base: "Base Game",
+  ed: "Emerald Diorama",
+  ante: "Ante Chamber",
   lotm: "Legacy of the Moonspell",
   todf: "Tides of the Foscari",
   em: "Emergency Meeting",
   og: "Operation Guns",
   otc: "Ode To Castlevania",
-  ed: "Emerald Diorama",
-  ante: "Ante Chamber",
 };
 
 export const ignoredPassives = [
