@@ -4,6 +4,7 @@ import { dlcClasses } from "./controls/constants";
 import { DlcControls } from "./controls/DlcControls";
 import { PassiveControls } from "./controls/PassiveControls";
 import { WeaponControls } from "./controls/WeaponControls";
+import { cn } from "@/lib/utils";
 
 interface ControlsProps {
   sortByPassive: boolean;
@@ -38,11 +39,12 @@ export function Controls({
             variant="outline-solid"
             onClick={onToggleSortByPassive}
             size="sm"
-            className={
+            className={cn(
+              "min-h-[30px] px-2",
               sortByPassive
                 ? dlcClasses.base.selected
                 : dlcClasses.base.unselected
-            }
+            )}
           >
             Sort by Passive
           </Button>

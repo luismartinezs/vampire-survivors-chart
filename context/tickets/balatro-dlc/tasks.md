@@ -9,3 +9,4 @@
 - [x] trim icon empty space so all items appear same size
 - [ ] add passive button style for ante
 - [ ] review weapon and evolution order
+- [ ] Outer Saboteur passive should have ante colors

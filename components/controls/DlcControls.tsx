@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { TDlc } from "@/data/types";
+import { cn } from "@/lib/utils";
 import { dlcClasses, DLC_LABELS } from "./constants";
 
 interface DlcControlsProps {
@@ -16,11 +17,12 @@ export function DlcControls({ selectedDlcs, onToggleDlc }: DlcControlsProps) {
           variant="outline-solid"
           onClick={() => onToggleDlc(dlc)}
           size="sm"
-          className={
+          className={cn(
+            "min-h-[30px] px-2",
             selectedDlcs.has(dlc)
               ? dlcClasses[dlc].selected
               : dlcClasses[dlc].unselected
-          }
+          )}
         >
           <span>{DLC_LABELS[dlc]}</span>
         </Button>
