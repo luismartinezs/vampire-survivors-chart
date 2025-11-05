@@ -540,7 +540,7 @@ const edEvolutions: TWeaponEvolution[] = [
   },
   {
     id: 112,
-    elements: [{ item: items.bullova }, '+', { item: items.skull_o_maniac, tags: ['max'] }, '=', { item: items.falconwind }]
+    elements: [{ item: items.bullova }, '+', { item: items.skull_o_maniac }, '=', { item: items.falconwind }]
   },
   {
     id: 113,
