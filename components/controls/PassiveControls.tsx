@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { dlcClasses, ignoredPassives } from "./constants";
 import { ButtonList } from "./ButtonList";
 import { Collapsible } from "../ui/Collapsible";
+import { base } from "@/data/constants";
 
 interface PassiveControlsProps {
   selectedPassives: Set<string>;
@@ -48,8 +49,8 @@ export function PassiveControls({
             className={cn(
               "p-1 aspect-square",
               selectedPassives.has(passive.name)
-                ? dlcClasses.base.selected
-                : dlcClasses.base.unselected
+                ? dlcClasses[passive.dlc ?? base].selected
+                : dlcClasses[passive.dlc ?? base].unselected
             )}
             title={passive.name}
           >
