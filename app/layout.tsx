@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FixedBottomRightStack } from "@/components/FixedBottomRightStack";
 import { FeaturebaseFeedbackLink } from "@/features/feedback";
+import { SettingsWidget } from "@/features/settings";
 import Script from "next/script";
 
 // cloudflare pages compat
@@ -92,6 +93,7 @@ export default function RootLayout({
 
         {/* Fixed bottom-right elements */}
         <FixedBottomRightStack>
+          <SettingsWidget />
           <FeaturebaseFeedbackLink />
         </FixedBottomRightStack>
         {process.env.NODE_ENV === "production" && (
