@@ -1,9 +1,10 @@
 'use client';
 
 import { useCallback, useMemo } from "react";
-import { TDlc, TEvolutionItem, TWeaponEvolution } from "@/data/types";
+import { TDlc, TEvolutionItem, TWeaponEvolution, TItem } from "@/data/types";
 import { evolutions } from "@/data/evolutions";
 import { useAppStore } from "@/hooks/useAppStore";
+import { items } from "@/data/items";
 
 type Evolution = TWeaponEvolution;
 
@@ -58,11 +59,115 @@ function isItem(item: TEvolutionItem | string): item is TEvolutionItem {
   return typeof item !== "string";
 }
 
+const createItemLookup = (): Map<string, TItem> => {
+  const map = new Map<string, TItem>();
+
+  for (const item of Object.values(items)) {
+    map.set(item.name, item);
+  }
+
+  return map;
+};
+
+const buildEvolutionDependencyMap = (
+  evolutions: Evolution[]
+): Map<string, string[]> => {
+  const map = new Map<string, string[]>();
+
+  for (const evolution of evolutions) {
+    const equalsIndex = evolution.elements.findIndex((element) => element === "=");
+    let resultItemName: string | undefined;
+    let ingredients: string[] = [];
+
+    if (equalsIndex !== -1) {
+      const resultElement = evolution.elements
+        .slice(equalsIndex + 1)
+        .find(isItem);
+
+      if (resultElement) {
+        resultItemName = resultElement.item.name;
+        ingredients = evolution.elements
+          .slice(0, equalsIndex)
+          .filter(isItem)
+          .map((element) => element.item.name);
+      }
+    } else {
+      const itemElements = evolution.elements.filter(isItem);
+      if (itemElements.length >= 2) {
+        const lastItem = itemElements[itemElements.length - 1];
+        resultItemName = lastItem.item.name;
+        ingredients = itemElements
+          .slice(0, -1)
+          .map((element) => element.item.name);
+      }
+    }
+
+    if (resultItemName && ingredients.length > 0) {
+      map.set(resultItemName, ingredients);
+    }
+  }
+
+  return map;
+};
+
+const createPassiveResolver = (
+  evolutionDependencies: Map<string, string[]>,
+  itemLookup: Map<string, TItem>
+) => {
+  const cache = new Map<string, Set<string>>();
+
+  const resolvePassives = (
+    itemName: string,
+    visited: Set<string>
+  ): Set<string> => {
+    const cached = cache.get(itemName);
+    if (cached) {
+      return cached;
+    }
+
+    if (visited.has(itemName)) {
+      return new Set();
+    }
+
+    const item = itemLookup.get(itemName);
+    if (!item) {
+      const empty = new Set<string>();
+      cache.set(itemName, empty);
+      return empty;
+    }
+
+    visited.add(itemName);
+
+    let passives = new Set<string>();
+
+    if (item.type === "passive") {
+      passives.add(item.name);
+    } else if (item.type === "weapon") {
+      const ingredients = evolutionDependencies.get(itemName) ?? [];
+      for (const ingredientName of ingredients) {
+        const ingredientPassives = resolvePassives(ingredientName, visited);
+        for (const passiveName of ingredientPassives) {
+          passives.add(passiveName);
+        }
+      }
+    }
+
+    visited.delete(itemName);
+    cache.set(itemName, passives);
+    return passives;
+  };
+
+  return (itemName: string) =>
+    new Set(resolvePassives(itemName, new Set<string>()));
+};
+
 const useEvolutionFiltering = (
   sortedEvolutions: Evolution[],
   selectedDlcs: Set<TDlc>,
   selectedPassives: Set<string>,
-  selectedWeapons: Set<string>
+  selectedWeapons: Set<string>,
+  passivesShowUnions: boolean,
+  resolvePassivesForItem: (itemName: string) => Set<string>
 ) => {
   return useMemo(() => {
     const filtered = [];
@@ -93,8 +198,27 @@ const useEvolutionFiltering = (
           .map((el) => el.item.name)
         : [];
 
+      const relevantPassives =
+        passivesShowUnions && arePassivesSelected
+          ? (() => {
+            const unionPassives = new Set(evolutionPassives);
+            for (const element of evolutionItems) {
+              if (element.item.type !== "weapon") {
+                continue;
+              }
+
+              const derivedPassives = resolvePassivesForItem(element.item.name);
+              for (const passiveName of derivedPassives) {
+                unionPassives.add(passiveName);
+              }
+            }
+
+            return Array.from(unionPassives);
+          })()
+          : evolutionPassives;
+
       if (
-        evolutionPassives.some((passive) => selectedPassives.has(passive)) ||
+        relevantPassives.some((passive) => selectedPassives.has(passive)) ||
         evolutionWeapons.some((weapon) => selectedWeapons.has(weapon))
       ) {
         filtered.push(evolution);
@@ -107,7 +231,14 @@ const useEvolutionFiltering = (
       filtered,
       unfiltered,
     };
-  }, [sortedEvolutions, selectedDlcs, selectedPassives, selectedWeapons]);
+  }, [
+    sortedEvolutions,
+    selectedDlcs,
+    selectedPassives,
+    selectedWeapons,
+    passivesShowUnions,
+    resolvePassivesForItem,
+  ]);
 };
 
 const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
@@ -142,6 +273,7 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
   );
   const toggleWeapon = useAppStore((state) => state.toggleEvolutionWeapon);
   const resetWeapons = useAppStore((state) => state.resetEvolutionWeapons);
+  const passivesShowUnions = useAppStore((state) => state.passivesShowUnions);
 
   const selectedDlcs = useMemo(
     () => new Set(selectedDlcsArray),
@@ -180,12 +312,23 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     sortByPassive,
     getPassiveName
   );
+  const evolutionDependencyMap = useMemo(
+    () => buildEvolutionDependencyMap(evolutions),
+    []
+  );
+  const itemLookup = useMemo(() => createItemLookup(), []);
+  const resolvePassivesForItem = useMemo(
+    () => createPassiveResolver(evolutionDependencyMap, itemLookup),
+    [evolutionDependencyMap, itemLookup]
+  );
 
   const { filtered, unfiltered } = useEvolutionFiltering(
     sortedEvolutions,
     selectedDlcs,
     selectedPassives,
-    selectedWeapons
+    selectedWeapons,
+    passivesShowUnions,
+    resolvePassivesForItem
   );
 
   return {
