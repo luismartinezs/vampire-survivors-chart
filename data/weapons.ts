@@ -131,6 +131,10 @@ const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
     name: 'Magi-Stone',
     image: 'icon-Magi-Stone',
   },
+  chaosRune: {
+    name: 'Chaos Rune',
+    image: 'icon-Chaos_Rune',
+  },
 }
 
 const lotmWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
@@ -1197,6 +1201,10 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
   archAngle: {
     name: 'Arch Angle',
     image: 'icon-Arch_Angle',
+  },
+  wickedRune: {
+    name: 'Wicked Rune',
+    image: 'icon-Wicked_Rune',
   },
   negativeSpace: {
     name: 'Negative Space',

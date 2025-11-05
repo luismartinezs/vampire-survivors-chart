@@ -123,6 +123,10 @@ const baseEvolutions: TWeaponEvolution[] = [
     id: 19,
     elements: [{ item: items.laurel }, '+', { item: items.metaglio_left, tags: ['max'] }, '+', { item: items.metaglio_right, tags: ['max'] }, '=', { item: items.crimsonShroud }]
   },
+  {
+    id: 139,
+    elements: [{ item: items.chaosRune }, '+', { item: items.spellbinder, tags: ['max'] }, '=', { item: items.wickedRune }]
+  }
 ]
 
 const lotmEvolutions: TWeaponEvolution[] = [

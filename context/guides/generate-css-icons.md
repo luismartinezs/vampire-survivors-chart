@@ -6,7 +6,7 @@ From PNG to CSS icon classes
 ./scripts/convert-to-webp.sh ./context/images
 ```
 
-- Run @scripts/gen-icons-webp.sh to generate CSS classes with base64-encoded WebP data
+- Run @scripts/gen-icons-webp.sh to generate CSS classes with base64-encoded WebP data. Be careful as the generated CSS file will override existing ones with the same name
 ```sh
 ./scripts/gen-icons-webp.sh ./context/images ./styles/category/icons.css
 ```
