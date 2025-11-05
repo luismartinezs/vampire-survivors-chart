@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FixedBottomRightStack } from "@/components/FixedBottomRightStack";
 import { FeaturebaseFeedbackLink } from "@/features/feedback";
+import { ResetAllButton } from "@/features/reset";
 import { SettingsWidget } from "@/features/settings";
 import Script from "next/script";
 
@@ -93,6 +94,7 @@ export default function RootLayout({
 
         {/* Fixed bottom-right elements */}
         <FixedBottomRightStack>
+          <ResetAllButton />
           <SettingsWidget />
           <FeaturebaseFeedbackLink />
         </FixedBottomRightStack>
