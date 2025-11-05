@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Settings } from "lucide-react";
 import { useAppStore } from "@/hooks/useAppStore";
+import { Checkbox } from "./Checkbox";
 
 export const SettingsWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,32 +77,24 @@ export const SettingsWidget = () => {
             </h2>
             <div className="mt-4 space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-primary-50">
+                <h3 className="text-sm font-medium text-primary-100">
                   Show derived recipes
                 </h3>
                 <div className="mt-2 space-y-3">
-                  <label className="flex items-center gap-3 text-sm text-primary-100">
-                    <input
-                      type="checkbox"
-                      checked={passivesShowDerivedRecipes}
-                      onChange={(event) =>
-                        setPassivesShowDerivedRecipes(event.target.checked)
-                      }
-                      className="h-4 w-4 rounded border-primary-500 bg-transparent text-primary focus:ring-primary"
-                    />
-                    <span>for passives</span>
-                  </label>
-                  <label className="flex items-center gap-3 text-sm text-primary-100">
-                    <input
-                      type="checkbox"
-                      checked={weaponsShowDerivedRecipes}
-                      onChange={(event) =>
-                        setWeaponsShowDerivedRecipes(event.target.checked)
-                      }
-                      className="h-4 w-4 rounded border-primary-500 bg-transparent text-primary focus:ring-primary"
-                    />
-                    <span>for weapons</span>
-                  </label>
+                  <Checkbox
+                    label="for passives"
+                    checked={passivesShowDerivedRecipes}
+                    onChange={(event) =>
+                      setPassivesShowDerivedRecipes(event.target.checked)
+                    }
+                  />
+                  <Checkbox
+                    label="for weapons"
+                    checked={weaponsShowDerivedRecipes}
+                    onChange={(event) =>
+                      setWeaponsShowDerivedRecipes(event.target.checked)
+                    }
+                  />
                 </div>
               </div>
             </div>
