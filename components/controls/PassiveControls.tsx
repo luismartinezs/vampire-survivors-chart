@@ -38,7 +38,9 @@ export function PassiveControls({
               : dlcClasses.base.unselected
           )}
         >
-          <RotateCcw className="size-full text-white" />
+          <div className="flex items-center justify-center size-[1.4rem] sm:size-7">
+            <RotateCcw className="size-full text-white" />
+          </div>
         </Button>
         {filteredPassives.map((passive) => (
           <Button
