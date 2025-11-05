@@ -161,13 +161,68 @@ const createPassiveResolver = (
     new Set(resolvePassives(itemName, new Set<string>()));
 };
 
+const createWeaponResolver = (
+  evolutionDependencies: Map<string, string[]>,
+  itemLookup: Map<string, TItem>
+) => {
+  const cache = new Map<string, Set<string>>();
+
+  const resolveWeapons = (
+    itemName: string,
+    visited: Set<string>
+  ): Set<string> => {
+    const cached = cache.get(itemName);
+    if (cached) {
+      return cached;
+    }
+
+    if (visited.has(itemName)) {
+      return new Set();
+    }
+
+    const item = itemLookup.get(itemName);
+    if (!item) {
+      const empty = new Set<string>();
+      cache.set(itemName, empty);
+      return empty;
+    }
+
+    visited.add(itemName);
+
+    let weapons = new Set<string>();
+
+    if (item.type === "weapon") {
+      if (!item.evolved) {
+        weapons.add(item.name);
+      }
+
+      const ingredients = evolutionDependencies.get(itemName) ?? [];
+      for (const ingredientName of ingredients) {
+        const ingredientWeapons = resolveWeapons(ingredientName, visited);
+        for (const weaponName of ingredientWeapons) {
+          weapons.add(weaponName);
+        }
+      }
+    }
+
+    visited.delete(itemName);
+    cache.set(itemName, weapons);
+    return weapons;
+  };
+
+  return (itemName: string) =>
+    new Set(resolveWeapons(itemName, new Set<string>()));
+};
+
 const useEvolutionFiltering = (
   sortedEvolutions: Evolution[],
   selectedDlcs: Set<TDlc>,
   selectedPassives: Set<string>,
   selectedWeapons: Set<string>,
   passivesShowUnions: boolean,
-  resolvePassivesForItem: (itemName: string) => Set<string>
+  weaponsShowUnions: boolean,
+  resolvePassivesForItem: (itemName: string) => Set<string>,
+  resolveWeaponsForItem: (itemName: string) => Set<string>
 ) => {
   return useMemo(() => {
     const filtered = [];
@@ -217,9 +272,28 @@ const useEvolutionFiltering = (
           })()
           : evolutionPassives;
 
+      const relevantWeapons =
+        weaponsShowUnions && areWeaponsSelected
+          ? (() => {
+            const unionWeapons = new Set(evolutionWeapons);
+            for (const element of evolutionItems) {
+              if (element.item.type !== "weapon") {
+                continue;
+              }
+
+              const derivedWeapons = resolveWeaponsForItem(element.item.name);
+              for (const weaponName of derivedWeapons) {
+                unionWeapons.add(weaponName);
+              }
+            }
+
+            return Array.from(unionWeapons);
+          })()
+          : evolutionWeapons;
+
       if (
         relevantPassives.some((passive) => selectedPassives.has(passive)) ||
-        evolutionWeapons.some((weapon) => selectedWeapons.has(weapon))
+        relevantWeapons.some((weapon) => selectedWeapons.has(weapon))
       ) {
         filtered.push(evolution);
       } else {
@@ -237,7 +311,9 @@ const useEvolutionFiltering = (
     selectedPassives,
     selectedWeapons,
     passivesShowUnions,
+    weaponsShowUnions,
     resolvePassivesForItem,
+    resolveWeaponsForItem,
   ]);
 };
 
@@ -274,6 +350,7 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
   const toggleWeapon = useAppStore((state) => state.toggleEvolutionWeapon);
   const resetWeapons = useAppStore((state) => state.resetEvolutionWeapons);
   const passivesShowUnions = useAppStore((state) => state.passivesShowUnions);
+  const weaponsShowUnions = useAppStore((state) => state.weaponsShowUnions);
 
   const selectedDlcs = useMemo(
     () => new Set(selectedDlcsArray),
@@ -321,6 +398,10 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     () => createPassiveResolver(evolutionDependencyMap, itemLookup),
     [evolutionDependencyMap, itemLookup]
   );
+  const resolveWeaponsForItem = useMemo(
+    () => createWeaponResolver(evolutionDependencyMap, itemLookup),
+    [evolutionDependencyMap, itemLookup]
+  );
 
   const { filtered, unfiltered } = useEvolutionFiltering(
     sortedEvolutions,
@@ -328,7 +409,9 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     selectedPassives,
     selectedWeapons,
     passivesShowUnions,
-    resolvePassivesForItem
+    weaponsShowUnions,
+    resolvePassivesForItem,
+    resolveWeaponsForItem
   );
 
   return {

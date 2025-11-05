@@ -33,6 +33,9 @@ interface AppState {
   passivesShowUnions: boolean;
   setPassivesShowUnions: (value: boolean) => void;
   togglePassivesShowUnions: () => void;
+  weaponsShowUnions: boolean;
+  setWeaponsShowUnions: (value: boolean) => void;
+  toggleWeaponsShowUnions: () => void;
   setCollapsibleState: (key: string, value: boolean) => void;
   toggleCollapsibleState: (key: string) => void;
   setEvolutionControls: (
@@ -66,6 +69,11 @@ export const useAppStore = create<AppState>()(
         set(() => ({ passivesShowUnions: value })),
       togglePassivesShowUnions: () =>
         set((state) => ({ passivesShowUnions: !state.passivesShowUnions })),
+      weaponsShowUnions: false,
+      setWeaponsShowUnions: (value) =>
+        set(() => ({ weaponsShowUnions: value })),
+      toggleWeaponsShowUnions: () =>
+        set((state) => ({ weaponsShowUnions: !state.weaponsShowUnions })),
       setCollapsibleState: (key, value) =>
         set((state) => ({
           collapsibleState: { ...state.collapsibleState, [key]: value },
@@ -164,6 +172,7 @@ export const useAppStore = create<AppState>()(
         evolutionControls: state.evolutionControls,
         collapsibleState: state.collapsibleState,
         passivesShowUnions: state.passivesShowUnions,
+        weaponsShowUnions: state.weaponsShowUnions,
       }),
     }
   )

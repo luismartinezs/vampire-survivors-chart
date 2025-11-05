@@ -10,6 +10,10 @@ export const SettingsWidget = () => {
   const setPassivesShowUnions = useAppStore(
     (state) => state.setPassivesShowUnions
   );
+  const weaponsShowUnions = useAppStore((state) => state.weaponsShowUnions);
+  const setWeaponsShowUnions = useAppStore(
+    (state) => state.setWeaponsShowUnions
+  );
 
   const openModal = useCallback(() => setIsOpen(true), []);
   const closeModal = useCallback(() => setIsOpen(false), []);
@@ -75,6 +79,15 @@ export const SettingsWidget = () => {
                   className="h-4 w-4 rounded border-primary-500 bg-transparent text-primary focus:ring-primary"
                 />
                 <span>passives show unions</span>
+              </label>
+              <label className="flex items-center gap-3 text-sm text-primary-100">
+                <input
+                  type="checkbox"
+                  checked={weaponsShowUnions}
+                  onChange={(event) => setWeaponsShowUnions(event.target.checked)}
+                  className="h-4 w-4 rounded border-primary-500 bg-transparent text-primary focus:ring-primary"
+                />
+                <span>weapons show unions</span>
               </label>
             </div>
             <div className="mt-6 flex justify-end">
