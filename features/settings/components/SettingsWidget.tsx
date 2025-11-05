@@ -5,8 +5,11 @@ import { Settings } from "lucide-react";
 import { useAppStore } from "@/hooks/useAppStore";
 import { Checkbox } from "./Checkbox";
 
+const SETTINGS_WIDGET_STORAGE_KEY = "settings-widget-highlight-dismissed";
+
 export const SettingsWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [shouldHighlight, setShouldHighlight] = useState<boolean | null>(null);
   const passivesShowDerivedRecipes = useAppStore(
     (state) => state.passivesShowDerivedRecipes
   );
@@ -20,7 +23,19 @@ export const SettingsWidget = () => {
     (state) => state.setWeaponsShowDerivedRecipes
   );
 
-  const openModal = useCallback(() => setIsOpen(true), []);
+  const markSettingsSeen = useCallback(() => {
+    try {
+      window.localStorage.setItem(SETTINGS_WIDGET_STORAGE_KEY, "dismissed");
+    } catch {
+      // Best effort only; ignore storage failures.
+    }
+  }, []);
+
+  const openModal = useCallback(() => {
+    setIsOpen(true);
+    setShouldHighlight(false);
+    markSettingsSeen();
+  }, [markSettingsSeen]);
   const closeModal = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
@@ -41,19 +56,47 @@ export const SettingsWidget = () => {
     };
   }, [isOpen, closeModal]);
 
+  useEffect(() => {
+    try {
+      const storedValue = window.localStorage.getItem(
+        SETTINGS_WIDGET_STORAGE_KEY
+      );
+      setShouldHighlight(storedValue === "dismissed" ? false : true);
+    } catch {
+      setShouldHighlight(true);
+    }
+  }, []);
+
+  const buttonHighlightActive = shouldHighlight ?? false;
+  const baseButtonClasses =
+    "flex items-center justify-center rounded-full border p-3 backdrop-blur-xs transition-colors duration-200";
+  const defaultButtonClasses =
+    "border-primary-400/80 text-primary-400/80 hover:border-primary-400 hover:text-primary-400";
+  const highlightedButtonClasses =
+    "border-amber-400 text-amber-100 ring-4 ring-amber-400/40 hover:border-amber-300 hover:text-white";
+
   return (
     <>
-      <button
-        type="button"
-        onClick={openModal}
-        className="flex items-center justify-center rounded-full border border-primary-400/80 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400"
-        aria-haspopup="dialog"
-        aria-expanded={isOpen}
-        aria-controls={isOpen ? "settings-modal" : undefined}
-      >
-        <Settings size={16} aria-hidden="true" />
-        <span className="sr-only">Open settings</span>
-      </button>
+      <span className="relative inline-flex">
+        {buttonHighlightActive && (
+          <span className="pointer-events-none absolute inset-0 rounded-full border-2 border-amber-400/80 animate-ping" />
+        )}
+        <button
+          type="button"
+          onClick={openModal}
+          className={`${baseButtonClasses} ${
+            buttonHighlightActive
+              ? highlightedButtonClasses
+              : defaultButtonClasses
+          }`}
+          aria-haspopup="dialog"
+          aria-expanded={isOpen}
+          aria-controls={isOpen ? "settings-modal" : undefined}
+        >
+          <Settings size={16} aria-hidden="true" />
+          <span className="sr-only">Open settings</span>
+        </button>
+      </span>
 
       {isOpen && (
         <div

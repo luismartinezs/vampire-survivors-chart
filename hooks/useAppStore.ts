@@ -51,8 +51,8 @@ interface AppState {
 
 const memoryStorage: StateStorage = {
   getItem: () => null,
-  setItem: () => {},
-  removeItem: () => {},
+  setItem: () => { },
+  removeItem: () => { },
 };
 
 const storage = createJSONStorage(() =>
@@ -64,14 +64,14 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       evolutionControls: createInitialEvolutionControlsState(),
       collapsibleState: {},
-      passivesShowDerivedRecipes: false,
+      passivesShowDerivedRecipes: true,
       setPassivesShowDerivedRecipes: (value) =>
         set(() => ({ passivesShowDerivedRecipes: value })),
       togglePassivesShowDerivedRecipes: () =>
         set((state) => ({
           passivesShowDerivedRecipes: !state.passivesShowDerivedRecipes,
         })),
-      weaponsShowDerivedRecipes: false,
+      weaponsShowDerivedRecipes: true,
       setWeaponsShowDerivedRecipes: (value) =>
         set(() => ({ weaponsShowDerivedRecipes: value })),
       toggleWeaponsShowDerivedRecipes: () =>
