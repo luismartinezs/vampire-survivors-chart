@@ -620,13 +620,13 @@ const anteWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
 
 const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
   ...mergeIntoNestedObjects(baseWeapons, { dlc: base }),
-  ...mergeIntoNestedObjects(edWeapons, { dlc: ed }),
-  ...mergeIntoNestedObjects(anteWeapons, { dlc: ante }),
   ...mergeIntoNestedObjects(lotmWeapons, { dlc: lotm }),
   ...mergeIntoNestedObjects(todfWeapons, { dlc: todf }),
   ...mergeIntoNestedObjects(emWeapons, { dlc: em }),
   ...mergeIntoNestedObjects(ogWeapons, { dlc: og }),
   ...mergeIntoNestedObjects(otcWeapons, { dlc: otc }),
+  ...mergeIntoNestedObjects(edWeapons, { dlc: ed }),
+  ...mergeIntoNestedObjects(anteWeapons, { dlc: ante }),
 }
 
 const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {

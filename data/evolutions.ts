@@ -577,11 +577,11 @@ const anteEvolutions: TWeaponEvolution[] = [
 
 export const evolutions = [
   ...baseEvolutions.map((evolution) => ({ ...evolution, dlc: base })),
-  ...edEvolutions.map((evolution) => ({ ...evolution, dlc: ed })),
-  ...anteEvolutions.map((evolution) => ({ ...evolution, dlc: ante })),
   ...lotmEvolutions.map((evolution) => ({ ...evolution, dlc: lotm })),
   ...todfEvolutions.map((evolution) => ({ ...evolution, dlc: todf })),
   ...emEvolutions.map((evolution) => ({ ...evolution, dlc: em })),
   ...ogEvolutions.map((evolution) => ({ ...evolution, dlc: og })),
   ...otcEvolutions.map((evolution) => ({ ...evolution, dlc: otc })),
+  ...edEvolutions.map((evolution) => ({ ...evolution, dlc: ed })),
+  ...anteEvolutions.map((evolution) => ({ ...evolution, dlc: ante })),
 ]
