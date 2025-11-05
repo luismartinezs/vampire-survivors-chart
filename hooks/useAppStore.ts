@@ -30,12 +30,12 @@ type CollapsibleState = Record<string, boolean>;
 interface AppState {
   evolutionControls: EvolutionControlsState;
   collapsibleState: CollapsibleState;
-  passivesShowUnions: boolean;
-  setPassivesShowUnions: (value: boolean) => void;
-  togglePassivesShowUnions: () => void;
-  weaponsShowUnions: boolean;
-  setWeaponsShowUnions: (value: boolean) => void;
-  toggleWeaponsShowUnions: () => void;
+  passivesShowDerivedRecipes: boolean;
+  setPassivesShowDerivedRecipes: (value: boolean) => void;
+  togglePassivesShowDerivedRecipes: () => void;
+  weaponsShowDerivedRecipes: boolean;
+  setWeaponsShowDerivedRecipes: (value: boolean) => void;
+  toggleWeaponsShowDerivedRecipes: () => void;
   setCollapsibleState: (key: string, value: boolean) => void;
   toggleCollapsibleState: (key: string) => void;
   setEvolutionControls: (
@@ -64,16 +64,20 @@ export const useAppStore = create<AppState>()(
     (set) => ({
       evolutionControls: createInitialEvolutionControlsState(),
       collapsibleState: {},
-      passivesShowUnions: false,
-      setPassivesShowUnions: (value) =>
-        set(() => ({ passivesShowUnions: value })),
-      togglePassivesShowUnions: () =>
-        set((state) => ({ passivesShowUnions: !state.passivesShowUnions })),
-      weaponsShowUnions: false,
-      setWeaponsShowUnions: (value) =>
-        set(() => ({ weaponsShowUnions: value })),
-      toggleWeaponsShowUnions: () =>
-        set((state) => ({ weaponsShowUnions: !state.weaponsShowUnions })),
+      passivesShowDerivedRecipes: false,
+      setPassivesShowDerivedRecipes: (value) =>
+        set(() => ({ passivesShowDerivedRecipes: value })),
+      togglePassivesShowDerivedRecipes: () =>
+        set((state) => ({
+          passivesShowDerivedRecipes: !state.passivesShowDerivedRecipes,
+        })),
+      weaponsShowDerivedRecipes: false,
+      setWeaponsShowDerivedRecipes: (value) =>
+        set(() => ({ weaponsShowDerivedRecipes: value })),
+      toggleWeaponsShowDerivedRecipes: () =>
+        set((state) => ({
+          weaponsShowDerivedRecipes: !state.weaponsShowDerivedRecipes,
+        })),
       setCollapsibleState: (key, value) =>
         set((state) => ({
           collapsibleState: { ...state.collapsibleState, [key]: value },
@@ -171,8 +175,8 @@ export const useAppStore = create<AppState>()(
       partialize: (state) => ({
         evolutionControls: state.evolutionControls,
         collapsibleState: state.collapsibleState,
-        passivesShowUnions: state.passivesShowUnions,
-        weaponsShowUnions: state.weaponsShowUnions,
+        passivesShowDerivedRecipes: state.passivesShowDerivedRecipes,
+        weaponsShowDerivedRecipes: state.weaponsShowDerivedRecipes,
       }),
     }
   )

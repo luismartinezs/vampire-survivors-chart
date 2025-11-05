@@ -55,6 +55,173 @@ const useEvolutionSorting = (
   }, [evolutions, sortByPassive, getPassiveName]);
 };
 
+const useEvolutionFiltering = (
+  sortedEvolutions: Evolution[],
+  selectedDlcs: Set<TDlc>,
+  selectedPassives: Set<string>,
+  selectedWeapons: Set<string>,
+  passivesShowDerivedRecipes: boolean,
+  weaponsShowDerivedRecipes: boolean,
+  resolvePassivesForItem: (itemName: string) => Set<string>,
+  resolveWeaponsForItem: (itemName: string) => Set<string>,
+  evolutionDependencies: Map<string, string[]>,
+  evolutionByResult: Map<string, Evolution>
+) => {
+  return useMemo(() => {
+    const eligibleIndices: number[] = [];
+    const filteredIndices = new Set<number>();
+    const matchedByWeapon = new Set<number>();
+    const evolutionIndexMap = new Map<Evolution, number>();
+
+    sortedEvolutions.forEach((evolution, index) => {
+      evolutionIndexMap.set(evolution, index);
+
+      if (evolution.dlc && !selectedDlcs.has(evolution.dlc)) {
+        return;
+      }
+
+      eligibleIndices.push(index);
+
+      const arePassivesSelected = selectedPassives.size > 0;
+      const areWeaponsSelected = selectedWeapons.size > 0;
+
+      if (!arePassivesSelected && !areWeaponsSelected) {
+        filteredIndices.add(index);
+        return;
+      }
+
+      const evolutionItems = evolution.elements.filter(isItem);
+      const directPassives = arePassivesSelected
+        ? evolutionItems
+          .filter((el) => el.item.type === "passive")
+          .map((el) => el.item.name)
+        : [];
+      const directWeapons = areWeaponsSelected
+        ? evolutionItems
+          .filter((el) => el.item.type === "weapon" && !el.item.evolved)
+          .map((el) => el.item.name)
+        : [];
+
+      const relevantPassives =
+        passivesShowDerivedRecipes && arePassivesSelected
+          ? (() => {
+            const derived = new Set(directPassives);
+            for (const element of evolutionItems) {
+              if (element.item.type !== "weapon") {
+                continue;
+              }
+
+              const propagated = resolvePassivesForItem(element.item.name);
+              for (const passiveName of propagated) {
+                derived.add(passiveName);
+              }
+            }
+
+            return Array.from(derived);
+          })()
+          : directPassives;
+
+      const relevantWeapons =
+        weaponsShowDerivedRecipes && areWeaponsSelected
+          ? (() => {
+            const derived = new Set(directWeapons);
+            for (const element of evolutionItems) {
+              if (element.item.type !== "weapon") {
+                continue;
+              }
+
+              const propagated = resolveWeaponsForItem(element.item.name);
+              for (const weaponName of propagated) {
+                derived.add(weaponName);
+              }
+            }
+
+            return Array.from(derived);
+          })()
+          : directWeapons;
+
+      const matchedPassives = relevantPassives.some((passive) =>
+        selectedPassives.has(passive)
+      );
+      const matchedWeapons = relevantWeapons.some((weapon) =>
+        selectedWeapons.has(weapon)
+      );
+
+      if (matchedPassives || matchedWeapons) {
+        filteredIndices.add(index);
+        if (matchedWeapons) {
+          matchedByWeapon.add(index);
+        }
+      }
+    });
+
+    if (weaponsShowDerivedRecipes && matchedByWeapon.size > 0) {
+      const visitedItems = new Set<string>();
+
+      const enqueueParentEvolutions = (weaponName: string) => {
+        const targetEvolution = evolutionByResult.get(weaponName);
+        if (!targetEvolution) {
+          return;
+        }
+
+        if (targetEvolution.dlc && !selectedDlcs.has(targetEvolution.dlc)) {
+          return;
+        }
+
+        const targetIndex = evolutionIndexMap.get(targetEvolution);
+        if (targetIndex === undefined) {
+          return;
+        }
+
+        filteredIndices.add(targetIndex);
+
+        if (visitedItems.has(weaponName)) {
+          return;
+        }
+        visitedItems.add(weaponName);
+
+        const dependencies = evolutionDependencies.get(weaponName) ?? [];
+        for (const ingredient of dependencies) {
+          enqueueParentEvolutions(ingredient);
+        }
+      };
+
+      for (const index of matchedByWeapon) {
+        const evolution = sortedEvolutions[index];
+        const evolutionItems = evolution.elements.filter(isItem);
+
+        for (const element of evolutionItems) {
+          if (element.item.type !== "weapon") {
+            continue;
+          }
+
+          enqueueParentEvolutions(element.item.name);
+        }
+      }
+    }
+
+    const filtered = eligibleIndices
+      .filter((index) => filteredIndices.has(index))
+      .map((index) => sortedEvolutions[index]);
+    const unfiltered = eligibleIndices
+      .filter((index) => !filteredIndices.has(index))
+      .map((index) => sortedEvolutions[index]);
+
+    return { filtered, unfiltered };
+  }, [
+    sortedEvolutions,
+    selectedDlcs,
+    selectedPassives,
+    selectedWeapons,
+    passivesShowDerivedRecipes,
+    weaponsShowDerivedRecipes,
+    resolvePassivesForItem,
+    resolveWeaponsForItem,
+    evolutionDependencies,
+    evolutionByResult,
+  ]);
+};
+
 function isItem(item: TEvolutionItem | string): item is TEvolutionItem {
   return typeof item !== "string";
 }
@@ -71,10 +238,14 @@ const createItemLookup = (): Map<string, TItem> => {
 
 const buildEvolutionDependencyMap = (
   evolutions: Evolution[]
-): Map<string, string[]> => {
-  const map = new Map<string, string[]>();
+): {
+  dependencies: Map<string, string[]>;
+  evolutionByResult: Map<string, Evolution>;
+} => {
+  const dependencies = new Map<string, string[]>();
+  const evolutionByResult = new Map<string, Evolution>();
 
-  for (const evolution of evolutions) {
+  evolutions.forEach((evolution) => {
     const equalsIndex = evolution.elements.findIndex((element) => element === "=");
     let resultItemName: string | undefined;
     let ingredients: string[] = [];
@@ -103,11 +274,15 @@ const buildEvolutionDependencyMap = (
     }
 
     if (resultItemName && ingredients.length > 0) {
-      map.set(resultItemName, ingredients);
+      dependencies.set(resultItemName, ingredients);
+      evolutionByResult.set(resultItemName, evolution);
     }
-  }
+  });
 
-  return map;
+  return {
+    dependencies,
+    evolutionByResult,
+  };
 };
 
 const createPassiveResolver = (
@@ -214,109 +389,6 @@ const createWeaponResolver = (
     new Set(resolveWeapons(itemName, new Set<string>()));
 };
 
-const useEvolutionFiltering = (
-  sortedEvolutions: Evolution[],
-  selectedDlcs: Set<TDlc>,
-  selectedPassives: Set<string>,
-  selectedWeapons: Set<string>,
-  passivesShowUnions: boolean,
-  weaponsShowUnions: boolean,
-  resolvePassivesForItem: (itemName: string) => Set<string>,
-  resolveWeaponsForItem: (itemName: string) => Set<string>
-) => {
-  return useMemo(() => {
-    const filtered = [];
-    const unfiltered = [];
-
-    for (const evolution of sortedEvolutions) {
-      if (!evolution.dlc || !selectedDlcs.has(evolution.dlc)) {
-        continue;
-      }
-
-      const arePassivesSelected = selectedPassives.size > 0;
-      const areWeaponsSelected = selectedWeapons.size > 0;
-
-      if (!arePassivesSelected && !areWeaponsSelected) {
-        filtered.push(evolution);
-        continue;
-      }
-
-      const evolutionItems = evolution.elements.filter(isItem);
-      const evolutionPassives = arePassivesSelected
-        ? evolutionItems
-          .filter((el) => el.item.type === "passive")
-          .map((el) => el.item.name)
-        : [];
-      const evolutionWeapons = areWeaponsSelected
-        ? evolutionItems
-          .filter((el) => el.item.type === "weapon" && !el.item.evolved)
-          .map((el) => el.item.name)
-        : [];
-
-      const relevantPassives =
-        passivesShowUnions && arePassivesSelected
-          ? (() => {
-            const unionPassives = new Set(evolutionPassives);
-            for (const element of evolutionItems) {
-              if (element.item.type !== "weapon") {
-                continue;
-              }
-
-              const derivedPassives = resolvePassivesForItem(element.item.name);
-              for (const passiveName of derivedPassives) {
-                unionPassives.add(passiveName);
-              }
-            }
-
-            return Array.from(unionPassives);
-          })()
-          : evolutionPassives;
-
-      const relevantWeapons =
-        weaponsShowUnions && areWeaponsSelected
-          ? (() => {
-            const unionWeapons = new Set(evolutionWeapons);
-            for (const element of evolutionItems) {
-              if (element.item.type !== "weapon") {
-                continue;
-              }
-
-              const derivedWeapons = resolveWeaponsForItem(element.item.name);
-              for (const weaponName of derivedWeapons) {
-                unionWeapons.add(weaponName);
-              }
-            }
-
-            return Array.from(unionWeapons);
-          })()
-          : evolutionWeapons;
-
-      if (
-        relevantPassives.some((passive) => selectedPassives.has(passive)) ||
-        relevantWeapons.some((weapon) => selectedWeapons.has(weapon))
-      ) {
-        filtered.push(evolution);
-      } else {
-        unfiltered.push(evolution);
-      }
-    }
-
-    return {
-      filtered,
-      unfiltered,
-    };
-  }, [
-    sortedEvolutions,
-    selectedDlcs,
-    selectedPassives,
-    selectedWeapons,
-    passivesShowUnions,
-    weaponsShowUnions,
-    resolvePassivesForItem,
-    resolveWeaponsForItem,
-  ]);
-};
-
 const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
   return evolution.elements.some(
     (el) =>
@@ -349,8 +421,12 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
   );
   const toggleWeapon = useAppStore((state) => state.toggleEvolutionWeapon);
   const resetWeapons = useAppStore((state) => state.resetEvolutionWeapons);
-  const passivesShowUnions = useAppStore((state) => state.passivesShowUnions);
-  const weaponsShowUnions = useAppStore((state) => state.weaponsShowUnions);
+  const passivesShowDerivedRecipes = useAppStore(
+    (state) => state.passivesShowDerivedRecipes
+  );
+  const weaponsShowDerivedRecipes = useAppStore(
+    (state) => state.weaponsShowDerivedRecipes
+  );
 
   const selectedDlcs = useMemo(
     () => new Set(selectedDlcsArray),
@@ -389,18 +465,18 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     sortByPassive,
     getPassiveName
   );
-  const evolutionDependencyMap = useMemo(
-    () => buildEvolutionDependencyMap(evolutions),
-    []
-  );
+  const {
+    dependencies: evolutionDependencies,
+    evolutionByResult,
+  } = useMemo(() => buildEvolutionDependencyMap(evolutions), []);
   const itemLookup = useMemo(() => createItemLookup(), []);
   const resolvePassivesForItem = useMemo(
-    () => createPassiveResolver(evolutionDependencyMap, itemLookup),
-    [evolutionDependencyMap, itemLookup]
+    () => createPassiveResolver(evolutionDependencies, itemLookup),
+    [evolutionDependencies, itemLookup]
   );
   const resolveWeaponsForItem = useMemo(
-    () => createWeaponResolver(evolutionDependencyMap, itemLookup),
-    [evolutionDependencyMap, itemLookup]
+    () => createWeaponResolver(evolutionDependencies, itemLookup),
+    [evolutionDependencies, itemLookup]
   );
 
   const { filtered, unfiltered } = useEvolutionFiltering(
@@ -408,10 +484,12 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
     selectedDlcs,
     selectedPassives,
     selectedWeapons,
-    passivesShowUnions,
-    weaponsShowUnions,
+    passivesShowDerivedRecipes,
+    weaponsShowDerivedRecipes,
     resolvePassivesForItem,
-    resolveWeaponsForItem
+    resolveWeaponsForItem,
+    evolutionDependencies,
+    evolutionByResult
   );
 
   return {
