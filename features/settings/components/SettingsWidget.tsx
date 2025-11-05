@@ -2,9 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Settings } from "lucide-react";
+import { useAppStore } from "@/hooks/useAppStore";
 
 export const SettingsWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const passivesShowUnions = useAppStore((state) => state.passivesShowUnions);
+  const setPassivesShowUnions = useAppStore(
+    (state) => state.setPassivesShowUnions
+  );
 
   const openModal = useCallback(() => setIsOpen(true), []);
   const closeModal = useCallback(() => setIsOpen(false), []);
@@ -59,12 +64,19 @@ export const SettingsWidget = () => {
               id="settings-modal-title"
               className="text-lg font-semibold text-white"
             >
-              Settings Placeholder
+              Settings
             </h2>
-            <p className="mt-3 text-sm text-primary-200">
-              This modal will soon host additional settings and controls. For
-              now, it is just a placeholder.
-            </p>
+            <div className="mt-4 space-y-4">
+              <label className="flex items-center gap-3 text-sm text-primary-100">
+                <input
+                  type="checkbox"
+                  checked={passivesShowUnions}
+                  onChange={(event) => setPassivesShowUnions(event.target.checked)}
+                  className="h-4 w-4 rounded border-primary-500 bg-transparent text-primary focus:ring-primary"
+                />
+                <span>passives show unions</span>
+              </label>
+            </div>
             <div className="mt-6 flex justify-end">
               <button
                 type="button"

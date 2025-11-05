@@ -1,7 +1,10 @@
+'use client';
+
+import { useMemo } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "./Button";
 import { cn } from "@/lib/utils";
-import { useStorage } from "@/hooks/useStorage";
+import { useCollapsible } from "@/hooks/useCollapsible";
 
 interface CollapsibleProps {
   title: string;
@@ -16,16 +19,17 @@ export function Collapsible({
   defaultOpen = false,
   className,
 }: CollapsibleProps) {
-  const [isOpen, setIsOpen] = useStorage(
-    `collapsible-${title}-open`,
-    defaultOpen
+  const storageKey = useMemo(
+    () => `collapsible-${title}-open`,
+    [title]
   );
+  const { isOpen, toggle } = useCollapsible(storageKey, defaultOpen);
 
   return (
     <div className={cn("w-full", className)}>
       <Button
         variant="outline-solid"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={toggle}
         className={cn(
           "w-full flex items-center justify-between py-1 sm:py-3 px-2 sm:px-4",
           "text-xs sm:text-sm font-medium tracking-wide text-primary-100",
@@ -45,11 +49,13 @@ export function Collapsible({
         )}
       </Button>
       {isOpen && (
-        <div className={cn(
-          "w-full mt-0 p-1 sm:p-4 bg-transparent",
-          "border border-primary-500 rounded-b-[8px] sm:rounded-b-[12px]",
-          "animate-in fade-in-0 slide-in-from-top-1 duration-200"
-        )}>
+        <div
+          className={cn(
+            "w-full mt-0 p-1 sm:p-4 bg-transparent",
+            "border border-primary-500 rounded-b-[8px] sm:rounded-b-[12px]",
+            "animate-in fade-in-0 slide-in-from-top-1 duration-200"
+          )}
+        >
           {children}
         </div>
       )}

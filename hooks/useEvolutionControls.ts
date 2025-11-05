@@ -1,27 +1,13 @@
+'use client';
+
 import { useCallback, useMemo } from "react";
 import { TDlc, TEvolutionItem, TWeaponEvolution } from "@/data/types";
 import { evolutions } from "@/data/evolutions";
-import { useStorage } from "@/hooks/useStorage";
+import { useAppStore } from "@/hooks/useAppStore";
 
 type Evolution = TWeaponEvolution;
 
 const IGNORED_PASSIVES = ["Weapon Power-Up"];
-const DEFAULT_DLC: TDlc = "base";
-
-interface EvolutionControlsState {
-  sortByPassive: boolean;
-  selectedDlcs: TDlc[];
-  selectedPassives: string[];
-  selectedWeapons: string[];
-}
-
-const initialState: EvolutionControlsState = {
-  sortByPassive: false,
-  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed", "ante"],
-  selectedPassives: [],
-  selectedWeapons: [],
-};
-
 type UseEvolutionControlsReturn = {
   sortByPassive: boolean;
   selectedDlcs: Set<TDlc>;
@@ -134,94 +120,40 @@ const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
 };
 
 export function useEvolutionControls(): UseEvolutionControlsReturn {
-  const [state, setState] = useStorage<EvolutionControlsState>(
-    "evolution-controls",
-    initialState
+  const sortByPassive = useAppStore(
+    (state) => state.evolutionControls.sortByPassive
   );
+  const selectedDlcsArray = useAppStore(
+    (state) => state.evolutionControls.selectedDlcs
+  );
+  const selectedPassivesArray = useAppStore(
+    (state) => state.evolutionControls.selectedPassives
+  );
+  const selectedWeaponsArray = useAppStore(
+    (state) => state.evolutionControls.selectedWeapons
+  );
+  const toggleDlc = useAppStore((state) => state.toggleEvolutionDlc);
+  const togglePassive = useAppStore(
+    (state) => state.toggleEvolutionPassive
+  );
+  const resetPassives = useAppStore((state) => state.resetEvolutionPassives);
+  const toggleSortByPassive = useAppStore(
+    (state) => state.toggleEvolutionSortByPassive
+  );
+  const toggleWeapon = useAppStore((state) => state.toggleEvolutionWeapon);
+  const resetWeapons = useAppStore((state) => state.resetEvolutionWeapons);
 
-  const selectedDlcs = useMemo(() => new Set(state.selectedDlcs), [state.selectedDlcs]);
+  const selectedDlcs = useMemo(
+    () => new Set(selectedDlcsArray),
+    [selectedDlcsArray]
+  );
   const selectedPassives = useMemo(
-    () => new Set(state.selectedPassives),
-    [state.selectedPassives]
+    () => new Set(selectedPassivesArray),
+    [selectedPassivesArray]
   );
   const selectedWeapons = useMemo(
-    () => new Set(state.selectedWeapons),
-    [state.selectedWeapons]
-  );
-
-  const toggleDlc = useCallback(
-    (dlc: TDlc) => {
-      setState((prev) => {
-        const nextDlcs = new Set(prev.selectedDlcs);
-        if (nextDlcs.has(dlc)) {
-          nextDlcs.delete(dlc);
-          // Always keep at least one DLC selected
-          if (nextDlcs.size === 0) nextDlcs.add(DEFAULT_DLC);
-        } else {
-          nextDlcs.add(dlc);
-        }
-        return {
-          ...prev,
-          selectedDlcs: Array.from(nextDlcs),
-        };
-      });
-    },
-    [setState]
-  );
-
-  const togglePassive = useCallback(
-    (passiveName: string) => {
-      setState((prev) => ({
-        ...prev,
-        selectedPassives: Array.from(
-          new Set(
-            prev.selectedPassives.includes(passiveName)
-              ? prev.selectedPassives.filter((p) => p !== passiveName)
-              : [...prev.selectedPassives, passiveName]
-          )
-        ),
-      }));
-    },
-    [setState]
-  );
-
-  const toggleWeapon = useCallback(
-    (weaponName: string) => {
-      setState((prev) => ({
-        ...prev,
-        selectedWeapons: Array.from(
-          new Set(
-            prev.selectedWeapons?.includes(weaponName)
-              ? prev.selectedWeapons.filter((w) => w !== weaponName)
-              : [...(prev.selectedWeapons || []), weaponName]
-          )
-        ),
-      }));
-    },
-    [setState]
-  );
-
-  const resetPassives = useCallback(
-    () =>
-      setState((prev) => ({
-        ...prev,
-        selectedPassives: [],
-      })),
-    [setState]
-  );
-
-  const resetWeapons = useCallback(
-    () => setState((prev) => ({ ...prev, selectedWeapons: [] })),
-    [setState]
-  );
-
-  const toggleSortByPassive = useCallback(
-    () =>
-      setState((prev) => ({
-        ...prev,
-        sortByPassive: !prev.sortByPassive,
-      })),
-    [setState]
+    () => new Set(selectedWeaponsArray),
+    [selectedWeaponsArray]
   );
 
   const getPassiveName = useCallback((evolution: Evolution): string => {
@@ -245,7 +177,7 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
 
   const sortedEvolutions = useEvolutionSorting(
     evolutions,
-    state.sortByPassive,
+    sortByPassive,
     getPassiveName
   );
 
@@ -257,7 +189,7 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
   );
 
   return {
-    sortByPassive: state.sortByPassive,
+    sortByPassive,
     selectedDlcs,
     selectedPassives,
     toggleDlc,
