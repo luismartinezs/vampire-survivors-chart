@@ -1,4 +1,4 @@
-export const WIKI_BASE_URL = "https://vampire-survivors.fandom.com/wiki";
+export const WIKI_BASE_URL = "https://vampire.survivors.wiki/w";
 
 export function getWikiHref(
   wikiPath?: string | null
