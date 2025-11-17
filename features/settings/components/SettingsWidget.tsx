@@ -75,7 +75,7 @@ export const SettingsWidget = () => {
 
   const buttonHighlightActive = shouldHighlight ?? false;
   const baseButtonClasses =
-    "flex items-center justify-center rounded-full border p-3 backdrop-blur-xs transition-colors duration-200 cursor-pointer";
+    "flex items-center justify-center rounded-full border bg-primary-800/20 p-3 backdrop-blur-xs transition-colors duration-200 cursor-pointer";
   const defaultButtonClasses =
     "border-primary-400/80 text-primary-400/80 hover:border-primary-400 hover:text-primary-400";
   const highlightedButtonClasses =

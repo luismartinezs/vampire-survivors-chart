@@ -3,18 +3,21 @@
 import { Item } from "./Item";
 import { useAppStore } from "@/hooks/useAppStore";
 import { cn } from "@/lib/utils";
+import { getWikiHref } from "@/lib/wiki";
 import { X } from "lucide-react";
 
-const WIKI_BASE_URL = "https://vampire-survivors.fandom.com/wiki";
-
 export function RecipeDrawer() {
-  const { recipeDrawerElements, isRecipeDrawerOpen, closeRecipeDrawer, isRecipeDrawerEnabled } =
-    useAppStore((state) => ({
-      recipeDrawerElements: state.recipeDrawerElements,
-      isRecipeDrawerOpen: state.isRecipeDrawerOpen,
-      closeRecipeDrawer: state.closeRecipeDrawer,
-      isRecipeDrawerEnabled: state.isRecipeDrawerEnabled,
-    }));
+  const {
+    recipeDrawerElements,
+    isRecipeDrawerOpen,
+    closeRecipeDrawer,
+    isRecipeDrawerEnabled,
+  } = useAppStore((state) => ({
+    recipeDrawerElements: state.recipeDrawerElements,
+    isRecipeDrawerOpen: state.isRecipeDrawerOpen,
+    closeRecipeDrawer: state.closeRecipeDrawer,
+    isRecipeDrawerEnabled: state.isRecipeDrawerEnabled,
+  }));
 
   if (!isRecipeDrawerEnabled || recipeDrawerElements.length === 0) {
     return null;
@@ -24,8 +27,8 @@ export function RecipeDrawer() {
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-0 sm:bottom-4 sm:px-4">
       <div
         className={cn(
-          "relative w-full max-w-3xl rounded-none border border-white/10 bg-primary-800/60 text-slate-50 shadow-2xl backdrop-blur",
-          "sm:rounded-xl",
+          "relative w-full max-w-3xl rounded-none bg-primary-800/60 text-slate-50 shadow-2xl backdrop-blur",
+          "sm:rounded-xl sm:border sm:border-white/50",
           "sm:w-auto sm:max-w-fit sm:min-w-[18rem]",
           "px-3 py-3 sm:px-4",
           "transition-all duration-200",
@@ -47,9 +50,7 @@ export function RecipeDrawer() {
         <div className="max-h-40 overflow-y-auto pr-4 pt-1 sm:pr-14">
           <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-4">
             {recipeDrawerElements.map(({ item }, index) => {
-              const href = item.wikiPath
-                ? `${WIKI_BASE_URL}/${item.wikiPath}`
-                : null;
+              const href = getWikiHref(item.wikiPath);
 
               return (
                 <li
