@@ -7,7 +7,8 @@ export interface TItem {
   image: string,
   type: TItemType,
   evolved?: boolean,
-  dlc?: TDlc
+  dlc?: TDlc,
+  wikiPath?: string
 }
 
 export type TOperand = '+' | '=' | '→' | '⇒'

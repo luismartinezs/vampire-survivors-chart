@@ -1,8 +1,9 @@
-import { mergeIntoNestedObjects } from "@/lib/utils";
+import { ensureWikiPaths, mergeIntoNestedObjects } from "@/lib/utils";
+import { passiveWikiPaths } from "./wikiPaths";
 import { TItem } from "./types";
 import { em, ante } from "./constants";
 
-const _passives: Record<string, Omit<TItem, 'type'>> = {
+const _passives: Record<string, Omit<TItem, 'type'>> = ensureWikiPaths({
   hollowHeart: {
     name: 'Hollow Heart',
     image: 'icon-health'
@@ -144,7 +145,7 @@ const _passives: Record<string, Omit<TItem, 'type'>> = {
     image: 'icon-Outer_Saboteur',
     dlc: ante
   }
-}
+}, passiveWikiPaths);
 
 // typescript... too complicated
 export const passives = mergeIntoNestedObjects<

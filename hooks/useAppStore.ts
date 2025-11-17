@@ -1,6 +1,6 @@
 'use client';
 
-import { TDlc } from "@/data/types";
+import { TDlc, TEvolutionElement, TEvolutionItem } from "@/data/types";
 import { create } from "zustand";
 import {
   createJSONStorage,
@@ -47,6 +47,12 @@ interface AppState {
   toggleEvolutionWeapon: (weaponName: string) => void;
   resetEvolutionWeapons: () => void;
   toggleEvolutionSortByPassive: () => void;
+  recipeDrawerElements: TEvolutionItem[];
+  isRecipeDrawerOpen: boolean;
+  isRecipeDrawerEnabled: boolean;
+  openRecipeDrawer: (elements: TEvolutionElement[]) => void;
+  closeRecipeDrawer: () => void;
+  setRecipeDrawerEnabled: (enabled: boolean) => void;
 }
 
 const memoryStorage: StateStorage = {
@@ -65,6 +71,9 @@ export const useAppStore = create<AppState>()(
       evolutionControls: createInitialEvolutionControlsState(),
       collapsibleState: {},
       passivesShowDerivedRecipes: true,
+      recipeDrawerElements: [],
+      isRecipeDrawerOpen: false,
+      isRecipeDrawerEnabled: true,
       setPassivesShowDerivedRecipes: (value) =>
         set(() => ({ passivesShowDerivedRecipes: value })),
       togglePassivesShowDerivedRecipes: () =>
@@ -167,6 +176,30 @@ export const useAppStore = create<AppState>()(
             ...state.evolutionControls,
             sortByPassive: !state.evolutionControls.sortByPassive,
           },
+        })),
+      openRecipeDrawer: (elements) =>
+        set((state) => {
+          if (!state.isRecipeDrawerEnabled) {
+            return {} as AppState;
+          }
+          return {
+            recipeDrawerElements: elements.filter((element): element is TEvolutionItem => {
+              if (typeof element === "string") {
+                return false;
+              }
+              return element.item.type !== "misc";
+            }),
+            isRecipeDrawerOpen: true,
+          };
+        }),
+      closeRecipeDrawer: () =>
+        set(() => ({
+          isRecipeDrawerOpen: false,
+        })),
+      setRecipeDrawerEnabled: (enabled) =>
+        set((state) => ({
+          isRecipeDrawerEnabled: enabled,
+          isRecipeDrawerOpen: enabled ? state.isRecipeDrawerOpen : false,
         })),
     }),
     {

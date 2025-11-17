@@ -1,6 +1,7 @@
-import { mergeIntoNestedObjects } from "@/lib/utils"
+import { ensureWikiPaths, mergeIntoNestedObjects } from "@/lib/utils"
 import { TItem } from "./types"
 import { base, lotm, todf, em, og, otc, ed, ante } from "./constants"
+import { weaponWikiPaths } from "./wikiPaths"
 
 const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   whip: {
@@ -618,7 +619,7 @@ const anteWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
   },
 }
 
-const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
+const _baseWeapons: Record<string, Omit<TItem, 'type'>> = ensureWikiPaths({
   ...mergeIntoNestedObjects(baseWeapons, { dlc: base }),
   ...mergeIntoNestedObjects(lotmWeapons, { dlc: lotm }),
   ...mergeIntoNestedObjects(todfWeapons, { dlc: todf }),
@@ -627,9 +628,9 @@ const _baseWeapons: Record<string, Omit<TItem, 'type'>> = {
   ...mergeIntoNestedObjects(otcWeapons, { dlc: otc }),
   ...mergeIntoNestedObjects(edWeapons, { dlc: ed }),
   ...mergeIntoNestedObjects(anteWeapons, { dlc: ante }),
-}
+}, weaponWikiPaths)
 
-const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
+const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = ensureWikiPaths({
   bloodyTear: {
     name: 'Bloody Tear',
     image: 'icon-whip_'
@@ -1222,7 +1223,7 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = {
     name: 'NaneInferno',
     image: 'icon-NaneInferno',
   },
-}
+}, weaponWikiPaths)
 
 const _weapons = { ...mergeIntoNestedObjects(_baseWeapons, { evolved: false }), ...mergeIntoNestedObjects(_evolvedWeapons, { evolved: true }) }
 

@@ -5,7 +5,8 @@ const misc: Record<string, TItem> = {
   fiveMaxPassives: {
     name: '5',
     image: 'icon-five-max',
-    type: 'misc'
+    type: 'misc',
+    wikiPath: ''
   }
 }
 

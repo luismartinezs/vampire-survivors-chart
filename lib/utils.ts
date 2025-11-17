@@ -6,6 +6,28 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
+export function inferWikiPath(name: string) {
+  if (!name) return "";
+  const underscored = name.trim().replace(/\s+/g, "_");
+  return encodeURIComponent(underscored);
+}
+
+export function ensureWikiPaths<
+  T extends Record<string, { name: string; wikiPath?: string }>
+>(items: T, overrides: Record<string, string> = {}): T {
+  return Object.fromEntries(
+    Object.entries(items).map(([key, value]) => {
+      const override =
+        overrides[value.name] ??
+        overrides[key];
+      if (override || value.wikiPath) {
+        return [key, { ...value, wikiPath: value.wikiPath ?? override }];
+      }
+      return [key, { ...value, wikiPath: inferWikiPath(value.name) }];
+    })
+  ) as T;
+}
+
 export function mergeIntoNestedObjects<
   TObj extends Record<string, unknown>,
   TMerge extends Record<string, unknown>,

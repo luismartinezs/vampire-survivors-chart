@@ -22,6 +22,12 @@ export const SettingsWidget = () => {
   const setWeaponsShowDerivedRecipes = useAppStore(
     (state) => state.setWeaponsShowDerivedRecipes
   );
+  const isRecipeDrawerEnabled = useAppStore(
+    (state) => state.isRecipeDrawerEnabled
+  );
+  const setRecipeDrawerEnabled = useAppStore(
+    (state) => state.setRecipeDrawerEnabled
+  );
 
   const markSettingsSeen = useCallback(() => {
     try {
@@ -69,7 +75,7 @@ export const SettingsWidget = () => {
 
   const buttonHighlightActive = shouldHighlight ?? false;
   const baseButtonClasses =
-    "flex items-center justify-center rounded-full border p-3 backdrop-blur-xs transition-colors duration-200";
+    "flex items-center justify-center rounded-full border p-3 backdrop-blur-xs transition-colors duration-200 cursor-pointer";
   const defaultButtonClasses =
     "border-primary-400/80 text-primary-400/80 hover:border-primary-400 hover:text-primary-400";
   const highlightedButtonClasses =
@@ -92,6 +98,8 @@ export const SettingsWidget = () => {
           aria-haspopup="dialog"
           aria-expanded={isOpen}
           aria-controls={isOpen ? "settings-modal" : undefined}
+          aria-label="Toggle Settings"
+          title="Toggle Settings"
         >
           <Settings size={16} aria-hidden="true" />
           <span className="sr-only">Open settings</span>
@@ -111,7 +119,7 @@ export const SettingsWidget = () => {
             }
           }}
         >
-          <div className="w-full max-w-sm rounded-lg bg-primary-900/95 p-6 shadow-xl backdrop-blur-md">
+          <div className="w-full max-w-sm rounded-lg bg-primary-900/95 p-6 shadow-xl backdrop-blur-md border-2 border-primary-500">
             <h2
               id="settings-modal-title"
               className="text-lg font-semibold text-white"
@@ -136,6 +144,20 @@ export const SettingsWidget = () => {
                     checked={weaponsShowDerivedRecipes}
                     onChange={(event) =>
                       setWeaponsShowDerivedRecipes(event.target.checked)
+                    }
+                  />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-primary-100">
+                  Wiki links drawer
+                </h3>
+                <div className="mt-2">
+                  <Checkbox
+                    label="Enable wiki links drawer"
+                    checked={isRecipeDrawerEnabled}
+                    onChange={(event) =>
+                      setRecipeDrawerEnabled(event.target.checked)
                     }
                   />
                 </div>

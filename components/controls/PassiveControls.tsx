@@ -7,6 +7,7 @@ import { dlcClasses, ignoredPassives } from "./constants";
 import { ButtonList } from "./ButtonList";
 import { Collapsible } from "../ui/Collapsible";
 import { base } from "@/data/constants";
+import { useAppStore } from "@/hooks/useAppStore";
 
 interface PassiveControlsProps {
   selectedPassives: Set<string>;
@@ -19,6 +20,7 @@ export function PassiveControls({
   onTogglePassive,
   onResetPassives,
 }: PassiveControlsProps) {
+  const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
   const filteredPassives = Object.values(passives).filter(
     (passive) => !ignoredPassives.includes(passive.name)
   );
@@ -31,6 +33,7 @@ export function PassiveControls({
           onClick={onResetPassives}
           size="sm"
           aria-label="Reset Passives"
+          title="Reset Passives"
           className={cn(
             "p-1 aspect-square h-full",
             selectedPassives.size === 0
@@ -46,7 +49,10 @@ export function PassiveControls({
           <Button
             key={passive.name}
             variant="outline-solid"
-            onClick={() => onTogglePassive(passive.name)}
+            onClick={() => {
+              openRecipeDrawer([{ item: passive }]);
+              onTogglePassive(passive.name);
+            }}
             size="sm"
             className={cn(
               "p-1 aspect-square",

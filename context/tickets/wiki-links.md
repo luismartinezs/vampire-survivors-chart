@@ -1,0 +1,3 @@
+- on desktop, users can hover over anything to see a tooltip with the name, the tooltip is also a link
+- if user clicks / taps a recipe, a small drawer at the bottom lists for each ingredient, icon, name and link. the small drawer remains, with the last clicked element
+  - likely a global zustand store needed

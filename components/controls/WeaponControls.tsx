@@ -9,6 +9,7 @@ import { Collapsible } from "../ui/Collapsible";
 import { base } from "@/data/constants";
 import { TDlc } from "@/data/types";
 import { useMemo } from "react";
+import { useAppStore } from "@/hooks/useAppStore";
 
 interface WeaponControlsProps {
   selectedWeapons: Set<string>;
@@ -23,6 +24,7 @@ export function WeaponControls({
   onToggleWeapon,
   onResetWeapons,
 }: WeaponControlsProps) {
+  const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
   const filteredUnevolvedWeapons = useMemo(() => {
     return Object.values(weapons).filter(
       (weapon) =>
@@ -38,6 +40,7 @@ export function WeaponControls({
           onClick={onResetWeapons}
           size="sm"
           aria-label="Reset Weapons"
+          title="Reset weapons"
           className={cn(
             "p-1 aspect-square h-full",
             selectedWeapons.size === 0
@@ -53,7 +56,10 @@ export function WeaponControls({
           <Button
             key={weapon.name}
             variant="outline-solid"
-            onClick={() => onToggleWeapon(weapon.name)}
+            onClick={() => {
+              openRecipeDrawer([{ item: weapon }]);
+              onToggleWeapon(weapon.name);
+            }}
             size="sm"
             className={cn(
               "p-1 aspect-square",

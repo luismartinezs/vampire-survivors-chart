@@ -16,7 +16,7 @@ export const ResetAllButton = () => {
     <button
       type="button"
       onClick={handleReset}
-      className="flex items-center justify-center rounded-full border border-primary-400/80 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400"
+      className="flex items-center justify-center rounded-full border border-primary-400/80 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400 cursor-pointer"
       aria-label="Reset all selected weapons and passives"
       title="Reset all selections"
     >

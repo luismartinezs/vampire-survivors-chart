@@ -6,6 +6,7 @@ import { Legend } from "@/components/Legend";
 import { useEvolutionControls } from "@/hooks/useEvolutionControls";
 import { EvolutionList } from "@/components/EvolutionList";
 import { Separator } from "@/components/ui/separator";
+import { RecipeDrawer } from "@/components/RecipeDrawer";
 
 export default function Home() {
   const {
@@ -56,6 +57,7 @@ export default function Home() {
           </>
         )}
         <Legend className="mt-4" />
+        <RecipeDrawer />
       </main>
     </>
   );
