@@ -41,8 +41,14 @@ export function WeaponControls({
     );
   }, [selectedDlcs]);
 
+  const selectedCountLabel = `(${selectedWeapons.size} selected)`;
+
   return (
-    <Collapsible title="Weapons" defaultOpen={false}>
+    <Collapsible
+      title="Weapons"
+      meta={selectedCountLabel}
+      defaultOpen={false}
+    >
       <TooltipProvider
         delayDuration={DEFAULT_TOOLTIP_DELAY}
         skipDelayDuration={DEFAULT_TOOLTIP_DELAY}

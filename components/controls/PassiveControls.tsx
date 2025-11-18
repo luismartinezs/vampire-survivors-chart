@@ -35,8 +35,10 @@ export function PassiveControls({
   //   (passive) => !ignoredPassives.includes(passive.name)
   // );
 
+  const selectedCountLabel = `(${selectedPassives.size} selected)`;
+
   return (
-    <Collapsible title="Passives" defaultOpen>
+    <Collapsible title="Passives" meta={selectedCountLabel} defaultOpen>
       <TooltipProvider
         delayDuration={DEFAULT_TOOLTIP_DELAY}
         skipDelayDuration={DEFAULT_TOOLTIP_DELAY}

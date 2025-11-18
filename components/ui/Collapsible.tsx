@@ -11,6 +11,7 @@ interface CollapsibleProps {
   children: React.ReactNode;
   defaultOpen?: boolean;
   className?: string;
+  meta?: React.ReactNode;
 }
 
 export function Collapsible({
@@ -18,6 +19,7 @@ export function Collapsible({
   children,
   defaultOpen = false,
   className,
+  meta,
 }: CollapsibleProps) {
   const storageKey = useMemo(
     () => `collapsible-${title}-open`,
@@ -41,7 +43,14 @@ export function Collapsible({
             : "rounded-[8px] sm:rounded-[12px]"
         )}
       >
-        <span>{title}</span>
+        <div className="flex items-center gap-2 text-left">
+          <span>{title}</span>
+          {meta ? (
+            <span className="text-[0.65rem] sm:text-xs text-primary-200">
+              {meta}
+            </span>
+          ) : null}
+        </div>
         {isOpen ? (
           <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4 text-primary transition-transform duration-200" />
         ) : (
