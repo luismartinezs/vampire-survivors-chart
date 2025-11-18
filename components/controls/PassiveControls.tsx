@@ -3,7 +3,7 @@ import { passives } from "@/data/passives";
 import { ResponsiveItem } from "../ResponsiveItem";
 import { RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { dlcClasses, ignoredPassives } from "./constants";
+import { dlcClasses } from "./constants";
 import { ButtonList } from "./ButtonList";
 import { Collapsible } from "../ui/Collapsible";
 import { base } from "@/data/constants";

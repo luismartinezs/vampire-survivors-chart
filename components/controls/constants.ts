@@ -11,7 +11,7 @@ export const DLC_LABELS: Record<TDlc, string> = {
   ante: "Ante Chamber",
 };
 
-export const ignoredPassives: Array<String> = [
+export const ignoredPassives: Array<string> = [
   // "Mini Crewmate",
   // "Mini Engineer",
   // "Mini Ghost",
