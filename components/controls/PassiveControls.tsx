@@ -30,9 +30,10 @@ export function PassiveControls({
   onResetPassives,
 }: PassiveControlsProps) {
   const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
-  const filteredPassives = Object.values(passives).filter(
-    (passive) => !ignoredPassives.includes(passive.name)
-  );
+  const filteredPassives = Object.values(passives);
+  // .filter(
+  //   (passive) => !ignoredPassives.includes(passive.name)
+  // );
 
   return (
     <Collapsible title="Passives" defaultOpen>

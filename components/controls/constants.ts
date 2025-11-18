@@ -11,20 +11,20 @@ export const DLC_LABELS: Record<TDlc, string> = {
   ante: "Ante Chamber",
 };
 
-export const ignoredPassives = [
-  "Mini Crewmate",
-  "Mini Engineer",
-  "Mini Ghost",
-  "Mini Shapeshifter",
-  "Mini Guardian",
-  "Mini Impostor",
-  "Mini Scientist",
-  "Mini Horse",
-  "Weapon Power-Up",
-  "Silver Ring",
-  "Gold Ring",
-  "Metaglio Left",
-  "Metaglio Right",
+export const ignoredPassives: Array<String> = [
+  // "Mini Crewmate",
+  // "Mini Engineer",
+  // "Mini Ghost",
+  // "Mini Shapeshifter",
+  // "Mini Guardian",
+  // "Mini Impostor",
+  // "Mini Scientist",
+  // "Mini Horse",
+  // "Weapon Power-Up",
+  // "Silver Ring",
+  // "Gold Ring",
+  // "Metaglio Left",
+  // "Metaglio Right",
 ];
 
 export const dlcClasses: Record<TDlc, { selected: string; unselected: string; card: { bg: string; border: string } }> = {

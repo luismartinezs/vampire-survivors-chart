@@ -1,92 +1,123 @@
 import { ensureWikiPaths, mergeIntoNestedObjects } from "@/lib/utils";
 import { passiveWikiPaths } from "./wikiPaths";
 import { TItem } from "./types";
-import { em, ante } from "./constants";
+import { em, ante, og, base } from "./constants";
 
 const _passives: Record<string, Omit<TItem, 'type'>> = ensureWikiPaths({
   hollowHeart: {
     name: 'Hollow Heart',
-    image: 'icon-health'
+    image: 'icon-health',
+    dlc: base
   },
   emptyTome: {
     name: 'Empty Tome',
-    image: 'icon-cooldown'
+    image: 'icon-cooldown',
+    dlc: base
   },
   bracer: {
     name: 'Bracer',
-    image: 'icon-speed'
+    image: 'icon-speed',
+    dlc: base
   },
   armor: {
     name: 'Armor',
-    image: 'icon-armor'
+    image: 'icon-armor',
+    dlc: base
   },
   candelabrador: {
     name: 'Candelabrador',
-    image: 'icon-area'
+    image: 'icon-area',
+    dlc: base
   },
   clover: {
     name: 'Clover',
-    image: 'icon-luck'
+    image: 'icon-luck',
+    dlc: base
   },
   duplicator: {
     name: 'Duplicator',
-    image: 'icon-amount'
+    image: 'icon-amount',
+    dlc: base
   },
   spinach: {
     name: 'Spinach',
-    image: 'icon-might'
+    image: 'icon-might',
+    dlc: base
   },
   wings: {
     name: 'Wings',
-    image: 'icon-wings'
+    image: 'icon-wings',
+    dlc: base
   },
   pummarola: {
     name: 'Pummarola',
-    image: 'icon-recovery'
+    image: 'icon-recovery',
+    dlc: base
   },
   spellbinder: {
     name: 'Spellbinder',
-    image: 'icon-duration'
+    image: 'icon-duration',
+    dlc: base
   },
   attractorb: {
     name: 'Attractorb',
-    image: 'icon-magnet'
+    image: 'icon-magnet',
+    dlc: base
   },
   crown: {
     name: 'Crown',
-    image: 'icon-growth'
-  },
-  metaglio_left: {
-    name: 'Metaglio Left',
-    image: 'icon-sign1'
-  },
-  metaglio_right: {
-    name: 'Metaglio Right',
-    image: 'icon-sign2'
-  },
-  silver_ring: {
-    name: 'Silver Ring',
-    image: 'icon-ring1'
-  },
-  goldRing: {
-    name: 'Gold Ring',
-    image: 'icon-ring2'
+    image: 'icon-growth',
+    dlc: base
   },
   skull_o_maniac: {
     name: "Skull O'Maniac",
-    image: 'icon-curse'
+    image: 'icon-curse',
+    dlc: base
   },
   tiragisu: {
     name: 'Tiragisú',
-    image: 'icon-revival'
+    image: 'icon-revival',
+    dlc: base
   },
   torronas_box: {
     name: "Torrona's Box",
-    image: 'icon-torrona'
+    image: 'icon-torrona',
+    dlc: base
   },
   stone_mask: {
     name: 'Stone Mask',
-    image: 'icon-greed'
+    image: 'icon-greed',
+    dlc: base
+  },
+  parm_aegis: {
+    name: 'Parm Aegis',
+    image: 'icon-Parm_Aegis',
+    dlc: base
+  },
+  karomas_mana: {
+    name: "Karoma's Mana",
+    image: 'icon-Karomas_Mana',
+    dlc: base
+  },
+  metaglio_left: {
+    name: 'Metaglio Left',
+    image: 'icon-sign1',
+    dlc: base
+  },
+  metaglio_right: {
+    name: 'Metaglio Right',
+    image: 'icon-sign2',
+    dlc: base
+  },
+  silver_ring: {
+    name: 'Silver Ring',
+    image: 'icon-ring1',
+    dlc: base
+  },
+  goldRing: {
+    name: 'Gold Ring',
+    image: 'icon-ring2',
+    dlc: base
   },
   miniCrewmate: {
     name: 'Mini Crewmate',
@@ -130,15 +161,8 @@ const _passives: Record<string, Omit<TItem, 'type'>> = ensureWikiPaths({
   },
   weaponPowerUp: {
     name: 'Weapon Power-Up',
-    image: 'icon-powerup'
-  },
-  parm_aegis: {
-    name: 'Parm Aegis',
-    image: 'icon-Parm_Aegis'
-  },
-  karomas_mana: {
-    name: "Karoma's Mana",
-    image: 'icon-Karomas_Mana'
+    image: 'icon-powerup',
+    dlc: og
   },
   outerSaboteur: {
     name: 'Outer Saboteur',
