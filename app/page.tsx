@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import EvolutionCard from "@/components/EvolutionCard";
 import { DlcControls } from "@/components/controls/DlcControls";
 import { WeaponControls } from "@/components/controls/WeaponControls";
@@ -35,19 +35,23 @@ export default function Home() {
     resetWeapons,
   } = useEvolutionControls();
 
-  const filterBySearch = (
-    evolutions: typeof filteredEvolutions
-  ) => {
-    if (!matchedItems) return evolutions;
-    return evolutions.filter((evo) =>
+  const visibleEvolutions = useMemo(() => {
+    if (!matchedItems) return filteredEvolutions;
+    return filteredEvolutions.filter((evo) =>
       evo.elements.some(
         (el) => typeof el !== "string" && matchedItems.has(el.item.name)
       )
     );
-  };
+  }, [filteredEvolutions, matchedItems]);
 
-  const visibleEvolutions = filterBySearch(filteredEvolutions);
-  const visibleExcluded = filterBySearch(excludedEvolutions);
+  const visibleExcluded = useMemo(() => {
+    if (!matchedItems) return excludedEvolutions;
+    return excludedEvolutions.filter((evo) =>
+      evo.elements.some(
+        (el) => typeof el !== "string" && matchedItems.has(el.item.name)
+      )
+    );
+  }, [excludedEvolutions, matchedItems]);
 
   return (
     <>

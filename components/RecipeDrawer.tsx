@@ -7,17 +7,10 @@ import { getWikiHref } from "@/lib/wiki";
 import { X } from "lucide-react";
 
 export function RecipeDrawer() {
-  const {
-    recipeDrawerElements,
-    isRecipeDrawerOpen,
-    closeRecipeDrawer,
-    isRecipeDrawerEnabled,
-  } = useAppStore((state) => ({
-    recipeDrawerElements: state.recipeDrawerElements,
-    isRecipeDrawerOpen: state.isRecipeDrawerOpen,
-    closeRecipeDrawer: state.closeRecipeDrawer,
-    isRecipeDrawerEnabled: state.isRecipeDrawerEnabled,
-  }));
+  const recipeDrawerElements = useAppStore((s) => s.recipeDrawerElements);
+  const isRecipeDrawerOpen = useAppStore((s) => s.isRecipeDrawerOpen);
+  const closeRecipeDrawer = useAppStore((s) => s.closeRecipeDrawer);
+  const isRecipeDrawerEnabled = useAppStore((s) => s.isRecipeDrawerEnabled);
 
   if (!isRecipeDrawerEnabled || recipeDrawerElements.length === 0) {
     return null;

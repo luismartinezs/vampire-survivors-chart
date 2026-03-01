@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Operand } from "./Operand";
 import {
   TWeaponEvolution,
@@ -20,7 +21,7 @@ import {
 } from "./ui/Tooltip";
 import { getWikiHref } from "@/lib/wiki";
 
-export default function EvolutionCard({
+export default memo(function EvolutionCard({
   evolution,
 }: {
   evolution: TWeaponEvolution;
@@ -90,4 +91,4 @@ export default function EvolutionCard({
       </button>
     </TooltipProvider>
   );
-}
+})

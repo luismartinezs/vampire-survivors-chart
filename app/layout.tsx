@@ -73,15 +73,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="antialiased">
-      <head>
-        {process.env.NODE_ENV === "production" && (
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6379293593579449"
-            crossOrigin="anonymous"
-          ></script>
-        )}
-      </head>
+      <head></head>
       <body
         className={cn(
           SansFont.className,
@@ -100,6 +92,11 @@ export default function RootLayout({
         </FixedBottomRightStack>
         {process.env.NODE_ENV === "production" && (
           <>
+            <Script
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6379293593579449"
+              crossOrigin="anonymous"
+              strategy="afterInteractive"
+            />
             <Script
               src="https://umami-tau-tawny.vercel.app/script.js"
               data-website-id="33b55ecb-9e67-44eb-9990-7864dd230f64"
