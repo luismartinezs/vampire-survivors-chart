@@ -12,7 +12,7 @@ export function SearchInput({ value, onChange }: SearchInputProps) {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-primary-400 pointer-events-none" />
         <input
           type="text"
-          placeholder="Search items... (fuzzy match)"
+          placeholder="Search items"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="w-full pl-10 pr-10 py-2 bg-primary-900 border border-primary-700 rounded-md text-sm text-white placeholder:text-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-400 focus:border-primary-400"
