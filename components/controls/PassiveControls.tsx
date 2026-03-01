@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Button } from "@/components/ui/Button";
 import { passives } from "@/data/passives";
 import { ResponsiveItem } from "../ResponsiveItem";
@@ -22,18 +23,21 @@ interface PassiveControlsProps {
   selectedPassives: Set<string>;
   onTogglePassive: (passive: string) => void;
   onResetPassives: () => void;
+  matchedItems: Set<string> | null;
 }
 
 export function PassiveControls({
   selectedPassives,
   onTogglePassive,
   onResetPassives,
+  matchedItems,
 }: PassiveControlsProps) {
   const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
-  const filteredPassives = Object.values(passives);
-  // .filter(
-  //   (passive) => !ignoredPassives.includes(passive.name)
-  // );
+  const filteredPassives = useMemo(() => {
+    const all = Object.values(passives);
+    if (!matchedItems) return all;
+    return all.filter((p) => matchedItems.has(p.name));
+  }, [matchedItems]);
 
   const selectedCountLabel = `(${selectedPassives.size} selected)`;
 

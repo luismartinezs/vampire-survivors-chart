@@ -25,6 +25,7 @@ interface WeaponControlsProps {
   selectedDlcs: Set<TDlc>;
   onToggleWeapon: (weapon: string) => void;
   onResetWeapons: () => void;
+  matchedItems: Set<string> | null;
 }
 
 export function WeaponControls({
@@ -32,14 +33,17 @@ export function WeaponControls({
   selectedDlcs,
   onToggleWeapon,
   onResetWeapons,
+  matchedItems,
 }: WeaponControlsProps) {
   const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
   const filteredUnevolvedWeapons = useMemo(() => {
-    return Object.values(weapons).filter(
+    const dlcFiltered = Object.values(weapons).filter(
       (weapon) =>
         !weapon.evolved && (!weapon.dlc || selectedDlcs.has(weapon.dlc))
     );
-  }, [selectedDlcs]);
+    if (!matchedItems) return dlcFiltered;
+    return dlcFiltered.filter((w) => matchedItems.has(w.name));
+  }, [selectedDlcs, matchedItems]);
 
   const selectedCountLabel = `(${selectedWeapons.size} selected)`;
 

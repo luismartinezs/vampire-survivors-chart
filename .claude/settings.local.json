@@ -13,7 +13,24 @@
       "Bash(identify:*)",
       "Bash(convert:*)",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__get-library-docs"
+      "mcp__context7__get-library-docs",
+      "Bash(du:*)",
+      "Bash(pnpm add:*)",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "Bash(xargs ls:*)",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "mcp__plugin_playwright_playwright__browser_type",
+      "Bash(node:*)",
+      "Bash(echo exit:$?:*)",
+      "Bash(python3:*)",
+      "mcp__plugin_playwright_playwright__browser_evaluate",
+      "Bash(ls:*)",
+      "Bash(npx tsx:*)",
+      "Bash(gzip:*)",
+      "mcp__plugin_playwright_playwright__browser_snapshot",
+      "Bash(pkill:*)",
+      "Bash(lsof:*)"
     ],
     "deny": []
   }
