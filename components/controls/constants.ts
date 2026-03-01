@@ -1,14 +1,14 @@
 import { TDlc } from "@/data/types";
 
-export const DLC_LABELS: Record<TDlc, string> = {
-  base: "Base Game",
-  lotm: "Legacy of the Moonspell",
-  todf: "Tides of the Foscari",
-  em: "Emergency Meeting",
-  og: "Operation Guns",
-  otc: "Ode To Castlevania",
-  ed: "Emerald Diorama",
-  ante: "Ante Chamber",
+export const DLC_LABELS: Record<TDlc, { full: string; short: string }> = {
+  base: { full: "Base Game", short: "Base" },
+  lotm: { full: "Legacy of the Moonspell", short: "LotM" },
+  todf: { full: "Tides of the Foscari", short: "TotF" },
+  em: { full: "Emergency Meeting", short: "EM" },
+  og: { full: "Operation Guns", short: "OG" },
+  otc: { full: "Ode To Castlevania", short: "OtC" },
+  ed: { full: "Emerald Diorama", short: "ED" },
+  ante: { full: "Ante Chamber", short: "Ante" },
 };
 
 export const ignoredPassives: Array<string> = [

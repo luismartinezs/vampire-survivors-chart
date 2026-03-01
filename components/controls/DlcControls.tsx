@@ -24,7 +24,8 @@ export function DlcControls({ selectedDlcs, onToggleDlc }: DlcControlsProps) {
               : dlcClasses[dlc].unselected
           )}
         >
-          <span>{DLC_LABELS[dlc]}</span>
+          <span className="sm:hidden">{DLC_LABELS[dlc].short}</span>
+          <span className="hidden sm:inline">{DLC_LABELS[dlc].full}</span>
         </Button>
       ))}
     </div>

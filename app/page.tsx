@@ -59,6 +59,10 @@ export default function Home() {
         {/* Sort + DLC row */}
         <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
           <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
+            <DlcControls
+              selectedDlcs={selectedDlcs}
+              onToggleDlc={toggleDlc}
+            />
             <Button
               variant="outline-solid"
               onClick={toggleSortByPassive}
@@ -72,10 +76,6 @@ export default function Home() {
             >
               Sort by Passive
             </Button>
-            <DlcControls
-              selectedDlcs={selectedDlcs}
-              onToggleDlc={toggleDlc}
-            />
           </div>
         </div>
 
