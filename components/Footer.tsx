@@ -12,7 +12,7 @@ export function Footer() {
             className="text-sm text-white/70 hover:text-white/90 transition-colors flex items-center gap-1.5"
           >
             <span className="icon icon-garlic inline-block w-4 h-4" />
-            Enjoying this chart? Support its development
+            Please support this free site
             <span className="icon icon-recovery inline-block w-4 h-4" />
           </a>
           <div className="text-xs text-white/40 flex items-center gap-1">
