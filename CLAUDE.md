@@ -13,9 +13,9 @@ pnpm start                 # Start production server
 pnpm lint                  # Run ESLint
 
 # Asset Generation
-./scripts/gen-icons.sh <directory>         # Generate CSS sprites from PNG files
-./scripts/rename_sprite_files.sh          # Remove 'Sprite' from filenames
-./scripts/get-classes.sh                   # Extract CSS classes
+./scripts/engineering/gen-icons.sh <directory>         # Generate CSS sprites from PNG files
+./scripts/engineering/rename_sprite_files.sh          # Remove 'Sprite' from filenames
+./scripts/engineering/get-classes.sh                   # Extract CSS classes
 ```
 
 ## Architecture Overview

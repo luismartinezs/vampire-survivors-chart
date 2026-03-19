@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Script to convert all PNG files to WebP non-destructively
-# Usage: ./scripts/convert-to-webp.sh <source_directory>
+# Usage: ./scripts/engineering/convert-to-webp.sh <source_directory>
 
 if [ $# -ne 1 ]; then
     echo "Usage: $0 <source_directory>"
-    echo "Example: $0 context/tickets/balatro-dlc/new-items"
+    echo "Example: $0 context/product/tickets/balatro-dlc/new-items"
     exit 1
 fi
 

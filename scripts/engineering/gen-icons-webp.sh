@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Generate CSS icons from WebP images with automatic directory structure creation
-# Usage: ./scripts/gen-icons-webp.sh <source_directory> <output_file>
+# Usage: ./scripts/engineering/gen-icons-webp.sh <source_directory> <output_file>
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 <source_directory> <output_file>"
-    echo "Example: $0 context/tickets/balatro-dlc/new-items/ante/weapons styles/ante/weapons.css"
+    echo "Example: $0 context/product/tickets/balatro-dlc/new-items/ante/weapons styles/ante/weapons.css"
     exit 1
 fi
 

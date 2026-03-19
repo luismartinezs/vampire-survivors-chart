@@ -3,7 +3,7 @@
 # Generate all CSS files for Balatro DLC from WebP images
 # Processes the entire directory structure and creates corresponding CSS files
 
-SOURCE_BASE="context/tickets/balatro-dlc/new-items"
+SOURCE_BASE="context/product/tickets/balatro-dlc/new-items"
 STYLES_BASE="styles"
 
 if [ ! -d "$SOURCE_BASE" ]; then
@@ -49,7 +49,7 @@ for dlc_dir in "$SOURCE_BASE"/*; do
         echo "  🔧 $dlc_name/$category_name.css ($webp_count icons)"
         
         # Generate CSS for this category
-        ./scripts/gen-icons-webp.sh "$category_dir" "$output_css"
+        ./scripts/engineering/gen-icons-webp.sh "$category_dir" "$output_css"
         
         ((total_processed += webp_count))
     done

@@ -8,4 +8,4 @@ this is a rough list of steps I need to follow
 
 Once the files are downloaded, I will manually need to separate them into categories to group them
 
-docs/gen-image.md lists a process I have used previously, although it is not precisely what I need, it is close
+context/engineering/guides/gen-image.md lists a process I have used previously, although it is not precisely what I need, it is close
