@@ -96,14 +96,6 @@ const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
     name: 'Bracelet',
     image: 'icon-bracelet',
   },
-  pako_battiliar: {
-    name: 'Pako Battiliar',
-    image: 'icon-pako',
-  },
-  ammo_appalate: {
-    name: 'Ammo Appalate',
-    image: 'icon-Ammo_Appalate'
-  },
   victory_sword: {
     name: 'Victory Sword',
     image: 'icon-sword',
@@ -112,17 +104,29 @@ const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
     name: 'Flames of Muspell',
     image: 'icon-flame',
   },
+  pako_battiliar: {
+    name: 'Pako Battiliar',
+    image: 'icon-pako',
+  },
+  ammo_appalate: {
+    name: 'Ammo Appalate',
+    image: 'icon-Ammo_Appalate'
+  },
+  unearthlyBolt: {
+    name: 'Unearthly Bolt',
+    image: 'icon-Unearthly_Bolt',
+  },
   glass_fandango: {
     name: 'Glass Fandango',
     image: 'icon-fandango',
   },
+  penshinFatcha: {
+    name: 'Penshin Fatcha',
+    image: 'icon-Penshin_Fatcha',
+  },
   santa_javelin: {
     name: 'Santa Javelin',
     image: 'icon-javelin',
-  },
-  phas3r: {
-    name: 'Phas3r',
-    image: 'icon-phas3r',
   },
   gazeOfGaea: {
     name: 'Gaze of Gaea',
@@ -132,10 +136,14 @@ const baseWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
     name: 'Magi-Stone',
     image: 'icon-Magi-Stone',
   },
+  phas3r: {
+    name: 'Phas3r',
+    image: 'icon-phas3r',
+  },
   chaosRune: {
     name: 'Chaos Rune',
     image: 'icon-Chaos_Rune',
-  },
+  }
 }
 
 const lotmWeapons: Record<string, Omit<TItem, 'type' | 'dlc'>> = {
@@ -727,13 +735,21 @@ const _evolvedWeapons: Record<string, Omit<TItem, 'type'>> = ensureWikiPaths({
     name: 'Gunastrophe',
     image: 'icon-Gunastrophe'
   },
-  photonstorm: {
-    name: 'Photonstorm',
-    image: 'icon-phas3r_'
+  spiritDisturbance: {
+    name: 'Spirit Disturbance',
+    image: 'icon-Spirit_Disturbance',
   },
   celestial_voulge: {
     name: 'Celestial Voulge',
     image: 'icon-fandango_'
+  },
+  miracleOfMultiplication: {
+    name: 'Miracle of Multiplication',
+    image: 'icon-Miracle_of_Multiplication',
+  },
+  photonstorm: {
+    name: 'Photonstorm',
+    image: 'icon-phas3r_'
   },
   fuwalafuwaloo: {
     name: 'Fuwalafuwaloo',

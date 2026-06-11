@@ -126,6 +126,14 @@ const baseEvolutions: TWeaponEvolution[] = [
   {
     id: 139,
     elements: [{ item: items.chaosRune }, '+', { item: items.spellbinder, tags: ['max'] }, '=', { item: items.wickedRune }]
+  },
+  {
+    id: 140,
+    elements: [{ item: items.unearthlyBolt }, '+', { item: items.tiragisu, tags: ['max'] }, '=', { item: items.spiritDisturbance }]
+  },
+  {
+    id: 141, // Requires Penshin Fatcha to have evolved into its tuna forms 6+ times
+    elements: [{ item: items.penshinFatcha }, '⇒', { item: items.miracleOfMultiplication }]
   }
 ]
 
