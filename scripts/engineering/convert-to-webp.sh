@@ -24,6 +24,14 @@ if ! command -v cwebp &> /dev/null; then
     exit 1
 fi
 
+# Check if ImageMagick is available (used to trim transparent borders)
+if ! command -v convert &> /dev/null; then
+    echo "Error: ImageMagick (convert) is not installed. Please install it:"
+    echo "  Ubuntu/Debian: sudo apt install imagemagick"
+    echo "  macOS: brew install imagemagick"
+    exit 1
+fi
+
 echo "Converting PNG files to WebP in $SOURCE_DIR..."
 converted_count=0
 
@@ -42,9 +50,11 @@ find "$SOURCE_DIR" -name "*.png" -type f | while read -r png_file; do
         continue
     fi
     
-    # Trim transparent pixels and convert to WebP with good quality
+    # Trim transparent pixels and convert to lossless WebP.
+    # Lossless: these are pixel-art sprites; lossy -q compression both degrades
+    # them and produces larger files than lossless for this kind of image.
     trimmed_png=$(mktemp --suffix=.png)
-    if convert "$png_file" -trim +repage "$trimmed_png" && cwebp -q 90 "$trimmed_png" -o "$webp_file" &> /dev/null; then
+    if convert "$png_file" -trim +repage "$trimmed_png" && cwebp -lossless -z 9 "$trimmed_png" -o "$webp_file" &> /dev/null; then
         rm "$trimmed_png"
         echo "  ✓ Converted: $(basename "$png_file") → $(basename "$webp_file")"
         ((converted_count++))

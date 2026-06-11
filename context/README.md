@@ -39,10 +39,8 @@ context/
 ```
 scripts/
 ├── engineering/          Asset generation and code utilities
-│   ├── gen-icons.sh      Generate CSS sprites from PNG files
 │   ├── gen-icons-webp.sh Generate CSS sprites from WebP files
-│   ├── convert-to-webp.sh Convert PNGs to WebP
-│   ├── generate-balatro-css.sh Generate Balatro DLC icon CSS
+│   ├── convert-to-webp.sh Convert PNGs to lossless WebP
 │   ├── get-classes.sh    Extract CSS classes
 │   └── rename_sprite_files.sh Remove 'Sprite' from filenames
 └── ops/

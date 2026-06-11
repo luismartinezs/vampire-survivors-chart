@@ -3,6 +3,8 @@
 ## PERF-01: Replace base64 CSS sprites with static image files [Critical] [XL]
 - [ ] Done
 
+**Progress (2026-06-11):** The bulk of the size problem is solved without the static-file migration: removed the ~190 dead icon classes from `styles/icons.css` and converted its remaining PNG data URIs to lossless WebP. CSS bundle went from 861 KB raw / 475 KB gzip to 266 KB raw / 125 KB gzip. The legacy `gen-icons.sh` (PNG base64) was deleted; `gen-icons-webp.sh` + `convert-to-webp.sh` (now lossless) are the pipeline. Steps 1-3 below (static files in `/public/icons/`, lazy loading, individual caching) remain open if further reduction is wanted.
+
 **Problem:** All ~520 icon classes use base64-encoded PNGs/WebPs embedded directly in CSS. This produces ~852 KB of CSS (648 KB in `styles/icons.css` alone). Base64 expands binary by ~33%, compresses poorly with gzip, and the entire stylesheet must be parsed before the browser can paint anything. All icon CSS is imported unconditionally in `styles/globals.css:3-17`, so every visitor downloads every icon regardless of which DLCs they're viewing.
 
 Additionally, ~190 of the 520 icon classes (character icons like `icon-arcana*`, `icon-antonio`, etc.) are never referenced in any data file — pure dead weight.

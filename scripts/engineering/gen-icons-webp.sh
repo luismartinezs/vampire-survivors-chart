@@ -41,7 +41,10 @@ for image in "$SOURCE_DIR"/*.webp; do
     # Convert filename to valid CSS class name by:
     # 1. Converting spaces to underscores
     # 2. Removing special characters except hyphens and underscores
-    css_classname=$(echo "$filename" | sed 's/ /_/g' | sed 's/[^a-zA-Z0-9_-]//g')
+    # LC_ALL=C.UTF-8 pins character classification: data files reference names
+    # with Unicode letters (e.g. icon-Kardía_Phlegeton), and under LC_ALL=C
+    # those letters get stripped, generating a class the data never matches.
+    css_classname=$(echo "$filename" | LC_ALL=C.UTF-8 sed 's/ /_/g; s/[^[:alnum:]_-]//g')
     
     # Convert image to base64
     base64_data=$(base64 -w 0 "$image")
