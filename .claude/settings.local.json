@@ -33,5 +33,9 @@
       "Bash(lsof:*)"
     ],
     "deny": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "sargon-umami",
+    "sargon-resend"
+  ]
 }
