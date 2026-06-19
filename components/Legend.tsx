@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
+import { weapons } from "@/data/weapons";
 import { GoldCircle } from "./GoldCircle";
-import { RedCircle } from "./RedCircle";
+import { Item } from "./Item";
 
 interface LegendProps {
   className?: string;
@@ -19,12 +20,12 @@ export function Legend({ className }: LegendProps) {
         <span>=&nbsp;Max level passive</span>
       </div>
       <div className="flex items-center gap-1">
-        <RedCircle size="sm" />
+        <Item item={weapons.alucardShield} size="xs" />
         <span>=&nbsp;Requires 6+ weapon evolutions</span>
       </div>
       <div className="flex items-center gap-1">
-        {/* No indicator needed per user request */}
-        <span>Rings of Calamity =&nbsp;Requires 5+ max level passives</span>
+        <Item item={weapons.ringsOfCalamity} size="xs" />
+        <span>=&nbsp;Requires 5+ max level passives</span>
       </div>
       <div className="flex items-center gap-1">
         {/* No indicator needed per user request */}
@@ -33,10 +34,10 @@ export function Legend({ className }: LegendProps) {
         </span>
       </div>
       <div className="flex items-center gap-1">
-        {/* No indicator needed per user request */}
-        <span>
-          Miracle of Multiplication =&nbsp;Evolve the Penshin Fatcha 6+ times.
-        </span>
+        <Item item={weapons.miracleOfMultiplication} size="xs" />
+        <span>=&nbsp;Evolve</span>
+        <Item item={weapons.penshinFatcha} size="xs" />
+        <span>6+ times.</span>
       </div>
     </div>
   );

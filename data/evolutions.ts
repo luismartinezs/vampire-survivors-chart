@@ -388,7 +388,7 @@ const otcEvolutions: TWeaponEvolution[] = [
   },
   {
     id: 89,
-    elements: [{ item: items.alucartSworb }, '⇒', { item: items.alucardSwords }, '⇒', { item: items.alucardShield, tags: ['six-evo'] }]
+    elements: [{ item: items.alucartSworb }, '⇒', { item: items.alucardSwords }, '⇒', { item: items.alucardShield }]
   },
   {
     id: 90,
