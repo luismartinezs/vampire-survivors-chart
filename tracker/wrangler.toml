@@ -1,0 +1,19 @@
+name = "vsevochart-tracker"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+# Binding stays "DB" (the Worker uses env.DB) — ignore the "vsevochart_clicks"
+# binding name that `wrangler d1 create` suggested.
+[[d1_databases]]
+binding = "DB"
+database_name = "vsevochart-clicks"
+database_id = "dac214f7-a97f-4715-a59a-029bbb0ee6ba"
+
+[vars]
+# Comma-separated list of origins allowed to POST /track.
+# Set to your live site origin. Use "*" only while testing locally.
+ALLOWED_ORIGINS = "https://vsevochart.com"
+
+# STATS_TOKEN is a SECRET, not a var. Set it with:
+#   npx wrangler secret put STATS_TOKEN
+# GET /stats requires it as `Authorization: Bearer <token>`.

@@ -1,6 +1,7 @@
 'use client';
 
 import { TDlc, TEvolutionElement, TEvolutionItem } from "@/data/types";
+import { track } from "@/lib/track";
 import { create } from "zustand";
 import {
   createJSONStorage,
@@ -107,6 +108,7 @@ export const useAppStore = create<AppState>()(
         })),
       toggleEvolutionDlc: (dlc) =>
         set((state) => {
+          track(`filter:dlc:${dlc}`);
           const next = new Set(state.evolutionControls.selectedDlcs);
           if (next.has(dlc)) {
             next.delete(dlc);
@@ -126,6 +128,7 @@ export const useAppStore = create<AppState>()(
         }),
       toggleEvolutionPassive: (passiveName) =>
         set((state) => {
+          track(`filter:passive:${passiveName}`);
           const current = new Set(state.evolutionControls.selectedPassives);
           if (current.has(passiveName)) {
             current.delete(passiveName);
@@ -149,6 +152,7 @@ export const useAppStore = create<AppState>()(
         })),
       toggleEvolutionWeapon: (weaponName) =>
         set((state) => {
+          track(`filter:weapon:${weaponName}`);
           const current = new Set(state.evolutionControls.selectedWeapons);
           if (current.has(weaponName)) {
             current.delete(weaponName);
