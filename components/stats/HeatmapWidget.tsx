@@ -10,8 +10,7 @@ import { Icon } from "@/components/stats/Icon";
  * `size` caps how many items (by support) appear. Leave it falsy to render the
  * entire matrix: it can get very large, so the grid scrolls on both axes inside
  * a bounded box, and the row/column headers stay frozen so you never lose your
- * place. Best on wide screens (the dashboard hides it below lg and falls back to
- * the anchor list).
+ * place. Best on wide screens, but it scrolls fine on mobile too.
  */
 export function HeatmapWidget({ builds, size }: { builds: TBuilds; size?: number }) {
   const withPartners = builds.items.filter((it) => builds.affinity[it.key]?.length);

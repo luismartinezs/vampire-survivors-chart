@@ -140,7 +140,7 @@ export function StatsDashboard({
       tiles: [
         { size: "md", node: <AnchorBuildsWidget builds={stats.builds} /> },
         { size: "md", node: <LoadoutsWidget loadouts={stats.builds.loadouts} /> },
-        { size: "xl", className: "hidden lg:block", node: <HeatmapWidget builds={stats.builds} /> },
+        { size: "xl", node: <HeatmapWidget builds={stats.builds} /> },
       ],
     },
     {
