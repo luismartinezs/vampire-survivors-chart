@@ -44,3 +44,6 @@ certificates
 
 .codanna
 .fastembed_cache
+
+# Local-only: pnpm v11 build-script approvals (allowBuilds). Breaks Vercel's older pnpm.
+pnpm-workspace.yaml
