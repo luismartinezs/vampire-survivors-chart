@@ -2,6 +2,7 @@
 
 import { TDlc, TEvolutionElement, TEvolutionItem } from "@/data/types";
 import { track } from "@/lib/track";
+import { activeWire, encodeDlc, encodePassive, encodeWeapon } from "@/lib/wire";
 import { create } from "zustand";
 import {
   createJSONStorage,
@@ -108,7 +109,15 @@ export const useAppStore = create<AppState>()(
         })),
       toggleEvolutionDlc: (dlc) =>
         set((state) => {
-          track(`filter:dlc:${dlc}`);
+          const c = state.evolutionControls;
+          const dlcId = encodeDlc(dlc);
+          if (dlcId) {
+            track({
+              a: c.selectedDlcs.includes(dlc) ? "off" : "on",
+              i: dlcId,
+              c: activeWire(c),
+            });
+          }
           const next = new Set(state.evolutionControls.selectedDlcs);
           if (next.has(dlc)) {
             next.delete(dlc);
@@ -128,7 +137,15 @@ export const useAppStore = create<AppState>()(
         }),
       toggleEvolutionPassive: (passiveName) =>
         set((state) => {
-          track(`filter:passive:${passiveName}`);
+          const c = state.evolutionControls;
+          const passiveId = encodePassive(passiveName);
+          if (passiveId) {
+            track({
+              a: c.selectedPassives.includes(passiveName) ? "off" : "on",
+              i: passiveId,
+              c: activeWire(c),
+            });
+          }
           const current = new Set(state.evolutionControls.selectedPassives);
           if (current.has(passiveName)) {
             current.delete(passiveName);
@@ -152,7 +169,15 @@ export const useAppStore = create<AppState>()(
         })),
       toggleEvolutionWeapon: (weaponName) =>
         set((state) => {
-          track(`filter:weapon:${weaponName}`);
+          const c = state.evolutionControls;
+          const weaponId = encodeWeapon(weaponName);
+          if (weaponId) {
+            track({
+              a: c.selectedWeapons.includes(weaponName) ? "off" : "on",
+              i: weaponId,
+              c: activeWire(c),
+            });
+          }
           const current = new Set(state.evolutionControls.selectedWeapons);
           if (current.has(weaponName)) {
             current.delete(weaponName);

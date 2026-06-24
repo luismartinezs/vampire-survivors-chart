@@ -10,6 +10,8 @@ import { base } from "@/data/constants";
 import { ResponsiveItem } from "./ResponsiveItem";
 import { dlcClasses } from "./controls/constants";
 import { useAppStore } from "@/hooks/useAppStore";
+import { track } from "@/lib/track";
+import { activeWire, encodeEvo } from "@/lib/wire";
 import { cn } from "@/lib/utils";
 import {
   TooltipProvider,
@@ -30,6 +32,11 @@ export default memo(function EvolutionCard({
   const dlcClass = dlcClasses[evolution.dlc || base].card;
   const handleClick = () => {
     openRecipeDrawer(evolution.elements);
+    track({
+      a: "evo",
+      i: encodeEvo(evolution.id),
+      c: activeWire(useAppStore.getState().evolutionControls),
+    });
   };
 
   return (

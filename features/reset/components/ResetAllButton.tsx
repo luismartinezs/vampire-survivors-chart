@@ -2,12 +2,17 @@
 
 import { RotateCcw } from "lucide-react";
 import { useAppStore } from "@/hooks/useAppStore";
+import { track } from "@/lib/track";
+import { activeWire } from "@/lib/wire";
 
 export const ResetAllButton = () => {
   const resetWeapons = useAppStore((state) => state.resetEvolutionWeapons);
   const resetPassives = useAppStore((state) => state.resetEvolutionPassives);
 
   const handleReset = () => {
+    // Snapshot what was active right before wiping: a candidate "completed
+    // build" the visitor assembled, then cleared to start another.
+    track({ a: "reset", c: activeWire(useAppStore.getState().evolutionControls) });
     resetWeapons();
     resetPassives();
   };
