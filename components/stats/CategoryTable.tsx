@@ -67,6 +67,7 @@ function SortHeader({
   dir,
   onSort,
   align = "right",
+  hideOnMobile = false,
   className,
 }: {
   label: string;
@@ -75,6 +76,7 @@ function SortHeader({
   dir: Dir;
   onSort: (col: SortKey) => void;
   align?: "left" | "right";
+  hideOnMobile?: boolean;
   className?: string;
 }) {
   const active = sort === col;
@@ -84,7 +86,8 @@ function SortHeader({
       onClick={() => onSort(col)}
       aria-sort={active ? (dir === "asc" ? "ascending" : "descending") : "none"}
       className={cn(
-        "flex items-center gap-0.5 uppercase tracking-wider cursor-pointer transition-colors hover:text-white/70 focus-visible:outline-none focus-visible:text-white/80",
+        "items-center gap-0.5 uppercase tracking-wider cursor-pointer transition-colors hover:text-white/70 focus-visible:outline-none focus-visible:text-white/80",
+        hideOnMobile ? "hidden sm:flex" : "flex",
         align === "right" ? "justify-end" : "justify-start",
         active ? "text-primary-300/80" : "text-white/30",
         className
@@ -162,8 +165,8 @@ export function CategoryTable({
           <SortHeader label="Today" col="today" sort={sort} dir={dir} onSort={onSort} className="w-12 shrink-0" />
           <SortHeader label="7d" col="last7" sort={sort} dir={dir} onSort={onSort} className="w-12 shrink-0" />
           <SortHeader label="All" col="total" sort={sort} dir={dir} onSort={onSort} className="w-14 shrink-0" />
-          <SortHeader label="Trend" col="trend" sort={sort} dir={dir} onSort={onSort} className="w-14 shrink-0" />
-          <SortHeader label="Share" col="share" sort={sort} dir={dir} onSort={onSort} className="w-14 shrink-0" />
+          <SortHeader label="Trend" col="trend" sort={sort} dir={dir} onSort={onSort} hideOnMobile className="w-14 shrink-0" />
+          <SortHeader label="Share" col="share" sort={sort} dir={dir} onSort={onSort} hideOnMobile className="w-14 shrink-0" />
         </div>
 
         {sorted.length === 0 ? (
@@ -215,10 +218,10 @@ export function CategoryTable({
                   <span className="relative w-14 shrink-0 text-right tabular-nums font-medium">
                     {numberFmt.format(row.total)}
                   </span>
-                  <span className="relative w-14 shrink-0 text-right">
+                  <span className="relative w-14 shrink-0 text-right hidden sm:block">
                     <TrendBadge row={row} show={showTrend} />
                   </span>
-                  <span className="relative w-14 shrink-0 text-right tabular-nums text-white/50">
+                  <span className="relative w-14 shrink-0 text-right tabular-nums text-white/50 hidden sm:block">
                     {row.share.toFixed(1)}%
                   </span>
                 </li>

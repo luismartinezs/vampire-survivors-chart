@@ -31,16 +31,13 @@ export function LoadoutsWidget({
               key={l.items.map((it) => it.key).join("|") + i}
               className="flex items-center gap-2 py-1 px-1.5 rounded hover:bg-white/[0.03]"
             >
-              <span className="shrink-0 w-12 text-right tabular-nums text-sm font-medium text-white/70">
+              <span className="shrink-0 w-10 tabular-nums text-sm font-medium text-white/70">
                 {numberFmt.format(l.n)}×
               </span>
-              <span className="flex items-center gap-0.5 shrink-0">
+              <span className="flex flex-wrap items-center gap-0.5 flex-1 min-w-0">
                 {l.items.map((it) => (
                   <Icon key={it.key} image={it.image} name={it.name} />
                 ))}
-              </span>
-              <span className="flex-1 min-w-0 truncate text-xs text-white/40">
-                {l.items.map((it) => it.name).join(" · ")}
               </span>
             </li>
           ))}
