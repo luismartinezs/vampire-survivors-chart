@@ -32,7 +32,7 @@ export default function Header() {
                 className="md:hidden flex items-center gap-1.5 text-xs text-white/50 hover:text-white/80 transition-colors mt-0.5"
               >
                 <span className="icon icon-garlic inline-block w-3 h-3" />
-                Support this site
+                Did this site help? Keep it free for everyone
                 <span className="icon icon-recovery inline-block w-3 h-3" />
               </a>
             </div>
@@ -44,7 +44,7 @@ export default function Header() {
             className="hidden md:flex items-center gap-1.5 text-sm text-white/50 hover:text-white/80 transition-colors"
           >
             <span className="icon icon-garlic inline-block w-4 h-4" />
-            Support this site
+            Did this site help? Keep it free for everyone
             <span className="icon icon-recovery inline-block w-4 h-4" />
           </a>
         </div>
