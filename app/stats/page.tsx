@@ -16,8 +16,8 @@ function Header() {
     <header className="px-1">
       <h1 className="text-2xl font-bold">Filter Stats</h1>
       <p className="text-sm text-white/50">
-        How often each filter gets clicked. Counts cover today, the last 7 days,
-        and all time (UTC day buckets). Updated hourly.
+        How often each filter gets clicked. Counts cover today, the last 7 days, and all time (UTC
+        day buckets). Updated hourly.
       </p>
     </header>
   );
@@ -32,8 +32,8 @@ export default async function StatsPage() {
         <h1 className="text-2xl font-bold mb-2">Filter Stats</h1>
         <p className="text-white/60">
           Stats are not available. Set <code>NEXT_PUBLIC_TRACK_URL</code> and{" "}
-          <code>STATS_TOKEN</code> in the environment, then reload. To preview
-          the populated layout with mock data, visit <code>/stats/preview</code>.
+          <code>STATS_TOKEN</code> in the environment, then reload. To preview the populated layout
+          with mock data, visit <code>/stats/preview</code>.
         </p>
       </div>
     );

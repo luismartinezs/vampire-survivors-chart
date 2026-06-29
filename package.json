@@ -8,6 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "fix": "pnpm run lint:fix && pnpm run format",
     "test": "vitest"
   },
   "dependencies": {
@@ -34,8 +38,10 @@
     "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^8",
     "eslint-config-next": "15.0.3",
+    "eslint-config-prettier": "10.1.8",
     "jsdom": "^27.1.0",
     "postcss": "^8",
+    "prettier": "3.9.0",
     "tailwindcss": "^4.1.16",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",

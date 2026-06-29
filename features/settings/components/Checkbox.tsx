@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  useId,
-  type ComponentPropsWithoutRef,
-  type ReactNode,
-} from "react";
+import { forwardRef, useId, type ComponentPropsWithoutRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type CheckboxProps = Omit<ComponentPropsWithoutRef<"input">, "type"> & {
@@ -13,17 +8,7 @@ type CheckboxProps = Omit<ComponentPropsWithoutRef<"input">, "type"> & {
 };
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  (
-    {
-      label,
-      helperText,
-      containerClassName,
-      className,
-      id: providedId,
-      ...props
-    },
-    ref
-  ) => {
+  ({ label, helperText, containerClassName, className, id: providedId, ...props }, ref) => {
     const generatedId = useId();
     const id = providedId ?? generatedId;
 
@@ -67,9 +52,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             {label}
           </span>
           {helperText ? (
-            <span className="mt-1 block text-xs text-primary-200/70">
-              {helperText}
-            </span>
+            <span className="mt-1 block text-xs text-primary-200/70">{helperText}</span>
           ) : null}
         </span>
       </label>

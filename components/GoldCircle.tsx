@@ -15,8 +15,7 @@ export const GoldCircle = ({ size, className }: GoldCircleProps) => {
     <div
       className={`${tagSizes[size]} bg-black relative ${className}`}
       style={{
-        clipPath:
-          "polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)",
+        clipPath: "polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%)",
       }}
     >
       <div

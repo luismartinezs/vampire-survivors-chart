@@ -18,13 +18,11 @@ export const metadata: Metadata = {
   description:
     "Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations, evolution requirements, and upgrade paths.",
   metadataBase: new URL("https://vsevochart.com"),
-  keywords:
-    "Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations",
+  keywords: "Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations",
   authors: [{ name: "AppForgeLabs" }],
   openGraph: {
     type: "website",
-    title:
-      "Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide",
+    title: "Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide",
     description:
       "Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations and upgrade paths.",
     images: [
@@ -39,8 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Vampire Survivors Evolution Chart",
-    description:
-      "Interactive cheatsheet for all weapon evolutions in Vampire Survivors",
+    description: "Interactive cheatsheet for all weapon evolutions in Vampire Survivors",
     images: ["/og-image.png"],
   },
   icons: {
@@ -66,19 +63,12 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="antialiased">
       <head></head>
       <body
-        className={cn(
-          SansFont.className,
-          "min-h-screen flex flex-col bg-primary-800 text-white"
-        )}
+        className={cn(SansFont.className, "min-h-screen flex flex-col bg-primary-800 text-white")}
       >
         <Header />
         <main>{children}</main>

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useCallback, useMemo } from "react";
 import { TDlc, TEvolutionItem, TWeaponEvolution, TItem } from "@/data/types";
@@ -92,60 +92,54 @@ const useEvolutionFiltering = (
 
       const evolutionItems = evolution.elements.filter(isItem);
       const directPassives = arePassivesSelected
-        ? evolutionItems
-          .filter((el) => el.item.type === "passive")
-          .map((el) => el.item.name)
+        ? evolutionItems.filter((el) => el.item.type === "passive").map((el) => el.item.name)
         : [];
       const directWeapons = areWeaponsSelected
         ? evolutionItems
-          .filter((el) => el.item.type === "weapon" && !el.item.evolved)
-          .map((el) => el.item.name)
+            .filter((el) => el.item.type === "weapon" && !el.item.evolved)
+            .map((el) => el.item.name)
         : [];
 
       const relevantPassives =
         passivesShowDerivedRecipes && arePassivesSelected
           ? (() => {
-            const derived = new Set(directPassives);
-            for (const element of evolutionItems) {
-              if (element.item.type !== "weapon") {
-                continue;
+              const derived = new Set(directPassives);
+              for (const element of evolutionItems) {
+                if (element.item.type !== "weapon") {
+                  continue;
+                }
+
+                const propagated = resolvePassivesForItem(element.item.name);
+                for (const passiveName of propagated) {
+                  derived.add(passiveName);
+                }
               }
 
-              const propagated = resolvePassivesForItem(element.item.name);
-              for (const passiveName of propagated) {
-                derived.add(passiveName);
-              }
-            }
-
-            return Array.from(derived);
-          })()
+              return Array.from(derived);
+            })()
           : directPassives;
 
       const relevantWeapons =
         weaponsShowDerivedRecipes && areWeaponsSelected
           ? (() => {
-            const derived = new Set(directWeapons);
-            for (const element of evolutionItems) {
-              if (element.item.type !== "weapon") {
-                continue;
+              const derived = new Set(directWeapons);
+              for (const element of evolutionItems) {
+                if (element.item.type !== "weapon") {
+                  continue;
+                }
+
+                const propagated = resolveWeaponsForItem(element.item.name);
+                for (const weaponName of propagated) {
+                  derived.add(weaponName);
+                }
               }
 
-              const propagated = resolveWeaponsForItem(element.item.name);
-              for (const weaponName of propagated) {
-                derived.add(weaponName);
-              }
-            }
-
-            return Array.from(derived);
-          })()
+              return Array.from(derived);
+            })()
           : directWeapons;
 
-      const matchedPassives = relevantPassives.some((passive) =>
-        selectedPassives.has(passive)
-      );
-      const matchedWeapons = relevantWeapons.some((weapon) =>
-        selectedWeapons.has(weapon)
-      );
+      const matchedPassives = relevantPassives.some((passive) => selectedPassives.has(passive));
+      const matchedWeapons = relevantWeapons.some((weapon) => selectedWeapons.has(weapon));
 
       if (matchedPassives || matchedWeapons) {
         filteredIndices.add(index);
@@ -251,9 +245,7 @@ const buildEvolutionDependencyMap = (
     let ingredients: string[] = [];
 
     if (equalsIndex !== -1) {
-      const resultElement = evolution.elements
-        .slice(equalsIndex + 1)
-        .find(isItem);
+      const resultElement = evolution.elements.slice(equalsIndex + 1).find(isItem);
 
       if (resultElement) {
         resultItemName = resultElement.item.name;
@@ -267,9 +259,7 @@ const buildEvolutionDependencyMap = (
       if (itemElements.length >= 2) {
         const lastItem = itemElements[itemElements.length - 1];
         resultItemName = lastItem.item.name;
-        ingredients = itemElements
-          .slice(0, -1)
-          .map((element) => element.item.name);
+        ingredients = itemElements.slice(0, -1).map((element) => element.item.name);
       }
     }
 
@@ -291,10 +281,7 @@ const createPassiveResolver = (
 ) => {
   const cache = new Map<string, Set<string>>();
 
-  const resolvePassives = (
-    itemName: string,
-    visited: Set<string>
-  ): Set<string> => {
+  const resolvePassives = (itemName: string, visited: Set<string>): Set<string> => {
     const cached = cache.get(itemName);
     if (cached) {
       return cached;
@@ -332,8 +319,7 @@ const createPassiveResolver = (
     return passives;
   };
 
-  return (itemName: string) =>
-    new Set(resolvePassives(itemName, new Set<string>()));
+  return (itemName: string) => new Set(resolvePassives(itemName, new Set<string>()));
 };
 
 const createWeaponResolver = (
@@ -342,10 +328,7 @@ const createWeaponResolver = (
 ) => {
   const cache = new Map<string, Set<string>>();
 
-  const resolveWeapons = (
-    itemName: string,
-    visited: Set<string>
-  ): Set<string> => {
+  const resolveWeapons = (itemName: string, visited: Set<string>): Set<string> => {
     const cached = cache.get(itemName);
     if (cached) {
       return cached;
@@ -385,8 +368,7 @@ const createWeaponResolver = (
     return weapons;
   };
 
-  return (itemName: string) =>
-    new Set(resolveWeapons(itemName, new Set<string>()));
+  return (itemName: string) => new Set(resolveWeapons(itemName, new Set<string>()));
 };
 
 const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
@@ -399,47 +381,22 @@ const hasNonIgnoredPassive = (evolution: Evolution): boolean => {
 };
 
 export function useEvolutionControls(): UseEvolutionControlsReturn {
-  const sortByPassive = useAppStore(
-    (state) => state.evolutionControls.sortByPassive
-  );
-  const selectedDlcsArray = useAppStore(
-    (state) => state.evolutionControls.selectedDlcs
-  );
-  const selectedPassivesArray = useAppStore(
-    (state) => state.evolutionControls.selectedPassives
-  );
-  const selectedWeaponsArray = useAppStore(
-    (state) => state.evolutionControls.selectedWeapons
-  );
+  const sortByPassive = useAppStore((state) => state.evolutionControls.sortByPassive);
+  const selectedDlcsArray = useAppStore((state) => state.evolutionControls.selectedDlcs);
+  const selectedPassivesArray = useAppStore((state) => state.evolutionControls.selectedPassives);
+  const selectedWeaponsArray = useAppStore((state) => state.evolutionControls.selectedWeapons);
   const toggleDlc = useAppStore((state) => state.toggleEvolutionDlc);
-  const togglePassive = useAppStore(
-    (state) => state.toggleEvolutionPassive
-  );
+  const togglePassive = useAppStore((state) => state.toggleEvolutionPassive);
   const resetPassives = useAppStore((state) => state.resetEvolutionPassives);
-  const toggleSortByPassive = useAppStore(
-    (state) => state.toggleEvolutionSortByPassive
-  );
+  const toggleSortByPassive = useAppStore((state) => state.toggleEvolutionSortByPassive);
   const toggleWeapon = useAppStore((state) => state.toggleEvolutionWeapon);
   const resetWeapons = useAppStore((state) => state.resetEvolutionWeapons);
-  const passivesShowDerivedRecipes = useAppStore(
-    (state) => state.passivesShowDerivedRecipes
-  );
-  const weaponsShowDerivedRecipes = useAppStore(
-    (state) => state.weaponsShowDerivedRecipes
-  );
+  const passivesShowDerivedRecipes = useAppStore((state) => state.passivesShowDerivedRecipes);
+  const weaponsShowDerivedRecipes = useAppStore((state) => state.weaponsShowDerivedRecipes);
 
-  const selectedDlcs = useMemo(
-    () => new Set(selectedDlcsArray),
-    [selectedDlcsArray]
-  );
-  const selectedPassives = useMemo(
-    () => new Set(selectedPassivesArray),
-    [selectedPassivesArray]
-  );
-  const selectedWeapons = useMemo(
-    () => new Set(selectedWeaponsArray),
-    [selectedWeaponsArray]
-  );
+  const selectedDlcs = useMemo(() => new Set(selectedDlcsArray), [selectedDlcsArray]);
+  const selectedPassives = useMemo(() => new Set(selectedPassivesArray), [selectedPassivesArray]);
+  const selectedWeapons = useMemo(() => new Set(selectedWeaponsArray), [selectedWeaponsArray]);
 
   const getPassiveName = useCallback((evolution: Evolution): string => {
     let firstItemName: string | undefined;
@@ -451,24 +408,17 @@ export function useEvolutionControls(): UseEvolutionControlsReturn {
         firstItemName = element.item.name;
       }
 
-      return (
-        element.item.type === "passive" &&
-        !IGNORED_PASSIVES.includes(element.item.name)
-      );
+      return element.item.type === "passive" && !IGNORED_PASSIVES.includes(element.item.name);
     }) as TEvolutionItem | undefined;
 
     return firstNonIgnoredPassive?.item.name ?? firstItemName ?? "";
   }, []);
 
-  const sortedEvolutions = useEvolutionSorting(
-    evolutions,
-    sortByPassive,
-    getPassiveName
+  const sortedEvolutions = useEvolutionSorting(evolutions, sortByPassive, getPassiveName);
+  const { dependencies: evolutionDependencies, evolutionByResult } = useMemo(
+    () => buildEvolutionDependencyMap(evolutions),
+    []
   );
-  const {
-    dependencies: evolutionDependencies,
-    evolutionByResult,
-  } = useMemo(() => buildEvolutionDependencyMap(evolutions), []);
   const itemLookup = useMemo(() => createItemLookup(), []);
   const resolvePassivesForItem = useMemo(
     () => createPassiveResolver(evolutionDependencies, itemLookup),

@@ -37,9 +37,7 @@ export function Widget({
                 {title}
               </h3>
             )}
-            {subtitle && (
-              <p className="text-xs text-white/40 mt-0.5">{subtitle}</p>
-            )}
+            {subtitle && <p className="text-xs text-white/40 mt-0.5">{subtitle}</p>}
           </div>
           {action && <div className="shrink-0">{action}</div>}
         </header>

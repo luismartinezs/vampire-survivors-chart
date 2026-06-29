@@ -1,14 +1,10 @@
-'use client';
+"use client";
 
 import { TDlc, TEvolutionElement, TEvolutionItem } from "@/data/types";
 import { track } from "@/lib/track";
 import { activeWire, encodeDlc, encodePassive, encodeWeapon } from "@/lib/wire";
 import { create } from "zustand";
-import {
-  createJSONStorage,
-  persist,
-  StateStorage,
-} from "zustand/middleware";
+import { createJSONStorage, persist, StateStorage } from "zustand/middleware";
 
 const DEFAULT_DLC: TDlc = "base";
 
@@ -19,13 +15,12 @@ export interface EvolutionControlsState {
   selectedWeapons: string[];
 }
 
-export const createInitialEvolutionControlsState =
-  (): EvolutionControlsState => ({
-    sortByPassive: false,
-    selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed", "ante"],
-    selectedPassives: [],
-    selectedWeapons: [],
-  });
+export const createInitialEvolutionControlsState = (): EvolutionControlsState => ({
+  sortByPassive: false,
+  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed", "ante"],
+  selectedPassives: [],
+  selectedWeapons: [],
+});
 
 type CollapsibleState = Record<string, boolean>;
 
@@ -40,9 +35,7 @@ interface AppState {
   toggleWeaponsShowDerivedRecipes: () => void;
   setCollapsibleState: (key: string, value: boolean) => void;
   toggleCollapsibleState: (key: string) => void;
-  setEvolutionControls: (
-    updater: (prev: EvolutionControlsState) => EvolutionControlsState
-  ) => void;
+  setEvolutionControls: (updater: (prev: EvolutionControlsState) => EvolutionControlsState) => void;
   toggleEvolutionDlc: (dlc: TDlc) => void;
   toggleEvolutionPassive: (passiveName: string) => void;
   resetEvolutionPassives: () => void;
@@ -59,8 +52,8 @@ interface AppState {
 
 const memoryStorage: StateStorage = {
   getItem: () => null,
-  setItem: () => { },
-  removeItem: () => { },
+  setItem: () => {},
+  removeItem: () => {},
 };
 
 const storage = createJSONStorage(() =>
@@ -76,15 +69,13 @@ export const useAppStore = create<AppState>()(
       recipeDrawerElements: [],
       isRecipeDrawerOpen: false,
       isRecipeDrawerEnabled: true,
-      setPassivesShowDerivedRecipes: (value) =>
-        set(() => ({ passivesShowDerivedRecipes: value })),
+      setPassivesShowDerivedRecipes: (value) => set(() => ({ passivesShowDerivedRecipes: value })),
       togglePassivesShowDerivedRecipes: () =>
         set((state) => ({
           passivesShowDerivedRecipes: !state.passivesShowDerivedRecipes,
         })),
       weaponsShowDerivedRecipes: true,
-      setWeaponsShowDerivedRecipes: (value) =>
-        set(() => ({ weaponsShowDerivedRecipes: value })),
+      setWeaponsShowDerivedRecipes: (value) => set(() => ({ weaponsShowDerivedRecipes: value })),
       toggleWeaponsShowDerivedRecipes: () =>
         set((state) => ({
           weaponsShowDerivedRecipes: !state.weaponsShowDerivedRecipes,

@@ -1,5 +1,5 @@
-import { items } from '@/data/items'
-import { Item } from './Item'
+import { items } from "@/data/items";
+import { Item } from "./Item";
 
 export const Items = () => {
   return (
@@ -11,5 +11,5 @@ export const Items = () => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};

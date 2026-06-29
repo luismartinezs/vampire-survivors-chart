@@ -61,9 +61,7 @@ export function RecipeDrawer() {
                       {item.name}
                     </a>
                   ) : (
-                    <span className="text-sm font-medium text-slate-200">
-                      {item.name}
-                    </span>
+                    <span className="text-sm font-medium text-slate-200">{item.name}</span>
                   )}
                 </li>
               );

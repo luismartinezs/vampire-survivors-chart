@@ -38,18 +38,14 @@ export default function Home() {
   const visibleEvolutions = useMemo(() => {
     if (!matchedItems) return filteredEvolutions;
     return filteredEvolutions.filter((evo) =>
-      evo.elements.some(
-        (el) => typeof el !== "string" && matchedItems.has(el.item.name)
-      )
+      evo.elements.some((el) => typeof el !== "string" && matchedItems.has(el.item.name))
     );
   }, [filteredEvolutions, matchedItems]);
 
   const visibleExcluded = useMemo(() => {
     if (!matchedItems) return excludedEvolutions;
     return excludedEvolutions.filter((evo) =>
-      evo.elements.some(
-        (el) => typeof el !== "string" && matchedItems.has(el.item.name)
-      )
+      evo.elements.some((el) => typeof el !== "string" && matchedItems.has(el.item.name))
     );
   }, [excludedEvolutions, matchedItems]);
 
@@ -59,19 +55,14 @@ export default function Home() {
         {/* Sort + DLC row */}
         <div className="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
           <div className="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
-            <DlcControls
-              selectedDlcs={selectedDlcs}
-              onToggleDlc={toggleDlc}
-            />
+            <DlcControls selectedDlcs={selectedDlcs} onToggleDlc={toggleDlc} />
             <Button
               variant="outline-solid"
               onClick={toggleSortByPassive}
               size="sm"
               className={cn(
                 "min-h-[30px] px-2",
-                sortByPassive
-                  ? dlcClasses.base.selected
-                  : dlcClasses.base.unselected
+                sortByPassive ? dlcClasses.base.selected : dlcClasses.base.unselected
               )}
             >
               Sort by Passive

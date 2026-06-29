@@ -17,9 +17,7 @@ function HeroStat({
 }) {
   return (
     <div className="rounded-md border border-primary-500/15 bg-primary-950/40 px-3 py-2 min-w-0">
-      <p className="text-[0.65rem] uppercase tracking-[0.15em] text-primary-300/50">
-        {label}
-      </p>
+      <p className="text-[0.65rem] uppercase tracking-[0.15em] text-primary-300/50">{label}</p>
       <div className="mt-1 flex items-center gap-2 min-w-0">
         <Icon image={item?.image} name={item?.name ?? ""} className="size-6" />
         <span className="truncate text-sm font-medium">{item?.name ?? "—"}</span>

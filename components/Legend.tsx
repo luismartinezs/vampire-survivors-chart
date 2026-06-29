@@ -12,7 +12,7 @@ export function Legend({ className }: LegendProps) {
     <div
       className={cn(
         "flex flex-col gap-2 lg:flex-row lg:gap-4 text-xs text-white/80 rounded p-2 flex-wrap",
-        className,
+        className
       )}
     >
       <div className="flex items-center gap-1">
@@ -29,9 +29,7 @@ export function Legend({ className }: LegendProps) {
       </div>
       <div className="flex items-center gap-1">
         {/* No indicator needed per user request */}
-        <span>
-          Emerald Diorama evolutions =&nbsp;Require 1+ tech activations
-        </span>
+        <span>Emerald Diorama evolutions =&nbsp;Require 1+ tech activations</span>
       </div>
       <div className="flex items-center gap-1">
         <Item item={weapons.miracleOfMultiplication} size="xs" />

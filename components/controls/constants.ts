@@ -27,7 +27,10 @@ export const ignoredPassives: Array<string> = [
   // "Metaglio Right",
 ];
 
-export const dlcClasses: Record<TDlc, { selected: string; unselected: string; card: { bg: string; border: string } }> = {
+export const dlcClasses: Record<
+  TDlc,
+  { selected: string; unselected: string; card: { bg: string; border: string } }
+> = {
   base: {
     selected:
       "bg-base-300/60 text-base-950 hover:text-base-50 border border-base-500 hover:bg-base-400/50 focus:ring-2 focus:ring-base-500 focus:outline-hidden transition-colors duration-200 active:scale-95 shadow-xs hover:shadow-md ring-inset ring-base-900 ring-3 disabled:opacity-50 disabled:cursor-not-allowed aria-selected:bg-base-400/70",
@@ -35,8 +38,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-base-300/20 text-base-400 border border-base-400 hover:bg-base-500/10 hover:text-base-300 focus:ring-2 focus:ring-base-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-base-300/20",
-      border: "border-base-500"
-    }
+      border: "border-base-500",
+    },
   },
   lotm: {
     selected:
@@ -45,8 +48,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-lotm-300/20 text-lotm-400 border border-lotm-400 hover:bg-lotm-500/10 hover:text-lotm-300 focus:ring-2 focus:ring-lotm-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-lotm-300/20",
-      border: "border-lotm-500"
-    }
+      border: "border-lotm-500",
+    },
   },
   todf: {
     selected:
@@ -55,8 +58,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-todf-300/20 text-todf-400 border border-todf-400 hover:bg-todf-500/10 hover:text-todf-300 focus:ring-2 focus:ring-todf-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-todf-300/20",
-      border: "border-todf-500"
-    }
+      border: "border-todf-500",
+    },
   },
   em: {
     selected:
@@ -65,8 +68,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-em-300/20 text-em-400 border border-em-400 hover:bg-em-500/10 hover:text-em-300 focus:ring-2 focus:ring-em-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-em-300/20",
-      border: "border-em-500"
-    }
+      border: "border-em-500",
+    },
   },
   og: {
     selected:
@@ -75,8 +78,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-og-300/20 text-og-400 border border-og-400 hover:bg-og-500/10 hover:text-og-300 focus:ring-2 focus:ring-og-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-og-300/20",
-      border: "border-og-500"
-    }
+      border: "border-og-500",
+    },
   },
   otc: {
     selected:
@@ -85,8 +88,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-otc-300/20 text-otc-400 border border-otc-400 hover:bg-otc-500/10 hover:text-otc-300 focus:ring-2 focus:ring-otc-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-otc-300/20",
-      border: "border-otc-500"
-    }
+      border: "border-otc-500",
+    },
   },
   ed: {
     selected:
@@ -95,8 +98,8 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "bg-ed-300/20 text-ed-400 border border-ed-400 hover:bg-ed-500/10 hover:text-ed-300 focus:ring-2 focus:ring-ed-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "bg-ed-300/20",
-      border: "border-ed-500"
-    }
+      border: "border-ed-500",
+    },
   },
   ante: {
     selected:
@@ -105,7 +108,7 @@ export const dlcClasses: Record<TDlc, { selected: string; unselected: string; ca
       "ante-duotone-unselected text-ante-red-400 border border-ante-blue-400 hover:text-ante-red-300 focus:ring-2 focus:ring-ante-red-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
     card: {
       bg: "ante-duotone-card",
-      border: "border-ante-blue-500"
-    }
+      border: "border-ante-blue-500",
+    },
   },
 };

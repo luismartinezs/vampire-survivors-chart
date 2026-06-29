@@ -10,24 +10,12 @@ const SETTINGS_WIDGET_STORAGE_KEY = "settings-widget-highlight-dismissed";
 export const SettingsWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [shouldHighlight, setShouldHighlight] = useState<boolean | null>(null);
-  const passivesShowDerivedRecipes = useAppStore(
-    (state) => state.passivesShowDerivedRecipes
-  );
-  const setPassivesShowDerivedRecipes = useAppStore(
-    (state) => state.setPassivesShowDerivedRecipes
-  );
-  const weaponsShowDerivedRecipes = useAppStore(
-    (state) => state.weaponsShowDerivedRecipes
-  );
-  const setWeaponsShowDerivedRecipes = useAppStore(
-    (state) => state.setWeaponsShowDerivedRecipes
-  );
-  const isRecipeDrawerEnabled = useAppStore(
-    (state) => state.isRecipeDrawerEnabled
-  );
-  const setRecipeDrawerEnabled = useAppStore(
-    (state) => state.setRecipeDrawerEnabled
-  );
+  const passivesShowDerivedRecipes = useAppStore((state) => state.passivesShowDerivedRecipes);
+  const setPassivesShowDerivedRecipes = useAppStore((state) => state.setPassivesShowDerivedRecipes);
+  const weaponsShowDerivedRecipes = useAppStore((state) => state.weaponsShowDerivedRecipes);
+  const setWeaponsShowDerivedRecipes = useAppStore((state) => state.setWeaponsShowDerivedRecipes);
+  const isRecipeDrawerEnabled = useAppStore((state) => state.isRecipeDrawerEnabled);
+  const setRecipeDrawerEnabled = useAppStore((state) => state.setRecipeDrawerEnabled);
 
   const markSettingsSeen = useCallback(() => {
     try {
@@ -64,9 +52,7 @@ export const SettingsWidget = () => {
 
   useEffect(() => {
     try {
-      const storedValue = window.localStorage.getItem(
-        SETTINGS_WIDGET_STORAGE_KEY
-      );
+      const storedValue = window.localStorage.getItem(SETTINGS_WIDGET_STORAGE_KEY);
       setShouldHighlight(storedValue === "dismissed" ? false : true);
     } catch {
       setShouldHighlight(true);
@@ -91,9 +77,7 @@ export const SettingsWidget = () => {
           type="button"
           onClick={openModal}
           className={`${baseButtonClasses} ${
-            buttonHighlightActive
-              ? highlightedButtonClasses
-              : defaultButtonClasses
+            buttonHighlightActive ? highlightedButtonClasses : defaultButtonClasses
           }`}
           aria-haspopup="dialog"
           aria-expanded={isOpen}
@@ -120,45 +104,32 @@ export const SettingsWidget = () => {
           }}
         >
           <div className="w-full max-w-sm rounded-lg bg-primary-900/95 p-6 shadow-xl backdrop-blur-md border-2 border-primary-500">
-            <h2
-              id="settings-modal-title"
-              className="text-lg font-semibold text-white"
-            >
+            <h2 id="settings-modal-title" className="text-lg font-semibold text-white">
               Settings
             </h2>
             <div className="mt-4 space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-primary-100">
-                  Show derived recipes
-                </h3>
+                <h3 className="text-sm font-medium text-primary-100">Show derived recipes</h3>
                 <div className="mt-2 space-y-3">
                   <Checkbox
                     label="for passives"
                     checked={passivesShowDerivedRecipes}
-                    onChange={(event) =>
-                      setPassivesShowDerivedRecipes(event.target.checked)
-                    }
+                    onChange={(event) => setPassivesShowDerivedRecipes(event.target.checked)}
                   />
                   <Checkbox
                     label="for weapons"
                     checked={weaponsShowDerivedRecipes}
-                    onChange={(event) =>
-                      setWeaponsShowDerivedRecipes(event.target.checked)
-                    }
+                    onChange={(event) => setWeaponsShowDerivedRecipes(event.target.checked)}
                   />
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-primary-100">
-                  Wiki links drawer
-                </h3>
+                <h3 className="text-sm font-medium text-primary-100">Wiki links drawer</h3>
                 <div className="mt-2">
                   <Checkbox
                     label="Enable wiki links drawer"
                     checked={isRecipeDrawerEnabled}
-                    onChange={(event) =>
-                      setRecipeDrawerEnabled(event.target.checked)
-                    }
+                    onChange={(event) => setRecipeDrawerEnabled(event.target.checked)}
                   />
                 </div>
               </div>

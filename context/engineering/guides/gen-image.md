@@ -12,7 +12,6 @@ sort -u | \
 xargs -n 1 -P 5 wget -P ~/Downloads
 ```
 
-
 ### Using the Command Line
 
 1. **Open your terminal.**
@@ -42,7 +41,7 @@ This will output a long string. You would then prepend this string with `data:im
 
 ```css
 .icon-example {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA6BAMAAAAJqbeVAAAABGdBTUEAALG...");
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA6BAMAAAAJqbeVAAAABGdBTUEAALG...");
 }
 ```
 

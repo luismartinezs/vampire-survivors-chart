@@ -1,11 +1,6 @@
 import { memo } from "react";
 import { Operand } from "./Operand";
-import {
-  TWeaponEvolution,
-  TEvolutionElement,
-  TItem,
-  TOperand,
-} from "@/data/types";
+import { TWeaponEvolution, TEvolutionElement, TItem, TOperand } from "@/data/types";
 import { base } from "@/data/constants";
 import { ResponsiveItem } from "./ResponsiveItem";
 import { dlcClasses } from "./controls/constants";
@@ -23,11 +18,7 @@ import {
 } from "./ui/Tooltip";
 import { getWikiHref } from "@/lib/wiki";
 
-export default memo(function EvolutionCard({
-  evolution,
-}: {
-  evolution: TWeaponEvolution;
-}) {
+export default memo(function EvolutionCard({ evolution }: { evolution: TWeaponEvolution }) {
   const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
   const dlcClass = dlcClasses[evolution.dlc || base].card;
   const handleClick = () => {
@@ -65,10 +56,7 @@ export default memo(function EvolutionCard({
                 <Tooltip key={`${itemElement.item.name}-${index}`}>
                   <TooltipTrigger asChild>
                     <span className="inline-flex">
-                      <ResponsiveItem
-                        item={itemElement.item}
-                        tags={itemElement.tags}
-                      />
+                      <ResponsiveItem item={itemElement.item} tags={itemElement.tags} />
                     </span>
                   </TooltipTrigger>
                   <TooltipContent side="top" align="center">
@@ -98,4 +86,4 @@ export default memo(function EvolutionCard({
       </button>
     </TooltipProvider>
   );
-})
+});

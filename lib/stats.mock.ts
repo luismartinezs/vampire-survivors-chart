@@ -3,12 +3,7 @@ import { passives } from "@/data/passives";
 import { evolutions } from "@/data/evolutions";
 import { DLC_IDS } from "@/data/ids";
 import { encodeWeapon, encodePassive, encodeEvo } from "@/lib/wire";
-import {
-  shapeStats,
-  type TRawTotal,
-  type TRawBuilds,
-  type TStats,
-} from "@/lib/stats";
+import { shapeStats, type TRawTotal, type TRawBuilds, type TStats } from "@/lib/stats";
 
 /**
  * Deterministic mock of a Worker /stats response, run through the real
@@ -52,10 +47,7 @@ function genRows(events: string[], peak: number): TRawTotal[] {
       3,
       Math.round((peak / Math.pow(i + 1, 0.7)) * (0.6 + frac(event) * 0.8))
     );
-    const last7 = Math.max(
-      1,
-      Math.round(total * (0.22 + frac(event + "l") * 0.26))
-    );
+    const last7 = Math.max(1, Math.round(total * (0.22 + frac(event + "l") * 0.26)));
     // trend: ~10% brand new, otherwise prior week within ~0.55x–1.65x of this
     // week, giving trend % roughly in [-45%, +65%].
     const t = frac(event + "t");
@@ -133,9 +125,7 @@ function genBuilds(): TRawBuilds {
   // Loadouts: real recipe inputs as 2-item synergies, plus a few merged
   // 3–4 item builds, counted by how popular their members are.
   const loadoutMap = new Map<string, { items: string[]; n: number }>();
-  const recipes = evolutions
-    .map(recipeInputs)
-    .filter((ids) => ids.length >= 2);
+  const recipes = evolutions.map(recipeInputs).filter((ids) => ids.length >= 2);
 
   const countFor = (ids: string[]): number => {
     const minSup = Math.min(...ids.map((id) => support[id] ?? 8));

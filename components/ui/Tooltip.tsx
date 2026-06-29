@@ -30,18 +30,8 @@ const TooltipArrow = forwardRef<
   ElementRef<typeof TooltipPrimitive.Arrow>,
   ComponentPropsWithoutRef<typeof TooltipPrimitive.Arrow>
 >(({ className, ...props }, ref) => (
-  <TooltipPrimitive.Arrow
-    ref={ref}
-    className={cn("fill-slate-900/90", className)}
-    {...props}
-  />
+  <TooltipPrimitive.Arrow ref={ref} className={cn("fill-slate-900/90", className)} {...props} />
 ));
 TooltipArrow.displayName = TooltipPrimitive.Arrow.displayName;
 
-export {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipArrow,
-};
+export { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent, TooltipArrow };

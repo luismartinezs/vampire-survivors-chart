@@ -68,9 +68,7 @@ export function PassiveControls({
               </Button>
             </TooltipTrigger>
             <TooltipContent side="top" align="center">
-              <p className="text-xs font-semibold text-white">
-                Reset selected passives
-              </p>
+              <p className="text-xs font-semibold text-white">Reset selected passives</p>
               <TooltipArrow />
             </TooltipContent>
           </Tooltip>
@@ -108,9 +106,7 @@ export function PassiveControls({
                       {passive.name}
                     </a>
                   ) : (
-                    <p className="text-sm font-semibold leading-tight text-white">
-                      {passive.name}
-                    </p>
+                    <p className="text-sm font-semibold leading-tight text-white">{passive.name}</p>
                   )}
                   <TooltipArrow />
                 </TooltipContent>

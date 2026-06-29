@@ -64,7 +64,11 @@ type TrackBody = {
   c?: unknown;
 };
 
-async function handleTrack(req: Request, env: Env, cors: Record<string, string>): Promise<Response> {
+async function handleTrack(
+  req: Request,
+  env: Env,
+  cors: Record<string, string>
+): Promise<Response> {
   let body: TrackBody;
   try {
     body = JSON.parse(await req.text());
@@ -75,8 +79,7 @@ async function handleTrack(req: Request, env: Env, cors: Record<string, string>)
   const action = typeof body.a === "string" && ACTIONS.has(body.a) ? body.a : null;
   if (!action) return json({ ok: false, error: "bad action" }, 400, cors);
 
-  const item =
-    typeof body.i === "string" && ID_RE.test(body.i) ? body.i : null;
+  const item = typeof body.i === "string" && ID_RE.test(body.i) ? body.i : null;
   if (ITEM_ACTIONS.has(action) && !item) {
     return json({ ok: false, error: "bad item" }, 400, cors);
   }
@@ -86,10 +89,7 @@ async function handleTrack(req: Request, env: Env, cors: Record<string, string>)
   const rawCtx = Array.isArray(body.c) ? body.c : [];
   const ctx = [
     ...new Set(
-      rawCtx.filter(
-        (k): k is string =>
-          typeof k === "string" && ID_RE.test(k) && k !== item
-      )
+      rawCtx.filter((k): k is string => typeof k === "string" && ID_RE.test(k) && k !== item)
     ),
   ].slice(0, MAX_ACTIVE);
 
@@ -103,15 +103,22 @@ async function handleTrack(req: Request, env: Env, cors: Record<string, string>)
       `INSERT INTO clicks (event, day, count) VALUES (?, ?, 1)
        ON CONFLICT(event, day) DO UPDATE SET count = count + 1`
     ).bind(clickKey, day),
-    env.DB.prepare(
-      `INSERT INTO events (ts, action, item, ctx) VALUES (?, ?, ?, ?)`
-    ).bind(now, action, item, ctxJson),
+    env.DB.prepare(`INSERT INTO events (ts, action, item, ctx) VALUES (?, ?, ?, ?)`).bind(
+      now,
+      action,
+      item,
+      ctxJson
+    ),
   ]);
 
   return json({ ok: true }, 200, cors);
 }
 
-async function handleStats(req: Request, env: Env, cors: Record<string, string>): Promise<Response> {
+async function handleStats(
+  req: Request,
+  env: Env,
+  cors: Record<string, string>
+): Promise<Response> {
   const auth = req.headers.get("Authorization") ?? "";
   if (!env.STATS_TOKEN || auth !== `Bearer ${env.STATS_TOKEN}`) {
     return json({ ok: false, error: "unauthorized" }, 401, cors);

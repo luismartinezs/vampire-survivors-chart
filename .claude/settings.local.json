@@ -42,8 +42,5 @@
     ],
     "deny": []
   },
-  "enabledMcpjsonServers": [
-    "sargon-umami",
-    "sargon-resend"
-  ]
+  "enabledMcpjsonServers": ["sargon-umami", "sargon-resend"]
 }

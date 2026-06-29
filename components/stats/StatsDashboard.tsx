@@ -2,11 +2,7 @@ import type { ReactNode } from "react";
 import type { TStats, TStatRow } from "@/lib/stats";
 import { PixelFont } from "@/fonts";
 import { CategoryTable } from "@/components/stats/CategoryTable";
-import {
-  GridItem,
-  Section,
-  type TWidgetSize,
-} from "@/components/stats/DashboardGrid";
+import { GridItem, Section, type TWidgetSize } from "@/components/stats/DashboardGrid";
 import { Widget } from "@/components/stats/Widget";
 import { Icon } from "@/components/stats/Icon";
 import { HeroBand } from "@/components/stats/HeroBand";
@@ -32,9 +28,7 @@ function LeaderWidget({ title, rows }: { title: string; rows: TStatRow[] }) {
             </span>
           </li>
         ))}
-        {rows.length === 0 && (
-          <li className="text-sm text-white/40">No clicks recorded yet.</li>
-        )}
+        {rows.length === 0 && <li className="text-sm text-white/40">No clicks recorded yet.</li>}
       </ol>
     </Widget>
   );
@@ -55,8 +49,7 @@ function TrendWidget({
     <Widget title={title}>
       {!hasTrendData ? (
         <p className="text-xs text-white/40 leading-relaxed">
-          Week-over-week momentum needs about two weeks of history. Check back
-          once it builds up.
+          Week-over-week momentum needs about two weeks of history. Check back once it builds up.
         </p>
       ) : rows.length === 0 ? (
         <p className="text-sm text-white/40">Nothing notable yet.</p>
@@ -89,13 +82,7 @@ function TrendWidget({
 type Tile = { size: TWidgetSize; node: ReactNode; className?: string };
 type LayoutSection = { label: string; meta?: ReactNode; tiles: Tile[] };
 
-export function StatsDashboard({
-  stats,
-  header,
-}: {
-  stats: TStats;
-  header?: ReactNode;
-}) {
+export function StatsDashboard({ stats, header }: { stats: TStats; header?: ReactNode }) {
   // ───────────────────────────────────────────────────────────────────────
   // DASHBOARD LAYOUT — this array is the page.
   //   • Comment out a tile line to hide that widget.
@@ -107,9 +94,18 @@ export function StatsDashboard({
     {
       label: "Rankings",
       tiles: [
-        { size: "sm", node: <LeaderWidget title="Top DLCs" rows={stats.leaders.dlcs} /> },
-        { size: "sm", node: <LeaderWidget title="Top weapons" rows={stats.leaders.weapons} /> },
-        { size: "sm", node: <LeaderWidget title="Top passives" rows={stats.leaders.passives} /> },
+        {
+          size: "sm",
+          node: <LeaderWidget title="Top DLCs" rows={stats.leaders.dlcs} />,
+        },
+        {
+          size: "sm",
+          node: <LeaderWidget title="Top weapons" rows={stats.leaders.weapons} />,
+        },
+        {
+          size: "sm",
+          node: <LeaderWidget title="Top passives" rows={stats.leaders.passives} />,
+        },
         {
           size: "sm",
           node: (
@@ -139,17 +135,60 @@ export function StatsDashboard({
       meta: "what gets used together",
       tiles: [
         { size: "md", node: <AnchorBuildsWidget builds={stats.builds} /> },
-        { size: "md", node: <LoadoutsWidget loadouts={stats.builds.loadouts} /> },
+        {
+          size: "md",
+          node: <LoadoutsWidget loadouts={stats.builds.loadouts} />,
+        },
         { size: "xl", node: <HeatmapWidget builds={stats.builds} /> },
       ],
     },
     {
       label: "Browse all",
       tiles: [
-        { size: "xl", node: <CategoryTable title="DLCs" rows={stats.categories.dlcs} category="dlc" showTrend={stats.hasTrendData} /> },
-        { size: "xl", node: <CategoryTable title="Weapons" rows={stats.categories.weapons} category="weapon" showTrend={stats.hasTrendData} /> },
-        { size: "xl", node: <CategoryTable title="Passives" rows={stats.categories.passives} category="passive" showTrend={stats.hasTrendData} /> },
-        { size: "xl", node: <CategoryTable title="Evolutions" rows={stats.categories.evolutions} category="evo" showTrend={stats.hasTrendData} /> },
+        {
+          size: "xl",
+          node: (
+            <CategoryTable
+              title="DLCs"
+              rows={stats.categories.dlcs}
+              category="dlc"
+              showTrend={stats.hasTrendData}
+            />
+          ),
+        },
+        {
+          size: "xl",
+          node: (
+            <CategoryTable
+              title="Weapons"
+              rows={stats.categories.weapons}
+              category="weapon"
+              showTrend={stats.hasTrendData}
+            />
+          ),
+        },
+        {
+          size: "xl",
+          node: (
+            <CategoryTable
+              title="Passives"
+              rows={stats.categories.passives}
+              category="passive"
+              showTrend={stats.hasTrendData}
+            />
+          ),
+        },
+        {
+          size: "xl",
+          node: (
+            <CategoryTable
+              title="Evolutions"
+              rows={stats.categories.evolutions}
+              category="evo"
+              showTrend={stats.hasTrendData}
+            />
+          ),
+        },
       ],
     },
   ];

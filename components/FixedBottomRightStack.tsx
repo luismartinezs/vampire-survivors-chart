@@ -5,17 +5,9 @@ interface FixedBottomRightStackProps {
   className?: string;
 }
 
-export function FixedBottomRightStack({
-  children,
-  className,
-}: FixedBottomRightStackProps) {
+export function FixedBottomRightStack({ children, className }: FixedBottomRightStackProps) {
   return (
-    <div
-      className={cn(
-        "fixed bottom-4 right-4 z-50 flex items-end gap-2",
-        className
-      )}
-    >
+    <div className={cn("fixed bottom-4 right-4 z-50 flex items-end gap-2", className)}>
       {children}
     </div>
   );

@@ -6,7 +6,7 @@ const operandMap: Record<TOperand, string> = {
   "=": "=",
   "→": "→",
   "⇒": "⇒",
-}
+};
 
 interface OperandProps {
   type: TOperand;

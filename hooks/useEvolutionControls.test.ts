@@ -1,16 +1,9 @@
 import { renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import {
-  createInitialEvolutionControlsState,
-  useAppStore,
-} from "@/hooks/useAppStore";
+import { createInitialEvolutionControlsState, useAppStore } from "@/hooks/useAppStore";
 import { useEvolutionControls } from "@/hooks/useEvolutionControls";
-import type {
-  TEvolutionElement,
-  TEvolutionItem,
-  TWeaponEvolution,
-} from "@/data/types";
+import type { TEvolutionElement, TEvolutionItem, TWeaponEvolution } from "@/data/types";
 
 const PASSIVE_NAME = "Attractorb";
 const BASE_WEAPON_NAME = "Santa Water";
@@ -37,11 +30,13 @@ const getResultName = (evolution: TWeaponEvolution): string => {
 };
 
 const resetStore = async () => {
-  const persist = (useAppStore as typeof useAppStore & {
-    persist?: {
-      clearStorage: () => Promise<void>;
-    };
-  }).persist;
+  const persist = (
+    useAppStore as typeof useAppStore & {
+      persist?: {
+        clearStorage: () => Promise<void>;
+      };
+    }
+  ).persist;
 
   await persist?.clearStorage?.();
 

@@ -19,9 +19,7 @@ export function DlcControls({ selectedDlcs, onToggleDlc }: DlcControlsProps) {
           size="sm"
           className={cn(
             "min-h-[30px] px-2",
-            selectedDlcs.has(dlc)
-              ? dlcClasses[dlc].selected
-              : dlcClasses[dlc].unselected
+            selectedDlcs.has(dlc) ? dlcClasses[dlc].selected : dlcClasses[dlc].unselected
           )}
         >
           <span className="sm:hidden">{DLC_LABELS[dlc].short}</span>

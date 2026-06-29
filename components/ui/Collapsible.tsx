@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useMemo } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -21,10 +21,7 @@ export function Collapsible({
   className,
   meta,
 }: CollapsibleProps) {
-  const storageKey = useMemo(
-    () => `collapsible-${title}-open`,
-    [title]
-  );
+  const storageKey = useMemo(() => `collapsible-${title}-open`, [title]);
   const { isOpen, toggle } = useCollapsible(storageKey, defaultOpen);
 
   return (
@@ -45,11 +42,7 @@ export function Collapsible({
       >
         <div className="flex items-center gap-2 text-left">
           <span>{title}</span>
-          {meta ? (
-            <span className="text-[0.65rem] sm:text-xs text-primary-200">
-              {meta}
-            </span>
-          ) : null}
+          {meta ? <span className="text-[0.65rem] sm:text-xs text-primary-200">{meta}</span> : null}
         </div>
         {isOpen ? (
           <ChevronUp className="w-3 h-3 sm:w-4 sm:h-4 text-primary transition-transform duration-200" />

@@ -19,9 +19,7 @@ export default function Header() {
             </Link>
             <div>
               <Link href="/">
-                <h1
-                  className="text-2xl md:text-3xl font-bold bg-linear-to-r from-primary-200 to-primary-400 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tracking-wide capitalize"
-                >
+                <h1 className="text-2xl md:text-3xl font-bold bg-linear-to-r from-primary-200 to-primary-400 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tracking-wide capitalize">
                   Vampire Survivors Evolution Chart
                 </h1>
               </Link>

@@ -1,29 +1,37 @@
-import { base, em, lotm, og, otc, todf, ed, ante } from "./constants"
+import { base, em, lotm, og, otc, todf, ed, ante } from "./constants";
 
-export type TItemType = 'weapon' | 'passive' | 'misc'
+export type TItemType = "weapon" | "passive" | "misc";
 
 export interface TItem {
-  name: string
-  image: string,
-  type: TItemType,
-  evolved?: boolean,
-  dlc?: TDlc,
-  wikiPath?: string
+  name: string;
+  image: string;
+  type: TItemType;
+  evolved?: boolean;
+  dlc?: TDlc;
+  wikiPath?: string;
 }
 
-export type TOperand = '+' | '=' | '→' | '⇒'
+export type TOperand = "+" | "=" | "→" | "⇒";
 
 export type TEvolutionItem = {
-  item: TItem
-  tags?: string[]
-}
+  item: TItem;
+  tags?: string[];
+};
 
-export type TEvolutionElement = TEvolutionItem | TOperand
+export type TEvolutionElement = TEvolutionItem | TOperand;
 
-export type TDlc = typeof base | typeof lotm | typeof todf | typeof em | typeof og | typeof otc | typeof ed | typeof ante
+export type TDlc =
+  | typeof base
+  | typeof lotm
+  | typeof todf
+  | typeof em
+  | typeof og
+  | typeof otc
+  | typeof ed
+  | typeof ante;
 
 export interface TWeaponEvolution {
-  id: number
-  elements: TEvolutionElement[]
-  dlc?: TDlc
+  id: number;
+  elements: TEvolutionElement[];
+  dlc?: TDlc;
 }

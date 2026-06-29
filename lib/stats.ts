@@ -161,9 +161,7 @@ function shapeBuilds(raw?: TRawBuilds): TBuilds {
 
   const loadouts = (raw.loadouts ?? [])
     .map((l) => {
-      const its = l.items
-        .map(toBuildItem)
-        .filter((x): x is TBuildItem => x !== null);
+      const its = l.items.map(toBuildItem).filter((x): x is TBuildItem => x !== null);
       return its.length >= 2 ? { items: its, n: l.n } : null;
     })
     .filter((x): x is TLoadout => x !== null)
@@ -245,9 +243,7 @@ export function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
   const buildPool = [...weapons, ...passives].filter(
     (r) => r.prev7 >= TREND_MIN_BASELINE && r.trendPct !== null
   );
-  const byTrend = [...buildPool].sort(
-    (a, b) => (b.trendPct ?? 0) - (a.trendPct ?? 0)
-  );
+  const byTrend = [...buildPool].sort((a, b) => (b.trendPct ?? 0) - (a.trendPct ?? 0));
   const trending = byTrend.filter((r) => (r.trendPct ?? 0) > 0).slice(0, 3);
   const declining = byTrend
     .filter((r) => (r.trendPct ?? 0) < 0)

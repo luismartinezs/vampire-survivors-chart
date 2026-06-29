@@ -8,10 +8,7 @@ interface TagPosition {
   left?: number;
 }
 
-const getTagPosition = (
-  n: number,
-  position: TagPosition,
-): React.CSSProperties => {
+const getTagPosition = (n: number, position: TagPosition): React.CSSProperties => {
   const styles: React.CSSProperties = {};
   const offset = n * 8.5;
 
@@ -46,10 +43,7 @@ export const Tag = ({
   if (!TagComponent) return null;
 
   return (
-    <div
-      className={cn("absolute z-10", className)}
-      style={getTagPosition(n, { top: 0, right: 0 })}
-    >
+    <div className={cn("absolute z-10", className)} style={getTagPosition(n, { top: 0, right: 0 })}>
       {TagComponent(n, size)}
     </div>
   );

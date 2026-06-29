@@ -30,16 +30,11 @@ export type TTrackEvent = {
   c?: string[];
 };
 
-function sanitize(
-  i: string | undefined,
-  c: string[] | undefined
-): { i?: string; c?: string[] } {
+function sanitize(i: string | undefined, c: string[] | undefined): { i?: string; c?: string[] } {
   const item = i && ID_RE.test(i) ? i : undefined;
   let ctx: string[] | undefined;
   if (c?.length) {
-    const cleaned = [
-      ...new Set(c.filter((x) => ID_RE.test(x) && x !== item)),
-    ].slice(0, MAX_ACTIVE);
+    const cleaned = [...new Set(c.filter((x) => ID_RE.test(x) && x !== item))].slice(0, MAX_ACTIVE);
     if (cleaned.length) ctx = cleaned;
   }
   return { i: item, c: ctx };

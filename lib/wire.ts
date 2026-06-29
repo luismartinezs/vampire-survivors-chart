@@ -76,12 +76,10 @@ for (const evo of evolutions) {
 }
 
 /** Encode a selected weapon's display name to its wire id, if known. */
-export const encodeWeapon = (name: string): string | undefined =>
-  weaponNameToWire.get(name);
+export const encodeWeapon = (name: string): string | undefined => weaponNameToWire.get(name);
 
 /** Encode a selected passive's display name to its wire id, if known. */
-export const encodePassive = (name: string): string | undefined =>
-  passiveNameToWire.get(name);
+export const encodePassive = (name: string): string | undefined => passiveNameToWire.get(name);
 
 /** Encode a DLC key to its wire id. */
 export const encodeDlc = (dlc: TDlc): string | undefined =>
@@ -91,8 +89,7 @@ export const encodeDlc = (dlc: TDlc): string | undefined =>
 export const encodeEvo = (id: number): string => `e${id}`;
 
 /** Decode a wire id back to display metadata, if known. */
-export const decodeWire = (wire: string): TWireMeta | undefined =>
-  wireToMeta.get(wire);
+export const decodeWire = (wire: string): TWireMeta | undefined => wireToMeta.get(wire);
 
 /** Category implied by a wire id's prefix char. */
 export function wireCategory(wire: string): TWireCategory | undefined {

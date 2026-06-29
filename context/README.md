@@ -4,6 +4,7 @@ This repository is organized around two concepts: **the product** (code that shi
 and **the business** (everything needed to build, operate, and grow the product).
 
 ## Root
+
 ```
 project-root/
 ├── app/                  Next.js pages and layouts

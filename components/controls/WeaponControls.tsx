@@ -38,8 +38,7 @@ export function WeaponControls({
   const openRecipeDrawer = useAppStore((state) => state.openRecipeDrawer);
   const filteredUnevolvedWeapons = useMemo(() => {
     const dlcFiltered = Object.values(weapons).filter(
-      (weapon) =>
-        !weapon.evolved && (!weapon.dlc || selectedDlcs.has(weapon.dlc))
+      (weapon) => !weapon.evolved && (!weapon.dlc || selectedDlcs.has(weapon.dlc))
     );
     if (!matchedItems) return dlcFiltered;
     return dlcFiltered.filter((w) => matchedItems.has(w.name));
@@ -48,11 +47,7 @@ export function WeaponControls({
   const selectedCountLabel = `(${selectedWeapons.size} selected)`;
 
   return (
-    <Collapsible
-      title="Weapons"
-      meta={selectedCountLabel}
-      defaultOpen={false}
-    >
+    <Collapsible title="Weapons" meta={selectedCountLabel} defaultOpen={false}>
       <TooltipProvider
         delayDuration={DEFAULT_TOOLTIP_DELAY}
         skipDelayDuration={DEFAULT_TOOLTIP_DELAY}
@@ -67,9 +62,7 @@ export function WeaponControls({
                 aria-label="Reset Weapons"
                 className={cn(
                   "p-1 aspect-square h-full",
-                  selectedWeapons.size === 0
-                    ? dlcClasses.base.selected
-                    : dlcClasses.base.unselected
+                  selectedWeapons.size === 0 ? dlcClasses.base.selected : dlcClasses.base.unselected
                 )}
               >
                 <div className="flex items-center justify-center size-[1.4rem] sm:size-7">
@@ -78,9 +71,7 @@ export function WeaponControls({
               </Button>
             </TooltipTrigger>
             <TooltipContent side="top" align="center">
-              <p className="text-xs font-semibold text-white">
-                Reset selected weapons
-              </p>
+              <p className="text-xs font-semibold text-white">Reset selected weapons</p>
               <TooltipArrow />
             </TooltipContent>
           </Tooltip>

@@ -26,10 +26,7 @@ function TrendBadge({ row, show }: { row: TStatRow; show: boolean }) {
   const up = row.trendPct >= 0;
   return (
     <span
-      className={cn(
-        "text-xs font-medium tabular-nums",
-        up ? "text-emerald-400" : "text-rose-400"
-      )}
+      className={cn("text-xs font-medium tabular-nums", up ? "text-emerald-400" : "text-rose-400")}
     >
       {up ? "↑" : "↓"}
       {Math.abs(Math.round(row.trendPct))}%
@@ -162,11 +159,48 @@ export function CategoryTable({
             align="left"
             className="flex-1 min-w-0"
           />
-          <SortHeader label="Today" col="today" sort={sort} dir={dir} onSort={onSort} className="w-12 shrink-0" />
-          <SortHeader label="7d" col="last7" sort={sort} dir={dir} onSort={onSort} className="w-12 shrink-0" />
-          <SortHeader label="All" col="total" sort={sort} dir={dir} onSort={onSort} className="w-14 shrink-0" />
-          <SortHeader label="Trend" col="trend" sort={sort} dir={dir} onSort={onSort} hideOnMobile className="w-14 shrink-0" />
-          <SortHeader label="Share" col="share" sort={sort} dir={dir} onSort={onSort} hideOnMobile className="w-14 shrink-0" />
+          <SortHeader
+            label="Today"
+            col="today"
+            sort={sort}
+            dir={dir}
+            onSort={onSort}
+            className="w-12 shrink-0"
+          />
+          <SortHeader
+            label="7d"
+            col="last7"
+            sort={sort}
+            dir={dir}
+            onSort={onSort}
+            className="w-12 shrink-0"
+          />
+          <SortHeader
+            label="All"
+            col="total"
+            sort={sort}
+            dir={dir}
+            onSort={onSort}
+            className="w-14 shrink-0"
+          />
+          <SortHeader
+            label="Trend"
+            col="trend"
+            sort={sort}
+            dir={dir}
+            onSort={onSort}
+            hideOnMobile
+            className="w-14 shrink-0"
+          />
+          <SortHeader
+            label="Share"
+            col="share"
+            sort={sort}
+            dir={dir}
+            onSort={onSort}
+            hideOnMobile
+            className="w-14 shrink-0"
+          />
         </div>
 
         {sorted.length === 0 ? (
