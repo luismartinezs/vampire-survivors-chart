@@ -193,7 +193,7 @@ export function CategoryTable({
             className="w-14 shrink-0"
           />
           <SortHeader
-            label="Share"
+            label="%"
             col="share"
             sort={sort}
             dir={dir}
@@ -204,7 +204,7 @@ export function CategoryTable({
         </div>
 
         {sorted.length === 0 ? (
-          <p className="px-2 py-4 text-sm text-white/40">No data yet.</p>
+          <p className="px-2 py-4 text-sm text-white/70">No data yet.</p>
         ) : (
           <ol className="text-sm">
             {sorted.map((row, i) => {
@@ -255,7 +255,7 @@ export function CategoryTable({
                   <span className="relative w-14 shrink-0 text-right hidden sm:block">
                     <TrendBadge row={row} show={showTrend} />
                   </span>
-                  <span className="relative w-14 shrink-0 text-right tabular-nums text-white/50 hidden sm:block">
+                  <span className="relative w-14 shrink-0 text-right tabular-nums text-white/70 hidden sm:block">
                     {row.share.toFixed(1)}%
                   </span>
                 </li>

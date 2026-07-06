@@ -12,7 +12,7 @@ export function LoadoutsWidget({ loadouts, limit = 10 }: { loadouts: TLoadout[];
   return (
     <Widget title="Common builds" subtitle="Full sets of weapons + passives seen active together">
       {loadouts.length === 0 ? (
-        <p className="text-sm text-white/40 py-2">
+        <p className="text-sm text-white/70 py-2">
           No loadouts recorded yet. This fills in as visitors assemble builds.
         </p>
       ) : (

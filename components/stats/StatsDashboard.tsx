@@ -8,11 +8,12 @@ import { Icon } from "@/components/stats/Icon";
 import { HeroBand } from "@/components/stats/HeroBand";
 import { AnchorBuildsWidget } from "@/components/stats/AnchorBuildsWidget";
 import { LoadoutsWidget } from "@/components/stats/LoadoutsWidget";
-import { HeatmapWidget } from "@/components/stats/HeatmapWidget";
 import { cn } from "@/lib/utils";
 
 const numberFmt = new Intl.NumberFormat("en-US");
-const MEDALS = ["🥇", "🥈", "🥉"];
+
+// Golden Egg sprite recolors, see styles/misc.css
+const MEDALS = ["icon-egg-gold", "icon-egg-silver", "icon-egg-bronze"];
 
 function LeaderWidget({ title, rows }: { title: string; rows: TStatRow[] }) {
   return (
@@ -20,15 +21,15 @@ function LeaderWidget({ title, rows }: { title: string; rows: TStatRow[] }) {
       <ol className="flex flex-col gap-1.5">
         {rows.map((r, i) => (
           <li key={r.key} className="flex items-center gap-2 text-sm">
-            <span className="shrink-0">{MEDALS[i]}</span>
+            <Icon image={MEDALS[i]} name={`Rank ${i + 1}`} className="size-4" />
             <Icon image={r.image} name={r.name} />
             <span className="flex-1 min-w-0 truncate font-medium">{r.name}</span>
-            <span className="shrink-0 text-right text-xs text-white/50 tabular-nums">
+            <span className="shrink-0 text-right text-xs text-white/70 tabular-nums">
               {numberFmt.format(r.total)} · {r.share.toFixed(1)}%
             </span>
           </li>
         ))}
-        {rows.length === 0 && <li className="text-sm text-white/40">No clicks recorded yet.</li>}
+        {rows.length === 0 && <li className="text-sm text-white/70">No clicks recorded yet.</li>}
       </ol>
     </Widget>
   );
@@ -48,11 +49,11 @@ function TrendWidget({
   return (
     <Widget title={title}>
       {!hasTrendData ? (
-        <p className="text-xs text-white/40 leading-relaxed">
-          Week-over-week momentum needs about two weeks of history. Check back once it builds up.
+        <p className="text-xs text-white/70 leading-relaxed">
+          Needs about two weeks of history. Check back once it builds up.
         </p>
       ) : rows.length === 0 ? (
-        <p className="text-sm text-white/40">Nothing notable yet.</p>
+        <p className="text-sm text-white/70">Nothing notable yet.</p>
       ) : (
         <ol className="flex flex-col gap-1.5">
           {rows.map((r) => {
@@ -139,7 +140,7 @@ export function StatsDashboard({ stats, header }: { stats: TStats; header?: Reac
           size: "md",
           node: <LoadoutsWidget loadouts={stats.builds.loadouts} />,
         },
-        { size: "xl", node: <HeatmapWidget builds={stats.builds} /> },
+        // { size: "xl", node: <HeatmapWidget builds={stats.builds} /> },
       ],
     },
     {

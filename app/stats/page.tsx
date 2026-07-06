@@ -15,10 +15,7 @@ function Header() {
   return (
     <header className="px-1">
       <h1 className="text-2xl font-bold">Filter Stats</h1>
-      <p className="text-sm text-white/50">
-        How often each filter gets clicked. Counts cover today, the last 7 days, and all time (UTC
-        day buckets). Updated hourly.
-      </p>
+      <p className="text-sm text-white/60">How often each filter gets clicked. Updated hourly.</p>
     </header>
   );
 }

@@ -33,11 +33,11 @@ export function Widget({
         <header className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             {title && (
-              <h3 className="text-[0.7rem] uppercase tracking-[0.12em] text-primary-300/50 truncate">
+              <h3 className="text-[0.7rem] uppercase tracking-[0.12em] text-primary-300 truncate">
                 {title}
               </h3>
             )}
-            {subtitle && <p className="text-xs text-white/40 mt-0.5">{subtitle}</p>}
+            {subtitle && <p className="text-xs text-white/70 mt-0.5">{subtitle}</p>}
           </div>
           {action && <div className="shrink-0">{action}</div>}
         </header>

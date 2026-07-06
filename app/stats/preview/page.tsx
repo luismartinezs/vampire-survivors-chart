@@ -20,7 +20,7 @@ function Header() {
       </div>
       <div>
         <h1 className="text-2xl font-bold">Filter Stats</h1>
-        <p className="text-sm text-white/50">
+        <p className="text-sm text-white/70">
           How often each filter gets clicked. Counts cover today, the last 7 days, and all time.
           Updated hourly.
         </p>

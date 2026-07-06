@@ -27,7 +27,7 @@ export default function Header() {
                 href="https://ko-fi.com/appforgelabs"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="md:hidden flex items-center gap-1.5 text-xs text-white/50 hover:text-white/80 transition-colors mt-0.5"
+                className="md:hidden flex items-center gap-1.5 text-xs text-white/70 hover:text-white transition-colors mt-0.5"
               >
                 <span className="icon icon-garlic inline-block w-3 h-3" />
                 Did this site help? Keep it free for everyone
@@ -39,7 +39,7 @@ export default function Header() {
             href="https://ko-fi.com/appforgelabs"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-1.5 text-sm text-white/50 hover:text-white/80 transition-colors"
+            className="hidden md:flex items-center gap-1.5 text-sm text-white/70 hover:text-white transition-colors"
           >
             <span className="icon icon-garlic inline-block w-4 h-4" />
             Did this site help? Keep it free for everyone

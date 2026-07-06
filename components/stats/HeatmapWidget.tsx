@@ -41,7 +41,7 @@ export function HeatmapWidget({ builds, size }: { builds: TBuilds; size?: number
       subtitle={`When the row item is on, how often the column item is too · ${items.length} items`}
     >
       {items.length < 2 ? (
-        <p className="text-sm text-white/40 py-2">
+        <p className="text-sm text-white/70 py-2">
           Not enough co-occurrence yet. This fills in as visitors stack filters.
         </p>
       ) : (

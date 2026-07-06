@@ -64,7 +64,7 @@ export function AnchorBuildsWidget({ builds }: { builds: TBuilds }) {
     >
       <Icon image={anchorItem?.image} name={anchorItem?.name ?? ""} className="size-4" />
       <span className="min-w-0 truncate">{anchorItem?.name ?? "Pick item"}</span>
-      <ChevronDown className="size-3.5 shrink-0 text-white/40" aria-hidden />
+      <ChevronDown className="size-3.5 shrink-0 text-white/70" aria-hidden />
     </button>
   );
 
@@ -82,7 +82,7 @@ export function AnchorBuildsWidget({ builds }: { builds: TBuilds }) {
         />
       )}
       {partners.length === 0 ? (
-        <p className="text-sm text-white/40 py-2">
+        <p className="text-sm text-white/70 py-2">
           No co-occurrence recorded yet. This fills in as visitors stack filters.
         </p>
       ) : (
@@ -90,7 +90,7 @@ export function AnchorBuildsWidget({ builds }: { builds: TBuilds }) {
           <div className="flex items-center gap-2 mb-2 text-sm">
             <Icon image={anchorItem?.image} name={anchorItem?.name ?? ""} className="size-6" />
             <span className="font-medium">{anchorItem?.name}</span>
-            <span className="text-xs text-white/30">
+            <span className="text-xs text-white/70">
               active in {pctFmt.format(supportOf.get(anchor) ?? 0)} snapshots
             </span>
           </div>
@@ -104,7 +104,7 @@ export function AnchorBuildsWidget({ builds }: { builds: TBuilds }) {
                 />
                 <Icon image={p.image} name={p.name} className="relative" />
                 <span className="relative flex-1 min-w-0 truncate">{p.name}</span>
-                <span className="relative shrink-0 tabular-nums text-white/50">
+                <span className="relative shrink-0 tabular-nums text-white/70">
                   {pctFmt.format(p.rate)}%
                 </span>
               </li>

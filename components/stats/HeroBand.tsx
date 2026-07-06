@@ -29,7 +29,7 @@ function HeroStat({
             ? "text-emerald-400 font-medium"
             : accent === "down"
               ? "text-rose-400 font-medium"
-              : "text-white/40"
+              : "text-white/70"
         )}
       >
         {caption}
@@ -59,25 +59,25 @@ export function HeroBand({ stats }: { stats: TStats }) {
       />
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="min-w-0">
-          <p className="text-[0.7rem] uppercase tracking-[0.2em] text-primary-300/60">
+          <p className="text-[0.7rem] uppercase tracking-[0.2em] text-primary-300">
             Activity today
           </p>
           <div className="mt-1 flex items-end gap-2.5">
             <span className="font-pixel text-5xl sm:text-6xl leading-none text-primary-100 drop-shadow-[0_2px_0_rgba(0,0,0,0.6)]">
               {numberFmt.format(stats.totalToday)}
             </span>
-            <span className="mb-1 text-sm text-white/40">clicks</span>
+            <span className="mb-1 text-sm text-white/70">clicks</span>
           </div>
-          <p className="mt-2 text-xs text-white/40">
+          <p className="mt-2 text-xs text-white/70">
             {numberFmt.format(stats.totalAll)} all time
             <span className="mx-1.5 text-primary-500/40">·</span>
-            {numberFmt.format(stats.resets.today)} builds wiped today
+            {/* {numberFmt.format(stats.resets.today)} builds wiped today */}
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-2.5 lg:w-[34rem]">
           <HeroStat
-            label="Leading"
+            label="Most popular"
             item={leading}
             caption={leading ? `${leading.share.toFixed(1)}% of weapon clicks` : "—"}
           />

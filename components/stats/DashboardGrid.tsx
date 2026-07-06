@@ -64,11 +64,11 @@ export function Section({
   return (
     <section className="flex flex-col gap-3">
       <div className="flex items-center gap-3">
-        <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-primary-300/70 whitespace-nowrap">
+        <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-primary-300 whitespace-nowrap">
           {label}
         </h2>
         <span className="h-px flex-1 bg-gradient-to-r from-primary-500/30 to-transparent" />
-        {meta && <span className="text-xs text-white/30 whitespace-nowrap">{meta}</span>}
+        {meta && <span className="text-xs text-white/50 whitespace-nowrap">{meta}</span>}
       </div>
       <DashboardGrid>{children}</DashboardGrid>
     </section>
