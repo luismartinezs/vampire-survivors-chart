@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getStats } from "@/lib/stats";
 import { StatsDashboard } from "@/components/stats/StatsDashboard";
 
-export const runtime = "edge";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {

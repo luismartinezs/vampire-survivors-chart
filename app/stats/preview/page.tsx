@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { mockStats } from "@/lib/stats.mock";
 import { StatsDashboard } from "@/components/stats/StatsDashboard";
 
-export const runtime = "edge";
-
 export const metadata: Metadata = {
   title: "Filter Stats (Preview) | Vampire Survivors Evolution Chart",
   description: "Preview of the filter stats page with mock data.",

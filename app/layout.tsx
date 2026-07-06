@@ -10,9 +10,6 @@ import { ResetAllButton } from "@/features/reset";
 import { SettingsWidget } from "@/features/settings";
 import Script from "next/script";
 
-// cloudflare pages compat
-export const runtime = "edge";
-
 export const metadata: Metadata = {
   title: "Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide",
   description:
@@ -60,7 +57,6 @@ export const viewport: Viewport = {
   themeColor: "#1a1a1a",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
