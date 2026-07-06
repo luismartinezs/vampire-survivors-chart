@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const currentYear = new Date().getFullYear();
 
 export function Footer() {
@@ -15,6 +17,15 @@ export function Footer() {
             Did this site help? Keep it free for everyone
             <span className="icon icon-recovery inline-block w-4 h-4" />
           </a>
+          <nav className="text-xs text-white/70 flex items-center gap-2">
+            <Link href="/" className="hover:text-white transition-colors">
+              Evolution Chart
+            </Link>
+            <span aria-hidden="true">·</span>
+            <Link href="/stats" className="hover:text-white transition-colors">
+              Filter Stats
+            </Link>
+          </nav>
           <div className="text-xs text-white/70 flex items-center gap-1">
             <span>© {currentYear}</span>
             <a

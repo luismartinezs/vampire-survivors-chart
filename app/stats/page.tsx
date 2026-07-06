@@ -7,8 +7,16 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Filter Stats | Vampire Survivors Evolution Chart",
-  description: "Which filters visitors use the most.",
-  robots: { index: false, follow: false },
+  description:
+    "See which Vampire Survivors DLCs, weapons, and passives players filter for the most. Live usage stats from the evolution chart, updated hourly.",
+  alternates: {
+    canonical: "/stats",
+  },
+  openGraph: {
+    title: "Filter Stats | Vampire Survivors Evolution Chart",
+    description:
+      "See which Vampire Survivors DLCs, weapons, and passives players filter for the most.",
+  },
 };
 
 function Header() {

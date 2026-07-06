@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide",
   description:
     "Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations, evolution requirements, and upgrade paths.",
-  metadataBase: new URL("https://vsevochart.com"),
+  metadataBase: new URL("https://www.vsevochart.com"),
   keywords: "Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations",
   authors: [{ name: "AppForgeLabs" }],
   openGraph: {
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Vampire Survivors Evolution Chart",
   },
   alternates: {
-    canonical: "https://www.vsevochart.com",
+    canonical: "/",
   },
 };
 
