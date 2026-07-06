@@ -216,12 +216,8 @@ export async function getStats(): Promise<TStats | null> {
   return shapeStats(data.totals, data.builds);
 }
 
-/**
- * Pure transform from the Worker's raw response into the page's view model.
- * Shared by getStats() and the preview mock, so the preview renders through
- * the exact same logic as production.
- */
-export function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
+/** Pure transform from the Worker's raw response into the page's view model. */
+function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
   const dlcs = rank(totals, "dlc");
   const weapons = rank(totals, "weapon");
   const passives = rank(totals, "passive");
