@@ -8,6 +8,7 @@ import { Icon } from "@/components/stats/Icon";
 import { HeroBand } from "@/components/stats/HeroBand";
 import { AnchorBuildsWidget } from "@/components/stats/AnchorBuildsWidget";
 import { LoadoutsWidget } from "@/components/stats/LoadoutsWidget";
+import { ScrollTracker } from "@/components/stats/ScrollTracker";
 import { cn } from "@/lib/utils";
 
 const numberFmt = new Intl.NumberFormat("en-US");
@@ -202,6 +203,8 @@ export function StatsDashboard({ stats, header }: { stats: TStats; header?: Reac
       )}
     >
       {header}
+
+      <ScrollTracker event="stats-scroll" />
 
       <HeroBand stats={stats} />
 

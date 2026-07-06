@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
+import { trackUmami } from "@/lib/umami";
 import type { TStatRow } from "@/lib/stats";
 
 const numberFmt = new Intl.NumberFormat("en-US");
@@ -111,6 +112,7 @@ export function CategoryTable({
   const [dir, setDir] = useState<Dir>("desc");
 
   const onSort = (col: SortKey) => {
+    trackUmami("stats-sort", { table: category, column: col });
     if (col === sort) {
       setDir((d) => (d === "asc" ? "desc" : "asc"));
     } else {

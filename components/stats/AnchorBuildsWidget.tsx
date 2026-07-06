@@ -6,6 +6,7 @@ import type { TBuilds } from "@/lib/stats";
 import { Widget } from "@/components/stats/Widget";
 import { Icon } from "@/components/stats/Icon";
 import { cn } from "@/lib/utils";
+import { trackUmami } from "@/lib/umami";
 
 const pctFmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
 
@@ -75,6 +76,8 @@ export function AnchorBuildsWidget({ builds }: { builds: TBuilds }) {
           items={candidates}
           selected={anchor}
           onSelect={(key) => {
+            const name = candidates.find((it) => it.key === key)?.name;
+            if (name) trackUmami("stats-anchor-pick", { item: name });
             setAnchor(key);
             setPickerOpen(false);
           }}
