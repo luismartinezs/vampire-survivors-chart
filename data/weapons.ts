@@ -175,15 +175,15 @@ const lotmWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
 
 const todfWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
   spellString: {
-    name: "Spell String",
+    name: "SpellString",
     image: "icon-spell1",
   },
   spellStream: {
-    name: "Spell Stream",
+    name: "SpellStream",
     image: "icon-spell2",
   },
   spellStrike: {
-    name: "Spell Strike",
+    name: "SpellStrike",
     image: "icon-spell3",
   },
   eskizzibur: {
@@ -784,7 +784,7 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
       image: "icon-night_",
     },
     jOdore: {
-      name: "J Odore",
+      name: "J'Odore",
       image: "icon-mirage_",
     },
     booRooBolle: {
@@ -816,7 +816,7 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
       image: "icon-arrow_",
     },
     spellStorm: {
-      name: "Spell Storm",
+      name: "SpellStrom",
       image: "icon-spell_",
     },
     crossedWires: {
