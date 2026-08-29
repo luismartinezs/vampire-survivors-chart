@@ -682,7 +682,7 @@ const lotbmWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
   },
   responsivePrayers108: {
     name: "108 Responsive Prayers",
-    image: "icon-108_Responsive_Prayers",
+    image: "icon-Road_to_Heaven",
   },
 };
 
@@ -1341,7 +1341,7 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
     },
     roadToHeaven: {
       name: "Road to Heaven",
-      image: "icon-Road_to_Heaven",
+      image: "icon-108_Responsive_Prayers",
     },
   },
   weaponWikiPaths
