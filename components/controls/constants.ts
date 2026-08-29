@@ -3,6 +3,7 @@ import { TDlc } from "@/data/types";
 export const DLC_LABELS: Record<TDlc, { full: string; short: string }> = {
   base: { full: "Base Game", short: "Base" },
   lotm: { full: "Legacy of the Moonspell", short: "LotM" },
+  lotbm: { full: "Legacy of the Bloodmoon", short: "LotBM" },
   todf: { full: "Tides of the Foscari", short: "TotF" },
   em: { full: "Emergency Meeting", short: "EM" },
   og: { full: "Operation Guns", short: "OG" },
@@ -49,6 +50,16 @@ export const dlcClasses: Record<
     card: {
       bg: "bg-lotm-300/20",
       border: "border-lotm-500",
+    },
+  },
+  lotbm: {
+    selected:
+      "bg-lotbm-300/60 text-lotbm-950 hover:text-lotbm-50 border border-lotbm-500 hover:bg-lotbm-400/50 focus:ring-2 focus:ring-lotbm-500 focus:outline-hidden transition-colors duration-200 active:scale-95 shadow-xs hover:shadow-md ring-inset ring-lotbm-900 ring-3 disabled:opacity-50 disabled:cursor-not-allowed aria-selected:bg-lotbm-400/70",
+    unselected:
+      "bg-lotbm-300/20 text-lotbm-400 border border-lotbm-400 hover:bg-lotbm-500/10 hover:text-lotbm-300 focus:ring-2 focus:ring-lotbm-500 focus:outline-hidden transition-colors duration-200 active:scale-95",
+    card: {
+      bg: "bg-lotbm-300/20",
+      border: "border-lotbm-500",
     },
   },
   todf: {
@@ -110,5 +121,4 @@ export const dlcClasses: Record<
       bg: "ante-duotone-card",
       border: "border-ante-blue-500",
     },
-  },
-};
+  },};

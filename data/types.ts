@@ -1,4 +1,4 @@
-import { base, em, lotm, og, otc, todf, ed, ante } from "./constants";
+import { base, em, lotm, og, otc, todf, ed, ante, lotbm } from "./constants";
 
 export type TItemType = "weapon" | "passive" | "misc";
 
@@ -23,6 +23,7 @@ export type TEvolutionElement = TEvolutionItem | TOperand;
 export type TDlc =
   | typeof base
   | typeof lotm
+  | typeof lotbm
   | typeof todf
   | typeof em
   | typeof og

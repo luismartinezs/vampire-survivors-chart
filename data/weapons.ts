@@ -1,6 +1,6 @@
 import { ensureWikiPaths, mergeIntoNestedObjects } from "@/lib/utils";
 import { TItem } from "./types";
-import { base, lotm, todf, em, og, otc, ed, ante } from "./constants";
+import { base, lotm, todf, em, og, otc, ed, ante, lotbm } from "./constants";
 import { weaponWikiPaths } from "./wikiPaths";
 
 const baseWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
@@ -170,6 +170,22 @@ const lotmWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
   nightSword: {
     name: "Night Sword",
     image: "icon-muramasa",
+  },
+  bocce108: {
+    name: "108 Bocce",
+    image: "icon-108_Bocce",
+  },
+  lunarMight: {
+    name: "LunarMight",
+    image: "icon-LunarMight",
+  },
+  lunarSight: {
+    name: "LunarSight",
+    image: "icon-LunarSight",
+  },
+  lunarBight: {
+    name: "LunarBight",
+    image: "icon-LunarBight",
   },
 };
 
@@ -627,10 +643,54 @@ const anteWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
   },
 };
 
+const lotbmWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
+  scarletNeedle: {
+    name: "Scarlet Needle",
+    image: "icon-Scarlet_Needle",
+  },
+  incineration: {
+    name: "Incineration",
+    image: "icon-Incineration",
+  },
+  ashella: {
+    name: "Ashella",
+    image: "icon-Ashella",
+  },
+  screamsFromTheVoid: {
+    name: "Screams from the Void",
+    image: "icon-Screams_from_the_Void",
+  },
+  blackenFirmament: {
+    name: "Blacken Firmament",
+    image: "icon-Blacken_Firmament",
+  },
+  fireFall: {
+    name: "FireFall",
+    image: "icon-FireFall",
+  },
+  fireBall: {
+    name: "FireBall",
+    image: "icon-FireBall",
+  },
+  fireWall: {
+    name: "FireWall",
+    image: "icon-FireWall",
+  },
+  descentIntoMisery: {
+    name: "Descent Into Misery",
+    image: "icon-Descent_Into_Misery",
+  },
+  responsivePrayers108: {
+    name: "108 Responsive Prayers",
+    image: "icon-108_Responsive_Prayers",
+  },
+};
+
 const _baseWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
   {
     ...mergeIntoNestedObjects(baseWeapons, { dlc: base }),
     ...mergeIntoNestedObjects(lotmWeapons, { dlc: lotm }),
+    ...mergeIntoNestedObjects(lotbmWeapons, { dlc: lotbm }),
     ...mergeIntoNestedObjects(todfWeapons, { dlc: todf }),
     ...mergeIntoNestedObjects(emWeapons, { dlc: em }),
     ...mergeIntoNestedObjects(ogWeapons, { dlc: og }),
@@ -776,11 +836,11 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
       image: "icon-Kyra-Stones",
     },
     festiveWind: {
-      name: "Festive Wind",
+      name: "Festive Winds",
       image: "icon-wind_",
     },
     echoOfNight: {
-      name: "Echo of Night",
+      name: "Echo Night",
       image: "icon-night_",
     },
     jOdore: {
@@ -788,7 +848,7 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
       image: "icon-mirage_",
     },
     booRooBolle: {
-      name: "Boo Roo Bolle",
+      name: "Boo Roo Boolle",
       image: "icon-bolle_",
     },
     muramasa: {
@@ -1242,6 +1302,46 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
     naneInferno: {
       name: "NaneInferno",
       image: "icon-NaneInferno",
+    },
+    argentFlow: {
+      name: "Argent Flow",
+      image: "icon-Argent_Flow",
+    },
+    lunarFlight: {
+      name: "LunarFlight",
+      image: "icon-LunarFlight",
+    },
+    cardinalRain: {
+      name: "Cardinal Rain",
+      image: "icon-Cardinal_Rain",
+    },
+    dustToDust: {
+      name: "Dust to Dust",
+      image: "icon-Dust_to_Dust",
+    },
+    bloodlust: {
+      name: "Bloodlust",
+      image: "icon-Bloodlust",
+    },
+    forbiddenSiren: {
+      name: "Forbidden Siren",
+      image: "icon-Forbidden_Siren",
+    },
+    damnation: {
+      name: "Damnation",
+      image: "icon-Damnation",
+    },
+    fireStall: {
+      name: "FireStall",
+      image: "icon-FireStall",
+    },
+    shimmeringSands: {
+      name: "Shimmering Sands",
+      image: "icon-Shimmering_Sands",
+    },
+    roadToHeaven: {
+      name: "Road to Heaven",
+      image: "icon-Road_to_Heaven",
     },
   },
   weaponWikiPaths

@@ -17,7 +17,7 @@ export interface EvolutionControlsState {
 
 export const createInitialEvolutionControlsState = (): EvolutionControlsState => ({
   sortByPassive: false,
-  selectedDlcs: ["base", "lotm", "todf", "em", "og", "otc", "ed", "ante"],
+  selectedDlcs: ["base", "lotm", "lotbm", "todf", "em", "og", "otc", "ed", "ante"],
   selectedPassives: [],
   selectedWeapons: [],
 });
@@ -225,6 +225,29 @@ export const useAppStore = create<AppState>()(
     {
       name: "app-store",
       storage,
+      // Bumped whenever a new DLC ships: a returning user's persisted
+      // selectedDlcs predates the new key, so without this the DLC would land
+      // switched off for everyone who has used the site before.
+      version: 1,
+      migrate: (persisted, version) => {
+        const state = persisted as { evolutionControls?: EvolutionControlsState } | undefined;
+        if (!state?.evolutionControls) return state;
+        // State written before versioning existed arrives with version
+        // `undefined`, which loses every numeric comparison, so floor it to 0.
+        const from = typeof version === "number" ? version : 0;
+        if (from < 1) {
+          const dlcs = new Set<TDlc>(state.evolutionControls.selectedDlcs);
+          dlcs.add("lotbm");
+          return {
+            ...state,
+            evolutionControls: {
+              ...state.evolutionControls,
+              selectedDlcs: Array.from(dlcs),
+            },
+          };
+        }
+        return state;
+      },
       partialize: (state) => ({
         evolutionControls: state.evolutionControls,
         collapsibleState: state.collapsibleState,

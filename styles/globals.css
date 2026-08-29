@@ -14,6 +14,10 @@
 @import "./ante/passives.css" layer(utilities);
 @import "./ante/weapons.css" layer(utilities);
 @import "./ante/evolutions.css" layer(utilities);
+@import "./lotm/weapons.css" layer(utilities);
+@import "./lotm/evolutions.css" layer(utilities);
+@import "./lotbm/weapons.css" layer(utilities);
+@import "./lotbm/evolutions.css" layer(utilities);
 @import "./misc.css" layer(utilities);
 
 @plugin 'tailwindcss-animate';
@@ -150,6 +154,18 @@
   --color-ante-red-800: #992813;
   --color-ante-red-900: #7b2413;
   --color-ante-red-950: #420e08;
+
+  --color-lotbm-50: #fff1f3;
+  --color-lotbm-100: #ffe0e4;
+  --color-lotbm-200: #ffc0c9;
+  --color-lotbm-300: #ff8494;
+  --color-lotbm-400: #ff4d63;
+  --color-lotbm-500: #d61f38;
+  --color-lotbm-600: #ab1226;
+  --color-lotbm-700: #7d0a1a;
+  --color-lotbm-800: #520712;
+  --color-lotbm-900: #33050d;
+  --color-lotbm-950: #1a0206;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

@@ -1,6 +1,6 @@
 import { TWeaponEvolution } from "./types";
 import { items } from "./items";
-import { base, otc, em, lotm, og, todf, ed, ante } from "./constants";
+import { base, otc, em, lotm, og, todf, ed, ante, lotbm } from "./constants";
 
 const baseEvolutions: TWeaponEvolution[] = [
   {
@@ -394,6 +394,28 @@ const lotmEvolutions: TWeaponEvolution[] = [
       { item: items.spellbinder, tags: ["max"] },
       "=",
       { item: items.booRooBolle },
+    ],
+  },
+  {
+    id: 142,
+    elements: [
+      { item: items.festiveWind },
+      "+",
+      { item: items.torronas_box, tags: ["max"] },
+      "=",
+      { item: items.argentFlow },
+    ],
+  },
+  {
+    id: 143,
+    elements: [
+      { item: items.lunarMight },
+      "+",
+      { item: items.lunarSight },
+      "+",
+      { item: items.lunarBight },
+      "=",
+      { item: items.lunarFlight },
     ],
   },
 ];
@@ -1410,6 +1432,91 @@ const edEvolutions: TWeaponEvolution[] = [
   },
 ];
 
+const lotbmEvolutions: TWeaponEvolution[] = [
+  {
+    id: 144,
+    elements: [
+      { item: items.scarletNeedle },
+      "+",
+      { item: items.pummarola, tags: ["max"] },
+      "=",
+      { item: items.cardinalRain },
+    ],
+  },
+  {
+    id: 145,
+    elements: [
+      { item: items.incineration },
+      "+",
+      { item: items.candelabrador, tags: ["max"] },
+      "=",
+      { item: items.dustToDust },
+    ],
+  },
+  {
+    id: 146,
+    elements: [
+      { item: items.ashella },
+      "+",
+      { item: items.duplicator, tags: ["max"] },
+      "=",
+      { item: items.bloodlust },
+    ],
+  },
+  {
+    id: 147,
+    elements: [
+      { item: items.screamsFromTheVoid },
+      "+",
+      { item: items.attractorb, tags: ["max"] },
+      "=",
+      { item: items.forbiddenSiren },
+    ],
+  },
+  {
+    id: 148,
+    elements: [
+      { item: items.blackenFirmament },
+      "+",
+      { item: items.torronas_box, tags: ["max"] },
+      "=",
+      { item: items.damnation },
+    ],
+  },
+  {
+    id: 149,
+    elements: [
+      { item: items.fireFall },
+      "+",
+      { item: items.fireBall },
+      "+",
+      { item: items.fireWall },
+      "=",
+      { item: items.fireStall },
+    ],
+  },
+  {
+    id: 150,
+    elements: [
+      { item: items.descentIntoMisery },
+      "+",
+      { item: items.kyraStones },
+      "=",
+      { item: items.shimmeringSands },
+    ],
+  },
+  {
+    id: 151,
+    elements: [
+      { item: items.bocce108 },
+      "+",
+      { item: items.responsivePrayers108 },
+      "=",
+      { item: items.roadToHeaven },
+    ],
+  },
+];
+
 const anteEvolutions: TWeaponEvolution[] = [
   {
     id: 135,
@@ -1456,6 +1563,7 @@ const anteEvolutions: TWeaponEvolution[] = [
 export const evolutions = [
   ...baseEvolutions.map((evolution) => ({ ...evolution, dlc: base })),
   ...lotmEvolutions.map((evolution) => ({ ...evolution, dlc: lotm })),
+  ...lotbmEvolutions.map((evolution) => ({ ...evolution, dlc: lotbm })),
   ...todfEvolutions.map((evolution) => ({ ...evolution, dlc: todf })),
   ...emEvolutions.map((evolution) => ({ ...evolution, dlc: em })),
   ...ogEvolutions.map((evolution) => ({ ...evolution, dlc: og })),
