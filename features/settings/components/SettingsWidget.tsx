@@ -110,6 +110,18 @@ export const SettingsWidget = () => {
               Settings
             </h2>
             <div className="mt-4 space-y-4">
+              <div className="space-y-3">
+                <Checkbox
+                  label="Show passives loadout"
+                  checked={showPassivesLoadout}
+                  onChange={(event) => setShowPassivesLoadout(event.target.checked)}
+                />
+                <Checkbox
+                  label="Enable wiki links drawer"
+                  checked={isRecipeDrawerEnabled}
+                  onChange={(event) => setRecipeDrawerEnabled(event.target.checked)}
+                />
+              </div>
               <div>
                 <h3 className="text-sm font-medium text-primary-100">Show derived recipes</h3>
                 <div className="mt-2 space-y-3">
@@ -122,26 +134,6 @@ export const SettingsWidget = () => {
                     label="for weapons"
                     checked={weaponsShowDerivedRecipes}
                     onChange={(event) => setWeaponsShowDerivedRecipes(event.target.checked)}
-                  />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-primary-100">Passives loadout</h3>
-                <div className="mt-2">
-                  <Checkbox
-                    label="Show passives loadout"
-                    checked={showPassivesLoadout}
-                    onChange={(event) => setShowPassivesLoadout(event.target.checked)}
-                  />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-sm font-medium text-primary-100">Wiki links drawer</h3>
-                <div className="mt-2">
-                  <Checkbox
-                    label="Enable wiki links drawer"
-                    checked={isRecipeDrawerEnabled}
-                    onChange={(event) => setRecipeDrawerEnabled(event.target.checked)}
                   />
                 </div>
               </div>
