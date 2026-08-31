@@ -17,9 +17,15 @@ interface MiniLoadoutProps {
  * Right-aligned strip of every passive that appears in the visible evolutions.
  * A single translucent plate carries the whole strip; the icons sit bare on top
  * so nothing reads as a per-item control.
+ *
+ * Only shown once the user has narrowed the chart with a weapon or passive
+ * filter. With nothing selected the strip would just list every passive.
  */
 export function MiniLoadout({ evolutions, className }: MiniLoadoutProps) {
   const showPassivesLoadout = useAppStore((state) => state.showPassivesLoadout);
+  const selectedPassives = useAppStore((state) => state.evolutionControls.selectedPassives);
+  const selectedWeapons = useAppStore((state) => state.evolutionControls.selectedWeapons);
+  const hasSelection = selectedPassives.length > 0 || selectedWeapons.length > 0;
 
   const activePassives = useMemo(() => {
     const present = new Set<string>();
@@ -37,7 +43,7 @@ export function MiniLoadout({ evolutions, className }: MiniLoadoutProps) {
     return Object.values(passives).filter((passive) => present.has(passive.name));
   }, [evolutions]);
 
-  if (!showPassivesLoadout || activePassives.length === 0) return null;
+  if (!showPassivesLoadout || !hasSelection || activePassives.length === 0) return null;
 
   return (
     <div className={cn("mb-2 flex justify-end", className)}>
