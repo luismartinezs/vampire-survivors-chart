@@ -33,6 +33,8 @@ interface AppState {
   weaponsShowDerivedRecipes: boolean;
   setWeaponsShowDerivedRecipes: (value: boolean) => void;
   toggleWeaponsShowDerivedRecipes: () => void;
+  showPassivesLoadout: boolean;
+  setShowPassivesLoadout: (value: boolean) => void;
   setCollapsibleState: (key: string, value: boolean) => void;
   toggleCollapsibleState: (key: string) => void;
   setEvolutionControls: (updater: (prev: EvolutionControlsState) => EvolutionControlsState) => void;
@@ -76,6 +78,8 @@ export const useAppStore = create<AppState>()(
         })),
       weaponsShowDerivedRecipes: true,
       setWeaponsShowDerivedRecipes: (value) => set(() => ({ weaponsShowDerivedRecipes: value })),
+      showPassivesLoadout: true,
+      setShowPassivesLoadout: (value) => set(() => ({ showPassivesLoadout: value })),
       toggleWeaponsShowDerivedRecipes: () =>
         set((state) => ({
           weaponsShowDerivedRecipes: !state.weaponsShowDerivedRecipes,
@@ -253,6 +257,7 @@ export const useAppStore = create<AppState>()(
         collapsibleState: state.collapsibleState,
         passivesShowDerivedRecipes: state.passivesShowDerivedRecipes,
         weaponsShowDerivedRecipes: state.weaponsShowDerivedRecipes,
+        showPassivesLoadout: state.showPassivesLoadout,
       }),
     }
   )

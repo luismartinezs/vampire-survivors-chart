@@ -16,6 +16,8 @@ export const SettingsWidget = () => {
   const setWeaponsShowDerivedRecipes = useAppStore((state) => state.setWeaponsShowDerivedRecipes);
   const isRecipeDrawerEnabled = useAppStore((state) => state.isRecipeDrawerEnabled);
   const setRecipeDrawerEnabled = useAppStore((state) => state.setRecipeDrawerEnabled);
+  const showPassivesLoadout = useAppStore((state) => state.showPassivesLoadout);
+  const setShowPassivesLoadout = useAppStore((state) => state.setShowPassivesLoadout);
 
   const markSettingsSeen = useCallback(() => {
     try {
@@ -120,6 +122,16 @@ export const SettingsWidget = () => {
                     label="for weapons"
                     checked={weaponsShowDerivedRecipes}
                     onChange={(event) => setWeaponsShowDerivedRecipes(event.target.checked)}
+                  />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium text-primary-100">Passives loadout</h3>
+                <div className="mt-2">
+                  <Checkbox
+                    label="Show passives loadout"
+                    checked={showPassivesLoadout}
+                    onChange={(event) => setShowPassivesLoadout(event.target.checked)}
                   />
                 </div>
               </div>

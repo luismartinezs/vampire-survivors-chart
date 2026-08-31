@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { dlcClasses } from "@/components/controls/constants";
 import { SearchInput } from "@/components/SearchInput";
+import { MiniLoadout } from "@/components/MiniLoadout";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -89,6 +90,9 @@ export default function Home() {
             matchedItems={matchedItems}
           />
         </div>
+
+        {/* Passives present in what is currently on screen */}
+        <MiniLoadout evolutions={visibleEvolutions} />
 
         {/* Evolution cards */}
         <EvolutionList>

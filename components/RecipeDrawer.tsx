@@ -1,16 +1,35 @@
 "use client";
 
+import { useMemo } from "react";
 import { Item } from "./Item";
 import { useAppStore } from "@/hooks/useAppStore";
 import { cn } from "@/lib/utils";
 import { getWikiHref } from "@/lib/wiki";
+import type { TItem } from "@/data/types";
 import { X } from "lucide-react";
+
+/**
+ * Passives and unevolved weapons are the only items the filter controls expose,
+ * so they are the only ones that get a checkbox.
+ */
+function getSelectionKind(item: TItem): "passive" | "weapon" | null {
+  if (item.type === "passive") return "passive";
+  if (item.type === "weapon" && !item.evolved) return "weapon";
+  return null;
+}
 
 export function RecipeDrawer() {
   const recipeDrawerElements = useAppStore((s) => s.recipeDrawerElements);
   const isRecipeDrawerOpen = useAppStore((s) => s.isRecipeDrawerOpen);
   const closeRecipeDrawer = useAppStore((s) => s.closeRecipeDrawer);
   const isRecipeDrawerEnabled = useAppStore((s) => s.isRecipeDrawerEnabled);
+  const selectedPassives = useAppStore((s) => s.evolutionControls.selectedPassives);
+  const selectedWeapons = useAppStore((s) => s.evolutionControls.selectedWeapons);
+  const togglePassive = useAppStore((s) => s.toggleEvolutionPassive);
+  const toggleWeapon = useAppStore((s) => s.toggleEvolutionWeapon);
+
+  const selectedPassiveSet = useMemo(() => new Set(selectedPassives), [selectedPassives]);
+  const selectedWeaponSet = useMemo(() => new Set(selectedWeapons), [selectedWeapons]);
 
   if (!isRecipeDrawerEnabled || recipeDrawerElements.length === 0) {
     return null;
@@ -44,12 +63,35 @@ export function RecipeDrawer() {
           <ul className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-4">
             {recipeDrawerElements.map(({ item }, index) => {
               const href = getWikiHref(item.wikiPath);
+              const selectionKind = getSelectionKind(item);
+              const isSelected =
+                selectionKind === "passive"
+                  ? selectedPassiveSet.has(item.name)
+                  : selectionKind === "weapon"
+                    ? selectedWeaponSet.has(item.name)
+                    : false;
 
               return (
                 <li
                   key={`${item.name}-${index}`}
                   className="flex items-center gap-2 whitespace-nowrap sm:gap-3"
                 >
+                  {selectionKind ? (
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() =>
+                        selectionKind === "passive"
+                          ? togglePassive(item.name)
+                          : toggleWeapon(item.name)
+                      }
+                      aria-label={`Filter by ${item.name}`}
+                      className="size-4 shrink-0 cursor-pointer accent-primary-400 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-white/60"
+                    />
+                  ) : (
+                    // Keeps the icons of non-selectable items on the same column.
+                    <span className="size-4 shrink-0" aria-hidden="true" />
+                  )}
                   <Item item={item} size="xs" className="sm:size-7" />
                   {href ? (
                     <a
