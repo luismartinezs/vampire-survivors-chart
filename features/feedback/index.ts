@@ -1,1 +1,0 @@
-export { FeaturebaseFeedbackLink } from "./components/FeaturebaseFeedbackLink";

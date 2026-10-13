@@ -1,0 +1,3 @@
+/* Size/fit for the inline .icon spans (header/footer). Kept in the blocking
+   stylesheet so those spans don't resize when the sprites (sprites.css) load. */
+.icon { width: 1em; height: 1em; background-position: center; background-size: contain; background-repeat: no-repeat;  }

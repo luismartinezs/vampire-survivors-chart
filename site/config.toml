@@ -1,0 +1,10 @@
+# Zola site for www.vsevochart.com. Templates read build-time data from data/,
+# which scripts/build.ts generates from ../data/*.ts before every build.
+base_url = "https://www.vsevochart.com"
+title = "Vampire Survivors Evolution Chart"
+compile_sass = false
+build_search_index = false
+generate_feeds = false
+minify_html = true
+
+[markdown]

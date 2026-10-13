@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: {{ config.base_url }}/sitemap.xml

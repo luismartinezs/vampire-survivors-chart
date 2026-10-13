@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide{% endblock title %}
+{% block description %}Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations, evolution requirements, and upgrade paths.{% endblock description %}
+{% block canonical %}{{ config.base_url }}{% endblock canonical %}
+{% block og_title %}Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide{% endblock og_title %}
+{% block og_description %}Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations and upgrade paths.{% endblock og_description %}
+
+{% block head_scripts %}
+{#- Returning visitors with saved filters: keep the chart hidden until the
+    script restores them, rather than flashing the default chart first. -#}
+<script>{{ load_data(path="data/restore-gate.js", format="plain") | safe }}</script>
+<script type="module" src="/assets/{{ site_build.js.chart }}"></script>
+{% endblock head_scripts %}
+
+{% block content %}
+{%- set chart = load_data(path="data/chart.json") -%}
+<div id="chart" class="max-w-(--breakpoint-2xl) mx-auto py-4 2xl:px-0 px-1 sm:px-2 md:px-4">
+  {#- Sort + DLC row -#}
+  <div class="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
+    <div class="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
+      <div class="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
+        {%- for dlc in chart.dlcs %}
+        <button type="button" class="{{ dlc.cls }}" data-dlc-toggle="{{ dlc.key }}"><span class="sm:hidden">{{ dlc.short }}</span><span class="hidden sm:inline">{{ dlc.full }}</span></button>
+        {%- endfor %}
+      </div>
+      <button type="button" class="{{ chart.sortCls }}" data-action="sort">Sort by Passive</button>
+    </div>
+  </div>
+
+  {#- Search, sticky so it stays visible while scrolling cards -#}
+  <div class="sticky top-0 z-20 bg-primary-800 py-2">
+    <div class="relative">
+      {{ <icon name="search" cls="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-primary-400 pointer-events-none" /> }}
+      <input id="search" type="text" placeholder="Search items" autocomplete="off" class="w-full pl-10 pr-10 py-2 bg-primary-900 border border-primary-700 rounded-md text-sm text-white placeholder:text-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-400 focus:border-primary-400">
+      <button type="button" id="search-clear" hidden aria-label="Clear search" class="absolute right-3 top-1/2 -translate-y-1/2 text-primary-400 hover:text-white">
+        {{ <icon name="x" cls="size-4" /> }}
+      </button>
+    </div>
+  </div>
+
+  {#- Item filter buttons -#}
+  <div class="flex flex-col gap-1 w-full mb-4">
+    {%- for group in [
+      {"key": "Weapons", "kind": "w", "open": false, "items": chart.weapons, "resetTip": "Reset selected weapons"},
+      {"key": "Passives", "kind": "p", "open": true, "items": chart.passives, "resetTip": "Reset selected passives"},
+    ] %}
+    <div class="group w-full" data-collapsible="{{ group.key }}" {% if group.open %}data-open{% endif %}>
+      <button type="button" data-action="collapse" class="{{ chart.collapsible.open if group.open else chart.collapsible.closed }}">
+        <div class="flex items-center gap-2 text-left">
+          <span>{{ group.key }}</span>
+          <span class="text-[0.65rem] sm:text-xs text-primary-200">(<span data-count="{{ group.kind }}">0</span> selected)</span>
+        </div>
+        {{ <icon name="chevron-up" cls="hidden group-data-open:block w-3 h-3 sm:w-4 sm:h-4 text-primary transition-transform duration-200" /> }}
+        {{ <icon name="chevron-down" cls="group-data-open:hidden w-3 h-3 sm:w-4 sm:h-4 text-primary transition-transform duration-200" /> }}
+      </button>
+      <div data-panel class="hidden group-data-open:block w-full mt-0 p-1 sm:p-4 bg-transparent border border-primary-500 rounded-b-[8px] sm:rounded-b-[12px] animate-in fade-in-0 slide-in-from-top-1 duration-200">
+        <div class="flex flex-wrap gap-1 sm:gap-1.5 justify-center items-stretch" data-controls="{{ group.kind }}">
+          <button type="button" class="{{ chart.resetCls }}" data-action="reset-{{ group.kind }}" aria-label="{{ group.resetTip }}" data-tip="{{ group.resetTip }}">
+            <div class="flex items-center justify-center size-[1.4rem] sm:size-7">
+              {{ <icon name="rotate-ccw" cls="size-full text-white" /> }}
+            </div>
+          </button>
+          {%- for item in group["items"] %}
+          <button type="button" class="{{ item.cls }}" data-t="{{ item.t }}" data-dlc="{{ item.dlc }}"><span class="relative block">{{ <item_icon icon={item.icon} name={item.name} /> }}</span></button>
+          {%- endfor %}
+        </div>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+
+  {#- Passives present in what is currently on screen -#}
+  <div id="loadout" class="mb-2 flex justify-end" hidden>
+    <div class="flex flex-wrap items-center justify-end gap-0.5 rounded bg-base-600 p-px sm:p-0.5">
+      {%- for item in chart.passives %}
+      <span title="{{ item.name }}" class="inline-flex" data-t="{{ item.t }}" hidden>{{ <item_icon icon={item.icon} name={item.name} cls="size-4 sm:size-4.5" /> }}</span>
+      {%- endfor %}
+    </div>
+  </div>
+
+  {#- Evolution cards: matches first, then the rest below a separator -#}
+  <div id="evos" class="flex flex-wrap justify-center gap-[0.30rem] sm:gap-1 lg:gap-2">
+    {%- for evo in chart.evolutions %}
+    <button type="button" class="{{ evo.cls }}" data-id="{{ evo.id }}"><div class="flex items-center justify-between gap-[0.2rem] md:gap-1">
+      {%- for el in evo.elements -%}
+      {%- if el.op -%}
+      <div class="flex items-center justify-center rounded-full font-semibold text-xs sm:text-sm md:text-lg">{{ el.op }}</div>
+      {%- else -%}
+      <span class="relative inline-flex" data-t="{{ el.t }}">{{ <item_icon icon={el.icon} name={el.name} tops={el.maxBadgeTops} /> }}</span>
+      {%- endif -%}
+      {%- endfor -%}
+    </div></button>
+    {%- endfor %}
+  </div>
+  <div id="excluded-sep" role="separator" class="shrink-0 bg-primary-500/40 h-px w-full my-4" hidden></div>
+  <div id="evos-excluded" class="flex flex-wrap justify-center gap-[0.30rem] sm:gap-1 lg:gap-2"></div>
+
+  {#- Legend -#}
+  <div class="flex flex-col gap-2 lg:flex-row lg:gap-4 text-xs text-white/80 rounded p-2 flex-wrap mt-4">
+    <div class="flex items-center gap-1">
+      {{ <gold_circle cls="size-2.5" /> }}
+      <span>=&nbsp;Max level passive</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span class="ico block size-[1.4rem] {{ chart.legend.alucardShield }}" role="img" aria-label="Alucard Shield"></span>
+      <span>=&nbsp;Requires 6+ weapon evolutions</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span class="ico block size-[1.4rem] {{ chart.legend.ringsOfCalamity }}" role="img" aria-label="Rings of Calamity"></span>
+      <span>=&nbsp;Requires 5+ max level passives</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span>Emerald Diorama evolutions =&nbsp;Require 1+ tech activations</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span class="ico block size-[1.4rem] {{ chart.legend.miracleOfMultiplication }}" role="img" aria-label="Miracle of Multiplication"></span>
+      <span>=&nbsp;Evolve</span>
+      <span class="ico block size-[1.4rem] {{ chart.legend.penshinFatcha }}" role="img" aria-label="Penshin Fatcha"></span>
+      <span>6+ times.</span>
+    </div>
+  </div>
+
+  {#- Recipe drawer: wiki links + filter checkboxes for the clicked recipe -#}
+  <div id="drawer" hidden class="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-0 sm:bottom-4 sm:px-4">
+    <div data-panel role="dialog" aria-label="Recipe" class="relative w-full max-w-3xl rounded-none bg-primary-800/60 text-slate-50 shadow-2xl backdrop-blur sm:rounded-xl sm:border sm:border-white/50 sm:w-auto sm:max-w-fit sm:min-w-[18rem] px-3 py-3 sm:px-4 transition-all duration-200 pointer-events-none translate-y-4 opacity-0">
+      <button type="button" data-action="close-drawer" aria-label="Close recipe drawer" class="absolute right-4 top-3 inline-flex size-7 items-center justify-center rounded-full border border-white/20 text-xs font-semibold text-white transition hover:bg-white/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-white/60">
+        {{ <icon name="x" cls="size-3.5" /> }}
+      </button>
+      <div class="max-h-40 overflow-y-auto pr-4 pt-1 sm:pr-14">
+        <ul data-list class="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-4"></ul>
+      </div>
+    </div>
+  </div>
+  <template id="drawer-row">
+    <li class="flex items-center gap-2 whitespace-nowrap sm:gap-3">
+      <input type="checkbox" class="size-4 shrink-0 cursor-pointer accent-primary-400 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-white/60">
+      <span class="size-4 shrink-0" aria-hidden="true"></span>
+      <span class="ico block relative size-[1.4rem] sm:size-7" role="img"></span>
+      <a target="_blank" rel="noreferrer noopener" class="text-sm font-medium text-slate-50 underline-offset-2 hover:underline"></a>
+      <span class="text-sm font-medium text-slate-200"></span>
+    </li>
+  </template>
+</div>
+<script type="application/json" id="chart-index">{{ load_data(path="data/chart-client.json", format="plain") | safe }}</script>
+{% endblock content %}
+
+{% block body_end %}
+{#- Fixed bottom-right controls -#}
+<div class="fixed bottom-4 right-4 z-50 flex items-end gap-2">
+  <button type="button" data-action="reset-all" class="flex items-center justify-center rounded-full border border-primary-400/80 bg-primary-800/20 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400 cursor-pointer" aria-label="Reset all selected weapons and passives" title="Reset all selections">
+    {{ <icon name="rotate-ccw" size={16} /> }}
+  </button>
+  <span class="relative inline-flex">
+    <span id="settings-ping" hidden class="pointer-events-none absolute inset-0 rounded-full border-2 border-amber-400/80 animate-ping"></span>
+    <button type="button" id="settings-toggle" data-action="open-settings" class="flex items-center justify-center rounded-full border bg-primary-800/20 p-3 backdrop-blur-xs transition-colors duration-200 cursor-pointer border-primary-400/80 text-primary-400/80 hover:border-primary-400 hover:text-primary-400" aria-haspopup="dialog" aria-expanded="false" aria-label="Toggle Settings" title="Toggle Settings">
+      {{ <icon name="settings" size={16} /> }}
+      <span class="sr-only">Open settings</span>
+    </button>
+  </span>
+  <a href="https://vsevochart.featurebase.app/" class="flex items-center gap-2 rounded-full border border-primary-400/80 bg-primary-800/20 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400 hover:no-underline" aria-label="Provide feedback. Opens in new tab" title="Feedback" target="_blank" rel="noopener noreferrer">
+    {{ <icon name="message-circle" size={16} /> }}
+  </a>
+</div>
+
+{#- Settings modal -#}
+<div id="settings-modal" hidden role="dialog" aria-modal="true" aria-labelledby="settings-modal-title" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 p-4">
+  <div class="w-full max-w-sm rounded-lg bg-primary-900/95 p-6 shadow-xl backdrop-blur-md border-2 border-primary-500">
+    <h2 id="settings-modal-title" class="text-lg font-semibold text-white">Settings</h2>
+    <div class="mt-4 space-y-4">
+      <div class="space-y-3">
+        {{ <setting key="showPassivesLoadout" label="Show passives loadout" /> }}
+        {{ <setting key="isRecipeDrawerEnabled" label="Enable wiki links drawer" /> }}
+      </div>
+      <div>
+        <h3 class="text-sm font-medium text-primary-100">Show derived recipes</h3>
+        <div class="mt-2 space-y-3">
+          {{ <setting key="passivesShowDerivedRecipes" label="for passives" /> }}
+          {{ <setting key="weaponsShowDerivedRecipes" label="for weapons" /> }}
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-end">
+      <button type="button" data-action="close-settings" class="rounded-md border border-primary-400/80 px-3 py-2 text-sm text-primary-100 transition-colors duration-200 hover:border-primary-300 hover:text-white">Close</button>
+    </div>
+  </div>
+</div>
+
+{#- Shared tooltip, positioned by client/tooltip.ts -#}
+<div id="tooltip" role="tooltip" hidden class="fixed left-0 top-0 z-50 max-w-xs rounded border border-white bg-primary-800 px-1.5 py-1 text-xs text-white shadow-lg">
+  <div data-body></div>
+  <svg data-arrow class="absolute top-full fill-slate-900/90" width="10" height="5" viewBox="0 0 30 10" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,0 30,0 15,10"/></svg>
+</div>
+{% endblock body_end %}

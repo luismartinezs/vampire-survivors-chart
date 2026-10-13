@@ -1,0 +1,54 @@
+{%- set site_build = load_data(path="data/build.json") -%}
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock title %}</title>
+<meta name="description" content="{% block description %}{% endblock description %}">
+<link rel="canonical" href="{% block canonical %}{% endblock canonical %}">
+<meta name="theme-color" content="#1a1a1a">
+<meta name="author" content="AppForgeLabs">
+<meta name="keywords" content="Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations">
+<link rel="preload" href="/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/roboto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+{% block preload %}{% endblock preload %}
+{#- Inlined: one fewer round trip before first paint (~14 KB compressed). -#}
+<style>{{ load_data(path="static/assets/" ~ site_build.css, format="plain") | safe }}</style>
+{#- Item sprites are ~85 KB of inlined images: fetch them at high priority but
+    don't hold first paint for them. -#}
+<link rel="preload" href="/assets/{{ site_build.sprites }}" as="style">
+<link rel="stylesheet" href="/assets/{{ site_build.sprites }}" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/{{ site_build.sprites }}"></noscript>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Vampire Survivors Evolution Chart">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{% block og_title %}{% endblock og_title %}">
+<meta property="og:description" content="{% block og_description %}{% endblock og_description %}">
+<meta property="og:image" content="{{ config.base_url }}/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vampire Survivors Evolution Chart Preview">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vampire Survivors Evolution Chart">
+<meta name="twitter:description" content="Interactive cheatsheet for all weapon evolutions in Vampire Survivors">
+<meta name="twitter:image" content="{{ config.base_url }}/og-image.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+{% block head_scripts %}{% endblock head_scripts %}
+</head>
+<body class="min-h-screen flex flex-col bg-primary-800 text-white font-sans">
+{% include "partials/header.html" %}
+<main>{% block content %}{% endblock content %}</main>
+{% include "partials/footer.html" %}
+{% block body_end %}{% endblock body_end %}
+{% if site_build.analytics %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6379293593579449" crossorigin="anonymous"></script>
+<script defer src="https://umami-tau-tawny.vercel.app/script.js" data-website-id="33b55ecb-9e67-44eb-9990-7864dd230f64"></script>
+{% endif %}
+</body>
+</html>

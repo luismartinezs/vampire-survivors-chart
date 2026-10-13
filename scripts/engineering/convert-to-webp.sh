@@ -54,7 +54,11 @@ find "$SOURCE_DIR" -name "*.png" -type f | while read -r png_file; do
     # Lossless: these are pixel-art sprites; lossy -q compression both degrades
     # them and produces larger files than lossless for this kind of image.
     trimmed_png=$(mktemp --suffix=.png)
-    if convert "$png_file" -trim +repage "$trimmed_png" && cwebp -lossless -z 9 "$trimmed_png" -o "$webp_file" &> /dev/null; then
+    # Wiki sprites are often stored 4x/8x upscaled; keep the native pixel grid
+    # (pixelated rendering scales it back up, and decoding is far cheaper).
+    if convert "$png_file" -trim +repage "$trimmed_png" \
+      && python3 "$(dirname "$0")/native-pixel-size.py" "$trimmed_png" > /dev/null \
+      && cwebp -lossless -z 9 "$trimmed_png" -o "$webp_file" &> /dev/null; then
         rm "$trimmed_png"
         echo "  ✓ Converted: $(basename "$png_file") → $(basename "$webp_file")"
         ((converted_count++))

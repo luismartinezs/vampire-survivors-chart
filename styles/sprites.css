@@ -1,0 +1,25 @@
+/*
+  Item sprites: background-image classes with base64 lossless WebP data URIs
+  (scripts/engineering/gen-icons-webp.sh). Built as a separate stylesheet that
+  loads without blocking first paint; site.css carries everything layout needs.
+  Same cascade layer as before, so ordering against utilities is unchanged.
+*/
+@import "./icons.css" layer(utilities);
+@import "./base/weapons.css" layer(utilities);
+@import "./base/evolutions.css" layer(utilities);
+@import "./ode/passives.css" layer(utilities);
+@import "./ode/weapons.css" layer(utilities);
+@import "./ode/evolutions.css" layer(utilities);
+@import "./otc/weapons.css" layer(utilities);
+@import "./otc/unions.css" layer(utilities);
+@import "./otc/evolutions.css" layer(utilities);
+@import "./ed/weapons.css" layer(utilities);
+@import "./ed/evolutions.css" layer(utilities);
+@import "./ante/passives.css" layer(utilities);
+@import "./ante/weapons.css" layer(utilities);
+@import "./ante/evolutions.css" layer(utilities);
+@import "./lotm/weapons.css" layer(utilities);
+@import "./lotm/evolutions.css" layer(utilities);
+@import "./lotbm/weapons.css" layer(utilities);
+@import "./lotbm/evolutions.css" layer(utilities);
+@import "./misc.css" layer(utilities);

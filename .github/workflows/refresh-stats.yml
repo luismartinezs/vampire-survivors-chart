@@ -1,0 +1,24 @@
+# /stats is rendered at build time, so it refreshes by redeploying.
+# Needs a Vercel deploy hook (Project → Settings → Git → Deploy Hooks, branch
+# main) stored as the repository secret VERCEL_DEPLOY_HOOK_URL. Without the
+# secret this workflow does nothing.
+name: Refresh stats
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "VERCEL_DEPLOY_HOOK_URL not set; skipping."
+            exit 0
+          fi
+          curl -fsS -X POST "$HOOK"

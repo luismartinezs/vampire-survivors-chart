@@ -20,7 +20,7 @@ export type TRawBuilds = {
   loadouts: { items: string[]; n: number }[];
 };
 
-type TStatsResponse = {
+export type TStatsResponse = {
   ok: boolean;
   basis?: { today: string; last7From: string; prev7From: string };
   totals: TRawTotal[];
@@ -191,33 +191,32 @@ function shapeBuilds(raw?: TRawBuilds): TBuilds {
 }
 
 /**
- * Fetch and shape the click stats. Returns null when the endpoint is not
- * configured (missing env) or the request fails — the page renders an empty
- * state rather than throwing.
+ * Fetch the raw aggregates from the tracker Worker. Returns null when the
+ * request fails or the response is malformed.
  */
-export async function getStats(): Promise<TStats | null> {
-  const base = process.env.STATS_URL ?? process.env.NEXT_PUBLIC_TRACK_URL;
-  const token = process.env.STATS_TOKEN;
-  if (!base || !token) return null;
-
-  let data: TStatsResponse;
+export async function fetchRawStats(
+  baseUrl: string,
+  token: string
+): Promise<TStatsResponse | null> {
   try {
-    const res = await fetch(`${base.replace(/\/+$/, "")}/stats`, {
+    const res = await fetch(`${baseUrl.replace(/\/+$/, "")}/stats`, {
       headers: { authorization: `Bearer ${token}` },
-      // Pull at most hourly; the data only needs to be roughly daily-fresh.
-      next: { revalidate: 3600 },
     });
     if (!res.ok) return null;
-    data = (await res.json()) as TStatsResponse;
+    return parseRawStats(await res.json());
   } catch {
     return null;
   }
-  if (!data?.ok || !Array.isArray(data.totals)) return null;
-  return shapeStats(data.totals, data.builds);
+}
+
+/** Validate a raw stats payload (from the Worker or a published snapshot). */
+export function parseRawStats(data: unknown): TStatsResponse | null {
+  const d = data as TStatsResponse | null;
+  return d?.ok && Array.isArray(d.totals) ? d : null;
 }
 
 /** Pure transform from the Worker's raw response into the page's view model. */
-function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
+export function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
   const dlcs = rank(totals, "dlc");
   const weapons = rank(totals, "weapon");
   const passives = rank(totals, "passive");

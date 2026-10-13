@@ -13,12 +13,12 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
+# build output and generated build inputs (scripts/build.ts)
+/dist/
+/site/data/
+/site/static/assets/
+/site/static/stats-snapshot.json
+/.tools/
 
 # misc
 .DS_Store
@@ -37,7 +37,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 tmp
 certificates

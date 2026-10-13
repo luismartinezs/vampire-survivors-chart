@@ -8,11 +8,13 @@
  *   - c: the wire ids of everything else active at that moment
  * No session, no cookie, no fingerprint, no names. The server stamps the time.
  *
- * No-ops when NEXT_PUBLIC_TRACK_URL is unset (local dev, or before the Worker
- * is deployed) and never throws, so it can never break the UI.
+ * No-ops when no tracker URL was configured at build time (local dev, or before
+ * the Worker is deployed) and never throws, so it can never break the UI.
  */
 
-const ENDPOINT = process.env.NEXT_PUBLIC_TRACK_URL;
+/** Replaced at build time by scripts/build.ts with the tracker Worker origin. */
+declare const __TRACK_URL__: string;
+const ENDPOINT = __TRACK_URL__;
 
 // Wire ids: one category prefix + a small integer. Mirrors the Worker's regex
 // so the server rarely has to reject anything.

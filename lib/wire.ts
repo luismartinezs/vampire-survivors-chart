@@ -12,7 +12,7 @@ import { WEAPON_IDS, PASSIVE_IDS, DLC_IDS } from "@/data/ids";
 import { weapons } from "@/data/weapons";
 import { passives } from "@/data/passives";
 import { evolutions } from "@/data/evolutions";
-import { DLC_LABELS } from "@/components/controls/constants";
+import { DLC_LABELS } from "@/lib/dlc";
 import type { TDlc, TEvolutionItem } from "@/data/types";
 
 export type TWireCategory = "weapon" | "passive" | "dlc" | "evo";
