@@ -10,21 +10,10 @@ export type TRawTotal = {
   d_last7: number;
   d_prev7: number;
 };
-/** Raw co-occurrence aggregates the Worker derives from event snapshots. */
-export type TRawBuilds = {
-  /** wire id -> number of snapshots it was active in. */
-  support: Record<string, number>;
-  /** undirected pairs (a < b) -> snapshots both active. */
-  pairs: { a: string; b: string; n: number }[];
-  /** exact active-sets -> times that set recurred. */
-  loadouts: { items: string[]; n: number }[];
-};
-
 export type TStatsResponse = {
   ok: boolean;
   basis?: { today: string; last7From: string; prev7From: string };
   totals: TRawTotal[];
-  builds?: TRawBuilds;
 };
 
 /** A single ranked entry, enriched with display info, windows and trend. */
@@ -46,29 +35,6 @@ export type TStatRow = {
   isNew: boolean;
 };
 
-/** A build-eligible item (weapon or passive), decoded for display. */
-export type TBuildItem = {
-  key: string;
-  name: string;
-  image?: string;
-  category: TCategory;
-};
-export type TBuildPair = { a: TBuildItem; b: TBuildItem; n: number };
-export type TLoadout = { items: TBuildItem[]; n: number };
-
-export type TBuilds = {
-  /** Items ranked by support (snapshots they were active in). */
-  items: (TBuildItem & { support: number })[];
-  /** Undirected co-occurrence, decoded and ranked. */
-  pairs: TBuildPair[];
-  /** Most frequent full active-sets, decoded and ranked. */
-  loadouts: TLoadout[];
-  /** wire id -> its top co-occurring partners, for inline affinity. */
-  affinity: Record<string, TBuildItem[]>;
-  /** False until any co-occurrence has been recorded. */
-  hasData: boolean;
-};
-
 export type TStats = {
   categories: {
     dlcs: TStatRow[];
@@ -85,8 +51,6 @@ export type TStats = {
   declining: TStatRow[];
   /** False until a prior week of data exists; gates trend UI. */
   hasTrendData: boolean;
-  /** Co-occurrence views ("builds"). */
-  builds: TBuilds;
 };
 
 // Minimum prior-week volume for a trend % to be considered signal, not noise.
@@ -124,72 +88,6 @@ function rank(raw: TRawTotal[], category: TCategory): TStatRow[] {
   return rows.sort((a, b) => b.total - a.total);
 }
 
-function toBuildItem(id: string): TBuildItem | null {
-  const meta = decodeWire(id);
-  if (!meta) return null;
-  return { key: id, name: meta.name, image: meta.image, category: meta.category };
-}
-
-const EMPTY_BUILDS: TBuilds = {
-  items: [],
-  pairs: [],
-  loadouts: [],
-  affinity: {},
-  hasData: false,
-};
-
-/** Decode the raw co-occurrence aggregates into display view models. */
-function shapeBuilds(raw?: TRawBuilds): TBuilds {
-  if (!raw) return EMPTY_BUILDS;
-
-  const items = Object.entries(raw.support ?? {})
-    .map((e) => {
-      const item = toBuildItem(e[0]);
-      return item ? { ...item, support: e[1] } : null;
-    })
-    .filter((x): x is TBuildItem & { support: number } => x !== null)
-    .sort((a, b) => b.support - a.support);
-
-  const pairs = (raw.pairs ?? [])
-    .map((p) => {
-      const a = toBuildItem(p.a);
-      const b = toBuildItem(p.b);
-      return a && b ? { a, b, n: p.n } : null;
-    })
-    .filter((x): x is TBuildPair => x !== null)
-    .sort((x, y) => y.n - x.n);
-
-  const loadouts = (raw.loadouts ?? [])
-    .map((l) => {
-      const its = l.items.map(toBuildItem).filter((x): x is TBuildItem => x !== null);
-      return its.length >= 2 ? { items: its, n: l.n } : null;
-    })
-    .filter((x): x is TLoadout => x !== null)
-    .sort((x, y) => y.n - x.n);
-
-  // Per-item top partners, derived from the (symmetric) pair list.
-  const acc: Record<string, { p: TBuildItem; n: number }[]> = {};
-  for (const pr of pairs) {
-    (acc[pr.a.key] ??= []).push({ p: pr.b, n: pr.n });
-    (acc[pr.b.key] ??= []).push({ p: pr.a, n: pr.n });
-  }
-  const affinity: Record<string, TBuildItem[]> = {};
-  for (const key of Object.keys(acc)) {
-    affinity[key] = acc[key]
-      .sort((x, y) => y.n - x.n)
-      .slice(0, 3)
-      .map((x) => x.p);
-  }
-
-  return {
-    items,
-    pairs,
-    loadouts,
-    affinity,
-    hasData: pairs.length > 0 || loadouts.length > 0,
-  };
-}
-
 /**
  * Fetch the raw aggregates from the tracker Worker. Returns null when the
  * request fails or the response is malformed.
@@ -216,7 +114,7 @@ export function parseRawStats(data: unknown): TStatsResponse | null {
 }
 
 /** Pure transform from the Worker's raw response into the page's view model. */
-export function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
+export function shapeStats(totals: TRawTotal[]): TStats {
   const dlcs = rank(totals, "dlc");
   const weapons = rank(totals, "weapon");
   const passives = rank(totals, "passive");
@@ -260,6 +158,5 @@ export function shapeStats(totals: TRawTotal[], builds?: TRawBuilds): TStats {
     trending,
     declining,
     hasTrendData,
-    builds: shapeBuilds(builds),
   };
 }

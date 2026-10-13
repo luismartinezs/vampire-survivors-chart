@@ -1,10 +1,8 @@
 /**
  * Stats page behavior. The dashboard is rendered at build time; this adds the
- * three interactive bits: sortable tables, the "Paired With" anchor picker,
- * and scroll-depth analytics.
+ * interactive bits: sortable tables and scroll-depth analytics.
  */
 
-import { anchorPartners, type TAnchorData } from "@/lib/anchor";
 import { trackUmami } from "@/lib/umami";
 
 // ── Sortable tables ────────────────────────────────────────────────────────
@@ -74,87 +72,6 @@ function initTable(section: HTMLElement) {
 }
 
 document.querySelectorAll<HTMLElement>("[data-table]").forEach(initTable);
-
-// ── Paired With ────────────────────────────────────────────────────────────
-const SELECTED = ["border-primary-400/60", "bg-primary-400/15"];
-const UNSELECTED = ["border-white/5"];
-const pctFmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
-
-/** Same classes as the stat_icon template component. */
-function iconClasses(icon: string, size: string, extra = "") {
-  return (icon ? `ico ${size} shrink-0 ${icon} ${extra}` : `${size} shrink-0 ${extra}`).trim();
-}
-
-function initAnchor(widget: HTMLElement) {
-  const dataEl = document.getElementById("anchor-data");
-  const picker = widget.querySelector<HTMLElement>("[data-picker]");
-  const partnersEl = widget.querySelector<HTMLElement>("[data-partners]");
-  if (!dataEl || !picker || !partnersEl) return;
-  const data = JSON.parse(dataEl.textContent!) as TAnchorData;
-  const panel = picker.querySelector<HTMLElement>("[data-picker-panel]")!;
-
-  const close = () => {
-    picker.hidden = true;
-  };
-  const onKey = (e: KeyboardEvent) => {
-    if (e.key === "Escape") close();
-  };
-
-  const select = (anchor: number) => {
-    const [, name, icon, support] = data.items[anchor];
-    trackUmami("stats-anchor-pick", { item: name });
-
-    // Selector button and heading icons are the elements just before each name.
-    for (const nameEl of widget.querySelectorAll<HTMLElement>("[data-anchor-name]")) {
-      nameEl.textContent = name;
-      const iconEl = nameEl.previousElementSibling as HTMLElement;
-      const size = iconEl.classList.contains("size-6") ? "size-6" : "size-4";
-      iconEl.className = iconClasses(icon, size);
-      if (icon) iconEl.setAttribute("role", "img");
-      iconEl.setAttribute("aria-label", name);
-    }
-    widget.querySelector("[data-anchor-support]")!.textContent = pctFmt.format(support);
-
-    const template = partnersEl.firstElementChild as HTMLElement | null;
-    if (template) {
-      partnersEl.replaceChildren(
-        ...anchorPartners(data, anchor).map((p) => {
-          const row = template.cloneNode(true) as HTMLElement;
-          const [bar, iconEl, label, rate] = Array.from(row.children) as HTMLElement[];
-          bar.style.width = `${p.width}%`;
-          iconEl.className = iconClasses(p.icon, "size-5", "relative");
-          iconEl.setAttribute("aria-label", p.name);
-          label.textContent = p.name;
-          rate.textContent = p.rate;
-          return row;
-        })
-      );
-    }
-
-    for (const button of picker.querySelectorAll<HTMLElement>("[data-pick]")) {
-      const on = Number(button.dataset.pick) === anchor;
-      button.classList.remove(...(on ? UNSELECTED : SELECTED));
-      button.classList.add(...(on ? SELECTED : UNSELECTED));
-    }
-    close();
-  };
-
-  widget.addEventListener("click", (e) => {
-    const target = e.target as Element;
-    if (target.closest("[data-action=open-picker]")) {
-      picker.hidden = false;
-      return;
-    }
-    if (target.closest("[data-action=close-picker]")) return close();
-    const pick = target.closest<HTMLElement>("[data-pick]");
-    if (pick) return select(Number(pick.dataset.pick));
-    if (picker.contains(target) && !panel.contains(target)) close();
-  });
-  document.addEventListener("keydown", onKey);
-}
-
-const anchorWidget = document.getElementById("anchor");
-if (anchorWidget) initAnchor(anchorWidget);
 
 // ── Scroll depth ───────────────────────────────────────────────────────────
 // One Umami event per depth threshold reached, then unbind. A page shorter than

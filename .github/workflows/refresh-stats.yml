@@ -6,7 +6,7 @@ name: Refresh stats
 
 on:
   schedule:
-    - cron: "7 * * * *"
+    - cron: "17 3 * * *" # daily; /stats gets little traffic and D1 reads are capped
   workflow_dispatch:
 
 jobs:

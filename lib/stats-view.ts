@@ -4,12 +4,10 @@
  * site/templates/stats.html stays a plain loop over this structure.
  */
 
-import type { TBuilds, TStatRow, TStats } from "@/lib/stats";
+import type { TStatRow, TStats } from "@/lib/stats";
 import { cn } from "@/lib/utils";
-import { anchorPartners, type TAnchorData } from "@/lib/anchor";
 
 const numberFmt = new Intl.NumberFormat("en-US");
-const pctFmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 });
 
 // Golden Egg sprite recolors, see styles/misc.css
 const MEDALS = ["icon-egg-gold", "icon-egg-silver", "icon-egg-bronze"];
@@ -35,8 +33,6 @@ const ACCENTS: Record<string, { a: string; b: string }> = {
 type TTile =
   | { kind: "leader"; title: string; rows: TStatRow[] }
   | { kind: "trend"; title: string; rows: TStatRow[]; direction: "up" | "down" }
-  | { kind: "anchor" }
-  | { kind: "loadouts"; limit: number }
   | { kind: "table"; title: string; category: string; rows: TStatRow[] };
 
 type TLayoutSection = { label: string; meta?: string; tiles: { size: TSize; tile: TTile }[] };
@@ -66,14 +62,6 @@ function layout(stats: TStats): TLayoutSection[] {
           size: "sm",
           tile: { kind: "trend", title: "Falling off", rows: stats.declining, direction: "down" },
         },
-      ],
-    },
-    {
-      label: "Builds",
-      meta: "what gets used together",
-      tiles: [
-        { size: "md", tile: { kind: "anchor" } },
-        { size: "md", tile: { kind: "loadouts", limit: 10 } },
       ],
     },
     {
@@ -212,40 +200,6 @@ function tableView(title: string, category: string, rows: TStatRow[], showTrend:
   };
 }
 
-/**
- * "Paired With": pick an anchor item, see what else tends to be active
- * alongside it. Rate is conditional: of the snapshots where the anchor was on,
- * the share that also had each partner. The first anchor is rendered here; the
- * compact item/pair lists let client/stats.ts render any other pick.
- */
-function anchorView(builds: TBuilds) {
-  const keys = new Map(builds.items.map((it, i) => [it.key, i]));
-  const data: TAnchorData = {
-    items: builds.items.map((it) => [it.key, it.name, it.image ?? "", it.support]),
-    pairs: builds.pairs
-      .filter((p) => keys.has(p.a.key) && keys.has(p.b.key))
-      .map((p) => [keys.get(p.a.key)!, keys.get(p.b.key)!, p.n]),
-  };
-  // Anchor options: items with at least one recorded partner.
-  const candidates = builds.items
-    .map((it, i) => ({ i, name: it.name, icon: it.image ?? "" }))
-    .filter((c) => builds.affinity[builds.items[c.i].key]?.length);
-  const first = candidates[0];
-  return {
-    candidates,
-    selected: first?.i ?? -1,
-    current: first
-      ? {
-          name: first.name,
-          icon: first.icon,
-          support: pctFmt.format(data.items[first.i][3]),
-          partners: anchorPartners(data, first.i),
-        }
-      : null,
-    clientJson: JSON.stringify(data),
-  };
-}
-
 export function buildStatsView(stats: TStats | null, generatedAt: Date) {
   if (!stats) return { available: false };
 
@@ -281,17 +235,6 @@ export function buildStatsView(stats: TStats | null, generatedAt: Date) {
               icon: r.image ?? "",
               name: r.name,
               value: `${tile.direction === "up" ? "↑" : "↓"}${Math.abs(Math.round(r.trendPct ?? 0))}%`,
-            })),
-          };
-        case "anchor":
-          return { span, kind: tile.kind, anchor: anchorView(stats.builds) };
-        case "loadouts":
-          return {
-            span,
-            kind: tile.kind,
-            rows: stats.builds.loadouts.slice(0, tile.limit).map((l) => ({
-              count: `${numberFmt.format(l.n)}×`,
-              items: l.items.map((it) => ({ name: it.name, icon: it.image ?? "" })),
             })),
           };
         case "table":

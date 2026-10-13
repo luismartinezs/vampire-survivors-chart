@@ -49,7 +49,7 @@ Generated files (`site/data/`, `site/static/assets/`, `dist/`, `.tools/`) are gi
 - `client/chart.ts`: restores saved filters and keeps the DOM in sync (class swaps, `hidden`, card order)
 - `client/restore-gate.ts`: inlined in `<head>`; hides the chart until saved filters are applied, so returning visitors don't see the default chart flash
 - `client/tooltip.ts`: one shared tooltip for every trigger
-- `client/stats.ts`: table sorting, "Paired With" picker, scroll analytics
+- `client/stats.ts`: table sorting, scroll analytics
 - `lib/stats-view.ts`: stats dashboard layout array (edit it to reorder/resize/hide tiles)
 
 Zola 0.23 uses Tera v2: components instead of macros, no `json_encode` (inline JSON with `load_data(..., format="plain") | safe`).
@@ -70,8 +70,8 @@ Icons are CSS background-image classes with base64-encoded lossless WebP data UR
 
 - Hosted on Vercel as static files (`vercel.json`: build command, `dist/`, headers). Env: `NEXT_PUBLIC_TRACK_URL` (tracker Worker origin, baked into the client), `STATS_TOKEN` (build-time stats fetch)
 - Ads and Umami are only emitted when `VERCEL_ENV=production` (or `ANALYTICS=1`)
-- `/stats` refreshes by redeploying: `.github/workflows/refresh-stats.yml` calls a Vercel deploy hook hourly (secret `VERCEL_DEPLOY_HOOK_URL`)
-- `tracker/` is a separate Cloudflare Worker + D1 click counter
+- `/stats` refreshes by redeploying: `.github/workflows/refresh-stats.yml` calls a Vercel deploy hook daily (secret `VERCEL_DEPLOY_HOOK_URL`)
+- `tracker/` is a separate Cloudflare Worker + D1 click counter on the free plan: 10 ms CPU per request and 5M D1 rows read per day for the whole account. `/stats` only reads the small `clicks` table; never aggregate the `events` table per request, and don't run heavy queries against production D1 (one exploratory query blew the daily read quota)
 
 ## Code Conventions
 

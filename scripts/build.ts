@@ -65,10 +65,9 @@ async function withRetries<T>(attempts: number, fn: () => Promise<T | null>): Pr
 }
 
 /**
- * Stats come from the tracker Worker. Its /stats aggregation intermittently
- * exceeds the Worker CPU limit (Cloudflare error 1102), so retry, then fall back
- * to the snapshot the live site published, so a flaky tracker never replaces
- * real numbers with the "not available" page.
+ * Stats come from the tracker Worker. Retry, then fall back to the snapshot the
+ * live site published, so a flaky tracker (or a day over the D1 free-tier read
+ * limit) never replaces real numbers with the "not available" page.
  */
 async function loadStats(trackUrl: string): Promise<TStatsResponse | null> {
   const token = process.env.STATS_TOKEN;
@@ -100,7 +99,7 @@ async function buildData(trackUrl: string, chartView: ReturnType<typeof buildCha
   writeJson("chart-client.json", chartView.client);
 
   const raw = await loadStats(trackUrl);
-  const stats = raw ? shapeStats(raw.totals, raw.builds) : null;
+  const stats = raw ? shapeStats(raw.totals) : null;
   writeJson("stats.json", buildStatsView(stats, new Date()));
   if (raw) writeFileSync(path.join(ASSETS_DIR, "..", STATS_SNAPSHOT), JSON.stringify(raw));
 }
