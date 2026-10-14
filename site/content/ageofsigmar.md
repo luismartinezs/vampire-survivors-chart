@@ -16,5 +16,4 @@ theme_color = "#2e0d12"
 logo = "/logos/aos.webp"
 logo_alt = "Age of Sigmar emblem"
 kofi_icons = ["icon-ws-attacks", "icon-ws-toughness"]
-note = "Recipes and icons come straight from the Warhammer Survivors demo's game files."
 +++

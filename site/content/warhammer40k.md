@@ -16,5 +16,4 @@ theme_color = "#121d36"
 logo = "/logos/w40k.webp"
 logo_alt = "Warhammer 40,000 emblem"
 kofi_icons = ["icon-ws-attacks", "icon-ws-toughness"]
-note = "Recipes and icons come straight from the Warhammer Survivors demo's game files."
 +++
