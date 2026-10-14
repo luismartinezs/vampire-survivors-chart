@@ -189,6 +189,31 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
+  /* Warhammer card palettes (lib/dlc.ts): Imperial gold, Sigmarite teal. */
+  --color-w40k-50: #fdf9ec;
+  --color-w40k-100: #f9efcc;
+  --color-w40k-200: #f2dc96;
+  --color-w40k-300: #e9c55c;
+  --color-w40k-400: #dfae36;
+  --color-w40k-500: #c8921f;
+  --color-w40k-600: #a77218;
+  --color-w40k-700: #855517;
+  --color-w40k-800: #6d4419;
+  --color-w40k-900: #5b3819;
+  --color-w40k-950: #341d0a;
+
+  --color-aos-50: #effcfa;
+  --color-aos-100: #c8f5ef;
+  --color-aos-200: #93eadf;
+  --color-aos-300: #57d8cb;
+  --color-aos-400: #2bbdb1;
+  --color-aos-500: #1ea197;
+  --color-aos-600: #16827b;
+  --color-aos-700: #166763;
+  --color-aos-800: #165351;
+  --color-aos-900: #164544;
+  --color-aos-950: #062829;
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
@@ -234,6 +259,47 @@
 
 .gold-octagon {
   clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 75% 100%, 25% 100%, 0% 75%, 0% 25%);
+}
+
+/*
+  Page themes (front matter `extra.theme`, set as data-theme on <html>). They
+  repaint the primary palette every template uses: 800-950 are backgrounds,
+  500-700 panel borders and fills, 100-400 accent text, outlines, and the title.
+*/
+/* Warhammer 40,000: navy, gold accents, silver borders. */
+:root[data-theme="w40k"] {
+  --color-primary-50: #fbf6e6;
+  --color-primary-100: #f5e8c4;
+  --color-primary-200: #ecd590;
+  --color-primary-300: #e2c262;
+  --color-primary-400: #d4ac3c;
+  --color-primary-500: #9aa5b8;
+  --color-primary-600: #5f6e88;
+  --color-primary-700: #2a3a5c;
+  --color-primary-800: #121d36;
+  --color-primary-900: #0b1326;
+  --color-primary-950: #050a16;
+  --color-base-600: #2a3a5c;
+}
+/* Age of Sigmar: oxblood, gold accents, teal borders. */
+:root[data-theme="aos"] {
+  --color-primary-50: #fcf6e4;
+  --color-primary-100: #f6e7be;
+  --color-primary-200: #eed38a;
+  --color-primary-300: #e4bd58;
+  --color-primary-400: #d6a432;
+  --color-primary-500: #2e9c92;
+  --color-primary-600: #1f746d;
+  --color-primary-700: #5a1d24;
+  --color-primary-800: #2e0d12;
+  --color-primary-900: #1f080c;
+  --color-primary-950: #0e0305;
+  --color-base-600: #5a1d24;
+}
+
+/* The mobile menu covers the page; keep the page behind it from scrolling. */
+html:has(#site-menu:popover-open) {
+  overflow: hidden;
 }
 
 /* Set by client/restore-gate.ts until saved filters are applied. */

@@ -1,0 +1,5 @@
+/*
+  Warhammer Survivors item sprites (scripts/engineering/extract-warhammer.py),
+  loaded only by the Warhammer chart pages. Same treatment as sprites.css.
+*/
+@import "./warhammer/items.css" layer(utilities);

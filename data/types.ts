@@ -1,4 +1,4 @@
-import { base, em, lotm, og, otc, todf, ed, ante, lotbm } from "./constants";
+import { base, em, lotm, og, otc, todf, ed, ante, lotbm, w40k, aos } from "./constants";
 
 export type TItemType = "weapon" | "passive" | "misc";
 
@@ -29,7 +29,9 @@ export type TDlc =
   | typeof og
   | typeof otc
   | typeof ed
-  | typeof ante;
+  | typeof ante
+  | typeof w40k
+  | typeof aos;
 
 export interface TWeaponEvolution {
   id: number;

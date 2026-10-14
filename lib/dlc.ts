@@ -10,7 +10,20 @@ export const DLC_LABELS: Record<TDlc, { full: string; short: string }> = {
   otc: { full: "Ode To Castlevania", short: "OtC" },
   ed: { full: "Emerald Diorama", short: "ED" },
   ante: { full: "Ante Chamber", short: "Ante" },
+  w40k: { full: "Warhammer 40,000", short: "40K" },
+  aos: { full: "Age of Sigmar", short: "AoS" },
 };
+
+/**
+ * Toggle and card classes for a DLC drawn from one Tailwind palette. `surface`
+ * replaces the palette's translucent fill on cards and unselected buttons, for
+ * pages whose background would muddy it.
+ */
+const paletteClasses = (c: string, surface = `bg-${c}-300/20`) => ({
+  selected: `bg-${c}-300/60 text-${c}-950 hover:text-${c}-50 border border-${c}-500 hover:bg-${c}-400/50 focus:ring-2 focus:ring-${c}-500 focus:outline-hidden transition-colors duration-200 active:scale-95 shadow-xs hover:shadow-md ring-inset ring-${c}-900 ring-3 disabled:opacity-50 disabled:cursor-not-allowed aria-selected:bg-${c}-400/70`,
+  unselected: `${surface} text-${c}-400 border border-${c}-400 hover:bg-${c}-500/10 hover:text-${c}-300 focus:ring-2 focus:ring-${c}-500 focus:outline-hidden transition-colors duration-200 active:scale-95`,
+  card: { bg: surface, border: `border-${c}-500` },
+});
 
 export const dlcClasses: Record<
   TDlc,
@@ -106,4 +119,7 @@ export const dlcClasses: Record<
       border: "border-ante-blue-500",
     },
   },
+  // Plates in the page theme's mid tone (styles/site.css): steel navy, wine red.
+  w40k: paletteClasses("w40k", "bg-primary-700/45"),
+  aos: paletteClasses("aos", "bg-primary-700/50"),
 };

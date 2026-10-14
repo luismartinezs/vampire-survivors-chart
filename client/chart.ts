@@ -6,7 +6,7 @@
 
 import { filterEvolutions, type TFilterEvo } from "@/lib/filter";
 import type { TClientIndex, TItemKind } from "@/lib/chart-view";
-import { track, type TTrackEvent } from "@/lib/track";
+import { track as sendEvent, type TTrackEvent } from "@/lib/track";
 import { loadState, saveState, type TPersisted } from "./store";
 import { initTooltip } from "./tooltip";
 
@@ -18,7 +18,13 @@ const nameOf = (t: number) => index.items[t][0];
 const kindOf = (t: number): TItemKind => index.items[t][3];
 const evoById = new Map<number, TFilterEvo>(index.evos.map((e) => [e.id, e]));
 
-let state: TPersisted = loadState(index.dlcs.map((d) => d.key));
+let state: TPersisted = loadState(
+  index.storageKey,
+  index.dlcs.map((d) => d.key)
+);
+const track = (ev: TTrackEvent) => {
+  if (index.tracked) sendEvent(ev);
+};
 /** Not persisted, matching the previous app: the drawer is on for every visit. */
 let drawerEnabled = true;
 let drawerItems: number[] = [];
@@ -61,7 +67,7 @@ const collapsibleKey = (title: string) => `collapsible-${title}-open`;
 // ── State changes ──────────────────────────────────────────────────────────
 function commit(next: TPersisted) {
   state = next;
-  saveState(state);
+  saveState(index.storageKey, state);
   render();
 }
 
@@ -101,7 +107,7 @@ function toggleDlc(dlc: string) {
   trackToggle(c.selectedDlcs.includes(dlc), index.dlcs.find((d) => d.key === dlc)?.wire ?? "");
   let selectedDlcs = toggled(c.selectedDlcs, dlc);
   // At least one DLC stays on.
-  if (selectedDlcs.length === 0) selectedDlcs = ["base"];
+  if (selectedDlcs.length === 0) selectedDlcs = [index.dlcs[0].key];
   commit({ ...state, evolutionControls: { ...c, selectedDlcs } });
 }
 
@@ -182,13 +188,13 @@ function render() {
     const t = Number(button.dataset.t);
     const dlc = button.dataset.dlc as keyof TClientIndex["controlCls"];
     button.hidden = !selectedDlcs.has(dlc) || (searchMatches !== null && !searchMatches.has(t));
-    setClass(button, index.controlCls[dlc][selectedWeapons.has(t) ? 1 : 0]);
+    setClass(button, index.controlCls[dlc]![selectedWeapons.has(t) ? 1 : 0]);
   }
   for (const button of passiveButtons) {
     const t = Number(button.dataset.t);
     const dlc = button.dataset.dlc as keyof TClientIndex["controlCls"];
     button.hidden = searchMatches !== null && !searchMatches.has(t);
-    setClass(button, index.controlCls[dlc][selectedPassives.has(t) ? 1 : 0]);
+    setClass(button, index.controlCls[dlc]![selectedPassives.has(t) ? 1 : 0]);
   }
   setClass(resetWeaponsButton, index.resetCls[c.selectedWeapons.length === 0 ? 1 : 0]);
   setClass(resetPassivesButton, index.resetCls[c.selectedPassives.length === 0 ? 1 : 0]);

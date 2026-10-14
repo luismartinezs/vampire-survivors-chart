@@ -1,0 +1,384 @@
+{
+  "items": {
+    "WS_40K_CHAINSWORD": {
+      "name": "Chainsword",
+      "image": "icon-ws-40k-chainsword",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_RANGE": {
+      "name": "Tape Measure",
+      "image": "icon-ws-range",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_EVISCERATORCHAINSWORD": {
+      "name": "Eviscerator Chainsword",
+      "image": "icon-ws-40k-evisceratorchainsword",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_LASGUN": {
+      "name": "Lasgun",
+      "image": "icon-ws-40k-lasgun",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_STRENGTH": {
+      "name": "Gauntlet",
+      "image": "icon-ws-strength",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_MELTAGUN": {
+      "name": "Meltagun",
+      "image": "icon-ws-40k-meltagun",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_BOLTGUN": {
+      "name": "Boltgun",
+      "image": "icon-ws-40k-boltgun",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_ATTACKS": {
+      "name": "Dice Cube",
+      "image": "icon-ws-attacks",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_HEAVY_BOLTER": {
+      "name": "Heavy Bolter",
+      "image": "icon-ws-40k-heavy-bolter",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_WHIRLWIND_LAUNCHER": {
+      "name": "Whirlwind Launcher",
+      "image": "icon-ws-40k-whirlwind-launcher",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_WOUNDS": {
+      "name": "Liquid Green Stuff",
+      "image": "icon-ws-wounds",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_ORBITAL_BOMBARDMENT": {
+      "name": "Orbital Bombardment",
+      "image": "icon-ws-40k-orbital-bombardment",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_ASTRA_MILITARUM_FRAG_GRENADE": {
+      "name": "Frag Grenade",
+      "image": "icon-ws-40k-astra-militarum-frag-grenade",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_RELOAD": {
+      "name": "Bandolier",
+      "image": "icon-ws-reload",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_RIPPER_PISTOL": {
+      "name": "Ripper Pistol",
+      "image": "icon-ws-40k-ripper-pistol",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_AOS_TEMPEST_AXES": {
+      "name": "Tempest Axes",
+      "image": "icon-ws-aos-tempest-axes",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_MOVE": {
+      "name": "Boot",
+      "image": "icon-ws-move",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_AOS_WHIRLWIND_AXES": {
+      "name": "Whirlwind Axes",
+      "image": "icon-ws-aos-whirlwind-axes",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_NEBULOUS_SEAFOG": {
+      "name": "Lorai Fog",
+      "image": "icon-ws-aos-nebulous-seafog",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_TOUGHNESS": {
+      "name": "Bugman's Tankard",
+      "image": "icon-ws-toughness",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_AOS_AQUATIC_ILLUSIONS": {
+      "name": "Aquatic Illusions",
+      "image": "icon-ws-aos-aquatic-illusions",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_BOLTSTORM_PISTOL": {
+      "name": "Boltstorm Pistol",
+      "image": "icon-ws-aos-boltstorm-pistol",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_TYPHOON_CROSSBOW": {
+      "name": "Typhoon Crossbow",
+      "image": "icon-ws-aos-typhoon-crossbow",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_BRAZIER_STAFF": {
+      "name": "Brazier Staff",
+      "image": "icon-ws-aos-brazier-staff",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_MASTER_OF_RUNES": {
+      "name": "Master of Runes",
+      "image": "icon-ws-aos-master-of-runes",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_ROPE_AND_GRAPNEL": {
+      "name": "Rope and Grapnel",
+      "image": "icon-ws-aos-rope-and-grapnel",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_VETERANCY": {
+      "name": "White Dwarf",
+      "image": "icon-ws-veterancy",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_AOS_GHOST_OF_RHEA": {
+      "name": "Ghost of Rhea",
+      "image": "icon-ws-aos-ghost-of-rhea",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_NULN_OIL": {
+      "name": "Nuln Oil",
+      "image": "icon-ws-nuln-oil",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_SUSTAIN": {
+      "name": "Hourglass",
+      "image": "icon-ws-sustain",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_MORDANT_EARTH": {
+      "name": "Mordant Earth",
+      "image": "icon-ws-mordant-earth",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    }
+  },
+  "evolutions": [
+    {
+      "weapon": "WS_40K_CHAINSWORD",
+      "passives": [
+        "WS_RANGE"
+      ],
+      "result": "WS_40K_EVISCERATORCHAINSWORD",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_LASGUN",
+      "passives": [
+        "WS_STRENGTH"
+      ],
+      "result": "WS_40K_MELTAGUN",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_BOLTGUN",
+      "passives": [
+        "WS_ATTACKS"
+      ],
+      "result": "WS_40K_HEAVY_BOLTER",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_WHIRLWIND_LAUNCHER",
+      "passives": [
+        "WS_WOUNDS"
+      ],
+      "result": "WS_40K_ORBITAL_BOMBARDMENT",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_ASTRA_MILITARUM_FRAG_GRENADE",
+      "passives": [
+        "WS_RELOAD"
+      ],
+      "result": "WS_40K_RIPPER_PISTOL",
+      "gift": true
+    },
+    {
+      "weapon": "WS_AOS_TEMPEST_AXES",
+      "passives": [
+        "WS_MOVE"
+      ],
+      "result": "WS_AOS_WHIRLWIND_AXES",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_NEBULOUS_SEAFOG",
+      "passives": [
+        "WS_TOUGHNESS"
+      ],
+      "result": "WS_AOS_AQUATIC_ILLUSIONS",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_BOLTSTORM_PISTOL",
+      "passives": [
+        "WS_ATTACKS"
+      ],
+      "result": "WS_AOS_TYPHOON_CROSSBOW",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_BRAZIER_STAFF",
+      "passives": [
+        "WS_WOUNDS"
+      ],
+      "result": "WS_AOS_MASTER_OF_RUNES",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_ROPE_AND_GRAPNEL",
+      "passives": [
+        "WS_VETERANCY"
+      ],
+      "result": "WS_AOS_GHOST_OF_RHEA",
+      "gift": true
+    },
+    {
+      "weapon": "WS_NULN_OIL",
+      "passives": [
+        "WS_SUSTAIN"
+      ],
+      "result": "WS_MORDANT_EARTH",
+      "gift": false
+    }
+  ]
+}

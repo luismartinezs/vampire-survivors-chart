@@ -8,3 +8,7 @@ export const og = "og" as const;
 export const otc = "otc" as const;
 export const ed = "ed" as const;
 export const ante = "ante" as const;
+
+// Warhammer Survivors universes (each its own chart)
+export const w40k = "w40k" as const;
+export const aos = "aos" as const;

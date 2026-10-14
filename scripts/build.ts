@@ -1,11 +1,13 @@
 /**
  * Builds the static site into dist/.
  *
- *   1. data/*.ts           -> site/data/*.json   (view models the templates read)
+ *   1. data/*.ts           -> site/data/chart-<key>.json per chart in lib/charts.ts
+ *                             (view models the templates read)
  *   2. tracker /stats      -> site/data/stats.json (+ site/static/stats-snapshot.json)
  *   3. client/*.ts         -> site/static/assets/*-<hash>.js   (esbuild)
  *   4. styles/site.css     -> site/static/assets/site-<hash>.css    (Tailwind, render-blocking)
  *      styles/sprites.css  -> site/static/assets/sprites-<hash>.css (item icons, loaded async)
+ *      styles/sprites-warhammer.css -> the Warhammer charts' icons, same treatment
  *   5. zola build          -> dist/
  *
  * Usage: tsx scripts/build.ts [--dev]
@@ -21,6 +23,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node
 import path from "node:path";
 import * as esbuild from "esbuild";
 import { buildChartView } from "@/lib/chart-view";
+import { CHARTS } from "@/lib/charts";
 import { fetchRawStats, parseRawStats, shapeStats, type TStatsResponse } from "@/lib/stats";
 import { buildStatsView } from "@/lib/stats-view";
 
@@ -94,9 +97,12 @@ async function loadStats(trackUrl: string): Promise<TStatsResponse | null> {
   return null;
 }
 
-async function buildData(trackUrl: string, chartView: ReturnType<typeof buildChartView>) {
-  writeJson("chart.json", chartView.page);
-  writeJson("chart-client.json", chartView.client);
+async function buildData(trackUrl: string) {
+  for (const chart of CHARTS) {
+    const view = buildChartView(chart);
+    writeJson(`chart-${chart.key}.json`, view.page);
+    writeJson(`chart-client-${chart.key}.json`, view.client);
+  }
 
   const raw = await loadStats(trackUrl);
   const stats = raw ? shapeStats(raw.totals) : null;
@@ -104,7 +110,7 @@ async function buildData(trackUrl: string, chartView: ReturnType<typeof buildCha
   if (raw) writeFileSync(path.join(ASSETS_DIR, "..", STATS_SNAPSHOT), JSON.stringify(raw));
 }
 
-async function buildScripts(trackUrl: string, dlcCount: number) {
+async function buildScripts(trackUrl: string) {
   const gate = await esbuild.build({
     entryPoints: [path.join(ROOT, "client/restore-gate.ts")],
     bundle: true,
@@ -112,7 +118,6 @@ async function buildScripts(trackUrl: string, dlcCount: number) {
     minify: true,
     format: "iife",
     target: "es2020",
-    define: { __DLC_COUNT__: String(dlcCount) },
   });
   writeFileSync(path.join(DATA_DIR, "restore-gate.js"), gate.outputFiles[0].text.trim());
 
@@ -181,12 +186,15 @@ async function main() {
   mkdirSync(DATA_DIR, { recursive: true });
   mkdirSync(ASSETS_DIR, { recursive: true });
 
-  const chartView = buildChartView();
-  await buildData(trackUrl, chartView);
-  const js = await buildScripts(trackUrl, chartView.client.dlcs.length);
+  await buildData(trackUrl);
+  const js = await buildScripts(trackUrl);
   // CSS last: Tailwind scans the generated view models for class names.
   const css = buildCss("site.css", "site");
-  const sprites = buildCss("sprites.css", "sprites");
+  // Per sprite sheet: a page loads the one its content file names in `extra.sprites`.
+  const sprites = {
+    vs: buildCss("sprites.css", "sprites"),
+    warhammer: buildCss("sprites-warhammer.css", "sprites-warhammer"),
+  };
 
   writeJson("build.json", {
     css,

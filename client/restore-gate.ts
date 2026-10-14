@@ -4,12 +4,14 @@
  * has applied them (it removes the class), instead of flashing the default
  * chart and then reshuffling it. A timeout reveals it anyway if that script
  * never runs.
+ *
+ * The <script> tag carries the page's storage key and DLC count as
+ * data-store and data-dlcs.
  */
 
-declare const __DLC_COUNT__: number;
-
 try {
-  const raw = localStorage.getItem("app-store");
+  const { store, dlcs } = (document.currentScript as HTMLScriptElement).dataset;
+  const raw = localStorage.getItem(store!);
   const s = raw && JSON.parse(raw).state;
   const c = s && s.evolutionControls;
   const collapsed = s && s.collapsibleState;
@@ -18,7 +20,7 @@ try {
     (c.sortByPassive ||
       c.selectedPassives?.length ||
       c.selectedWeapons?.length ||
-      (c.selectedDlcs && c.selectedDlcs.length < __DLC_COUNT__) ||
+      (c.selectedDlcs && c.selectedDlcs.length < Number(dlcs)) ||
       collapsed?.["collapsible-Weapons-open"] === true ||
       collapsed?.["collapsible-Passives-open"] === false)
   ) {

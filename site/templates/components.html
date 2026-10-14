@@ -8,6 +8,7 @@
 {%- elif name == "search" -%}<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
 {%- elif name == "chevron-down" -%}<path d="m6 9 6 6 6-6"/>
 {%- elif name == "chevron-up" -%}<path d="m18 15-6-6-6 6"/>
+{%- elif name == "menu" -%}<path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>
 {%- else -%}{{ throw(message="unknown icon " ~ name) }}
 {%- endif -%}
 </svg>

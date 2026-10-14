@@ -1,7 +1,7 @@
 /**
- * Build-time view model for the chart page. Produces two documents:
+ * Build-time view model for a chart page. Produces two documents:
  *
- *   - `page`: everything site/templates/index.html renders into static HTML.
+ *   - `page`: everything site/templates/chart.html renders into static HTML.
  *   - `client`: the compact index client/chart.ts filters with at runtime,
  *     inlined into the page as JSON.
  *
@@ -9,13 +9,9 @@
  * runtime class swaps produce exactly the strings the React components did.
  */
 
-import { evolutions } from "@/data/evolutions";
-import { items } from "@/data/items";
-import { passives } from "@/data/passives";
-import { weapons } from "@/data/weapons";
 import { PASSIVE_IDS, WEAPON_IDS, DLC_IDS } from "@/data/ids";
-import { base } from "@/data/constants";
 import type { TDlc, TItem } from "@/data/types";
+import type { TChart } from "@/lib/charts";
 import { DLC_LABELS, dlcClasses } from "@/lib/dlc";
 import { buildFilterIndex, type TFilterIndex } from "@/lib/filter";
 import { cn } from "@/lib/utils";
@@ -31,10 +27,14 @@ export type TClientItem = [string, string, string, TItemKind, string];
 export type TToggleClasses = [string, string];
 
 export type TClientIndex = TFilterIndex & {
+  /** localStorage key the page's filters persist under. */
+  storageKey: string;
+  /** Whether clicks are sent to the tracker (its wire ids only cover Vampire Survivors). */
+  tracked: boolean;
   items: TClientItem[];
   dlcs: { key: TDlc; wire: string; cls: TToggleClasses }[];
-  /** Weapon/passive filter buttons, per DLC. */
-  controlCls: Record<TDlc, TToggleClasses>;
+  /** Weapon/passive filter buttons, per DLC on the page. */
+  controlCls: Partial<Record<TDlc, TToggleClasses>>;
   /** Reset-weapons / reset-passives buttons ("selected" when nothing is selected). */
   resetCls: TToggleClasses;
   sortCls: TToggleClasses;
@@ -79,28 +79,31 @@ const cardClass = (dlc: TDlc) =>
     "hover:bg-white/10"
   );
 
-export function buildChartView() {
-  const itemList: TItem[] = Object.values(items);
+export function buildChartView(chart: TChart) {
+  const { evolutions, weapons, passives, items: itemList, dlcs: dlcKeys } = chart;
+  // Items and evolutions without a DLC belong to the first one (Base Game on the VS chart).
+  const mainDlc = dlcKeys[0];
   const filterIndex = buildFilterIndex(evolutions, itemList);
   const t = new Map(itemList.map((item, i) => [item.name, i]));
   const itemNo = (item: TItem) => t.get(item.name)!;
 
   const wireByName = new Map<string, string>();
-  for (const [key, w] of Object.entries(weapons)) {
-    if (WEAPON_IDS[key] != null) wireByName.set(w.name, `w${WEAPON_IDS[key]}`);
-  }
-  for (const [key, p] of Object.entries(passives)) {
-    if (PASSIVE_IDS[key] != null) wireByName.set(p.name, `p${PASSIVE_IDS[key]}`);
+  if (chart.tracked) {
+    for (const [key, w] of Object.entries(weapons)) {
+      if (WEAPON_IDS[key] != null) wireByName.set(w.name, `w${WEAPON_IDS[key]}`);
+    }
+    for (const [key, p] of Object.entries(passives)) {
+      if (PASSIVE_IDS[key] != null) wireByName.set(p.name, `p${PASSIVE_IDS[key]}`);
+    }
   }
 
   const kindOf = (item: TItem): TItemKind =>
     item.type === "passive" ? "p" : item.type === "weapon" ? (item.evolved ? "e" : "w") : "m";
 
-  const dlcKeys = Object.keys(DLC_LABELS) as TDlc[];
-  const controlCls = Object.fromEntries(
+  const controlCls: TClientIndex["controlCls"] = Object.fromEntries(
     dlcKeys.map((dlc) => [dlc, toggle("p-1 aspect-square", dlc)])
-  ) as Record<TDlc, TToggleClasses>;
-  const resetCls = toggle("p-1 aspect-square h-full", base);
+  );
+  const resetCls = toggle("p-1 aspect-square h-full", mainDlc);
 
   const seenIds = new Set<number>();
   for (const evo of evolutions) {
@@ -108,18 +111,27 @@ export function buildChartView() {
     seenIds.add(evo.id);
   }
 
+  const dlcOf = (item: TItem) => {
+    const dlc = item.dlc ?? mainDlc;
+    if (!controlCls[dlc])
+      throw new Error(`${chart.key}: ${item.name} is in ${dlc}, not on the page`);
+    return dlc;
+  };
+
   const control = (item: TItem) => ({
     t: itemNo(item),
     name: item.name,
     icon: item.image,
-    dlc: item.dlc ?? base,
-    cls: controlCls[item.dlc ?? base][0],
+    dlc: dlcOf(item),
+    cls: controlCls[dlcOf(item)]![0],
   });
 
   const viewItem = (item: TItem) => ({ t: itemNo(item), name: item.name, icon: item.image });
 
   const client: TClientIndex = {
     ...filterIndex,
+    storageKey: chart.storageKey,
+    tracked: chart.tracked,
     items: itemList.map((item) => [
       item.name,
       item.image,
@@ -129,16 +141,17 @@ export function buildChartView() {
     ]),
     dlcs: dlcKeys.map((key) => ({
       key,
-      wire: DLC_IDS[key] != null ? `d${DLC_IDS[key]}` : "",
+      wire: chart.tracked && DLC_IDS[key] != null ? `d${DLC_IDS[key]}` : "",
       cls: toggle("min-h-[30px] px-2", key),
     })),
     controlCls,
     resetCls,
-    sortCls: toggle("min-h-[30px] px-2", base),
+    sortCls: toggle("min-h-[30px] px-2", mainDlc),
     collapsibleCls: [collapsibleHeader(false), collapsibleHeader(true)],
   };
 
   const page = {
+    storageKey: chart.storageKey,
     dlcs: dlcKeys.map((key) => ({
       key,
       full: DLC_LABELS[key].full,
@@ -154,7 +167,7 @@ export function buildChartView() {
     passives: Object.values(passives).map(control),
     evolutions: evolutions.map((evo) => ({
       id: evo.id,
-      cls: cardClass(evo.dlc ?? base),
+      cls: cardClass(evo.dlc ?? mainDlc),
       elements: evo.elements.map((el) =>
         typeof el === "string"
           ? { op: el }
@@ -168,12 +181,7 @@ export function buildChartView() {
             }
       ),
     })),
-    legend: {
-      alucardShield: weapons.alucardShield.image,
-      ringsOfCalamity: weapons.ringsOfCalamity.image,
-      miracleOfMultiplication: weapons.miracleOfMultiplication.image,
-      penshinFatcha: weapons.penshinFatcha.image,
-    },
+    legend: chart.legend ?? null,
   };
 
   return { page, client };

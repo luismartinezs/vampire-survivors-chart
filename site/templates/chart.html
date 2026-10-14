@@ -1,29 +1,37 @@
 {% extends "base.html" %}
 
-{% block title %}Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide{% endblock title %}
-{% block description %}Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations, evolution requirements, and upgrade paths.{% endblock description %}
-{% block canonical %}{{ config.base_url }}{% endblock canonical %}
-{% block og_title %}Vampire Survivors Evolution Chart | Complete Weapon Evolution Guide{% endblock og_title %}
-{% block og_description %}Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations and upgrade paths.{% endblock og_description %}
+{#- One evolution chart. The content file picks it with `extra.chart` (a key in
+    lib/charts.ts) and supplies the page copy: title, description,
+    extra.og_description, extra.path (canonical path, "" for the homepage). -#}
+
+{% block title %}{{ meta.title }}{% endblock title %}
+{% block description %}{{ meta.description }}{% endblock description %}
+{% block canonical %}{{ config.base_url }}{{ extra.path }}{% endblock canonical %}
+{% block og_title %}{{ meta.title }}{% endblock og_title %}
+{% block og_description %}{{ extra.og_description }}{% endblock og_description %}
 
 {% block head_scripts %}
+{%- set chart = load_data(path="data/chart-" ~ extra.chart ~ ".json") -%}
 {#- Returning visitors with saved filters: keep the chart hidden until the
     script restores them, rather than flashing the default chart first. -#}
-<script>{{ load_data(path="data/restore-gate.js", format="plain") | safe }}</script>
+<script data-store="{{ chart.storageKey }}" data-dlcs="{{ chart.dlcs | length }}">{{ load_data(path="data/restore-gate.js", format="plain") | safe }}</script>
 <script type="module" src="/assets/{{ site_build.js.chart }}"></script>
 {% endblock head_scripts %}
 
 {% block content %}
-{%- set chart = load_data(path="data/chart.json") -%}
+{%- set chart = load_data(path="data/chart-" ~ extra.chart ~ ".json") -%}
 <div id="chart" class="max-w-(--breakpoint-2xl) mx-auto py-4 2xl:px-0 px-1 sm:px-2 md:px-4">
   {#- Sort + DLC row -#}
   <div class="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
     <div class="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
+      {#- A chart with a single DLC has nothing to toggle. -#}
+      {%- if chart.dlcs | length > 1 %}
       <div class="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
         {%- for dlc in chart.dlcs %}
         <button type="button" class="{{ dlc.cls }}" data-dlc-toggle="{{ dlc.key }}"><span class="sm:hidden">{{ dlc.short }}</span><span class="hidden sm:inline">{{ dlc.full }}</span></button>
         {%- endfor %}
       </div>
+      {%- endif %}
       <button type="button" class="{{ chart.sortCls }}" data-action="sort">Sort by Passive</button>
     </div>
   </div>
@@ -97,6 +105,10 @@
   <div id="evos-excluded" class="flex flex-wrap justify-center gap-[0.30rem] sm:gap-1 lg:gap-2"></div>
 
   {#- Legend -#}
+  {%- if extra.note is defined %}
+  <p class="text-xs text-white/80 p-2 mt-4">{{ extra.note }}</p>
+  {%- endif %}
+  {%- if chart.legend %}
   <div class="flex flex-col gap-2 lg:flex-row lg:gap-4 text-xs text-white/80 rounded p-2 flex-wrap mt-4">
     <div class="flex items-center gap-1">
       {{ <gold_circle cls="size-2.5" /> }}
@@ -120,6 +132,7 @@
       <span>6+ times.</span>
     </div>
   </div>
+  {%- endif %}
 
   {#- Recipe drawer: wiki links + filter checkboxes for the clicked recipe -#}
   <div id="drawer" hidden class="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-0 sm:bottom-4 sm:px-4">
@@ -142,10 +155,11 @@
     </li>
   </template>
 </div>
-<script type="application/json" id="chart-index">{{ load_data(path="data/chart-client.json", format="plain") | safe }}</script>
+<script type="application/json" id="chart-index">{{ load_data(path="data/chart-client-" ~ extra.chart ~ ".json", format="plain") | safe }}</script>
 {% endblock content %}
 
 {% block body_end %}
+{%- set chart = load_data(path="data/chart-" ~ extra.chart ~ ".json") -%}
 {#- Fixed bottom-right controls -#}
 <div class="fixed bottom-4 right-4 z-50 flex items-end gap-2">
   <button type="button" data-action="reset-all" class="flex items-center justify-center rounded-full border border-primary-400/80 bg-primary-800/20 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400 cursor-pointer" aria-label="Reset all selected weapons and passives" title="Reset all selections">
@@ -170,7 +184,8 @@
     <div class="mt-4 space-y-4">
       <div class="space-y-3">
         {{ <setting key="showPassivesLoadout" label="Show passives loadout" /> }}
-        {{ <setting key="isRecipeDrawerEnabled" label="Enable wiki links drawer" /> }}
+        {%- set drawer_label = "Enable wiki links drawer" if chart.legend else "Enable recipe drawer" %}
+        {{ <setting key="isRecipeDrawerEnabled" label={drawer_label} /> }}
       </div>
       <div>
         <h3 class="text-sm font-medium text-primary-100">Show derived recipes</h3>

@@ -6,6 +6,16 @@
     <priority>1</priority>
   </url>
   <url>
+    <loc>{{ config.base_url }}/warhammer40k</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>{{ config.base_url }}/ageofsigmar</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>{{ config.base_url }}/stats</loc>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>

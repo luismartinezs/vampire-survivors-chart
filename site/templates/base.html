@@ -1,15 +1,22 @@
 {%- set site_build = load_data(path="data/build.json") -%}
+{#- Front matter of whatever is rendering (nothing on the 404 page). Pages
+    override the Vampire Survivors defaults below through `extra`. -#}
+{%- set meta = page if page is defined else (section if section is defined else {}) -%}
+{%- set extra = meta.extra if meta.extra is defined else {} -%}
+{%- set app_name = extra.heading if extra.heading is defined else "Vampire Survivors Evolution Chart" -%}
+{%- set sprites = site_build.sprites[extra.sprites if extra.sprites is defined else "vs"] -%}
+{%- set kofi_icons = extra.kofi_icons if extra.kofi_icons is defined else ["icon-garlic", "icon-recovery"] -%}
 <!DOCTYPE html>
-<html lang="en" class="antialiased">
+<html lang="en" class="antialiased"{% if extra.theme is defined %} data-theme="{{ extra.theme }}"{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{% endblock title %}</title>
 <meta name="description" content="{% block description %}{% endblock description %}">
 <link rel="canonical" href="{% block canonical %}{% endblock canonical %}">
-<meta name="theme-color" content="#1a1a1a">
+<meta name="theme-color" content="{{ extra.theme_color if extra.theme_color is defined else '#1a1a1a' }}">
 <meta name="author" content="AppForgeLabs">
-<meta name="keywords" content="Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations">
+<meta name="keywords" content="{{ extra.keywords if extra.keywords is defined else 'Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations' }}">
 <link rel="preload" href="/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/roboto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 {% block preload %}{% endblock preload %}
@@ -17,12 +24,12 @@
 <style>{{ load_data(path="static/assets/" ~ site_build.css, format="plain") | safe }}</style>
 {#- Item sprites are ~85 KB of inlined images: fetch them at high priority but
     don't hold first paint for them. -#}
-<link rel="preload" href="/assets/{{ site_build.sprites }}" as="style">
-<link rel="stylesheet" href="/assets/{{ site_build.sprites }}" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="/assets/{{ site_build.sprites }}"></noscript>
+<link rel="preload" href="/assets/{{ sprites }}" as="style">
+<link rel="stylesheet" href="/assets/{{ sprites }}" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/{{ sprites }}"></noscript>
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Vampire Survivors Evolution Chart">
+<meta name="apple-mobile-web-app-title" content="{{ app_name }}">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{% block og_title %}{% endblock og_title %}">
@@ -30,10 +37,10 @@
 <meta property="og:image" content="{{ config.base_url }}/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Vampire Survivors Evolution Chart Preview">
+<meta property="og:image:alt" content="{{ app_name }} Preview">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vampire Survivors Evolution Chart">
-<meta name="twitter:description" content="Interactive cheatsheet for all weapon evolutions in Vampire Survivors">
+<meta name="twitter:title" content="{{ app_name }}">
+<meta name="twitter:description" content="{{ extra.twitter_description if extra.twitter_description is defined else 'Interactive cheatsheet for all weapon evolutions in Vampire Survivors' }}">
 <meta name="twitter:image" content="{{ config.base_url }}/og-image.png">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png">

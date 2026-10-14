@@ -13,8 +13,9 @@ next-env.d.ts
 tsconfig.tsbuildinfo
 public/
 
-# Icon CSS is machine-generated base64 data URIs (see CLAUDE.md)
+# Machine-generated: icon CSS (base64 data URIs) and extracted game data (see CLAUDE.md)
 styles/
+data/warhammer.json
 
 # Env + logs
 .env*

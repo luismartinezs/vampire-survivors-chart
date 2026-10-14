@@ -2,9 +2,11 @@
  * Persisted chart preferences. Reads and writes the exact localStorage shape the
  * previous zustand `persist` store used (`{"state": {...}, "version": N}` under
  * "app-store"), so returning visitors keep their filters across the rewrite.
+ * Each chart page persists under its own key (TClientIndex.storageKey).
  */
 
-const STORAGE_KEY = "app-store";
+/** The Vampire Survivors chart's key, the only one with migrations. */
+const VS_STORAGE_KEY = "app-store";
 
 /**
  * Bump whenever a new DLC ships and add a migration below: a returning
@@ -88,11 +90,11 @@ function merge(defaults: TPersisted, stored: Partial<TPersisted>): TPersisted {
   };
 }
 
-export function loadState(allDlcs: string[]): TPersisted {
+export function loadState(storageKey: string, allDlcs: string[]): TPersisted {
   const defaults = defaultState(allDlcs);
   let raw: string | null = null;
   try {
-    raw = window.localStorage.getItem(STORAGE_KEY);
+    raw = window.localStorage.getItem(storageKey);
   } catch {
     return defaults;
   }
@@ -103,19 +105,21 @@ export function loadState(allDlcs: string[]): TPersisted {
     let state = merge(defaults, parsed.state ?? {});
     // State written before versioning existed has no number, so floor it to 0.
     const from = typeof parsed.version === "number" ? parsed.version : 0;
-    for (let v = from + 1; v <= STORE_VERSION; v++) {
-      state = MIGRATIONS[v]?.(state) ?? state;
+    if (storageKey === VS_STORAGE_KEY) {
+      for (let v = from + 1; v <= STORE_VERSION; v++) {
+        state = MIGRATIONS[v]?.(state) ?? state;
+      }
     }
-    if (from < STORE_VERSION) saveState(state);
+    if (from < STORE_VERSION) saveState(storageKey, state);
     return state;
   } catch {
     return defaults;
   }
 }
 
-export function saveState(state: TPersisted): void {
+export function saveState(storageKey: string, state: TPersisted): void {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ state, version: STORE_VERSION }));
+    window.localStorage.setItem(storageKey, JSON.stringify({ state, version: STORE_VERSION }));
   } catch {
     // Storage full or blocked: preferences just won't persist.
   }
