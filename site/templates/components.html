@@ -8,6 +8,7 @@
 {%- elif name == "search" -%}<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
 {%- elif name == "chevron-down" -%}<path d="m6 9 6 6 6-6"/>
 {%- elif name == "chevron-up" -%}<path d="m18 15-6-6-6 6"/>
+{%- elif name == "external-link" -%}<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
 {%- elif name == "menu" -%}<path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>
 {%- else -%}{{ throw(message="unknown icon " ~ name) }}
 {%- endif -%}
@@ -60,3 +61,82 @@
 {% component sort_header(label: string, col: string, cls: string = "", align: string = "right", active: bool = false, mobile: bool = true) -%}
 <button type="button" data-sort="{{ col }}" aria-sort="{{ 'descending' if active else 'none' }}" class="items-center gap-0.5 uppercase tracking-wider cursor-pointer transition-colors hover:text-white/70 focus-visible:outline-none focus-visible:text-white/80 {{ 'flex' if mobile else 'hidden sm:flex' }} {{ 'justify-end' if align == 'right' else 'justify-start' }} {{ 'text-primary-300/80' if active else 'text-white/30' }} {{ cls }}"><span class="truncate">{{ label }}</span><span aria-hidden="true" data-arrow>{{ '▼' if active else '' }}</span></button>
 {%- endcomponent sort_header %}
+
+{#- Site sponsor (pitch mockup): Warhammer Survivors. One placement per viewport:
+    sponsor_card below lg, sponsor_bar from lg, sponsor_rails once the gutters
+    beside the chart are wide enough (3xl, 1760px, where chart.html narrows #chart).
+    The sponsor's own colors, not the page theme, so it reads the same on every
+    chart. One action only: every sponsor link goes to Steam with UTM tags (Steam UTM analytics) and an Umami
+    event per placement. -#}
+{% component sponsor_href(placement: string) -%}
+https://store.steampowered.com/app/3669620/Warhammer_Survivors/?utm_source=vsevochart&amp;utm_medium=sponsor&amp;utm_campaign={{ placement }}
+{%- endcomponent sponsor_href %}
+
+{% component sponsor_cta(placement: string, cls: string = "", size: string = "px-3 py-2 text-xs", icon: bool = true) -%}
+<a href="{{ <sponsor_href placement={placement} /> }}" target="_blank" rel="noopener sponsored" data-umami-event="sponsor-click" data-umami-event-placement="{{ placement }}" class="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md bg-linear-to-b from-[#f7d57a] to-[#d4952a] {{ size }} font-bold uppercase tracking-wide text-stone-950 shadow-md shadow-black/40 ring-1 ring-black/50 transition hover:from-[#ffe49a] hover:to-[#e5a73a] {{ cls }}">Wishlist on Steam{% if icon %}{{ <icon name="external-link" cls="size-3.5" /> }}{% endif %}</a>
+{%- endcomponent sponsor_cta %}
+
+{% component sponsor_bar() -%}
+<aside aria-label="Site sponsor" class="hidden lg:block 3xl:hidden relative overflow-hidden border-b border-[#e8b04a]/30 bg-stone-950">
+  <img src="/sponsor/ws-hero.webp" alt="" width="1600" height="517" decoding="async" class="absolute inset-y-0 right-0 h-full w-3/5 object-cover object-[50%_22%] opacity-50 [mask-image:linear-gradient(to_right,transparent,black_55%)]">
+  <div class="absolute inset-y-0 right-0 w-1/3 bg-linear-to-l from-stone-950/85 to-transparent"></div>
+  <div class="relative container mx-auto px-4 py-1.5 flex items-center gap-4">
+    <span class="shrink-0 rounded-sm border border-white/20 px-1.5 py-0.5 text-[0.6rem] uppercase tracking-[0.2em] text-white/55">Sponsor</span>
+    <a href="{{ <sponsor_href placement="bar-logo" /> }}" target="_blank" rel="noopener sponsored" data-umami-event="sponsor-click" data-umami-event-placement="bar-logo" class="shrink-0"><img src="/sponsor/ws-logo.webp" alt="Warhammer Survivors" width="583" height="207" decoding="async" class="h-11 w-auto drop-shadow-[0_2px_3px_rgba(0,0,0,0.7)]"></a>
+    <p class="text-sm text-white/85 min-w-0"><span class="font-semibold text-[#f2c766]">Sponsored by Warhammer Survivors</span> <span class="text-white/40">·</span> helping keep this chart free for everyone</p>
+    <div class="ml-auto flex shrink-0 items-center gap-3">
+      <span class="hidden xl:inline text-xs text-white/85 [text-shadow:0_1px_3px_#000]">Out November 10 · PC, consoles &amp; mobile</span>
+      {{ <sponsor_cta placement="bar" /> }}
+    </div>
+  </div>
+</aside>
+{%- endcomponent sponsor_bar %}
+
+{#- One desktop rail. Both rails share this shell, so they are the same size:
+    320px wide, as tall as the viewport allows (capped), the art taking up
+    whatever height the copy and button leave. -#}
+{% component sponsor_rail(side: string, placement: string, img: string, alt: string, logo: bool = false) -%}
+<aside aria-label="Site sponsor" class="hidden 3xl:flex fixed top-28 z-10 w-80 h-[min(46rem,calc(100dvh-13rem))] flex-col gap-1.5" style="{{ side }}:max(1rem,calc(50vw - 48rem - 21rem))">
+  <span class="block text-center text-[0.65rem] uppercase tracking-[0.25em] text-white/45">Site sponsor</span>
+  <div class="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-[#e8b04a]/40 bg-stone-950 shadow-2xl shadow-black/60">
+    <a href="{{ <sponsor_href placement={placement ~ "-art"} /> }}" target="_blank" rel="noopener sponsored" data-umami-event="sponsor-click" data-umami-event-placement="{{ placement }}-art" class="group relative block min-h-0 flex-1 overflow-hidden">
+      <img src="{{ img }}" alt="{{ alt }}" decoding="async" class="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-[1.03]">
+      {%- if logo %}
+      <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-stone-950 via-stone-950/70 to-transparent"></div>
+      <img src="/sponsor/ws-logo.webp" alt="Warhammer Survivors" width="583" height="207" decoding="async" class="absolute inset-x-6 bottom-4 w-[calc(100%-3rem)] h-auto drop-shadow-[0_3px_6px_rgba(0,0,0,0.9)]">
+      {%- endif %}
+    </a>
+    <div class="flex flex-col gap-3 p-5">
+      {{ body }}
+      {{ <sponsor_cta placement={placement} cls="w-full" size="px-4 py-3 text-sm" /> }}
+    </div>
+  </div>
+</aside>
+{%- endcomponent sponsor_rail %}
+
+{% component sponsor_rails() -%}
+{% <sponsor_rail side="left" placement="rail-left" img="/sponsor/ws-rail.webp" alt="Warhammer Survivors key art: a Space Marine and a Stormcast Eternal"> %}
+<p class="text-base font-semibold leading-snug text-white">Helping keep this chart <span class="text-[#f2c766]">free for everyone</span></p>
+<p class="text-sm leading-snug text-white/60">Out November 10 on PC, consoles &amp; mobile</p>
+{% </sponsor_rail> %}
+{% <sponsor_rail side="right" placement="rail-right" img="/sponsor/ws-gameplay.webp" alt="Warhammer Survivors gameplay: a Space Marine against an Ork horde" logo={true}> %}
+<p class="text-base font-semibold leading-snug text-white">Evolve Bolters, Chainswords <span class="text-[#f2c766]">and a pot of Nuln Oil</span></p>
+<p class="text-sm leading-snug text-white/60">From Auroch Digital and poncle, makers of Vampire Survivors</p>
+{% </sponsor_rail> %}
+{%- endcomponent sponsor_rails %}
+
+{% component sponsor_card() -%}
+<aside aria-label="Site sponsor" class="lg:hidden mt-8 mx-auto max-w-md overflow-hidden rounded-xl border border-[#e8b04a]/40 bg-stone-950 shadow-xl shadow-black/60">
+  <div class="flex items-center justify-between border-b border-white/10 px-3 py-1.5 text-[0.6rem] uppercase tracking-[0.2em] text-white/50">
+    <span>Site sponsor</span><span>Helping keep this free</span>
+  </div>
+  <a href="{{ <sponsor_href placement="card-art" /> }}" target="_blank" rel="noopener sponsored" data-umami-event="sponsor-click" data-umami-event-placement="card-art" class="block">
+    <img src="/sponsor/ws-capsule.webp" alt="Warhammer Survivors" width="800" height="458" loading="lazy" decoding="async" class="block w-full h-auto">
+  </a>
+  <div class="flex flex-col gap-3 p-4">
+    <p class="text-sm leading-snug text-white/85"><span class="font-semibold text-[#f2c766]">Warhammer Survivors</span> keeps this chart free for everyone. Made by Auroch Digital with poncle, the team behind Vampire Survivors.</p>
+    <p class="text-xs text-white/55">Out November 10 · Steam, GOG, Switch, PS5, Xbox, iOS &amp; Android</p>
+    {{ <sponsor_cta placement="card" cls="w-full" size="px-4 py-2.5 text-sm" /> }}
+  </div>
+</aside>
+{%- endcomponent sponsor_card %}

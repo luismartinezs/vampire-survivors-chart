@@ -20,7 +20,9 @@
 
 {% block content %}
 {%- set chart = load_data(path="data/chart-" ~ extra.chart ~ ".json") -%}
-<div id="chart" class="max-w-(--breakpoint-2xl) mx-auto py-4 2xl:px-0 px-1 sm:px-2 md:px-4">
+{{ <sponsor_bar /> }}
+{#- From 3xl (1760px) the sponsor rails sit in the gutters: narrow the chart to leave them room. -#}
+<div id="chart" class="max-w-(--breakpoint-2xl) 3xl:max-w-[min(96rem,calc(100vw-44rem))] mx-auto py-4 2xl:px-0 px-1 sm:px-2 md:px-4">
   {#- Sort + DLC row -#}
   <div class="flex flex-col items-center gap-1 sm:gap-2 mb-2 sm:mb-4">
     <div class="flex flex-wrap gap-1 sm:gap-2 justify-end items-center">
@@ -134,6 +136,8 @@
   </div>
   {%- endif %}
 
+  {{ <sponsor_card /> }}
+
   {#- Recipe drawer: wiki links + filter checkboxes for the clicked recipe -#}
   <div id="drawer" hidden class="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-0 sm:bottom-4 sm:px-4">
     <div data-panel role="dialog" aria-label="Recipe" class="relative w-full max-w-3xl rounded-none bg-primary-800/60 text-slate-50 shadow-2xl backdrop-blur sm:rounded-xl sm:border sm:border-white/50 sm:w-auto sm:max-w-fit sm:min-w-[18rem] px-3 py-3 sm:px-4 transition-all duration-200 pointer-events-none translate-y-4 opacity-0">
@@ -160,6 +164,7 @@
 
 {% block body_end %}
 {%- set chart = load_data(path="data/chart-" ~ extra.chart ~ ".json") -%}
+{{ <sponsor_rails /> }}
 {#- Fixed bottom-right controls -#}
 <div class="fixed bottom-4 right-4 z-50 flex items-end gap-2">
   <button type="button" data-action="reset-all" class="flex items-center justify-center rounded-full border border-primary-400/80 bg-primary-800/20 p-3 text-primary-400/80 backdrop-blur-xs transition-colors duration-200 hover:border-primary-400 hover:text-primary-400 cursor-pointer" aria-label="Reset all selected weapons and passives" title="Reset all selections">

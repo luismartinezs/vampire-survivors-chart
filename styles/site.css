@@ -12,6 +12,9 @@
 @plugin 'tailwindcss-animate';
 
 @theme {
+  /* Wide enough for the sponsor rails beside the chart (pitch mockup). */
+  --breakpoint-3xl: 110rem;
+
   --font-sans: Roboto, "Roboto Fallback", ui-sans-serif, system-ui, sans-serif;
 
   --color-primary-50: #fff0f0;
