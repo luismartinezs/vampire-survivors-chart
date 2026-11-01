@@ -5,7 +5,8 @@ template = "chart.html"
 
 [extra]
 chart = "aos"
-path = "/ageofsigmar"
+path = "/warhammersurvivors/ageofsigmar"
+game = "warhammersurvivors"
 og_description = "Interactive cheatsheet for every Age of Sigmar weapon evolution in Warhammer Survivors."
 heading = "Age of Sigmar Evolution Chart"
 keywords = "Warhammer Survivors, Warhammer Age of Sigmar, AoS, weapon evolution, evolution chart, game guide"

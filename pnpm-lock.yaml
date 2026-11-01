@@ -11,6 +11,9 @@ importers:
       fuse.js:
         specifier: 7.1.0
         version: 7.1.0
+      zod:
+        specifier: 4.1.11
+        version: 4.1.11
     devDependencies:
       '@tailwindcss/cli':
         specifier: 4.1.16
@@ -1275,6 +1278,9 @@ packages:
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
+  zod@4.1.11:
+    resolution: {integrity: sha512-WPsqwxITS2tzx1bzhIKsEs19ABD5vmCVa4xBo2tq/SrV4RNZtfws1EnCWQXM6yh8bD08a1idvkB5MZSBiZsjwg==}
+
 snapshots:
 
   '@acemir/cssom@0.9.19':
@@ -2255,3 +2261,5 @@ snapshots:
 
   xmlchars@2.2.0:
     optional: true
+
+  zod@4.1.11: {}

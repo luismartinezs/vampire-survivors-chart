@@ -12,7 +12,8 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "fuse.js": "7.1.0"
+    "fuse.js": "7.1.0",
+    "zod": "4.1.11"
   },
   "devDependencies": {
     "@tailwindcss/cli": "4.1.16",

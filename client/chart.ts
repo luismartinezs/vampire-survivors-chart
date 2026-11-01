@@ -8,6 +8,7 @@ import { filterEvolutions, type TFilterEvo } from "@/lib/filter";
 import type { TClientIndex, TItemKind } from "@/lib/chart-view";
 import { track as sendEvent, type TTrackEvent } from "@/lib/track";
 import { loadState, saveState, type TPersisted } from "./store";
+import { DEFAULT_SETTINGS, SETTINGS_STORAGE_KEY, loadSettings, saveSettings } from "./settings";
 import { initTooltip } from "./tooltip";
 
 type FuseCtor = typeof import("fuse.js").default;
@@ -25,8 +26,6 @@ let state: TPersisted = loadState(
 const track = (ev: TTrackEvent) => {
   if (index.tracked) sendEvent(ev);
 };
-/** Not persisted, matching the previous app: the drawer is on for every visit. */
-let drawerEnabled = true;
 let drawerItems: number[] = [];
 let drawerOpen = false;
 let searchMatches: Set<number> | null = null;
@@ -220,8 +219,7 @@ function render() {
 
   for (const input of settingInputs) {
     const key = input.dataset.setting!;
-    input.checked =
-      key === "isRecipeDrawerEnabled" ? drawerEnabled : Boolean(state[key as keyof TPersisted]);
+    input.checked = Boolean(state[key as keyof TPersisted]);
   }
 
   document.documentElement.classList.remove("restoring");
@@ -229,7 +227,7 @@ function render() {
 
 // ── Recipe drawer ──────────────────────────────────────────────────────────
 function openDrawer(items: number[]) {
-  if (!drawerEnabled) return;
+  if (!state.isRecipeDrawerEnabled) return;
   drawerItems = items.filter((t) => kindOf(t) !== "m");
   drawerOpen = true;
   buildDrawerRows();
@@ -270,7 +268,7 @@ const DRAWER_OPEN = "pointer-events-auto translate-y-0 opacity-100";
 const DRAWER_CLOSED = "pointer-events-none translate-y-4 opacity-0";
 
 function renderDrawer(selectedPassives: Set<number>, selectedWeapons: Set<number>) {
-  drawerEl.hidden = !drawerEnabled || drawerItems.length === 0;
+  drawerEl.hidden = !state.isRecipeDrawerEnabled || drawerItems.length === 0;
   if (drawerEl.hidden) return;
   drawerPanel.classList.remove(...(drawerOpen ? DRAWER_CLOSED : DRAWER_OPEN).split(" "));
   drawerPanel.classList.add(...(drawerOpen ? DRAWER_OPEN : DRAWER_CLOSED).split(" "));
@@ -314,13 +312,12 @@ function closeSettings() {
 }
 
 function applySetting(key: string, value: boolean) {
-  if (key === "isRecipeDrawerEnabled") {
-    drawerEnabled = value;
-    if (!value) drawerOpen = false;
-    render();
-    return;
-  }
-  commit({ ...state, [key]: value });
+  if (!Object.hasOwn(DEFAULT_SETTINGS, key)) return;
+  const settings = { ...loadSettings(state), [key]: value };
+  saveSettings(settings);
+  if (!settings.isRecipeDrawerEnabled) drawerOpen = false;
+  state = { ...state, ...settings };
+  render();
 }
 
 // ── Search ─────────────────────────────────────────────────────────────────
@@ -419,6 +416,13 @@ document.addEventListener("change", (e) => {
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && !settingsModal.hidden) closeSettings();
+});
+
+window.addEventListener("storage", (event) => {
+  if (event.key !== SETTINGS_STORAGE_KEY && event.key !== null) return;
+  state = { ...state, ...loadSettings() };
+  if (!state.isRecipeDrawerEnabled) drawerOpen = false;
+  render();
 });
 
 searchInput.addEventListener("input", runSearch);

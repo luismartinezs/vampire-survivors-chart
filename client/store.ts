@@ -2,8 +2,10 @@
  * Persisted chart preferences. Reads and writes the exact localStorage shape the
  * previous zustand `persist` store used (`{"state": {...}, "version": N}` under
  * "app-store"), so returning visitors keep their filters across the rewrite.
- * Each chart page persists under its own key (TClientIndex.storageKey).
+ * Chart filters use separate keys; display settings use one shared key.
  */
+
+import { DEFAULT_SETTINGS, loadSettings, saveSettings, type TSettings } from "./settings";
 
 /** The Vampire Survivors chart's key, the only one with migrations. */
 const VS_STORAGE_KEY = "app-store";
@@ -26,13 +28,10 @@ export type TEvolutionControls = {
   selectedWeapons: string[];
 };
 
-export type TPersisted = {
+export type TPersisted = TSettings & {
   evolutionControls: TEvolutionControls;
   /** `collapsible-<Title>-open` -> open. Missing keys use the section default. */
   collapsibleState: Record<string, boolean>;
-  passivesShowDerivedRecipes: boolean;
-  weaponsShowDerivedRecipes: boolean;
-  showPassivesLoadout: boolean;
 };
 
 function addDlc(state: TPersisted, dlc: string): TPersisted {
@@ -53,9 +52,7 @@ export function defaultState(allDlcs: string[]): TPersisted {
       selectedWeapons: [],
     },
     collapsibleState: {},
-    passivesShowDerivedRecipes: true,
-    weaponsShowDerivedRecipes: true,
-    showPassivesLoadout: true,
+    ...DEFAULT_SETTINGS,
   };
 }
 
@@ -87,10 +84,11 @@ function merge(defaults: TPersisted, stored: Partial<TPersisted>): TPersisted {
       defaults.weaponsShowDerivedRecipes
     ),
     showPassivesLoadout: bool(stored.showPassivesLoadout, defaults.showPassivesLoadout),
+    isRecipeDrawerEnabled: bool(stored.isRecipeDrawerEnabled, defaults.isRecipeDrawerEnabled),
   };
 }
 
-export function loadState(storageKey: string, allDlcs: string[]): TPersisted {
+function loadChartState(storageKey: string, allDlcs: string[]): TPersisted {
   const defaults = defaultState(allDlcs);
   let raw: string | null = null;
   try {
@@ -110,16 +108,28 @@ export function loadState(storageKey: string, allDlcs: string[]): TPersisted {
         state = MIGRATIONS[v]?.(state) ?? state;
       }
     }
-    if (from < STORE_VERSION) saveState(storageKey, state);
     return state;
   } catch {
     return defaults;
   }
 }
 
+export function loadState(storageKey: string, allDlcs: string[]): TPersisted {
+  const state = loadChartState(storageKey, allDlcs);
+  const settings = loadSettings(state);
+  saveSettings(settings);
+  const restored = { ...state, ...settings };
+  saveState(storageKey, restored);
+  return restored;
+}
+
 export function saveState(storageKey: string, state: TPersisted): void {
   try {
-    window.localStorage.setItem(storageKey, JSON.stringify({ state, version: STORE_VERSION }));
+    const { evolutionControls, collapsibleState } = state;
+    window.localStorage.setItem(
+      storageKey,
+      JSON.stringify({ state: { evolutionControls, collapsibleState }, version: STORE_VERSION })
+    );
   } catch {
     // Storage full or blocked: preferences just won't persist.
   }

@@ -27,7 +27,7 @@ uv run --no-project --with UnityPy==1.25.4 --with Pillow scripts/engineering/ext
 
 ## Architecture Overview
 
-A static site of weapon evolution charts: Vampire Survivors at `/`, and the two Warhammer Survivors universes at `/warhammer40k` and `/ageofsigmar`. Zola renders every page to HTML at build time, and two small TypeScript modules add the interactivity. No framework runs in the browser and there is no server.
+A static site of weapon evolution charts: Vampire Survivors at `/`, and Warhammer Survivors at `/warhammersurvivors` (redirects to 40K), with charts at `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar`. Only the Warhammer Survivors pages show the secondary navigation. The previous chart addresses redirect to the nested routes through Vercel permanent redirects. Zola renders every page to HTML at build time, and two small TypeScript modules add the interactivity. No framework runs in the browser and there is no server.
 
 Build pipeline (`scripts/build.ts`):
 
@@ -72,7 +72,7 @@ Icons are CSS background-image classes with base64-encoded lossless WebP data UR
 
 ### State Management
 
-`client/store.ts` persists preferences in localStorage, in the same `{state, version}` shape the previous zustand store used: VS under `app-store`, the other charts under `chart-<key>`. When a new VS DLC ships, bump `STORE_VERSION` and add a migration that switches it on for returning visitors (migrations only run on `app-store`).
+`client/store.ts` persists chart filters in localStorage, in the same `{state, version}` shape the previous zustand store used: VS under `app-store`, the other charts under `chart-<key>`. `client/settings.ts` stores all four Settings options under `chart-settings`, validates saved values with Zod, and migrates preferences from the first chart visited. Settings apply across charts and synchronize between open tabs through storage events. When a new VS DLC ships, bump `STORE_VERSION` and add a migration that switches it on for returning visitors (migrations only run on `app-store`).
 
 ### Analytics and deployment
 

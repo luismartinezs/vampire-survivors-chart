@@ -1,6 +1,6 @@
 # Updating the Warhammer Survivors charts from a new game build
 
-The `/warhammer40k` and `/ageofsigmar` charts were built on 2026-10-14 from the
+The `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar` charts were built on 2026-10-14 from the
 **Steam demo** (Unity 6000.0.74f1, IL2CPP). The demo has 5 evolutions per
 universe plus Nuln Oil → Mordant Earth, which appears on both pages. The full
 game has many more. This guide gets a new build (full release, patch, or DLC)
@@ -22,7 +22,7 @@ git diff --stat data/warhammer.json styles/warhammer/items.css
 ./node_modules/.bin/tsx scripts/build.ts --dev && ./node_modules/.bin/tsx scripts/preview.ts
 ```
 
-Then open `/warhammer40k` and `/ageofsigmar` and compare them with the in-game
+Then open `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar` and compare them with the in-game
 collection screens (see "Verify against the game" below).
 
 Needs `uv` and `cwebp` (`sudo apt install webp`). UnityPy is pinned and pulled
@@ -132,6 +132,6 @@ Bolter, ...), so expect most new items' icons to be there already.
 
 ## After shipping
 
-- Change the page note in `site/content/warhammer40k.md` and `ageofsigmar.md` from "the Warhammer Survivors demo's game files" to the full game
+- Change the page note in `site/content/warhammersurvivors/40k.md` and `site/content/warhammersurvivors/ageofsigmar.md` from "the Warhammer Survivors demo's game files" to the full game
 - Update `lib/charts.test.ts` if the sample recipes it checks change
 - Update the memory note `warhammer-survivors-charts` (demo vs full game)

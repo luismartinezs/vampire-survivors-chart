@@ -4,6 +4,19 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/warhammersurvivors",
+      "destination": "/warhammersurvivors/40k",
+      "permanent": false
+    },
+    { "source": "/warhammer40k", "destination": "/warhammersurvivors/40k", "permanent": true },
+    {
+      "source": "/ageofsigmar",
+      "destination": "/warhammersurvivors/ageofsigmar",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
