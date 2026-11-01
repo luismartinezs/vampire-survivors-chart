@@ -101,7 +101,7 @@ const baseWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
     image: "icon-sword",
   },
   flames_of_muspell: {
-    name: "Flames of Muspell",
+    name: "Flames of Misspell",
     image: "icon-flame",
   },
   pako_battiliar: {
@@ -277,7 +277,7 @@ const ogWeapons: Record<string, Omit<TItem, "type" | "dlc">> = {
     image: "icon-sonic",
   },
   homingMissile: {
-    name: "Homing Missile",
+    name: "Homing Miss",
     image: "icon-homingmiss",
   },
   diverMines: {
@@ -1284,7 +1284,7 @@ const _evolvedWeapons: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
       image: "icon-Arch_Angle",
     },
     wickedRune: {
-      name: "Wicked Rune",
+      name: "Wicked Ruler",
       image: "icon-Wicked_Rune",
     },
     negativeSpace: {

@@ -416,7 +416,7 @@ export const passiveWikiPaths: Record<string, string> = {
   Spellbinder: "Spellbinder",
   Spinach: "Spinach",
   "Stone Mask": "Stone_Mask",
-  Tiragisú: "Tirajisú",
+  Tirajisú: "Tirajisú",
   "Torrona's Box": "Torrona's_Box",
   "Weapon Power-Up": "Weapon_Power-Up",
   Wings: "Wings",

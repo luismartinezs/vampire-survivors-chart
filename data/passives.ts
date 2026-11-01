@@ -76,7 +76,7 @@ const _passives: Record<string, Omit<TItem, "type">> = ensureWikiPaths(
       dlc: base,
     },
     tiragisu: {
-      name: "Tiragisú",
+      name: "Tirajisú",
       image: "icon-revival",
       dlc: base,
     },
