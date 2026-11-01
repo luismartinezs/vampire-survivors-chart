@@ -189,30 +189,30 @@
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
 
-  /* Warhammer card palettes (lib/dlc.ts): Imperial gold, Sigmarite teal. */
-  --color-w40k-50: #fdf9ec;
-  --color-w40k-100: #f9efcc;
-  --color-w40k-200: #f2dc96;
-  --color-w40k-300: #e9c55c;
-  --color-w40k-400: #dfae36;
-  --color-w40k-500: #c8921f;
-  --color-w40k-600: #a77218;
-  --color-w40k-700: #855517;
-  --color-w40k-800: #6d4419;
-  --color-w40k-900: #5b3819;
-  --color-w40k-950: #341d0a;
+  /* Warhammer card palettes: 40K selection green and Age of Sigmar gold. */
+  --color-w40k-50: #f2f6ec;
+  --color-w40k-100: #e2edd3;
+  --color-w40k-200: #cbdcb4;
+  --color-w40k-300: #b0ce8d;
+  --color-w40k-400: #9dcc80;
+  --color-w40k-500: #78995c;
+  --color-w40k-600: #5d7847;
+  --color-w40k-700: #465d35;
+  --color-w40k-800: #334529;
+  --color-w40k-900: #24331c;
+  --color-w40k-950: #111b0d;
 
-  --color-aos-50: #effcfa;
-  --color-aos-100: #c8f5ef;
-  --color-aos-200: #93eadf;
-  --color-aos-300: #57d8cb;
-  --color-aos-400: #2bbdb1;
-  --color-aos-500: #1ea197;
-  --color-aos-600: #16827b;
-  --color-aos-700: #166763;
-  --color-aos-800: #165351;
-  --color-aos-900: #164544;
-  --color-aos-950: #062829;
+  --color-aos-50: #fff8e6;
+  --color-aos-100: #f9edcc;
+  --color-aos-200: #f0dca4;
+  --color-aos-300: #e5c878;
+  --color-aos-400: #d8b45e;
+  --color-aos-500: #ad8c43;
+  --color-aos-600: #896d33;
+  --color-aos-700: #695226;
+  --color-aos-800: #4c3c1d;
+  --color-aos-900: #352a16;
+  --color-aos-950: #1b150a;
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
@@ -266,35 +266,35 @@
   repaint the primary palette every template uses: 800-950 are backgrounds,
   500-700 panel borders and fills, 100-400 accent text, outlines, and the title.
 */
-/* Warhammer 40,000: navy, gold accents, silver borders. */
+/* Warhammer 40,000: charcoal panels, steel borders, green selections. */
 :root[data-theme="w40k"] {
-  --color-primary-50: #fbf6e6;
-  --color-primary-100: #f5e8c4;
-  --color-primary-200: #ecd590;
-  --color-primary-300: #e2c262;
-  --color-primary-400: #d4ac3c;
-  --color-primary-500: #9aa5b8;
-  --color-primary-600: #5f6e88;
-  --color-primary-700: #2a3a5c;
-  --color-primary-800: #121d36;
-  --color-primary-900: #0b1326;
-  --color-primary-950: #050a16;
-  --color-base-600: #2a3a5c;
+  --color-primary-50: #f2f3e9;
+  --color-primary-100: #e0e6d8;
+  --color-primary-200: #cbdcb4;
+  --color-primary-300: #b0ce8d;
+  --color-primary-400: #9dcc80;
+  --color-primary-500: #89958c;
+  --color-primary-600: #657269;
+  --color-primary-700: #3b443f;
+  --color-primary-800: #1b201e;
+  --color-primary-900: #111613;
+  --color-primary-950: #080c09;
+  --color-base-600: #3b443f;
 }
-/* Age of Sigmar: oxblood, gold accents, teal borders. */
+/* Age of Sigmar: dark navy panels, gold borders, parchment-colored text. */
 :root[data-theme="aos"] {
-  --color-primary-50: #fcf6e4;
-  --color-primary-100: #f6e7be;
-  --color-primary-200: #eed38a;
-  --color-primary-300: #e4bd58;
-  --color-primary-400: #d6a432;
-  --color-primary-500: #2e9c92;
-  --color-primary-600: #1f746d;
-  --color-primary-700: #5a1d24;
-  --color-primary-800: #2e0d12;
-  --color-primary-900: #1f080c;
-  --color-primary-950: #0e0305;
-  --color-base-600: #5a1d24;
+  --color-primary-50: #fff8e6;
+  --color-primary-100: #f9edcc;
+  --color-primary-200: #f0dca4;
+  --color-primary-300: #e5c878;
+  --color-primary-400: #d8b45e;
+  --color-primary-500: #ac955e;
+  --color-primary-600: #806b40;
+  --color-primary-700: #354051;
+  --color-primary-800: #151e2a;
+  --color-primary-900: #0d1420;
+  --color-primary-950: #060b12;
+  --color-base-600: #354051;
 }
 
 /* The mobile menu covers the page; keep the page behind it from scrolling. */
