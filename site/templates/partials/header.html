@@ -7,6 +7,10 @@
   {"href": "/warhammersurvivors", "label": "Warhammer Survivors"},
   {"href": "/stats", "label": "Filter Stats"},
 ] -%}
+{%- set warhammer_links = [
+  {"href": "/warhammersurvivors/40k", "label": "Warhammer 40,000", "short": "40K", "logo": "/logos/w40k.webp"},
+  {"href": "/warhammersurvivors/ageofsigmar", "label": "Age of Sigmar", "short": "Age of Sigmar", "logo": "/logos/aos.webp"},
+] -%}
 {%- set here = current_path | replace(from="/", to="") if current_path is defined else "~" -%}
 
 {#- Warhammer emblems are white silhouettes, painted in the theme's title gradient through a mask. -#}
@@ -43,7 +47,27 @@
         {%- for link in nav_links %}
         {%- set exact = here == link.href | replace(from="/", to="") %}
         {%- set current = exact or (is_warhammer and link.href == "/warhammersurvivors") %}
-        <li><a href="{{ link.href }}" {% if current %}aria-current="{{ 'page' if exact else 'location' }}" class="block rounded-md px-3 py-2 text-sm font-semibold bg-primary-400/15 text-primary-200"{% else %}class="block rounded-md px-3 py-2 text-sm text-white/70 hover:bg-primary-400/10 hover:text-white transition-colors"{% endif %}>{{ link.label }}</a></li>
+        <li class="group/nav relative">
+          <a href="{{ link.href }}" class="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-primary-200 {% if current %}font-semibold bg-primary-400/15 text-primary-200{% else %}text-white/70 hover:bg-primary-400/10 hover:text-white{% endif %}" {% if current %}aria-current="{{ 'page' if exact else 'location' }}"{% endif %}>
+            {{ link.label }}
+            {% if link.href == "/warhammersurvivors" %}{{ <icon name="chevron-down" cls="size-3" /> }}{% endif %}
+          </a>
+          {% if link.href == "/warhammersurvivors" %}
+          {# Padding bridges the visual gap so the pointer can reach either link. #}
+          <div class="invisible absolute right-0 top-full z-50 w-72 pt-2 group-hover/nav:visible group-focus-within/nav:visible">
+            <ul aria-label="Warhammer Survivors charts" class="rounded-lg border border-primary-500/60 bg-primary-900 p-2 shadow-xl shadow-primary-950/70">
+              {% for child in warhammer_links %}
+              <li>
+                <a href="{{ child.href }}" {% if here == child.href | replace(from="/", to="") %}aria-current="page"{% endif %} class="flex items-center gap-3 rounded-md px-3 py-3 text-sm text-white/80 hover:bg-primary-400/10 hover:text-primary-200 focus-visible:bg-primary-400/10 focus-visible:text-primary-200 focus-visible:outline-2 focus-visible:outline-primary-200 transition-colors">
+                  <span aria-hidden="true" class="h-8 w-11 shrink-0 bg-primary-300" style="mask:url({{ child.logo }}) center/contain no-repeat;-webkit-mask:url({{ child.logo }}) center/contain no-repeat"></span>
+                  {{ child.label }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </li>
         {%- endfor %}
       </ul>
     </nav>
@@ -68,7 +92,16 @@
         {%- for link in nav_links %}
         {%- set exact = here == link.href | replace(from="/", to="") %}
         {%- set current = exact or (is_warhammer and link.href == "/warhammersurvivors") %}
-        <li class="border-b border-primary-500/20"><a href="{{ link.href }}" {% if current %}aria-current="{{ 'page' if exact else 'location' }}" class="flex items-center justify-between px-2 py-4 text-xl font-semibold text-primary-200"{% else %}class="flex items-center justify-between px-2 py-4 text-xl text-white/80 hover:text-white transition-colors"{% endif %}>{{ link.label }}{% if current %}<span class="size-2 rounded-full bg-primary-400" aria-hidden="true"></span>{% endif %}</a></li>
+        <li class="border-b border-primary-500/20">
+          <a href="{{ link.href }}" {% if current %}aria-current="{{ 'page' if exact else 'location' }}" class="flex items-center justify-between px-2 py-4 text-xl font-semibold text-primary-200"{% else %}class="flex items-center justify-between px-2 py-4 text-xl text-white/80 hover:text-white transition-colors"{% endif %}>{{ link.label }}{% if current %}<span class="size-2 rounded-full bg-primary-400" aria-hidden="true"></span>{% endif %}</a>
+          {% if link.href == "/warhammersurvivors" %}
+          <ul aria-label="Warhammer Survivors charts" class="pb-3 pl-4">
+            {% for child in warhammer_links %}
+            <li><a href="{{ child.href }}" {% if here == child.href | replace(from="/", to="") %}aria-current="page"{% endif %} class="block rounded-md px-2 py-3 text-base text-white/70 hover:bg-primary-400/10 hover:text-white focus-visible:outline-2 focus-visible:outline-primary-200">{{ child.label }}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
         {%- endfor %}
       </ul>
     </nav>

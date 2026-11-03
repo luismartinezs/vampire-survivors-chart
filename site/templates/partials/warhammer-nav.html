@@ -1,9 +1,6 @@
 <nav aria-label="Warhammer Survivors" class="border-b border-primary-500/40 bg-primary-900/30">
   <ul class="container mx-auto flex items-stretch gap-1 px-2 sm:px-4 sm:gap-4">
-    {%- for link in [
-      {"href": "/warhammersurvivors/40k", "label": "Warhammer 40,000", "short": "40K"},
-      {"href": "/warhammersurvivors/ageofsigmar", "label": "Age of Sigmar", "short": "Age of Sigmar"},
-    ] %}
+    {%- for link in warhammer_links %}
     {%- set current = extra.path == link.href %}
     <li class="flex">
       <a href="{{ link.href }}" {% if current %}aria-current="page"{% endif %} class="flex items-center min-h-8 border-b-2 px-3 py-1 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary-200 {% if current %}border-primary-300 text-primary-200 font-bold{% else %}border-transparent text-white/70 hover:text-white hover:border-primary-500{% endif %}">
