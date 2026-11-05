@@ -22,7 +22,10 @@
 {#- An item sprite, optionally with max badges, sized like the React ResponsiveItem. -#}
 {% component item_icon(icon: string, name: string, tops: array = [], cls: string = "size-[1.4rem] sm:size-7") -%}
 {%- for top in tops -%}<span class="absolute z-10 right-0" style="top:{{ top }}px">{{ <gold_circle cls="size-2 sm:size-2.5" /> }}</span>{%- endfor -%}
-<span class="ico block {{ cls }} {{ icon }}" role="img" aria-label="{{ name }}"></span>
+{#- The name is real (visually hidden) text rather than an aria-label: screen
+    readers announce it the same, and crawlers and AI answer engines, which
+    drop aria-label when they turn a page into text, can read the recipes. -#}
+<span class="ico block {{ cls }} {{ icon }}" aria-hidden="true"></span><span class="sr-only">{{ name }}{% if tops | length > 0 %} (max level){% endif %}</span>
 {%- endcomponent item_icon %}
 
 {#- Settings checkbox, bound to a store field by client/chart.ts via data-setting. -#}

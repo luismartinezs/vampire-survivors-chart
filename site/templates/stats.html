@@ -1,10 +1,5 @@
 {% extends "base.html" %}
 
-{% block title %}Filter Stats | Vampire Survivors Evolution Chart{% endblock title %}
-{% block description %}See which Vampire Survivors DLCs, weapons, and passives players filter for the most. Live usage stats from the evolution chart, updated daily.{% endblock description %}
-{% block canonical %}{{ config.base_url }}/stats{% endblock canonical %}
-{% block og_title %}Filter Stats | Vampire Survivors Evolution Chart{% endblock og_title %}
-{% block og_description %}See which Vampire Survivors DLCs, weapons, and passives players filter for the most.{% endblock og_description %}
 {% block preload %}<link rel="preload" href="/fonts/pixelify-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>{% endblock preload %}
 {% block head_scripts %}<script type="module" src="/assets/{{ site_build.js.stats }}"></script>{% endblock head_scripts %}
 

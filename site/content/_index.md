@@ -6,5 +6,6 @@ template = "chart.html"
 [extra]
 chart = "vs"
 path = ""
+lastmod = "vs"
 og_description = "Interactive cheatsheet for all weapon evolutions in Vampire Survivors. Find the best weapon combinations and upgrade paths."
 +++

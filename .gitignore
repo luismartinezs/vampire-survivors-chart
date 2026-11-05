@@ -18,6 +18,7 @@
 /site/data/
 /site/static/assets/
 /site/static/stats-snapshot.json
+/site/static/llms.txt
 /.tools/
 
 # misc

@@ -21,6 +21,9 @@ pnpm test       # Vitest (filter logic)
 # Warhammer Survivors: data/warhammer.json, styles/warhammer/items.css, site/static/logos/ from a Steam install (needs cwebp)
 uv run --no-project --with UnityPy==1.25.4 --with Pillow scripts/engineering/extract-warhammer.py "<game dir>"
 # Full walkthrough for a new game build (full release, DLC): context/engineering/guides/warhammer-survivors-update.md
+
+# Warhammer social preview images (site/static/og/*.png) from the built charts (needs google-chrome)
+python3 scripts/engineering/og-warhammer.py
 ```
 
 `pnpm <script>` can fail locally on pnpm's build-approval pre-check; run the binary directly instead, e.g. `./node_modules/.bin/tsx scripts/build.ts`.
@@ -36,6 +39,10 @@ Build pipeline (`scripts/build.ts`):
 3. `client/*.ts` → hashed ES modules (esbuild); fuse.js is a lazy chunk loaded on first search
 4. `styles/site.css` → Tailwind CSS inlined into every page; `styles/sprites.css` (VS) and `styles/sprites-warhammer.css` → icon stylesheets loaded without blocking first paint, one per page (`extra.sprites`)
 5. `zola build` (pinned binary via `scripts/ensure-zola.sh`) → `dist/`
+
+Also generated: `site/static/llms.txt` (every recipe as plain text, `lib/llms.ts`) and, in `build.json`, each chart's last data commit (`sources` in `lib/charts.ts`) for sitemap `lastmod` and JSON-LD `dateModified`. A post-build check parses every JSON-LD block.
+
+SEO without visible extras: item names are visually hidden text inside the icons (`item_icon` in `components.html`), so crawlers and AI answer engines read the recipes; page copy, canonical (`extra.path`), OG image and JSON-LD come from front matter via `base.html`.
 
 Generated files (`site/data/`, `site/static/assets/`, `dist/`, `.tools/`) are gitignored.
 

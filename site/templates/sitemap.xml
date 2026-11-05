@@ -1,23 +1,21 @@
+{#- lastmod is the last commit to each chart's data (build.json); omitted when
+    the build had no git history. changefreq and priority are ignored by Google. -#}
+{%- set site_build = load_data(path="data/build.json") -%}
+{%- set urls = [
+  {"path": "", "lastmod": "vs"},
+  {"path": "/warhammersurvivors/40k", "lastmod": "w40k"},
+  {"path": "/warhammersurvivors/ageofsigmar", "lastmod": "aos"},
+  {"path": "/stats", "lastmod": "stats"},
+] -%}
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for url in urls %}
   <url>
-    <loc>{{ config.base_url }}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1</priority>
+    <loc>{{ config.base_url }}{{ url.path }}</loc>
+    {%- set modified = site_build.lastmod[url.lastmod] %}
+    {%- if modified %}
+    <lastmod>{{ modified }}</lastmod>
+    {%- endif %}
   </url>
-  <url>
-    <loc>{{ config.base_url }}/warhammersurvivors/40k</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>{{ config.base_url }}/warhammersurvivors/ageofsigmar</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>{{ config.base_url }}/stats</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
+{%- endfor %}
 </urlset>

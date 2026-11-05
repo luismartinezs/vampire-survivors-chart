@@ -10,6 +10,9 @@
  *      styles/sprites-warhammer.css -> the Warhammer charts' icons, same treatment
  *   5. zola build          -> dist/
  *
+ * Also site/static/llms.txt (every recipe as plain text, lib/llms.ts) and, in
+ * build.json, each chart's last data change for the sitemap and JSON-LD.
+ *
  * Usage: tsx scripts/build.ts [--dev]
  *   --dev  unminified JS with sourcemaps, for local iteration.
  *
@@ -19,11 +22,12 @@
 
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import * as esbuild from "esbuild";
 import { buildChartView } from "@/lib/chart-view";
 import { CHARTS } from "@/lib/charts";
+import { buildLlmsTxt } from "@/lib/llms";
 import { fetchRawStats, parseRawStats, shapeStats, type TStatsResponse } from "@/lib/stats";
 import { buildStatsView } from "@/lib/stats-view";
 
@@ -57,6 +61,26 @@ function log(step: string, detail = "") {
 const SITE_URL = process.env.SITE_URL ?? "https://www.vsevochart.com";
 /** Raw stats published with every deploy, the fallback when the tracker fails. */
 const STATS_SNAPSHOT = "stats-snapshot.json";
+const LLMS_TXT = "llms.txt";
+/** Warhammer Survivors launch; the footer promo switches from "Coming" to "Out now". */
+const WS_RELEASE = new Date("2026-11-10T00:00:00Z");
+
+/**
+ * Date (YYYY-MM-DD) of the last commit touching any of `files`, or null when
+ * git history isn't available (the sitemap then omits lastmod rather than guess).
+ */
+function lastCommitDate(files: string[]): string | null {
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", ...files], {
+      cwd: ROOT,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    return /^\d{4}-\d{2}-\d{2}$/.test(out) ? out : null;
+  } catch {
+    return null;
+  }
+}
 
 async function withRetries<T>(attempts: number, fn: () => Promise<T | null>): Promise<T | null> {
   for (let i = 0; i < attempts; i++) {
@@ -103,6 +127,8 @@ async function buildData(trackUrl: string) {
     writeJson(`chart-${chart.key}.json`, view.page);
     writeJson(`chart-client-${chart.key}.json`, view.client);
   }
+
+  writeFileSync(path.join(SITE, "static", LLMS_TXT), buildLlmsTxt(CHARTS, SITE_URL));
 
   const raw = await loadStats(trackUrl);
   const stats = raw ? shapeStats(raw.totals) : null;
@@ -166,6 +192,27 @@ function buildCss(entry: string, name: string) {
   return file;
 }
 
+/**
+ * Parse every JSON-LD block in the built pages. base.html interpolates page
+ * copy into JSON by hand (Tera v2 has no encoder). Autoescaping covers quotes,
+ * but a newline or backslash in the copy fails the build here instead of
+ * shipping structured data Google rejects.
+ */
+function checkJsonLd(dir = OUT_DIR) {
+  for (const entry of readdirSync(dir, { withFileTypes: true, recursive: true })) {
+    if (!entry.isFile() || !entry.name.endsWith(".html")) continue;
+    const file = path.join(entry.parentPath, entry.name);
+    const html = readFileSync(file, "utf8");
+    for (const [, json] of html.matchAll(/<script type="?application\/ld\+json"?>(.*?)<\/script>/gs)) {
+      try {
+        JSON.parse(json);
+      } catch (err) {
+        throw new Error(`${path.relative(ROOT, file)}: invalid JSON-LD (${err})`);
+      }
+    }
+  }
+}
+
 function runZola() {
   const zola = execFileSync(path.join(ROOT, "scripts/ensure-zola.sh"), { encoding: "utf8" }).trim();
   execFileSync(zola, ["--root", SITE, "build", "--output-dir", OUT_DIR, "--force"], {
@@ -183,6 +230,7 @@ async function main() {
   rmSync(DATA_DIR, { recursive: true, force: true });
   rmSync(ASSETS_DIR, { recursive: true, force: true });
   rmSync(path.join(SITE, "static", STATS_SNAPSHOT), { force: true });
+  rmSync(path.join(SITE, "static", LLMS_TXT), { force: true });
   mkdirSync(DATA_DIR, { recursive: true });
   mkdirSync(ASSETS_DIR, { recursive: true });
 
@@ -196,15 +244,23 @@ async function main() {
     warhammer: buildCss("sprites-warhammer.css", "sprites-warhammer"),
   };
 
+  const now = new Date();
   writeJson("build.json", {
     css,
     sprites,
     js,
-    year: new Date().getFullYear(),
+    year: now.getFullYear(),
+    // Keyed by chart key, plus "stats" (rebuilt with fresh numbers every deploy).
+    lastmod: {
+      ...Object.fromEntries(CHARTS.map((c) => [c.key, lastCommitDate(c.sources)])),
+      stats: now.toISOString().slice(0, 10),
+    },
+    wsReleased: now >= WS_RELEASE,
     analytics: !dev && (process.env.VERCEL_ENV === "production" || process.env.ANALYTICS === "1"),
   });
 
   runZola();
+  checkJsonLd();
   log("done", path.relative(ROOT, OUT_DIR));
 }
 

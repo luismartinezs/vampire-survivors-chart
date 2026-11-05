@@ -6,17 +6,24 @@
 {%- set app_name = extra.heading if extra.heading is defined else "Vampire Survivors Evolution Chart" -%}
 {%- set sprites = site_build.sprites[extra.sprites if extra.sprites is defined else "vs"] -%}
 {%- set kofi_icons = extra.kofi_icons if extra.kofi_icons is defined else ["icon-garlic", "icon-recovery"] -%}
+{#- Pages set their address in `extra.path` ("" for the homepage). The 404 page
+    has none, so it gets no canonical, og:url or structured data. -#}
+{%- set canonical = config.base_url ~ extra.path if extra.path is defined else "" -%}
+{%- set og_image = config.base_url ~ (extra.og_image if extra.og_image is defined else "/og-image.png") -%}
+{%- set game = "Warhammer Survivors" if extra.game is defined and extra.game == "warhammersurvivors" else "Vampire Survivors" -%}
+{%- set modified = site_build.lastmod[extra.lastmod] if extra.lastmod is defined else "" -%}
 <!DOCTYPE html>
 <html lang="en" class="antialiased"{% if extra.theme is defined %} data-theme="{{ extra.theme }}"{% endif %}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}{% endblock title %}</title>
-<meta name="description" content="{% block description %}{% endblock description %}">
-<link rel="canonical" href="{% block canonical %}{% endblock canonical %}">
+<title>{% block title %}{{ meta.title }}{% endblock title %}</title>
+<meta name="description" content="{% block description %}{{ meta.description }}{% endblock description %}">
+{%- if canonical %}
+<link rel="canonical" href="{{ canonical }}">
+{%- endif %}
 <meta name="theme-color" content="{{ extra.theme_color if extra.theme_color is defined else '#1a1a1a' }}">
 <meta name="author" content="AppForgeLabs">
-<meta name="keywords" content="{{ extra.keywords if extra.keywords is defined else 'Vampire Survivors, weapon evolution, game guide, evolution chart, weapon combinations' }}">
 <link rel="preload" href="/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/roboto-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 {% block preload %}{% endblock preload %}
@@ -32,20 +39,31 @@
 <meta name="apple-mobile-web-app-title" content="{{ app_name }}">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{% block og_title %}{% endblock og_title %}">
-<meta property="og:description" content="{% block og_description %}{% endblock og_description %}">
-<meta property="og:image" content="{{ config.base_url }}/og-image.png">
+<meta property="og:site_name" content="Vampire Survivors Evolution Chart">
+{%- if canonical %}
+<meta property="og:url" content="{{ canonical }}">
+{%- endif %}
+<meta property="og:title" content="{% block og_title %}{{ meta.title }}{% endblock og_title %}">
+<meta property="og:description" content="{% block og_description %}{{ extra.og_description }}{% endblock og_description %}">
+<meta property="og:image" content="{{ og_image }}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{{ app_name }} Preview">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ app_name }}">
 <meta name="twitter:description" content="{{ extra.twitter_description if extra.twitter_description is defined else 'Interactive cheatsheet for all weapon evolutions in Vampire Survivors' }}">
-<meta name="twitter:image" content="{{ config.base_url }}/og-image.png">
+<meta name="twitter:image" content="{{ og_image }}">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/favicon-96x96.png" sizes="96x96" type="image/png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+{%- if canonical %}
+{#- Structured data. Tera v2 has no JSON encoder: the copy is interpolated
+    with HTML autoescaping (quotes become &quot;, still valid JSON), and
+    scripts/build.ts parses every block after the build, so a newline or
+    backslash in the copy fails the build instead of shipping broken JSON. -#}
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"{{ config.base_url }}/#website","url":"{{ config.base_url }}/","name":"Vampire Survivors Evolution Chart","alternateName":"VS Evo Chart","inLanguage":"en","publisher":{"@type":"Organization","name":"AppForgeLabs","url":"https://appforgelabs.com"}},{"@type":"WebPage","@id":"{{ canonical }}#webpage","url":"{{ canonical }}","name":"{{ meta.title }}","description":"{{ meta.description }}","inLanguage":"en","isPartOf":{"@id":"{{ config.base_url }}/#website"},"about":{"@type":"VideoGame","name":"{{ game }}"},"primaryImageOfPage":{"@type":"ImageObject","url":"{{ og_image }}"}{% if modified %},"dateModified":"{{ modified }}"{% endif %}{% if extra.path %},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Vampire Survivors Evolution Chart","item":"{{ config.base_url }}/"},{"@type":"ListItem","position":2,"name":"{{ extra.crumb if extra.crumb is defined else app_name }}","item":"{{ canonical }}"}]}{% endif %}}]}</script>
+{%- endif %}
 {% block head_scripts %}{% endblock head_scripts %}
 </head>
 <body class="min-h-screen flex flex-col bg-primary-800 text-white font-sans">

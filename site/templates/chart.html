@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 
 {#- One evolution chart. The content file picks it with `extra.chart` (a key in
-    lib/charts.ts) and supplies the page copy: title, description,
-    extra.og_description, extra.path (canonical path, "" for the homepage). -#}
-
-{% block title %}{{ meta.title }}{% endblock title %}
-{% block description %}{{ meta.description }}{% endblock description %}
-{% block canonical %}{{ config.base_url }}{{ extra.path }}{% endblock canonical %}
-{% block og_title %}{{ meta.title }}{% endblock og_title %}
-{% block og_description %}{{ extra.og_description }}{% endblock og_description %}
+    lib/charts.ts) and supplies the page copy, which base.html renders: title,
+    description, extra.og_description, extra.path (canonical path, "" for the
+    homepage), extra.lastmod (the chart key in build.json's lastmod). -#}
 
 {% block head_scripts %}
 {%- set chart = load_data(path="data/chart-" ~ extra.chart ~ ".json") -%}

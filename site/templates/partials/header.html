@@ -1,17 +1,20 @@
 {#- Site header: the page's game logo and title, then the site links, as a list
     on large screens and a full-viewport popover menu (no JS) below lg. -#}
 {%- set is_warhammer = extra.game is defined and extra.game == "warhammersurvivors" -%}
-{%- set home = "/warhammersurvivors" if is_warhammer else (extra.path if extra.path is defined and extra.path else "/") -%}
+{#- Links point at real pages, not at the /warhammersurvivors redirect. -#}
+{%- set home = "/warhammersurvivors/40k" if is_warhammer else "/" -%}
 {%- set nav_links = [
-  {"href": "/", "label": "Vampire Survivors"},
-  {"href": "/warhammersurvivors", "label": "Warhammer Survivors"},
-  {"href": "/stats", "label": "Filter Stats"},
+  {"href": "/", "label": "Vampire Survivors", "warhammer": false},
+  {"href": "/warhammersurvivors/40k", "label": "Warhammer Survivors", "warhammer": true},
+  {"href": "/stats", "label": "Filter Stats", "warhammer": false},
 ] -%}
 {%- set warhammer_links = [
   {"href": "/warhammersurvivors/40k", "label": "Warhammer 40,000", "short": "40K", "logo": "/logos/w40k.webp"},
   {"href": "/warhammersurvivors/ageofsigmar", "label": "Age of Sigmar", "short": "Age of Sigmar", "logo": "/logos/aos.webp"},
 ] -%}
 {%- set here = current_path | replace(from="/", to="") if current_path is defined else "~" -%}
+{#- The site title is the page's h1 on the charts only; other pages have their own. -#}
+{%- set title_tag = "h1" if extra.chart is defined else "p" -%}
 
 {#- Warhammer emblems are white silhouettes, painted in the theme's title gradient through a mask. -#}
 {%- set logo -%}
@@ -36,7 +39,7 @@
       <a href="{{ home }}" aria-label="Home" class="shrink-0">{{ logo | safe }}</a>
       <div class="min-w-0">
         <a href="{{ home }}">
-          <h1 class="text-2xl md:text-3xl font-bold leading-tight bg-linear-to-r from-primary-200 to-primary-400 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tracking-wide">{{ app_name }}</h1>
+          <{{ title_tag }} class="text-2xl md:text-3xl font-bold leading-tight bg-linear-to-r from-primary-200 to-primary-400 bg-clip-text text-transparent drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] tracking-wide">{{ app_name }}</{{ title_tag }}>
         </a>
         <div class="mt-0.5">{{ kofi | safe }}</div>
       </div>
@@ -45,14 +48,14 @@
     <nav aria-label="Site" class="hidden lg:block shrink-0">
       <ul class="flex items-center gap-1">
         {%- for link in nav_links %}
-        {%- set exact = here == link.href | replace(from="/", to="") %}
-        {%- set current = exact or (is_warhammer and link.href == "/warhammersurvivors") %}
+        {%- set exact = (not link.warhammer) and here == link.href | replace(from="/", to="") %}
+        {%- set current = exact or (is_warhammer and link.warhammer) %}
         <li class="group/nav relative">
           <a href="{{ link.href }}" class="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-primary-200 {% if current %}font-semibold bg-primary-400/15 text-primary-200{% else %}text-white/70 hover:bg-primary-400/10 hover:text-white{% endif %}" {% if current %}aria-current="{{ 'page' if exact else 'location' }}"{% endif %}>
             {{ link.label }}
-            {% if link.href == "/warhammersurvivors" %}{{ <icon name="chevron-down" cls="size-3" /> }}{% endif %}
+            {% if link.warhammer %}{{ <icon name="chevron-down" cls="size-3" /> }}{% endif %}
           </a>
-          {% if link.href == "/warhammersurvivors" %}
+          {% if link.warhammer %}
           {# Padding bridges the visual gap so the pointer can reach either link. #}
           <div class="invisible absolute right-0 top-full z-50 w-72 pt-2 group-hover/nav:visible group-focus-within/nav:visible">
             <ul aria-label="Warhammer Survivors charts" class="rounded-lg border border-primary-500/60 bg-primary-900 p-2 shadow-xl shadow-primary-950/70">
@@ -90,11 +93,11 @@
     <nav aria-label="Site" class="px-2 sm:px-4 py-4">
       <ul class="flex flex-col">
         {%- for link in nav_links %}
-        {%- set exact = here == link.href | replace(from="/", to="") %}
-        {%- set current = exact or (is_warhammer and link.href == "/warhammersurvivors") %}
+        {%- set exact = (not link.warhammer) and here == link.href | replace(from="/", to="") %}
+        {%- set current = exact or (is_warhammer and link.warhammer) %}
         <li class="border-b border-primary-500/20">
           <a href="{{ link.href }}" {% if current %}aria-current="{{ 'page' if exact else 'location' }}" class="flex items-center justify-between px-2 py-4 text-xl font-semibold text-primary-200"{% else %}class="flex items-center justify-between px-2 py-4 text-xl text-white/80 hover:text-white transition-colors"{% endif %}>{{ link.label }}{% if current %}<span class="size-2 rounded-full bg-primary-400" aria-hidden="true"></span>{% endif %}</a>
-          {% if link.href == "/warhammersurvivors" %}
+          {% if link.warhammer %}
           <ul aria-label="Warhammer Survivors charts" class="pb-3 pl-4">
             {% for child in warhammer_links %}
             <li><a href="{{ child.href }}" {% if here == child.href | replace(from="/", to="") %}aria-current="page"{% endif %} class="block rounded-md px-2 py-3 text-base text-white/70 hover:bg-primary-400/10 hover:text-white focus-visible:outline-2 focus-visible:outline-primary-200">{{ child.label }}</a></li>

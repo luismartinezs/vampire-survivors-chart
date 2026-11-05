@@ -134,4 +134,5 @@ Bolter, ...), so expect most new items' icons to be there already.
 
 - Change the page note in `site/content/warhammersurvivors/40k.md` and `site/content/warhammersurvivors/ageofsigmar.md` from "the Warhammer Survivors demo's game files" to the full game
 - Update `lib/charts.test.ts` if the sample recipes it checks change
+- Regenerate the social preview images (`site/static/og/*.png`) from the new charts: `python3 scripts/engineering/og-warhammer.py` after a build
 - Update the memory note `warhammer-survivors-charts` (demo vs full game)
