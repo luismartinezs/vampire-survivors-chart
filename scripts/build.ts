@@ -62,8 +62,6 @@ const SITE_URL = process.env.SITE_URL ?? "https://www.vsevochart.com";
 /** Raw stats published with every deploy, the fallback when the tracker fails. */
 const STATS_SNAPSHOT = "stats-snapshot.json";
 const LLMS_TXT = "llms.txt";
-/** Warhammer Survivors launch; the footer promo switches from "Coming" to "Out now". */
-const WS_RELEASE = new Date("2026-11-10T00:00:00Z");
 
 /**
  * Date (YYYY-MM-DD) of the last commit touching any of `files`, or null when
@@ -255,7 +253,6 @@ async function main() {
       ...Object.fromEntries(CHARTS.map((c) => [c.key, lastCommitDate(c.sources)])),
       stats: now.toISOString().slice(0, 10),
     },
-    wsReleased: now >= WS_RELEASE,
     analytics: !dev && (process.env.VERCEL_ENV === "production" || process.env.ANALYTICS === "1"),
   });
 

@@ -103,12 +103,12 @@
   {%- if extra.note is defined %}
   <p class="text-xs text-white/80 p-2 mt-4">{{ extra.note }}</p>
   {%- endif %}
-  {%- if chart.legend %}
-  <div class="flex flex-col gap-2 lg:flex-row lg:gap-4 text-xs text-white/80 rounded p-2 flex-wrap mt-4">
+  <div id="legend" class="flex flex-col gap-2 lg:flex-row lg:gap-4 text-xs text-white/80 rounded p-2 flex-wrap mt-4">
     <div class="flex items-center gap-1">
       {{ <gold_circle cls="size-2.5" /> }}
       <span>=&nbsp;Max level passive</span>
     </div>
+    {%- if chart.legend %}
     <div class="flex items-center gap-1">
       <span class="ico block size-[1.4rem] {{ chart.legend.alucardShield }}" role="img" aria-label="Alucard Shield"></span>
       <span>=&nbsp;Requires 6+ weapon evolutions</span>
@@ -126,8 +126,8 @@
       <span class="ico block size-[1.4rem] {{ chart.legend.penshinFatcha }}" role="img" aria-label="Penshin Fatcha"></span>
       <span>6+ times.</span>
     </div>
+    {%- endif %}
   </div>
-  {%- endif %}
 
   {#- Recipe drawer: wiki links + filter checkboxes for the clicked recipe -#}
   <div id="drawer" hidden class="pointer-events-none fixed inset-x-0 bottom-0 z-30 flex justify-center px-0 sm:bottom-4 sm:px-4">

@@ -29,7 +29,7 @@ PAGES = {"w40k": "warhammersurvivors/40k", "aos": "warhammersurvivors/ageofsigma
 
 CSS = (
     "<style>.fixed,footer,#chart .sticky,[data-collapsible],header nav,header button,"
-    "header a[href*=ko-fi],#chart>div:first-child,body>nav{display:none!important}"
+    "header a[href*=ko-fi],#chart>div:first-child,body>nav,#legend{display:none!important}"
     "#chart{padding-top:1.25rem}"
     "#og-logo{display:block;margin:1.25rem auto 0;height:64px;"
     "filter:drop-shadow(0 2px 3px rgba(0,0,0,.7))}</style>"
