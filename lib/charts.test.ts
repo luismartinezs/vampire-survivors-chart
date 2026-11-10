@@ -57,6 +57,20 @@ describe("warhammer charts", () => {
     expect(resultsFor("aos", "Hourglass")).toEqual(["Mordant Earth"]);
   });
 
+  it("marks passives that must be at max level", () => {
+    const evo = chart("aos").evolutions.find((e) => {
+      const last = e.elements.at(-1)!;
+      return typeof last !== "string" && last.item.name === "Ghal Maraz";
+    })!;
+    const pendant = evo.elements.find((el) => typeof el !== "string" && el.item.name === "Null Pendant");
+    expect(pendant).toMatchObject({ tags: ["max"] });
+  });
+
+  it("chains evolutions of evolved weapons", () => {
+    expect(resultsFor("aos", "Tactical Rock")).toEqual(["Uskavar the Sunderer"]);
+    expect(resultsFor("aos", "Null Pendant")).toEqual(["Ghal Maraz"]);
+  });
+
   it("treats each universe as its own game", () => {
     for (const key of ["w40k", "aos"]) {
       const c = chart(key);

@@ -10,7 +10,8 @@ Run after a build, whenever the Warhammer recipes change:
 
 Each page is copied to a temp dir with its controls hidden (search, filters,
 nav, footer, floating buttons) and the game logo added under the cards, then
-captured at 640x336 CSS px scaled 1.875x. Needs google-chrome on PATH;\ncompressed with pngquant when installed.
+captured at 960x504 CSS px scaled 1.25x (wide enough for every card of the full
+game). Needs google-chrome on PATH; compressed with pngquant when installed.
 """
 
 import functools
@@ -76,8 +77,8 @@ def main() -> None:
                         "--headless=new",
                         "--disable-gpu",
                         "--hide-scrollbars",
-                        "--window-size=640,336",
-                        "--force-device-scale-factor=1.875",
+                        "--window-size=960,504",
+                        "--force-device-scale-factor=1.25",
                         "--virtual-time-budget=4000",
                         f"--screenshot={out}",
                         f"http://127.0.0.1:{port}/{page}/",

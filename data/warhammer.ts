@@ -38,7 +38,10 @@ function universe(key: TUniverse) {
       dlc: key,
       elements: [
         { item: item(evo.weapon) },
-        ...evo.passives.flatMap((p): TEvolutionElement[] => ["+", { item: item(p) }]),
+        ...evo.passives.flatMap((p): TEvolutionElement[] => [
+          "+",
+          evo.max.includes(p) ? { item: item(p), tags: ["max"] } : { item: item(p) },
+        ]),
         "=",
         { item: item(evo.result) },
       ],

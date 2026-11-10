@@ -18,7 +18,7 @@ Usage (UnityPy is not a project dependency, so let uv provide it):
 
   uv run --no-project --with UnityPy==1.25.4 --with Pillow \\
     scripts/engineering/extract-warhammer.py \\
-    "$HOME/.local/share/Steam/steamapps/common/Warhammer Survivors Demo"
+    "$HOME/.local/share/Steam/steamapps/common/Warhammer Survivors"
 
 Needs cwebp on PATH. Re-run it after a game update and rebuild; review the
 printed recipe list against the game before shipping.
@@ -52,10 +52,17 @@ LOGOS = {
 # Entries the game leaves unnamed (the name comes from elsewhere at runtime).
 NAME_OVERRIDES = {"WS_40K_ASTRA_MILITARUM_FRAG_GRENADE": "Frag Grenade"}
 
+# Evolutions whose condition is in game code (`hasUniqueRequirements`) rather
+# than in WEAPON_DATA: result -> ITEM_DATA items it needs. Long-Fusil comes with
+# the Fusil-Major morph, which the Amberbone relic unlocks (its ITEM_DATA
+# description: "Allows Juntar Bernskyn to morph into a Fusil-Major").
+UNIQUE_REQUIREMENTS = {"WS_AOS_LONG_FUSIL": ["WS_AOS_RELIC_AMBERBONE"]}
+
 
 def load_lenient_json(text: str):
-    """The game's JSON allows // comments and trailing commas."""
-    text = re.sub(r"^\s*//.*$", "", text, flags=re.M)
+    """The game's JSON allows // comments (whole-line and after a value) and trailing commas."""
+    # Drop strings' contents from the match so "//" inside a string survives.
+    text = re.sub(r'("(?:\\.|[^"\\])*")|//[^\n]*', lambda m: m.group(1) or "", text)
     text = re.sub(r",(\s*[}\]])", r"\1", text)
     return json.loads(text)
 
@@ -86,21 +93,28 @@ def main(game_dir: str) -> None:
         sys.exit(f"no */resources.assets under {game_dir}")
     env = UnityPy.load(str(assets))
 
-    weapon_data = None
+    tables: dict[str, dict] = {}
     sprites: dict[str, list] = {}
     for obj in env.objects:
-        if obj.type.name == "TextAsset" and obj.peek_name() == "WEAPON_DATA":
+        if obj.type.name == "TextAsset" and obj.peek_name() in ("WEAPON_DATA", "ITEM_DATA"):
             script = obj.read().m_Script
             if isinstance(script, bytes):
                 script = script.decode("utf-8-sig")
-            weapon_data = load_lenient_json(script.lstrip("﻿"))
+            tables[obj.peek_name()] = load_lenient_json(script.lstrip("﻿"))
         elif obj.type.name == "Sprite":
             sprites.setdefault(obj.peek_name(), []).append(obj)
-    if weapon_data is None:
+    if "WEAPON_DATA" not in tables:
         sys.exit("WEAPON_DATA not found")
 
     # Level 1 carries the item's identity; later levels are stat deltas.
-    entries = {gid: levels[0] for gid, levels in weapon_data.items()}
+    entries = {gid: levels[0] for gid, levels in tables["WEAPON_DATA"].items()}
+    # Pickups and relics (one entry each, not levelled). Only the ones named in
+    # UNIQUE_REQUIREMENTS are used; they show as passives so they can be filtered.
+    for gid in {g for needs in UNIQUE_REQUIREMENTS.values() for g in needs}:
+        entry = tables.get("ITEM_DATA", {}).get(gid)
+        if entry is None:
+            sys.exit(f"{gid} not found in ITEM_DATA")
+        entries[gid] = {**entry, "isPickup": True}
 
     evolutions = []
     used: list[str] = []
@@ -116,11 +130,19 @@ def main(game_dir: str) -> None:
         if result not in entries:
             print(f"skip {gid}: evolves into unknown {result}", file=sys.stderr)
             continue
-        requires = entries[result].get("requires") or e.get("evoSynergy") or []
+        r = entries[result]
+        # `requiresMax`: the passive must be at max level. Bladed Vortex spells it `Requires`.
+        maxed = r.get("requiresMax") or []
+        requires = (r.get("requires") or r.get("Requires") or []) + maxed
+        if not requires:
+            requires = UNIQUE_REQUIREMENTS.get(result) or e.get("evoSynergy") or []
+        if not requires and not r.get("hasUniqueRequirements"):
+            print(f"note {gid} -> {result}: no requirement in the data", file=sys.stderr)
         evolutions.append(
             {
                 "weapon": gid,
-                "passives": requires,
+                "passives": list(dict.fromkeys(requires)),
+                "max": [p for p in dict.fromkeys(requires) if p in maxed],
                 "result": result,
                 # Gift: the base weapon is a character's starting weapon.
                 "gift": bool(entries[result].get("isGiftEvo")),
@@ -138,7 +160,9 @@ def main(game_dir: str) -> None:
         items[gid] = {
             "name": NAME_OVERRIDES.get(gid) or e.get("name") or gid,
             "image": icon_class(gid),
-            "type": "passive" if e.get("frameName", "").startswith("Passive_") else "weapon",
+            "type": "passive"
+            if e.get("isPickup") or e.get("frameName", "").startswith("Passive_")
+            else "weapon",
             "evolved": bool(e.get("isEvolution")),
             "silos": silos,
         }
@@ -150,7 +174,10 @@ def main(game_dir: str) -> None:
         for gid in used:
             e = entries[gid]
             frame = e["frameName"].removesuffix(".png")
-            candidates = sprites.get(frame)
+            # The game matches frame names case-insensitively (W_BraceOfPistols -> W_BraceofPistols).
+            candidates = sprites.get(frame) or next(
+                (objs for n, objs in sprites.items() if n.lower() == frame.lower()), None
+            )
             if not candidates:
                 sys.exit(f"{gid}: sprite {frame} not found")
             sprite = pick_sprite(candidates, e.get("texture", ""))
@@ -172,7 +199,7 @@ def main(game_dir: str) -> None:
     for evo in evolutions:
         silos = "/".join(items[evo["weapon"]]["silos"])
         arrow = "=> (gift)" if evo["gift"] else "="
-        passives = " + ".join(name(p) for p in evo["passives"])
+        passives = " + ".join(name(p) + (" (max)" if p in evo["max"] else "") for p in evo["passives"])
         print(f"[{silos}] {name(evo['weapon'])} + {passives} {arrow} {name(evo['result'])}")
     print(
         f"wrote {DATA_OUT.relative_to(ROOT)}, {CSS_OUT.relative_to(ROOT)} ({len(css)} icons)"

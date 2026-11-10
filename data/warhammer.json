@@ -84,6 +84,90 @@
         "w40k"
       ]
     },
+    "WS_40K_SHIELD_OF_FAITH": {
+      "name": "Shield of Faith",
+      "image": "icon-ws-40k-shield-of-faith",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_TOUGHNESS": {
+      "name": "Bugman's Tankard",
+      "image": "icon-ws-toughness",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_EMPERORS_WRATH": {
+      "name": "Emperor's Wrath",
+      "image": "icon-ws-40k-emperors-wrath",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_FLAMER": {
+      "name": "Flamer",
+      "image": "icon-ws-40k-flamer",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_SAVES": {
+      "name": "Glue",
+      "image": "icon-ws-saves",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_HEAVY_FLAMER": {
+      "name": "Heavy Flamer",
+      "image": "icon-ws-40k-heavy-flamer",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_COMBAT_SHOTGUN": {
+      "name": "Combat Shotgun",
+      "image": "icon-ws-40k-combat-shotgun",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_AURA": {
+      "name": "Bar Magnet",
+      "image": "icon-ws-aura",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_EXECUTIONER_SHOTGUN": {
+      "name": "Executioner Shotgun",
+      "image": "icon-ws-40k-executioner-shotgun",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
     "WS_40K_WHIRLWIND_LAUNCHER": {
       "name": "Whirlwind Launcher",
       "image": "icon-ws-40k-whirlwind-launcher",
@@ -140,13 +224,13 @@
         "w40k"
       ]
     },
-    "WS_AOS_TEMPEST_AXES": {
-      "name": "Tempest Axes",
-      "image": "icon-ws-aos-tempest-axes",
+    "WS_40K_MECHANICAL_BITE": {
+      "name": "Mechanical Bite",
+      "image": "icon-ws-40k-mechanical-bite",
       "type": "weapon",
       "evolved": false,
       "silos": [
-        "aos"
+        "w40k"
       ]
     },
     "WS_MOVE": {
@@ -159,9 +243,313 @@
         "aos"
       ]
     },
+    "WS_40K_REMOTE_DETONATION": {
+      "name": "Remote Detonation",
+      "image": "icon-ws-40k-remote-detonation",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_POWER_KLAW": {
+      "name": "Power Klaw",
+      "image": "icon-ws-40k-power-klaw",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_DA_LUCKY_STIKK": {
+      "name": "Da Lucky Stikk",
+      "image": "icon-ws-40k-da-lucky-stikk",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_BALE_EYE": {
+      "name": "Bale Eye",
+      "image": "icon-ws-40k-bale-eye",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_ARDENT_BLADE": {
+      "name": "Ardent Blade",
+      "image": "icon-ws-40k-ardent-blade",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_ABILITY": {
+      "name": "Tactical Rock",
+      "image": "icon-ws-ability",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_WEAPON_OF_THE_MATRIARCH": {
+      "name": "Weapon of the Matriarch",
+      "image": "icon-ws-40k-weapon-of-the-matriarch",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_POWER_FIST": {
+      "name": "Power Fist",
+      "image": "icon-ws-40k-power-fist",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_CODEX_ASTARTES": {
+      "name": "Codex Astartes",
+      "image": "icon-ws-40k-codex-astartes",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_GAUNTLETS_OF_ULTRAMAR": {
+      "name": "Gauntlets of Ultramar",
+      "image": "icon-ws-40k-gauntlets-of-ultramar",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_STORM_BOLTER": {
+      "name": "Storm Bolter",
+      "image": "icon-ws-40k-storm-bolter",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_SKILL": {
+      "name": "Lightning Bolt",
+      "image": "icon-ws-skill",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_ASSAULT_CANNON": {
+      "name": "Assault Cannon",
+      "image": "icon-ws-40k-assault-cannon",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_BATTLE_CANNON": {
+      "name": "Battle Cannon",
+      "image": "icon-ws-40k-battle-cannon",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_REDEPLOYMENT": {
+      "name": "Figure Case",
+      "image": "icon-ws-redeployment",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_SIDE_SPONSONS": {
+      "name": "Side Sponsons",
+      "image": "icon-ws-40k-side-sponsons",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_SPEAR_OF_THE_FAITHFUL": {
+      "name": "Spear of the Faithful",
+      "image": "icon-ws-40k-spear-of-the-faithful",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_CORRUPTION": {
+      "name": "Chaos Sigil",
+      "image": "icon-ws-corruption",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_THORN_OF_THE_WHITE_ROSE": {
+      "name": "Thorn of the White Rose",
+      "image": "icon-ws-40k-thorn-of-the-white-rose",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_CROZIUS_ARCANUM": {
+      "name": "Crozius Arcanum",
+      "image": "icon-ws-40k-crozius-arcanum",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_BENEDICTION_OF_FURY": {
+      "name": "Benediction of Fury",
+      "image": "icon-ws-40k-benediction-of-fury",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_SMITE": {
+      "name": "Smite",
+      "image": "icon-ws-40k-smite",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_INVULNERABILITY": {
+      "name": "Ardcoat",
+      "image": "icon-ws-invulnerability",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_FURY_OF_THE_ANCIENTS": {
+      "name": "Fury of the Ancients",
+      "image": "icon-ws-40k-fury-of-the-ancients",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_FIDELIS": {
+      "name": "Fidelis",
+      "image": "icon-ws-40k-fidelis",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_TITHE": {
+      "name": "Golden Demon",
+      "image": "icon-ws-tithe",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_PURGATOR_MIRABILIS": {
+      "name": "Purgator Mirabilis",
+      "image": "icon-ws-40k-purgator-mirabilis",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_STORM_EAGLE_ROCKET": {
+      "name": "Storm Eagle Rocket",
+      "image": "icon-ws-40k-storm-eagle-rocket",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_VETERANCY": {
+      "name": "White Dwarf",
+      "image": "icon-ws-veterancy",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_40K_DEATHSTRIKE_MISSILE": {
+      "name": "Deathstrike Missile",
+      "image": "icon-ws-40k-deathstrike-missile",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_AOS_TEMPEST_AXES": {
+      "name": "Tempest Axes",
+      "image": "icon-ws-aos-tempest-axes",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
     "WS_AOS_WHIRLWIND_AXES": {
       "name": "Whirlwind Axes",
       "image": "icon-ws-aos-whirlwind-axes",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_BRACE_OF_PISTOLS": {
+      "name": "Brace of Pistols",
+      "image": "icon-ws-aos-brace-of-pistols",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_DUELLING_PISTOLS": {
+      "name": "Duelling Pistols",
+      "image": "icon-ws-aos-duelling-pistols",
       "type": "weapon",
       "evolved": true,
       "silos": [
@@ -177,19 +565,36 @@
         "aos"
       ]
     },
-    "WS_TOUGHNESS": {
-      "name": "Bugman's Tankard",
-      "image": "icon-ws-toughness",
-      "type": "passive",
-      "evolved": false,
-      "silos": [
-        "w40k",
-        "aos"
-      ]
-    },
     "WS_AOS_AQUATIC_ILLUSIONS": {
       "name": "Aquatic Illusions",
       "image": "icon-ws-aos-aquatic-illusions",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_FUSIL_CANNON": {
+      "name": "Fusil-Cannon",
+      "image": "icon-ws-aos-fusil-cannon",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_RELIC_AMBERBONE": {
+      "name": "Amberbone",
+      "image": "icon-ws-aos-relic-amberbone",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_LONG_FUSIL": {
+      "name": "Long-Fusil",
+      "image": "icon-ws-aos-long-fusil",
       "type": "weapon",
       "evolved": true,
       "silos": [
@@ -214,6 +619,123 @@
         "aos"
       ]
     },
+    "WS_AOS_GRANDBLADE": {
+      "name": "Grandblade",
+      "image": "icon-ws-aos-grandblade",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_CELESTIAL_GREATSWORD": {
+      "name": "Celestial Greatsword",
+      "image": "icon-ws-aos-celestial-greatsword",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_CYCLONE_SWORD": {
+      "name": "Cyclone Sword",
+      "image": "icon-ws-aos-cyclone-sword",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_VOICE_OF_THE_GOD_KING": {
+      "name": "Voice of the God-King",
+      "image": "icon-ws-aos-voice-of-the-god-king",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_FLINTLOCK_PISTOLS": {
+      "name": "Flintlock Pistols",
+      "image": "icon-ws-aos-flintlock-pistols",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_ANTI_WIZARD_FLINTLOCK": {
+      "name": "Anti-Wizard Flintlock",
+      "image": "icon-ws-aos-anti-wizard-flintlock",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_FYRESLAYER_AXE": {
+      "name": "Fyrestorm Greataxe",
+      "image": "icon-ws-aos-fyreslayer-axe",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_MASTER_RUNE": {
+      "name": "Master Rune",
+      "image": "icon-ws-aos-master-rune",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_ZANGROM_THAZ": {
+      "name": "Zangrom-Thaz",
+      "image": "icon-ws-aos-zangrom-thaz",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_STORMCHARGED_HAMMER": {
+      "name": "Stormcharged Hammer",
+      "image": "icon-ws-aos-stormcharged-hammer",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_USKAVAR_THE_SUNDERER": {
+      "name": "Uskavar the Sunderer",
+      "image": "icon-ws-aos-uskavar-the-sunderer",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_NULL_PENDANT": {
+      "name": "Null Pendant",
+      "image": "icon-ws-aos-null-pendant",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_GHAL_MARAZ": {
+      "name": "Ghal Maraz",
+      "image": "icon-ws-aos-ghal-maraz",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
     "WS_AOS_BRAZIER_STAFF": {
       "name": "Brazier Staff",
       "image": "icon-ws-aos-brazier-staff",
@@ -232,6 +754,60 @@
         "aos"
       ]
     },
+    "WS_AOS_TWIN_TAILED_CAT": {
+      "name": "Twin-Tailed Cat",
+      "image": "icon-ws-aos-twin-tailed-cat",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_ENCHANTED_GLOVE": {
+      "name": "Enchanted Glove",
+      "image": "icon-ws-aos-enchanted-glove",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_BLADE_OF_THE_HIGH_HEAVENS": {
+      "name": "Blade Of the High Heavens",
+      "image": "icon-ws-aos-blade-of-the-high-heavens",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_THENGAVAR": {
+      "name": "Thengavar",
+      "image": "icon-ws-aos-thengavar",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_POISONED_THROWING_KNIVES": {
+      "name": "Poisoned Throwing Knives",
+      "image": "icon-ws-aos-poisoned-throwing-knives",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_BLADED_VORTEX": {
+      "name": "Bladed Vortex",
+      "image": "icon-ws-aos-bladed-vortex",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
     "WS_AOS_ROPE_AND_GRAPNEL": {
       "name": "Rope and Grapnel",
       "image": "icon-ws-aos-rope-and-grapnel",
@@ -241,19 +817,27 @@
         "aos"
       ]
     },
-    "WS_VETERANCY": {
-      "name": "White Dwarf",
-      "image": "icon-ws-veterancy",
-      "type": "passive",
-      "evolved": false,
-      "silos": [
-        "w40k",
-        "aos"
-      ]
-    },
     "WS_AOS_GHOST_OF_RHEA": {
       "name": "Ghost of Rhea",
       "image": "icon-ws-aos-ghost-of-rhea",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_MYSTICAL_WARD": {
+      "name": "Mystical Ward",
+      "image": "icon-ws-aos-mystical-ward",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_WARDING_LANTERN": {
+      "name": "Warding Lantern",
+      "image": "icon-ws-aos-warding-lantern",
       "type": "weapon",
       "evolved": true,
       "silos": [
@@ -289,6 +873,36 @@
         "w40k",
         "aos"
       ]
+    },
+    "WS_D6_DICE": {
+      "name": "D6 Dice",
+      "image": "icon-ws-d6-dice",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_CHANCE": {
+      "name": "Scatter Die",
+      "image": "icon-ws-chance",
+      "type": "passive",
+      "evolved": false,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
+    },
+    "WS_SUSTAINED_FIRE_DICE": {
+      "name": "Sustained Fire Dice",
+      "image": "icon-ws-sustained-fire-dice",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k",
+        "aos"
+      ]
     }
   },
   "evolutions": [
@@ -297,6 +911,7 @@
       "passives": [
         "WS_RANGE"
       ],
+      "max": [],
       "result": "WS_40K_EVISCERATORCHAINSWORD",
       "gift": false
     },
@@ -305,6 +920,7 @@
       "passives": [
         "WS_STRENGTH"
       ],
+      "max": [],
       "result": "WS_40K_MELTAGUN",
       "gift": false
     },
@@ -313,7 +929,35 @@
       "passives": [
         "WS_ATTACKS"
       ],
+      "max": [],
       "result": "WS_40K_HEAVY_BOLTER",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_SHIELD_OF_FAITH",
+      "passives": [
+        "WS_TOUGHNESS"
+      ],
+      "max": [],
+      "result": "WS_40K_EMPERORS_WRATH",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_FLAMER",
+      "passives": [
+        "WS_SAVES"
+      ],
+      "max": [],
+      "result": "WS_40K_HEAVY_FLAMER",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_COMBAT_SHOTGUN",
+      "passives": [
+        "WS_AURA"
+      ],
+      "max": [],
+      "result": "WS_40K_EXECUTIONER_SHOTGUN",
       "gift": false
     },
     {
@@ -321,6 +965,7 @@
       "passives": [
         "WS_WOUNDS"
       ],
+      "max": [],
       "result": "WS_40K_ORBITAL_BOMBARDMENT",
       "gift": false
     },
@@ -329,15 +974,131 @@
       "passives": [
         "WS_RELOAD"
       ],
+      "max": [],
       "result": "WS_40K_RIPPER_PISTOL",
       "gift": true
+    },
+    {
+      "weapon": "WS_40K_MECHANICAL_BITE",
+      "passives": [
+        "WS_MOVE"
+      ],
+      "max": [],
+      "result": "WS_40K_REMOTE_DETONATION",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_POWER_KLAW",
+      "passives": [
+        "WS_40K_DA_LUCKY_STIKK"
+      ],
+      "max": [
+        "WS_40K_DA_LUCKY_STIKK"
+      ],
+      "result": "WS_40K_BALE_EYE",
+      "gift": true
+    },
+    {
+      "weapon": "WS_40K_ARDENT_BLADE",
+      "passives": [
+        "WS_ABILITY"
+      ],
+      "max": [
+        "WS_ABILITY"
+      ],
+      "result": "WS_40K_WEAPON_OF_THE_MATRIARCH",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_POWER_FIST",
+      "passives": [
+        "WS_40K_CODEX_ASTARTES"
+      ],
+      "max": [
+        "WS_40K_CODEX_ASTARTES"
+      ],
+      "result": "WS_40K_GAUNTLETS_OF_ULTRAMAR",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_STORM_BOLTER",
+      "passives": [
+        "WS_SKILL"
+      ],
+      "max": [],
+      "result": "WS_40K_ASSAULT_CANNON",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_BATTLE_CANNON",
+      "passives": [
+        "WS_REDEPLOYMENT"
+      ],
+      "max": [],
+      "result": "WS_40K_SIDE_SPONSONS",
+      "gift": true
+    },
+    {
+      "weapon": "WS_40K_SPEAR_OF_THE_FAITHFUL",
+      "passives": [
+        "WS_CORRUPTION"
+      ],
+      "max": [],
+      "result": "WS_40K_THORN_OF_THE_WHITE_ROSE",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_CROZIUS_ARCANUM",
+      "passives": [
+        "WS_SKILL"
+      ],
+      "max": [],
+      "result": "WS_40K_BENEDICTION_OF_FURY",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_SMITE",
+      "passives": [
+        "WS_INVULNERABILITY"
+      ],
+      "max": [],
+      "result": "WS_40K_FURY_OF_THE_ANCIENTS",
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_FIDELIS",
+      "passives": [
+        "WS_TITHE"
+      ],
+      "max": [],
+      "result": "WS_40K_PURGATOR_MIRABILIS",
+      "gift": true
+    },
+    {
+      "weapon": "WS_40K_STORM_EAGLE_ROCKET",
+      "passives": [
+        "WS_VETERANCY"
+      ],
+      "max": [],
+      "result": "WS_40K_DEATHSTRIKE_MISSILE",
+      "gift": false
     },
     {
       "weapon": "WS_AOS_TEMPEST_AXES",
       "passives": [
         "WS_MOVE"
       ],
+      "max": [],
       "result": "WS_AOS_WHIRLWIND_AXES",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_BRACE_OF_PISTOLS",
+      "passives": [
+        "WS_RELOAD"
+      ],
+      "max": [],
+      "result": "WS_AOS_DUELLING_PISTOLS",
       "gift": false
     },
     {
@@ -345,7 +1106,17 @@
       "passives": [
         "WS_TOUGHNESS"
       ],
+      "max": [],
       "result": "WS_AOS_AQUATIC_ILLUSIONS",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_FUSIL_CANNON",
+      "passives": [
+        "WS_AOS_RELIC_AMBERBONE"
+      ],
+      "max": [],
+      "result": "WS_AOS_LONG_FUSIL",
       "gift": false
     },
     {
@@ -353,15 +1124,102 @@
       "passives": [
         "WS_ATTACKS"
       ],
+      "max": [],
       "result": "WS_AOS_TYPHOON_CROSSBOW",
       "gift": false
+    },
+    {
+      "weapon": "WS_AOS_GRANDBLADE",
+      "passives": [
+        "WS_RANGE"
+      ],
+      "max": [],
+      "result": "WS_AOS_CELESTIAL_GREATSWORD",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_CYCLONE_SWORD",
+      "passives": [
+        "WS_AURA"
+      ],
+      "max": [],
+      "result": "WS_AOS_VOICE_OF_THE_GOD_KING",
+      "gift": true
+    },
+    {
+      "weapon": "WS_AOS_FLINTLOCK_PISTOLS",
+      "passives": [
+        "WS_INVULNERABILITY"
+      ],
+      "max": [],
+      "result": "WS_AOS_ANTI_WIZARD_FLINTLOCK",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_FYRESLAYER_AXE",
+      "passives": [
+        "WS_AOS_MASTER_RUNE"
+      ],
+      "max": [],
+      "result": "WS_AOS_ZANGROM_THAZ",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_STORMCHARGED_HAMMER",
+      "passives": [
+        "WS_ABILITY"
+      ],
+      "max": [
+        "WS_ABILITY"
+      ],
+      "result": "WS_AOS_USKAVAR_THE_SUNDERER",
+      "gift": true
+    },
+    {
+      "weapon": "WS_AOS_USKAVAR_THE_SUNDERER",
+      "passives": [
+        "WS_AOS_NULL_PENDANT"
+      ],
+      "max": [
+        "WS_AOS_NULL_PENDANT"
+      ],
+      "result": "WS_AOS_GHAL_MARAZ",
+      "gift": true
     },
     {
       "weapon": "WS_AOS_BRAZIER_STAFF",
       "passives": [
         "WS_WOUNDS"
       ],
+      "max": [],
       "result": "WS_AOS_MASTER_OF_RUNES",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_TWIN_TAILED_CAT",
+      "passives": [
+        "WS_TITHE"
+      ],
+      "max": [],
+      "result": "WS_AOS_ENCHANTED_GLOVE",
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_BLADE_OF_THE_HIGH_HEAVENS",
+      "passives": [
+        "WS_REDEPLOYMENT"
+      ],
+      "max": [],
+      "result": "WS_AOS_THENGAVAR",
+      "gift": true
+    },
+    {
+      "weapon": "WS_AOS_POISONED_THROWING_KNIVES",
+      "passives": [
+        "WS_STRENGTH"
+      ],
+      "max": [],
+      "result": "WS_AOS_BLADED_VORTEX",
       "gift": false
     },
     {
@@ -369,15 +1227,35 @@
       "passives": [
         "WS_VETERANCY"
       ],
+      "max": [],
       "result": "WS_AOS_GHOST_OF_RHEA",
       "gift": true
+    },
+    {
+      "weapon": "WS_AOS_MYSTICAL_WARD",
+      "passives": [
+        "WS_SAVES"
+      ],
+      "max": [],
+      "result": "WS_AOS_WARDING_LANTERN",
+      "gift": false
     },
     {
       "weapon": "WS_NULN_OIL",
       "passives": [
         "WS_SUSTAIN"
       ],
+      "max": [],
       "result": "WS_MORDANT_EARTH",
+      "gift": false
+    },
+    {
+      "weapon": "WS_D6_DICE",
+      "passives": [
+        "WS_CHANCE"
+      ],
+      "max": [],
+      "result": "WS_SUSTAINED_FIRE_DICE",
       "gift": false
     }
   ]

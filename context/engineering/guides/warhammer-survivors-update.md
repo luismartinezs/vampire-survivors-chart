@@ -1,10 +1,10 @@
 # Updating the Warhammer Survivors charts from a new game build
 
-The `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar` charts were built on 2026-10-14 from the
-**Steam demo** (Unity 6000.0.74f1, IL2CPP). The demo has 5 evolutions per
-universe plus Nuln Oil → Mordant Earth, which appears on both pages. The full
-game has many more. This guide gets a new build (full release, patch, or DLC)
-into the charts in about 15 minutes.
+The `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar` charts were first built on 2026-10-14
+from the Steam demo, then updated on 2026-11-10 from the **full release**
+(Unity 6000.0.74f1, IL2CPP): 19 evolutions for 40K, 18 for AoS, plus Nuln Oil →
+Mordant Earth and D6 Dice → Sustained Fire Dice on both pages. This guide gets
+a new build (patch or DLC) into the charts in about 15 minutes.
 
 ## TL;DR
 
@@ -49,7 +49,11 @@ In `WEAPON_DATA`, each item maps to a list of levels; level 1 carries the identi
 - `evoInto`: result weapon id. `evoSynergy` / the result's `requires`: passives needed
 - `silos`: which universe(s) the item is in
 - `isEvolution`: the item is an evolved weapon. `isGiftEvo`: gift evolution (base weapon is a character's starting weapon)
-- `hidden` / `placeholder`: not in the level-up pool / unfinished. `alwaysHidden` + `isSpecialOnly`: internal sub-weapons (explosions, damage zones), never shown
+- `requiresMax` on the result: those passives must be at max level (gold badge on the chart). Bladed Vortex spells `requires` as `Requires`
+- `hasUniqueRequirements` on the result: the condition is in game code, not the data. Map it by hand in `UNIQUE_REQUIREMENTS` in the extractor (Long-Fusil needs the Amberbone relic from `ITEM_DATA`)
+- `addEvolvedWeapon` (Archeotech, Exotic Weaponry): "choose any weapon" pickups, not recipes. Left out
+- `hidden` / `placeholder`: not in the level-up pool / unfinished. In the full release `placeholder` is stale (set on shipped items like Executioner Shotgun), so the extractor ignores it. `alwaysHidden` + `isSpecialOnly`: internal sub-weapons (explosions, damage zones), never shown
+- The `*_UnlockAll_StandardEvolution` entries in `ACHIEVEMENT_DATA` list each universe's standard evolution results: a quick cross-check of the printed recipes (gift evolutions are not in it)
 
 ## What the extractor does
 
@@ -71,11 +75,14 @@ Check each of these against the printed recipe list:
 | Situation | Symptom | Fix |
 |---|---|---|
 | Item with no `name` in the data | Name shows as a game id, e.g. `WS_40K_...` | Add it to `NAME_OVERRIDES` in the extractor. The demo needed this for the Frag Grenade |
-| Evolution needs a **max-level** passive | No gold max badge | The demo has no `requiresMax`. If the full game uses it (as Vampire Survivors does), emit `tags: ["max"]` for those passives in `data/warhammer.ts` |
+| Evolution needs a **max-level** passive | | Works as is (`max` in the JSON → `tags: ["max"]`) |
+| Evolved weapon evolves again (Uskavar → Ghal Maraz) | | Works as is: two recipes, the second starts from the first's result |
+| Result has `hasUniqueRequirements` and no `requires` | Recipe prints with no passive | Find the condition (item descriptions in `ITEM_DATA`, `SECRET_DATA`) and add it to `UNIQUE_REQUIREMENTS` |
+| Unparseable `WEAPON_DATA` | `JSONDecodeError` | The game's JSON has `//` comments, also after values. `load_lenient_json` strips them outside strings; extend it for any new syntax |
 | **Union** (two weapons merge) | Result's `requires` lists a weapon id | Works as is (rendered `A + B = C`). Check how the item renders: anything without a `Passive_` frame counts as a weapon |
 | Evolution needs two passives | | Works as is |
 | New **universe/DLC silo** (new key in `SILO_DATA`) | Its items are dropped | Add it to `SILOS` and `LOGOS` in the extractor; add `data/constants.ts` key, `TDlc`, `DLC_LABELS` + palette in `lib/dlc.ts`, a chart in `lib/charts.ts`, `site/content/<page>.md` (copy an existing one), a `[data-theme]` block in `styles/site.css`, and the link in `partials/header.html` + `footer.html` + `sitemap.xml` |
-| A recipe's sprite is missing | Extractor exits with `sprite X not found` | The `frameName` doesn't match a sprite. Search the names (snippet below) and special-case it |
+| A recipe's sprite is missing | Extractor exits with `sprite X not found` | The `frameName` doesn't match a sprite (case is already ignored: `W_BraceOfPistols` is `W_BraceofPistols`). Search the names (snippet below) and special-case it |
 | UnityPy can't read the files | Parse error on load | Game moved to a newer Unity. Bump the UnityPy pin |
 
 ## Verify against the game
@@ -87,11 +94,10 @@ The collection screen (per universe) lists weapons and passives in
 - **Passives in the collection** = passives not `hidden`
 
 Every weapon in the collection should be in the chart unless it has no
-`evoInto` and is no other weapon's result. In the demo those were D6 Dice and
-Power Fist (40K) and Grandblade (AoS), all marked `placeholder` or missing a
-result. Expect them to get evolutions in the full game. Passives that feed no
-evolution (demo: Glue, Lightning Bolt) are left out on purpose, like on the
-Vampire Survivors page.
+`evoInto` and is no other weapon's result. In the full release those are the
+pickers Archeotech / Reliquary and Exotic Weaponry / Artefacts of Power, and
+the hidden sub-weapons (K9 Retaliation, Pask/Vahl Squish). Passives that feed
+no evolution are left out on purpose, like on the Vampire Survivors page.
 
 This prints what the collection should contain, per universe:
 
@@ -99,7 +105,7 @@ This prints what the collection should contain, per universe:
 python3 - <<'EOF'
 import json, re, sys
 s = open(sys.argv[1] if len(sys.argv) > 1 else "/tmp/WEAPON_DATA", encoding="utf-8-sig").read()
-s = re.sub(r"^\s*//.*$", "", s, flags=re.M); s = re.sub(r",(\s*[}\]])", r"\1", s)
+s = re.sub(r'("(?:\\.|[^"\\])*")|//[^\n]*', lambda m: m.group(1) or "", s); s = re.sub(r",(\s*[}\]])", r"\1", s)
 for gid, levels in json.loads(s).items():
     e = levels[0]
     if e.get("alwaysHidden"): continue
@@ -126,13 +132,11 @@ EOF
 ```
 
 This writes every TextAsset (`WEAPON_DATA`, `CHARACTER_DATA`, ...) to `/tmp`
-and prints the weapon and passive sprite names. The demo's atlases already
-contain ~40 full-game weapon icons (Heavy Flamer, Assault Cannon, Storm
-Bolter, ...), so expect most new items' icons to be there already.
+and prints the weapon and passive sprite names. Relic sprites are `Relic_*`,
+in the same atlases.
 
 ## After shipping
 
-- Change the page note in `site/content/warhammersurvivors/40k.md` and `site/content/warhammersurvivors/ageofsigmar.md` from "the Warhammer Survivors demo's game files" to the full game
 - Update `lib/charts.test.ts` if the sample recipes it checks change
 - Regenerate the social preview images (`site/static/og/*.png`) from the new charts: `python3 scripts/engineering/og-warhammer.py` after a build
-- Update the memory note `warhammer-survivors-charts` (demo vs full game)
+- Update the memory note `warhammer-survivors-charts`
