@@ -82,6 +82,24 @@ describe("warhammer charts", () => {
     expect(resultsFor("aos", "Stormcharged Hammer", "weapon")).toEqual(["Uskavar the Sunderer"]);
   });
 
+  it("draws evolutions with no passive as weapon → result, explained in the legend", () => {
+    const recipe = (key: string, result: string) =>
+      chart(key)
+        .evolutions.find((e) => {
+          const last = e.elements.at(-1)!;
+          return typeof last !== "string" && last.item.name === result;
+        })!
+        .elements.map((el) => (typeof el === "string" ? el : el.item.name));
+    expect(recipe("aos", "Long-Fusil")).toEqual(["Fusil-Cannon", "→", "Long-Fusil"]);
+    expect(recipe("aos", "Artefacts Of Power")).toEqual(["Exotic Weaponry", "→", "Artefacts Of Power"]);
+    expect(recipe("w40k", "Reliquary")).toEqual(["Archeotech", "→", "Reliquary"]);
+
+    expect(Object.keys(chart("aos").passives)).not.toContain("Amberbone");
+    expect(chart("aos").notes!.map((n) => n.name)).toEqual(["Amberbone", "Exotic Weaponry"]);
+    expect(chart("w40k").notes!.map((n) => n.name)).toEqual(["Archeotech"]);
+    expect(chart("vs").notes).toBeUndefined();
+  });
+
   it("treats each universe as its own game", () => {
     for (const key of ["w40k", "aos"]) {
       const c = chart(key);

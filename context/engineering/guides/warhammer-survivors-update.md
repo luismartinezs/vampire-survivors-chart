@@ -50,8 +50,9 @@ In `WEAPON_DATA`, each item maps to a list of levels; level 1 carries the identi
 - `silos`: which universe(s) the item is in
 - `isEvolution`: the item is an evolved weapon. `isGiftEvo`: gift evolution (base weapon is a character's starting weapon)
 - `requiresMax` on the result: those passives must be at max level (gold badge on the chart). Bladed Vortex spells `requires` as `Requires`
-- `hasUniqueRequirements` on the result: the condition is in game code, not the data. Map it by hand in `UNIQUE_REQUIREMENTS` in the extractor (Long-Fusil needs the Amberbone relic from `ITEM_DATA`)
-- `addEvolvedWeapon` (Archeotech, Exotic Weaponry): "choose any weapon" pickups, not recipes. Left out
+- `hasUniqueRequirements` on the result: the condition is in game code, not the data. The extractor writes the recipe with no passive and `trigger: "special"` (Long-Fusil: the Fusilier morphs at level 60 once the Amberbone relic is found)
+- `addEvolvedWeapon` (Archeotech, Exotic Weaponry): weapon pickers that can turn into their evolved picker when an evolution chest opens. Written with `trigger: "chest"`
+- Recipes with a `trigger` draw as `weapon → result`, and each needs a legend line in `TRIGGER_NOTES` in `data/warhammer.ts` (the build fails without one). Legend icons that are in no recipe (Amberbone, from `ITEM_DATA`) go in `LEGEND_ICONS` in the extractor
 - `hidden` / `placeholder`: not in the level-up pool / unfinished. In the full release `placeholder` is stale (set on shipped items like Executioner Shotgun), so the extractor ignores it. `alwaysHidden` + `isSpecialOnly`: internal sub-weapons (explosions, damage zones), never shown
 - The `*_UnlockAll_StandardEvolution` entries in `ACHIEVEMENT_DATA` list each universe's standard evolution results: a quick cross-check of the printed recipes (gift evolutions are not in it)
 
@@ -77,7 +78,7 @@ Check each of these against the printed recipe list:
 | Item with no `name` in the data | Name shows as a game id, e.g. `WS_40K_...` | Add it to `NAME_OVERRIDES` in the extractor. The demo needed this for the Frag Grenade |
 | Evolution needs a **max-level** passive | | Works as is (`max` in the JSON → `tags: ["max"]`) |
 | Evolved weapon evolves again (Uskavar → Ghal Maraz) | | Works as is: two recipes, the second starts from the first's result |
-| Result has `hasUniqueRequirements` and no `requires` | Recipe prints with no passive | Find the condition (item descriptions in `ITEM_DATA`, `SECRET_DATA`) and add it to `UNIQUE_REQUIREMENTS` |
+| New recipe with no passive (`trigger` set) | Build fails: `no legend note for ...` | Find the condition (item descriptions in `ITEM_DATA`, `SECRET_DATA`, atma.gg) and add a line to `TRIGGER_NOTES` |
 | Unparseable `WEAPON_DATA` | `JSONDecodeError` | The game's JSON has `//` comments, also after values. `load_lenient_json` strips them outside strings; extend it for any new syntax |
 | **Union** (two weapons merge) | Result's `requires` lists a weapon id | Works as is (rendered `A + B = C`). Check how the item renders: anything without a `Passive_` frame counts as a weapon |
 | Evolution needs two passives | | Works as is |
@@ -94,9 +95,8 @@ The collection screen (per universe) lists weapons and passives in
 - **Passives in the collection** = passives not `hidden`
 
 Every weapon in the collection should be in the chart unless it has no
-`evoInto` and is no other weapon's result. In the full release those are the
-pickers Archeotech / Reliquary and Exotic Weaponry / Artefacts of Power, and
-the hidden sub-weapons (K9 Retaliation, Pask/Vahl Squish). Passives that feed
+`evoInto` or `addEvolvedWeapon` and is no other weapon's result. In the full
+release those are the hidden sub-weapons (K9 Retaliation, Pask/Vahl Squish). Passives that feed
 no evolution are left out on purpose, like on the Vampire Survivors page.
 
 This prints what the collection should contain, per universe:

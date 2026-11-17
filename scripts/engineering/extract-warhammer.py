@@ -52,11 +52,9 @@ LOGOS = {
 # Entries the game leaves unnamed (the name comes from elsewhere at runtime).
 NAME_OVERRIDES = {"WS_40K_ASTRA_MILITARUM_FRAG_GRENADE": "Frag Grenade"}
 
-# Evolutions whose condition is in game code (`hasUniqueRequirements`) rather
-# than in WEAPON_DATA: result -> ITEM_DATA items it needs. Long-Fusil comes with
-# the Fusil-Major morph, which the Amberbone relic unlocks (its ITEM_DATA
-# description: "Allows Juntar Bernskyn to morph into a Fusil-Major").
-UNIQUE_REQUIREMENTS = {"WS_AOS_LONG_FUSIL": ["WS_AOS_RELIC_AMBERBONE"]}
+# ITEM_DATA entries (relics, pickups) whose icons the chart legend shows. They
+# are in no recipe. Amberbone: the relic behind Long-Fusil's morph evolution.
+LEGEND_ICONS = ["WS_AOS_RELIC_AMBERBONE"]
 
 
 def load_lenient_json(text: str):
@@ -108,9 +106,8 @@ def main(game_dir: str) -> None:
 
     # Level 1 carries the item's identity; later levels are stat deltas.
     entries = {gid: levels[0] for gid, levels in tables["WEAPON_DATA"].items()}
-    # Pickups and relics (one entry each, not levelled). Only the ones named in
-    # UNIQUE_REQUIREMENTS are used; they show as passives so they can be filtered.
-    for gid in {g for needs in UNIQUE_REQUIREMENTS.values() for g in needs}:
+    # Relics and pickups (one entry each, not levelled), for legend icons only.
+    for gid in LEGEND_ICONS:
         entry = tables.get("ITEM_DATA", {}).get(gid)
         if entry is None:
             sys.exit(f"{gid} not found in ITEM_DATA")
@@ -124,7 +121,9 @@ def main(game_dir: str) -> None:
             used.append(gid)
 
     for gid, e in entries.items():
-        result = e.get("evoInto")
+        # `addEvolvedWeapon`: a weapon picker (Archeotech, Exotic Weaponry) that can
+        # turn into its evolved picker when an evolution chest opens. No passive.
+        result = e.get("evoInto") or e.get("addEvolvedWeapon")
         if not result:
             continue
         if result not in entries:
@@ -134,16 +133,25 @@ def main(game_dir: str) -> None:
         # `requiresMax`: the passive must be at max level. Bladed Vortex spells it `Requires`.
         maxed = r.get("requiresMax") or []
         requires = (r.get("requires") or r.get("Requires") or []) + maxed
-        if not requires:
-            requires = UNIQUE_REQUIREMENTS.get(result) or e.get("evoSynergy") or []
-        if not requires and not r.get("hasUniqueRequirements"):
-            print(f"note {gid} -> {result}: no requirement in the data", file=sys.stderr)
+        if not requires and not e.get("addEvolvedWeapon"):
+            requires = e.get("evoSynergy") or []
+        # Recipes with no passive have a trigger the chart explains in its legend:
+        # "chest" for the pickers, "special" for a condition kept in game code
+        # (`hasUniqueRequirements`: Long-Fusil, a character morph).
+        trigger = (
+            "chest" if e.get("addEvolvedWeapon")
+            else "special" if r.get("hasUniqueRequirements")
+            else None
+        )
+        if not requires and trigger is None:
+            sys.exit(f"{gid} -> {result}: no requirement in the data")
         evolutions.append(
             {
                 "weapon": gid,
                 "passives": list(dict.fromkeys(requires)),
                 "max": [p for p in dict.fromkeys(requires) if p in maxed],
                 "result": result,
+                "trigger": trigger,
                 # Gift: the base weapon is a character's starting weapon.
                 "gift": bool(entries[result].get("isGiftEvo")),
             }
@@ -152,6 +160,8 @@ def main(game_dir: str) -> None:
         for p in requires:
             use(p)
         use(result)
+    for gid in LEGEND_ICONS:
+        use(gid)
 
     items = {}
     for gid in used:
@@ -160,8 +170,10 @@ def main(game_dir: str) -> None:
         items[gid] = {
             "name": NAME_OVERRIDES.get(gid) or e.get("name") or gid,
             "image": icon_class(gid),
-            "type": "passive"
-            if e.get("isPickup") or e.get("frameName", "").startswith("Passive_")
+            "type": "misc"
+            if e.get("isPickup")
+            else "passive"
+            if e.get("frameName", "").startswith("Passive_")
             else "weapon",
             "evolved": bool(e.get("isEvolution")),
             "silos": silos,
@@ -198,9 +210,10 @@ def main(game_dir: str) -> None:
     name = lambda gid: items[gid]["name"]
     for evo in evolutions:
         silos = "/".join(items[evo["weapon"]]["silos"])
-        arrow = "=> (gift)" if evo["gift"] else "="
+        arrow = f"-> ({evo['trigger']})" if evo["trigger"] else "=> (gift)" if evo["gift"] else "="
         passives = " + ".join(name(p) + (" (max)" if p in evo["max"] else "") for p in evo["passives"])
-        print(f"[{silos}] {name(evo['weapon'])} + {passives} {arrow} {name(evo['result'])}")
+        plus = f" + {passives}" if passives else ""
+        print(f"[{silos}] {name(evo['weapon'])}{plus} {arrow} {name(evo['result'])}")
     print(
         f"wrote {DATA_OUT.relative_to(ROOT)}, {CSS_OUT.relative_to(ROOT)} ({len(css)} icons)"
         f" and {len(LOGOS)} logos in {LOGO_DIR.relative_to(ROOT)}"

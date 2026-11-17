@@ -10,7 +10,7 @@ import { passives } from "@/data/passives";
 import { weapons } from "@/data/weapons";
 import { ageOfSigmar, warhammer40k } from "@/data/warhammer";
 import { aos, w40k } from "@/data/constants";
-import type { TDlc, TItem, TWeaponEvolution } from "@/data/types";
+import type { TDlc, TItem, TLegendNote, TWeaponEvolution } from "@/data/types";
 
 export type TChart = {
   key: string;
@@ -31,6 +31,8 @@ export type TChart = {
   items: TItem[];
   /** Icon classes for the legend under the chart, keyed by what the template shows. */
   legend?: Record<string, string>;
+  /** Extra legend lines: "[icon] = text". */
+  notes?: TLegendNote[];
   /** Files whose last commit dates the chart's content (sitemap lastmod, JSON-LD dateModified). */
   sources: string[];
 };

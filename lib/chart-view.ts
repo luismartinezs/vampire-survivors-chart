@@ -182,6 +182,7 @@ export function buildChartView(chart: TChart) {
       ),
     })),
     legend: chart.legend ?? null,
+    notes: chart.notes ?? [],
   };
 
   return { page, client };

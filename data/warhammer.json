@@ -464,6 +464,24 @@
         "w40k"
       ]
     },
+    "WS_40K_ARCHEOTECH": {
+      "name": "Archeotech",
+      "image": "icon-ws-40k-archeotech",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "w40k"
+      ]
+    },
+    "WS_40K_RELIQUARY": {
+      "name": "Reliquary",
+      "image": "icon-ws-40k-reliquary",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "w40k"
+      ]
+    },
     "WS_40K_FIDELIS": {
       "name": "Fidelis",
       "image": "icon-ws-40k-fidelis",
@@ -578,15 +596,6 @@
       "name": "Fusil-Cannon",
       "image": "icon-ws-aos-fusil-cannon",
       "type": "weapon",
-      "evolved": false,
-      "silos": [
-        "aos"
-      ]
-    },
-    "WS_AOS_RELIC_AMBERBONE": {
-      "name": "Amberbone",
-      "image": "icon-ws-aos-relic-amberbone",
-      "type": "passive",
       "evolved": false,
       "silos": [
         "aos"
@@ -844,6 +853,24 @@
         "aos"
       ]
     },
+    "WS_AOS_EXOTIC_WEAPONRY": {
+      "name": "Exotic Weaponry",
+      "image": "icon-ws-aos-exotic-weaponry",
+      "type": "weapon",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
+    },
+    "WS_AOS_ARTEFACTS_OF_POWER": {
+      "name": "Artefacts Of Power",
+      "image": "icon-ws-aos-artefacts-of-power",
+      "type": "weapon",
+      "evolved": true,
+      "silos": [
+        "aos"
+      ]
+    },
     "WS_NULN_OIL": {
       "name": "Nuln Oil",
       "image": "icon-ws-nuln-oil",
@@ -903,6 +930,15 @@
         "w40k",
         "aos"
       ]
+    },
+    "WS_AOS_RELIC_AMBERBONE": {
+      "name": "Amberbone",
+      "image": "icon-ws-aos-relic-amberbone",
+      "type": "misc",
+      "evolved": false,
+      "silos": [
+        "aos"
+      ]
     }
   },
   "evolutions": [
@@ -913,6 +949,7 @@
       ],
       "max": [],
       "result": "WS_40K_EVISCERATORCHAINSWORD",
+      "trigger": null,
       "gift": false
     },
     {
@@ -922,6 +959,7 @@
       ],
       "max": [],
       "result": "WS_40K_MELTAGUN",
+      "trigger": null,
       "gift": false
     },
     {
@@ -931,6 +969,7 @@
       ],
       "max": [],
       "result": "WS_40K_HEAVY_BOLTER",
+      "trigger": null,
       "gift": false
     },
     {
@@ -940,6 +979,7 @@
       ],
       "max": [],
       "result": "WS_40K_EMPERORS_WRATH",
+      "trigger": null,
       "gift": false
     },
     {
@@ -949,6 +989,7 @@
       ],
       "max": [],
       "result": "WS_40K_HEAVY_FLAMER",
+      "trigger": null,
       "gift": false
     },
     {
@@ -958,6 +999,7 @@
       ],
       "max": [],
       "result": "WS_40K_EXECUTIONER_SHOTGUN",
+      "trigger": null,
       "gift": false
     },
     {
@@ -967,6 +1009,7 @@
       ],
       "max": [],
       "result": "WS_40K_ORBITAL_BOMBARDMENT",
+      "trigger": null,
       "gift": false
     },
     {
@@ -976,6 +1019,7 @@
       ],
       "max": [],
       "result": "WS_40K_RIPPER_PISTOL",
+      "trigger": null,
       "gift": true
     },
     {
@@ -985,6 +1029,7 @@
       ],
       "max": [],
       "result": "WS_40K_REMOTE_DETONATION",
+      "trigger": null,
       "gift": false
     },
     {
@@ -996,6 +1041,7 @@
         "WS_40K_DA_LUCKY_STIKK"
       ],
       "result": "WS_40K_BALE_EYE",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1007,6 +1053,7 @@
         "WS_ABILITY"
       ],
       "result": "WS_40K_WEAPON_OF_THE_MATRIARCH",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1018,6 +1065,7 @@
         "WS_40K_CODEX_ASTARTES"
       ],
       "result": "WS_40K_GAUNTLETS_OF_ULTRAMAR",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1027,6 +1075,7 @@
       ],
       "max": [],
       "result": "WS_40K_ASSAULT_CANNON",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1036,6 +1085,7 @@
       ],
       "max": [],
       "result": "WS_40K_SIDE_SPONSONS",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1045,6 +1095,7 @@
       ],
       "max": [],
       "result": "WS_40K_THORN_OF_THE_WHITE_ROSE",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1054,6 +1105,7 @@
       ],
       "max": [],
       "result": "WS_40K_BENEDICTION_OF_FURY",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1063,6 +1115,15 @@
       ],
       "max": [],
       "result": "WS_40K_FURY_OF_THE_ANCIENTS",
+      "trigger": null,
+      "gift": false
+    },
+    {
+      "weapon": "WS_40K_ARCHEOTECH",
+      "passives": [],
+      "max": [],
+      "result": "WS_40K_RELIQUARY",
+      "trigger": "chest",
       "gift": false
     },
     {
@@ -1072,6 +1133,7 @@
       ],
       "max": [],
       "result": "WS_40K_PURGATOR_MIRABILIS",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1081,6 +1143,7 @@
       ],
       "max": [],
       "result": "WS_40K_DEATHSTRIKE_MISSILE",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1090,6 +1153,7 @@
       ],
       "max": [],
       "result": "WS_AOS_WHIRLWIND_AXES",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1099,6 +1163,7 @@
       ],
       "max": [],
       "result": "WS_AOS_DUELLING_PISTOLS",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1108,15 +1173,15 @@
       ],
       "max": [],
       "result": "WS_AOS_AQUATIC_ILLUSIONS",
+      "trigger": null,
       "gift": false
     },
     {
       "weapon": "WS_AOS_FUSIL_CANNON",
-      "passives": [
-        "WS_AOS_RELIC_AMBERBONE"
-      ],
+      "passives": [],
       "max": [],
       "result": "WS_AOS_LONG_FUSIL",
+      "trigger": "special",
       "gift": false
     },
     {
@@ -1126,6 +1191,7 @@
       ],
       "max": [],
       "result": "WS_AOS_TYPHOON_CROSSBOW",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1135,6 +1201,7 @@
       ],
       "max": [],
       "result": "WS_AOS_CELESTIAL_GREATSWORD",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1144,6 +1211,7 @@
       ],
       "max": [],
       "result": "WS_AOS_VOICE_OF_THE_GOD_KING",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1153,6 +1221,7 @@
       ],
       "max": [],
       "result": "WS_AOS_ANTI_WIZARD_FLINTLOCK",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1162,6 +1231,7 @@
       ],
       "max": [],
       "result": "WS_AOS_ZANGROM_THAZ",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1173,6 +1243,7 @@
         "WS_ABILITY"
       ],
       "result": "WS_AOS_USKAVAR_THE_SUNDERER",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1184,6 +1255,7 @@
         "WS_AOS_NULL_PENDANT"
       ],
       "result": "WS_AOS_GHAL_MARAZ",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1193,6 +1265,7 @@
       ],
       "max": [],
       "result": "WS_AOS_MASTER_OF_RUNES",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1202,6 +1275,7 @@
       ],
       "max": [],
       "result": "WS_AOS_ENCHANTED_GLOVE",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1211,6 +1285,7 @@
       ],
       "max": [],
       "result": "WS_AOS_THENGAVAR",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1220,6 +1295,7 @@
       ],
       "max": [],
       "result": "WS_AOS_BLADED_VORTEX",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1229,6 +1305,7 @@
       ],
       "max": [],
       "result": "WS_AOS_GHOST_OF_RHEA",
+      "trigger": null,
       "gift": true
     },
     {
@@ -1238,6 +1315,15 @@
       ],
       "max": [],
       "result": "WS_AOS_WARDING_LANTERN",
+      "trigger": null,
+      "gift": false
+    },
+    {
+      "weapon": "WS_AOS_EXOTIC_WEAPONRY",
+      "passives": [],
+      "max": [],
+      "result": "WS_AOS_ARTEFACTS_OF_POWER",
+      "trigger": "chest",
       "gift": false
     },
     {
@@ -1247,6 +1333,7 @@
       ],
       "max": [],
       "result": "WS_MORDANT_EARTH",
+      "trigger": null,
       "gift": false
     },
     {
@@ -1256,6 +1343,7 @@
       ],
       "max": [],
       "result": "WS_SUSTAINED_FIRE_DICE",
+      "trigger": null,
       "gift": false
     }
   ]

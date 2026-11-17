@@ -26,6 +26,9 @@ function chartSection(chart: TChart, siteUrl: string): string {
     if (chart.dlcs.length > 1) lines.push("", `### ${DLC_LABELS[dlc].full}`);
     lines.push("", ...evos.map((e) => `- ${recipe(e.elements)}`));
   }
+  if (chart.notes?.length) {
+    lines.push("", "Notes:", "", ...chart.notes.map((n) => `- ${n.name}: ${n.text}`));
+  }
   return lines.join("\n");
 }
 
@@ -35,7 +38,7 @@ export function buildLlmsTxt(charts: TChart[], siteUrl: string): string {
     "",
     "> Interactive charts of every weapon evolution in Vampire Survivors (base game and all DLCs) and in Warhammer Survivors (Warhammer 40,000 and Age of Sigmar). Filter by the weapons and passives you have to see what they evolve into.",
     "",
-    'Notation: "+" combines items, "=" gives the evolution, "⇒" leads to the next stage of a chained evolution (Bracelet ⇒ Bi-Bracelet ⇒ Tri-Bracelet). "(max level)" marks an item that must be at max level.',
+    'Notation: "+" combines items, "=" gives the evolution, "⇒" leads to the next stage of a chained evolution (Bracelet ⇒ Bi-Bracelet ⇒ Tri-Bracelet), "→" is an evolution with no passive, triggered as the notes under each chart explain. "(max level)" marks an item that must be at max level.',
     "",
     "## Pages",
     "",

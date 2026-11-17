@@ -108,6 +108,12 @@
       {{ <gold_circle cls="size-2.5" /> }}
       <span>=&nbsp;Max level passive</span>
     </div>
+    {%- for note in chart.notes %}
+    <div class="flex items-center gap-1">
+      <span class="ico block size-[1.4rem] shrink-0 {{ note.icon }}" role="img" aria-label="{{ note.name }}"></span>
+      <span>=&nbsp;{{ note.text }}</span>
+    </div>
+    {%- endfor %}
     {%- if chart.legend %}
     <div class="flex items-center gap-1">
       <span class="ico block size-[1.4rem] {{ chart.legend.alucardShield }}" role="img" aria-label="Alucard Shield"></span>
