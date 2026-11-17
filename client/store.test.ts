@@ -21,7 +21,6 @@ describe("shared chart settings", () => {
     const settings = {
       passivesShowDerivedRecipes: false,
       weaponsShowDerivedRecipes: false,
-      showPassivesLoadout: false,
       isRecipeDrawerEnabled: false,
     };
     saveSettings(settings);
@@ -35,34 +34,34 @@ describe("shared chart settings", () => {
   });
 
   it("migrates existing settings once and ignores conflicting page settings afterward", () => {
-    const legacy = { ...defaultState(["base"]), showPassivesLoadout: false };
+    const legacy = { ...defaultState(["base"]), isRecipeDrawerEnabled: false };
     storage.set("app-store", JSON.stringify({ state: legacy, version: 0 }));
     const restored = loadState("app-store", ["base", "lotbm"]);
     expect(restored.evolutionControls.selectedDlcs).toContain("lotbm");
-    expect(loadSettings().showPassivesLoadout).toBe(false);
+    expect(loadSettings().isRecipeDrawerEnabled).toBe(false);
     storage.set("chart-aos", JSON.stringify({ state: defaultState(["aos"]), version: 1 }));
-    expect(loadState("chart-aos", ["aos"]).showPassivesLoadout).toBe(false);
-    expect(JSON.parse(storage.get("app-store")!).state).not.toHaveProperty("showPassivesLoadout");
+    expect(loadState("chart-aos", ["aos"]).isRecipeDrawerEnabled).toBe(false);
+    expect(JSON.parse(storage.get("app-store")!).state).not.toHaveProperty("isRecipeDrawerEnabled");
   });
 
   it("keeps selected items separate and prevents stale chart saves from overwriting shared settings", () => {
     const state = loadState("chart-w40k", ["w40k"]);
     state.evolutionControls.selectedWeapons = ["Chainsword"];
-    saveSettings({ ...DEFAULT_SETTINGS, showPassivesLoadout: false });
+    saveSettings({ ...DEFAULT_SETTINGS, isRecipeDrawerEnabled: false });
     saveState("chart-w40k", state);
     expect(loadState("chart-w40k", ["w40k"]).evolutionControls.selectedWeapons).toEqual([
       "Chainsword",
     ]);
     expect(loadState("chart-aos", ["aos"]).evolutionControls.selectedWeapons).toEqual([]);
-    expect(loadSettings().showPassivesLoadout).toBe(false);
+    expect(loadSettings().isRecipeDrawerEnabled).toBe(false);
   });
 
   it("keeps valid saved settings while replacing invalid fields with defaults", () => {
     storage.set(
       SETTINGS_STORAGE_KEY,
-      JSON.stringify({ showPassivesLoadout: false, isRecipeDrawerEnabled: "false" })
+      JSON.stringify({ isRecipeDrawerEnabled: false, weaponsShowDerivedRecipes: "false" })
     );
-    expect(loadSettings()).toEqual({ ...DEFAULT_SETTINGS, showPassivesLoadout: false });
+    expect(loadSettings()).toEqual({ ...DEFAULT_SETTINGS, isRecipeDrawerEnabled: false });
   });
 
   it("restores chart filters when the shared settings contain malformed JSON", () => {

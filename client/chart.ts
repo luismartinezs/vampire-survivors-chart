@@ -47,11 +47,6 @@ const passiveButtons = $$("[data-controls=p] [data-t]");
 const resetWeaponsButton = $("[data-action=reset-w]");
 const resetPassivesButton = $("[data-action=reset-p]");
 const collapsibles = $$("[data-collapsible]");
-const loadoutEl = $("#loadout");
-const loadoutGroups = (["w", "p"] as const).map((kind) => {
-  const el = $(`[data-loadout=${kind}]`, loadoutEl);
-  return { kind, el, icons: $$("[data-t]", el) };
-});
 const searchInput = $<HTMLInputElement>("#search");
 const searchClear = $("#search-clear");
 const drawerEl = $("#drawer");
@@ -209,16 +204,6 @@ function render() {
     section.toggleAttribute("data-open", open);
     setClass($("[data-action=collapse]", section), index.collapsibleCls[open ? 1 : 0]);
   }
-
-  // Mini loadout: weapons and passives present in the cards on screen, once something is selected.
-  const hasSelection = c.selectedPassives.length > 0 || c.selectedWeapons.length > 0;
-  const showLoadout = state.showPassivesLoadout && hasSelection;
-  for (const group of loadoutGroups) {
-    const present = new Set(showLoadout ? visible.flatMap((id) => evoById.get(id)![group.kind]) : []);
-    group.el.hidden = present.size === 0;
-    for (const icon of group.icons) icon.hidden = !present.has(Number(icon.dataset.t));
-  }
-  loadoutEl.hidden = loadoutGroups.every((group) => group.el.hidden);
 
   renderDrawer(selectedPassives, selectedWeapons);
 

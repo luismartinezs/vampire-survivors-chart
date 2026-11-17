@@ -73,17 +73,6 @@
     {%- endfor %}
   </div>
 
-  {#- Weapons and passives present in what is currently on screen -#}
-  <div id="loadout" class="mb-2 flex flex-wrap justify-end gap-1 sm:gap-1.5" hidden>
-    {%- for group in [{"kind": "w", "items": chart.weapons}, {"kind": "p", "items": chart.passives}] %}
-    <div data-loadout="{{ group.kind }}" class="flex flex-wrap items-center justify-end gap-0.5 rounded bg-base-600 p-px sm:p-0.5" hidden>
-      {%- for item in group["items"] %}
-      <span title="{{ item.name }}" class="inline-flex" data-t="{{ item.t }}" hidden>{{ <item_icon icon={item.icon} name={item.name} cls="size-4 sm:size-4.5" /> }}</span>
-      {%- endfor %}
-    </div>
-    {%- endfor %}
-  </div>
-
   {#- Evolution cards: matches first, then the rest below a separator -#}
   <div id="evos" class="flex flex-wrap justify-center gap-[0.30rem] sm:gap-1 lg:gap-2">
     {%- for evo in chart.evolutions %}
@@ -186,7 +175,6 @@
     <h2 id="settings-modal-title" class="text-lg font-semibold text-white">Settings</h2>
     <div class="mt-4 space-y-4">
       <div class="space-y-3">
-        {{ <setting key="showPassivesLoadout" label="Show loadout" /> }}
         {%- set drawer_label = "Enable wiki links drawer" if chart.legend else "Enable recipe drawer" %}
         {{ <setting key="isRecipeDrawerEnabled" label={drawer_label} /> }}
       </div>
