@@ -13,7 +13,7 @@ import { PASSIVE_IDS, WEAPON_IDS, DLC_IDS } from "@/data/ids";
 import type { TDlc, TItem } from "@/data/types";
 import type { TChart } from "@/lib/charts";
 import { DLC_LABELS, dlcClasses } from "@/lib/dlc";
-import { buildFilterIndex, type TFilterIndex } from "@/lib/filter";
+import { buildFilterIndex, isPickableWeapon, type TFilterIndex } from "@/lib/filter";
 import { cn } from "@/lib/utils";
 import { getWikiHref } from "@/lib/wiki";
 
@@ -98,7 +98,7 @@ export function buildChartView(chart: TChart) {
   }
 
   const kindOf = (item: TItem): TItemKind =>
-    item.type === "passive" ? "p" : item.type === "weapon" ? (item.evolved ? "e" : "w") : "m";
+    item.type === "passive" ? "p" : item.type === "weapon" ? (isPickableWeapon(item) ? "w" : "e") : "m";
 
   const controlCls: TClientIndex["controlCls"] = Object.fromEntries(
     dlcKeys.map((dlc) => [dlc, toggle("p-1 aspect-square", dlc)])
@@ -162,7 +162,7 @@ export function buildChartView(chart: TChart) {
     resetCls: resetCls[1],
     collapsible: { closed: client.collapsibleCls[0], open: client.collapsibleCls[1] },
     weapons: Object.values(weapons)
-      .filter((w) => !w.evolved)
+      .filter(isPickableWeapon)
       .map(control),
     passives: Object.values(passives).map(control),
     evolutions: evolutions.map((evo) => ({

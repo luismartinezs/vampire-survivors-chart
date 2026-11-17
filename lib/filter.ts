@@ -23,6 +23,10 @@ import type {
 
 const IGNORED_PASSIVES = ["Weapon Power-Up"];
 
+/** A weapon the Weapons filter lists: unevolved, or evolved but marked pickable. */
+export const isPickableWeapon = (item: TItem) =>
+  item.type === "weapon" && (!item.evolved || item.pickable === true);
+
 export type TFilterEvo = {
   id: number;
   dlc: TDlc | null;
@@ -30,9 +34,9 @@ export type TFilterEvo = {
   p: number[];
   /** Passive elements plus every passive reachable through its weapon elements. */
   dp: number[];
-  /** Unevolved weapon elements. */
+  /** Pickable weapon ingredients (see isPickableWeapon). */
   w: number[];
-  /** Unevolved weapon elements plus every unevolved weapon reachable through its weapon elements. */
+  /** Pickable weapon ingredients plus every pickable weapon reachable through its weapon elements. */
   dw: number[];
   /** Every weapon element, evolved or not (seeds for ancestor propagation). */
   wi: number[];
@@ -202,7 +206,7 @@ export function buildFilterIndex(evolutions: TWeaponEvolution[], items: TItem[])
   const resolveWeapons = createResolver(
     dependencies,
     itemLookup,
-    (item) => item.type === "weapon" && !item.evolved,
+    isPickableWeapon,
     (item) => item.type === "weapon"
   );
 
@@ -212,8 +216,10 @@ export function buildFilterIndex(evolutions: TWeaponEvolution[], items: TItem[])
     const weaponElements = elements
       .filter((item) => item.type === "weapon")
       .map((item) => item.name);
+    // Ingredients only: a pickable result (Uskavar) must not match the recipe that makes it.
     const unevolved = elements
-      .filter((item) => item.type === "weapon" && !item.evolved)
+      .slice(0, -1)
+      .filter(isPickableWeapon)
       .map((item) => item.name);
 
     const derivedPassives = new Set(passives);

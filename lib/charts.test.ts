@@ -6,14 +6,15 @@ import { filterEvolutions } from "@/lib/filter";
 
 const chart = (key: string) => CHARTS.find((c) => c.key === key)!;
 
-/** Result names of the evolutions a passive selection matches. */
-function resultsFor(key: string, passive: string): string[] {
+/** Result names of the evolutions a passive (or, with `kind: "weapon"`, weapon) selection matches. */
+function resultsFor(key: string, name: string, kind: "passive" | "weapon" = "passive"): string[] {
   const { client } = buildChartView(chart(key));
-  const t = client.names.indexOf(passive);
+  const t = client.names.indexOf(name);
+  expect(t).toBeGreaterThanOrEqual(0);
   const { filtered } = filterEvolutions(client, {
     selectedDlcs: new Set(client.dlcs.map((d) => d.key)),
-    selectedPassives: new Set([t]),
-    selectedWeapons: new Set(),
+    selectedPassives: new Set(kind === "passive" ? [t] : []),
+    selectedWeapons: new Set(kind === "weapon" ? [t] : []),
     sortByPassive: false,
     passivesShowDerivedRecipes: false,
     weaponsShowDerivedRecipes: false,
@@ -69,6 +70,16 @@ describe("warhammer charts", () => {
   it("chains evolutions of evolved weapons", () => {
     expect(resultsFor("aos", "Tactical Rock")).toEqual(["Uskavar the Sunderer"]);
     expect(resultsFor("aos", "Null Pendant")).toEqual(["Ghal Maraz"]);
+  });
+
+  it("lists an evolved weapon another recipe starts from in the Weapons filter", () => {
+    const { page, client } = buildChartView(chart("aos"));
+    expect(page.weapons.map((w) => w.name)).toContain("Uskavar the Sunderer");
+    expect(page.weapons.map((w) => w.name)).not.toContain("Ghal Maraz");
+    const uskavar = client.items.find((item) => item[0] === "Uskavar the Sunderer")!;
+    expect(uskavar[3]).toBe("w");
+    expect(resultsFor("aos", "Uskavar the Sunderer", "weapon")).toEqual(["Ghal Maraz"]);
+    expect(resultsFor("aos", "Stormcharged Hammer", "weapon")).toEqual(["Uskavar the Sunderer"]);
   });
 
   it("treats each universe as its own game", () => {

@@ -13,6 +13,9 @@ import type { TEvolutionElement, TItem, TItemType, TWeaponEvolution } from "./ty
 type TUniverse = typeof w40k | typeof aos;
 type TGameItem = (typeof data.items)[keyof typeof data.items];
 
+/** Items another recipe starts from: an evolved one among them stays pickable in the Weapons filter. */
+const bases = new Set(data.evolutions.map((evo) => evo.weapon));
+
 function universe(key: TUniverse) {
   const items = new Map<string, TItem>();
   for (const [id, item] of Object.entries(data.items) as [string, TGameItem][]) {
@@ -22,6 +25,7 @@ function universe(key: TUniverse) {
       image: item.image,
       type: item.type as TItemType,
       evolved: item.evolved || undefined,
+      pickable: (item.evolved && bases.has(id)) || undefined,
       dlc: key,
     });
   }

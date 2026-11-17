@@ -7,6 +7,12 @@ export interface TItem {
   image: string;
   type: TItemType;
   evolved?: boolean;
+  /**
+   * Evolved weapon that is also listed in the Weapons filter, because another
+   * recipe starts from it (Uskavar the Sunderer -> Ghal Maraz; Uskavar is also a
+   * character's starting weapon).
+   */
+  pickable?: boolean;
   dlc?: TDlc;
   wikiPath?: string;
 }
