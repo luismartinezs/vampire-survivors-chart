@@ -47,6 +47,8 @@ const passiveButtons = $$("[data-controls=p] [data-t]");
 const resetWeaponsButton = $("[data-action=reset-w]");
 const resetPassivesButton = $("[data-action=reset-p]");
 const collapsibles = $$("[data-collapsible]");
+const loadoutEl = $("#loadout");
+const loadoutIcons = $$("#loadout [data-t]");
 const searchInput = $<HTMLInputElement>("#search");
 const searchClear = $("#search-clear");
 const drawerEl = $("#drawer");
@@ -203,6 +205,14 @@ function render() {
     const open = state.collapsibleState[collapsibleKey(title)] ?? COLLAPSIBLE_DEFAULT_OPEN[title];
     section.toggleAttribute("data-open", open);
     setClass($("[data-action=collapse]", section), index.collapsibleCls[open ? 1 : 0]);
+  }
+
+  // Mini loadout: passives present in the cards on screen, once something is selected.
+  const present = new Set(visible.flatMap((id) => evoById.get(id)!.p));
+  const hasSelection = c.selectedPassives.length > 0 || c.selectedWeapons.length > 0;
+  loadoutEl.hidden = !state.showPassivesLoadout || !hasSelection || present.size === 0;
+  if (!loadoutEl.hidden) {
+    for (const icon of loadoutIcons) icon.hidden = !present.has(Number(icon.dataset.t));
   }
 
   renderDrawer(selectedPassives, selectedWeapons);
