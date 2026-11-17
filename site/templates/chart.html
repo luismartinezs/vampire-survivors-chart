@@ -109,9 +109,9 @@
       <span>=&nbsp;Max level passive</span>
     </div>
     {%- for note in chart.notes %}
-    <div class="flex items-center gap-1">
+    <div class="flex items-center">
       <span class="ico block size-[1.4rem] shrink-0 {{ note.icon }}" role="img" aria-label="{{ note.name }}"></span>
-      <span>=&nbsp;{{ note.text }}</span>
+      <span>:&nbsp;{% for part in note.parts %}{% if part.icon %}<span class="ico inline-block align-middle size-[1.4rem] {{ part.icon }}" aria-hidden="true"></span>{% else %}{{ part.text }}{% endif %}{% endfor %}</span>
     </div>
     {%- endfor %}
     {%- if chart.legend %}

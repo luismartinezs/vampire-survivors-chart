@@ -8,7 +8,14 @@
 
 import data from "./warhammer.json";
 import { aos, w40k } from "./constants";
-import type { TEvolutionElement, TItem, TItemType, TLegendNote, TWeaponEvolution } from "./types";
+import type {
+  TEvolutionElement,
+  TItem,
+  TItemType,
+  TLegendNote,
+  TLegendPart,
+  TWeaponEvolution,
+} from "./types";
 
 type TUniverse = typeof w40k | typeof aos;
 type TGameItem = (typeof data.items)[keyof typeof data.items];
@@ -25,18 +32,23 @@ type TGameEvolution = {
 const gameEvolutions = data.evolutions as TGameEvolution[];
 
 /**
- * Legend lines for the recipes with no passive (drawn "weapon → result"), keyed
+ * Legend lines for the recipes with no passive (drawn "weapon ⇒ result"), keyed
  * by result. The extractor marks them with a `trigger`; every one needs a note.
  */
-const CHEST_NOTE = "Small chance to evolve when an evolution chest opens. Higher Chance raises it.";
-const TRIGGER_NOTES: Record<string, { icon: string; text: string }> = {
-  WS_40K_RELIQUARY: { icon: "WS_40K_ARCHEOTECH", text: CHEST_NOTE },
-  WS_AOS_ARTEFACTS_OF_POWER: { icon: "WS_AOS_EXOTIC_WEAPONRY", text: CHEST_NOTE },
+const CHEST_NOTE = ["Small odds to evolve on evolution chests, affected by Chance"];
+/** `icon`: game id of the item the line starts with. `parts`: text, or `{ item: game id }` for an inline icon. */
+const TRIGGER_NOTES: Record<string, { icon: string; parts: (string | { item: string })[] }> = {
+  WS_40K_RELIQUARY: { icon: "WS_40K_ARCHEOTECH", parts: CHEST_NOTE },
+  WS_AOS_ARTEFACTS_OF_POWER: { icon: "WS_AOS_EXOTIC_WEAPONRY", parts: CHEST_NOTE },
   // The game keeps this condition in code. The relic's description and the
   // level-60 morph (atma.gg) say how it works.
   WS_AOS_LONG_FUSIL: {
-    icon: "WS_AOS_RELIC_AMBERBONE",
-    text: "Relic found on Gnarlwood. With it, Juntar Bernskyn's Fusil-Cannon evolves when he reaches level 60.",
+    icon: "WS_AOS_LONG_FUSIL",
+    parts: [
+      "Collect Amberbone relic ",
+      { item: "WS_AOS_RELIC_AMBERBONE" },
+      ", then reach level 60 with Juntar Bernskyn",
+    ],
   },
 };
 
@@ -68,7 +80,7 @@ function universe(key: TUniverse) {
       id: i + 1,
       dlc: key,
       elements: evo.trigger
-        ? [{ item: item(evo.weapon) }, "→", { item: item(evo.result) }]
+        ? [{ item: item(evo.weapon) }, "⇒", { item: item(evo.result) }]
         : [
             { item: item(evo.weapon) },
             ...evo.passives.flatMap((p): TEvolutionElement[] => [
@@ -86,7 +98,10 @@ function universe(key: TUniverse) {
       const note = TRIGGER_NOTES[evo.result];
       if (!note) throw new Error(`warhammer.ts: no legend note for ${evo.result} (${evo.trigger})`);
       const icon = item(note.icon);
-      return { icon: icon.image, name: icon.name, text: note.text };
+      const parts = note.parts.map((p): TLegendPart =>
+        typeof p === "string" ? p : { icon: item(p.item).image }
+      );
+      return { icon: icon.image, name: icon.name, parts };
     });
 
   // Only items that appear in this universe's recipes, in recipe order.

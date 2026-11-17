@@ -6,7 +6,7 @@
 
 import type { TChart } from "@/lib/charts";
 import { DLC_LABELS } from "@/lib/dlc";
-import type { TEvolutionElement } from "@/data/types";
+import type { TEvolutionElement, TLegendNote } from "@/data/types";
 
 const recipe = (elements: TEvolutionElement[]) =>
   elements
@@ -27,7 +27,10 @@ function chartSection(chart: TChart, siteUrl: string): string {
     lines.push("", ...evos.map((e) => `- ${recipe(e.elements)}`));
   }
   if (chart.notes?.length) {
-    lines.push("", "Notes:", "", ...chart.notes.map((n) => `- ${n.name}: ${n.text}`));
+    // Inline icons only illustrate an item the text already names.
+    const text = (n: TLegendNote) =>
+      n.parts.map((p) => (typeof p === "string" ? p : "")).join("").replace(/\s+,/g, ",");
+    lines.push("", "Notes:", "", ...chart.notes.map((n) => `- ${n.name}: ${text(n)}`));
   }
   return lines.join("\n");
 }
@@ -38,7 +41,7 @@ export function buildLlmsTxt(charts: TChart[], siteUrl: string): string {
     "",
     "> Interactive charts of every weapon evolution in Vampire Survivors (base game and all DLCs) and in Warhammer Survivors (Warhammer 40,000 and Age of Sigmar). Filter by the weapons and passives you have to see what they evolve into.",
     "",
-    'Notation: "+" combines items, "=" gives the evolution, "⇒" leads to the next stage of a chained evolution (Bracelet ⇒ Bi-Bracelet ⇒ Tri-Bracelet), "→" is an evolution with no passive, triggered as the notes under each chart explain. "(max level)" marks an item that must be at max level.',
+    'Notation: "+" combines items, "=" gives the evolution, "⇒" leads to the next stage of a chained evolution (Bracelet ⇒ Bi-Bracelet ⇒ Tri-Bracelet) or to an evolution with no passive, whose trigger the notes under the chart explain. "(max level)" marks an item that must be at max level.',
     "",
     "## Pages",
     "",

@@ -182,7 +182,12 @@ export function buildChartView(chart: TChart) {
       ),
     })),
     legend: chart.legend ?? null,
-    notes: chart.notes ?? [],
+    // Parts as objects so the template can branch on a field.
+    notes: (chart.notes ?? []).map((n) => ({
+      icon: n.icon,
+      name: n.name,
+      parts: n.parts.map((p) => (typeof p === "string" ? { text: p, icon: "" } : { text: "", icon: p.icon })),
+    })),
   };
 
   return { page, client };

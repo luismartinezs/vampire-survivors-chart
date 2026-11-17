@@ -52,7 +52,7 @@ In `WEAPON_DATA`, each item maps to a list of levels; level 1 carries the identi
 - `requiresMax` on the result: those passives must be at max level (gold badge on the chart). Bladed Vortex spells `requires` as `Requires`
 - `hasUniqueRequirements` on the result: the condition is in game code, not the data. The extractor writes the recipe with no passive and `trigger: "special"` (Long-Fusil: the Fusilier morphs at level 60 once the Amberbone relic is found)
 - `addEvolvedWeapon` (Archeotech, Exotic Weaponry): weapon pickers that can turn into their evolved picker when an evolution chest opens. Written with `trigger: "chest"`
-- Recipes with a `trigger` draw as `weapon → result`, and each needs a legend line in `TRIGGER_NOTES` in `data/warhammer.ts` (the build fails without one). Legend icons that are in no recipe (Amberbone, from `ITEM_DATA`) go in `LEGEND_ICONS` in the extractor
+- Recipes with a `trigger` draw as `weapon ⇒ result`, and each needs a legend line in `TRIGGER_NOTES` in `data/warhammer.ts` (the build fails without one). Legend icons that are in no recipe (Amberbone, from `ITEM_DATA`) go in `LEGEND_ICONS` in the extractor
 - `hidden` / `placeholder`: not in the level-up pool / unfinished. In the full release `placeholder` is stale (set on shipped items like Executioner Shotgun), so the extractor ignores it. `alwaysHidden` + `isSpecialOnly`: internal sub-weapons (explosions, damage zones), never shown
 - The `*_UnlockAll_StandardEvolution` entries in `ACHIEVEMENT_DATA` list each universe's standard evolution results: a quick cross-check of the printed recipes (gift evolutions are not in it)
 

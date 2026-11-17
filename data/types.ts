@@ -39,13 +39,16 @@ export type TDlc =
   | typeof w40k
   | typeof aos;
 
-/** A legend line under a chart: "[icon] = text". */
+/** Part of a legend line: text, or an inline icon the text already names (decorative). */
+export type TLegendPart = string | { icon: string };
+
+/** A legend line under a chart: "[icon]: parts". */
 export interface TLegendNote {
   /** Icon class. */
   icon: string;
   /** Item the icon shows (aria-label, llms.txt). */
   name: string;
-  text: string;
+  parts: TLegendPart[];
 }
 
 export interface TWeaponEvolution {
