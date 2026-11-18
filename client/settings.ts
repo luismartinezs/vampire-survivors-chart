@@ -5,6 +5,9 @@ export const SETTINGS_STORAGE_KEY = "chart-settings";
 const settingsSchema = z.object({
   passivesShowDerivedRecipes: z.catch(z.boolean(), true),
   weaponsShowDerivedRecipes: z.catch(z.boolean(), true),
+  /** Loadout row: the selected weapons, the selected passives, and every passive the chart shows. */
+  showSelectedWeaponsLoadout: z.catch(z.boolean(), true),
+  showSelectedPassivesLoadout: z.catch(z.boolean(), true),
   showPassivesLoadout: z.catch(z.boolean(), true),
   isRecipeDrawerEnabled: z.catch(z.boolean(), true),
 });

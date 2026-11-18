@@ -79,7 +79,7 @@ Icons are CSS background-image classes with base64-encoded lossless WebP data UR
 
 ### State Management
 
-`client/store.ts` persists chart filters in localStorage, in the same `{state, version}` shape the previous zustand store used: VS under `app-store`, the other charts under `chart-<key>`. `client/settings.ts` stores all four Settings options under `chart-settings`, validates saved values with Zod, and migrates preferences from the first chart visited. Settings apply across charts and synchronize between open tabs through storage events. When a new VS DLC ships, bump `STORE_VERSION` and add a migration that switches it on for returning visitors (migrations only run on `app-store`).
+`client/store.ts` persists chart filters in localStorage, in the same `{state, version}` shape the previous zustand store used: VS under `app-store`, the other charts under `chart-<key>`. `client/settings.ts` stores all six Settings options under `chart-settings`, validates saved values with Zod, and migrates preferences from the first chart visited. Settings apply across charts and synchronize between open tabs through storage events. When a new VS DLC ships, bump `STORE_VERSION` and add a migration that switches it on for returning visitors (migrations only run on `app-store`).
 
 ### Analytics and deployment
 

@@ -21,6 +21,8 @@ describe("shared chart settings", () => {
     const settings = {
       passivesShowDerivedRecipes: false,
       weaponsShowDerivedRecipes: false,
+      showSelectedWeaponsLoadout: false,
+      showSelectedPassivesLoadout: false,
       showPassivesLoadout: false,
       isRecipeDrawerEnabled: false,
     };

@@ -83,6 +83,14 @@ function merge(defaults: TPersisted, stored: Partial<TPersisted>): TPersisted {
       stored.weaponsShowDerivedRecipes,
       defaults.weaponsShowDerivedRecipes
     ),
+    showSelectedWeaponsLoadout: bool(
+      stored.showSelectedWeaponsLoadout,
+      defaults.showSelectedWeaponsLoadout
+    ),
+    showSelectedPassivesLoadout: bool(
+      stored.showSelectedPassivesLoadout,
+      defaults.showSelectedPassivesLoadout
+    ),
     showPassivesLoadout: bool(stored.showPassivesLoadout, defaults.showPassivesLoadout),
     isRecipeDrawerEnabled: bool(stored.isRecipeDrawerEnabled, defaults.isRecipeDrawerEnabled),
   };

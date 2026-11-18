@@ -48,7 +48,14 @@ const resetWeaponsButton = $("[data-action=reset-w]");
 const resetPassivesButton = $("[data-action=reset-p]");
 const collapsibles = $$("[data-collapsible]");
 const loadoutEl = $("#loadout");
-const loadoutIcons = $$("#loadout [data-t]");
+const loadoutSlots = { wide: $("#loadout-wide"), narrow: $("#loadout-narrow") };
+const loadoutGroups = {
+  selectedWeapons: $("[data-loadout=selected-w]", loadoutEl),
+  selectedPassives: $("[data-loadout=selected-p]", loadoutEl),
+  allPassives: $("[data-loadout=all-p]", loadoutEl),
+};
+/** Passives in the order of the Passives filter buttons. */
+const passiveOrder = passiveButtons.map((button) => Number(button.dataset.t));
 const searchInput = $<HTMLInputElement>("#search");
 const searchClear = $("#search-clear");
 const drawerEl = $("#drawer");
@@ -207,13 +214,7 @@ function render() {
     setClass($("[data-action=collapse]", section), index.collapsibleCls[open ? 1 : 0]);
   }
 
-  // Mini loadout: passives present in the cards on screen, once something is selected.
-  const present = new Set(visible.flatMap((id) => evoById.get(id)!.p));
-  const hasSelection = c.selectedPassives.length > 0 || c.selectedWeapons.length > 0;
-  loadoutEl.hidden = !state.showPassivesLoadout || !hasSelection || present.size === 0;
-  if (!loadoutEl.hidden) {
-    for (const icon of loadoutIcons) icon.hidden = !present.has(Number(icon.dataset.t));
-  }
+  renderLoadout(selectedPassives, selectedWeapons);
 
   renderDrawer(selectedPassives, selectedWeapons);
 
@@ -224,6 +225,83 @@ function render() {
 
   document.documentElement.classList.remove("restoring");
 }
+
+// ── Loadout ────────────────────────────────────────────────────────────────
+const loadoutKeys = new WeakMap<HTMLElement, string>();
+
+/** Show `items` as small icons in `group`, rebuilding only when the list changed. */
+function fillLoadoutGroup(group: HTMLElement, items: number[], show: boolean) {
+  group.hidden = !show || items.length === 0;
+  if (group.hidden) return;
+  const key = items.join(",");
+  if (loadoutKeys.get(group) === key) return;
+  loadoutKeys.set(group, key);
+  group.replaceChildren(
+    ...items.map((t) => {
+      const [name, icon] = index.items[t];
+      const el = document.createElement("span");
+      el.setAttribute("role", "listitem");
+      el.title = name;
+      el.className = `ico block size-4 sm:size-4.5 ${icon}`;
+      el.setAttribute("aria-label", name);
+      return el;
+    })
+  );
+}
+
+/** The selected passives plus every passive in the recipes of the selected weapons. */
+function neededPassives(selectedPassives: Set<number>, selectedWeapons: Set<number>) {
+  const needed = new Set(selectedPassives);
+  if (selectedWeapons.size > 0) {
+    const { filtered } = filterEvolutions(index, {
+      selectedDlcs: new Set(controls().selectedDlcs),
+      selectedPassives: new Set(),
+      selectedWeapons,
+      sortByPassive: false,
+      passivesShowDerivedRecipes: state.passivesShowDerivedRecipes,
+      weaponsShowDerivedRecipes: state.weaponsShowDerivedRecipes,
+    });
+    for (const id of filtered) for (const t of evoById.get(id)!.p) needed.add(t);
+  }
+  return needed;
+}
+
+/** Loadout groups follow the selection only; search does not change them. */
+function renderLoadout(selectedPassives: Set<number>, selectedWeapons: Set<number>) {
+  // Sets keep insertion order, so selected items appear in the order they were picked.
+  fillLoadoutGroup(
+    loadoutGroups.selectedWeapons,
+    [...selectedWeapons],
+    state.showSelectedWeaponsLoadout
+  );
+  fillLoadoutGroup(
+    loadoutGroups.selectedPassives,
+    [...selectedPassives],
+    state.showSelectedPassivesLoadout
+  );
+  const needed = state.showPassivesLoadout
+    ? neededPassives(selectedPassives, selectedWeapons)
+    : new Set<number>();
+  fillLoadoutGroup(
+    loadoutGroups.allPassives,
+    passiveOrder.filter((t) => needed.has(t)),
+    state.showPassivesLoadout
+  );
+  loadoutEl.hidden = Object.values(loadoutGroups).every((group) => group.hidden);
+  for (const slot of Object.values(loadoutSlots)) {
+    slot.hidden = loadoutEl.hidden || !slot.contains(loadoutEl);
+  }
+}
+
+/** Below sm the loadout rides under the sticky search bar; from sm up it sits above the cards. */
+const wideQuery = window.matchMedia("(min-width: 40rem)");
+function placeLoadout() {
+  const slot = wideQuery.matches ? loadoutSlots.wide : loadoutSlots.narrow;
+  if (!slot.contains(loadoutEl)) slot.append(loadoutEl);
+  for (const s of Object.values(loadoutSlots)) s.hidden = loadoutEl.hidden || s !== slot;
+}
+wideQuery.addEventListener("change", placeLoadout);
+placeLoadout();
 
 // ── Recipe drawer ──────────────────────────────────────────────────────────
 function openDrawer(items: number[]) {
