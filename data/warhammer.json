@@ -464,24 +464,6 @@
         "w40k"
       ]
     },
-    "WS_40K_ARCHEOTECH": {
-      "name": "Archeotech",
-      "image": "icon-ws-40k-archeotech",
-      "type": "weapon",
-      "evolved": false,
-      "silos": [
-        "w40k"
-      ]
-    },
-    "WS_40K_RELIQUARY": {
-      "name": "Reliquary",
-      "image": "icon-ws-40k-reliquary",
-      "type": "weapon",
-      "evolved": true,
-      "silos": [
-        "w40k"
-      ]
-    },
     "WS_40K_FIDELIS": {
       "name": "Fidelis",
       "image": "icon-ws-40k-fidelis",
@@ -853,24 +835,6 @@
         "aos"
       ]
     },
-    "WS_AOS_EXOTIC_WEAPONRY": {
-      "name": "Exotic Weaponry",
-      "image": "icon-ws-aos-exotic-weaponry",
-      "type": "weapon",
-      "evolved": false,
-      "silos": [
-        "aos"
-      ]
-    },
-    "WS_AOS_ARTEFACTS_OF_POWER": {
-      "name": "Artefacts Of Power",
-      "image": "icon-ws-aos-artefacts-of-power",
-      "type": "weapon",
-      "evolved": true,
-      "silos": [
-        "aos"
-      ]
-    },
     "WS_NULN_OIL": {
       "name": "Nuln Oil",
       "image": "icon-ws-nuln-oil",
@@ -1119,14 +1083,6 @@
       "gift": false
     },
     {
-      "weapon": "WS_40K_ARCHEOTECH",
-      "passives": [],
-      "max": [],
-      "result": "WS_40K_RELIQUARY",
-      "trigger": "chest",
-      "gift": false
-    },
-    {
       "weapon": "WS_40K_FIDELIS",
       "passives": [
         "WS_TITHE"
@@ -1316,14 +1272,6 @@
       "max": [],
       "result": "WS_AOS_WARDING_LANTERN",
       "trigger": null,
-      "gift": false
-    },
-    {
-      "weapon": "WS_AOS_EXOTIC_WEAPONRY",
-      "passives": [],
-      "max": [],
-      "result": "WS_AOS_ARTEFACTS_OF_POWER",
-      "trigger": "chest",
       "gift": false
     },
     {

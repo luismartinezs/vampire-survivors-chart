@@ -26,7 +26,7 @@ type TGameEvolution = {
   max: string[];
   result: string;
   /** Set on recipes with no passive: what makes them evolve (see TRIGGER_NOTES). */
-  trigger: "chest" | "special" | null;
+  trigger: "special" | null;
   gift: boolean;
 };
 const gameEvolutions = data.evolutions as TGameEvolution[];
@@ -34,12 +34,9 @@ const gameEvolutions = data.evolutions as TGameEvolution[];
 /**
  * Legend lines for the recipes with no passive (drawn "weapon ⇒ result"), keyed
  * by result. The extractor marks them with a `trigger`; every one needs a note.
+ * `icon`: game id of the item the line starts with. `parts`: text, or `{ item: game id }` for an inline icon.
  */
-const CHEST_NOTE = ["Small odds to evolve on evolution chests, affected by Chance"];
-/** `icon`: game id of the item the line starts with. `parts`: text, or `{ item: game id }` for an inline icon. */
 const TRIGGER_NOTES: Record<string, { icon: string; parts: (string | { item: string })[] }> = {
-  WS_40K_RELIQUARY: { icon: "WS_40K_ARCHEOTECH", parts: CHEST_NOTE },
-  WS_AOS_ARTEFACTS_OF_POWER: { icon: "WS_AOS_EXOTIC_WEAPONRY", parts: CHEST_NOTE },
   // The game keeps this condition in code. The relic's description and the
   // level-60 morph (atma.gg) say how it works.
   WS_AOS_LONG_FUSIL: {

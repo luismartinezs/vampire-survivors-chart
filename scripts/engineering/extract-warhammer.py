@@ -121,9 +121,10 @@ def main(game_dir: str) -> None:
             used.append(gid)
 
     for gid, e in entries.items():
-        # `addEvolvedWeapon`: a weapon picker (Archeotech, Exotic Weaponry) that can
-        # turn into its evolved picker when an evolution chest opens. No passive.
-        result = e.get("evoInto") or e.get("addEvolvedWeapon")
+        # `addEvolvedWeapon` (Archeotech, Exotic Weaponry) is left out: a weapon
+        # picker that can turn into its evolved picker when an evolution chest
+        # opens, not a base weapon and its evolution.
+        result = e.get("evoInto")
         if not result:
             continue
         if result not in entries:
@@ -133,16 +134,12 @@ def main(game_dir: str) -> None:
         # `requiresMax`: the passive must be at max level. Bladed Vortex spells it `Requires`.
         maxed = r.get("requiresMax") or []
         requires = (r.get("requires") or r.get("Requires") or []) + maxed
-        if not requires and not e.get("addEvolvedWeapon"):
+        if not requires:
             requires = e.get("evoSynergy") or []
         # Recipes with no passive have a trigger the chart explains in its legend:
-        # "chest" for the pickers, "special" for a condition kept in game code
-        # (`hasUniqueRequirements`: Long-Fusil, a character morph).
-        trigger = (
-            "chest" if e.get("addEvolvedWeapon")
-            else "special" if r.get("hasUniqueRequirements")
-            else None
-        )
+        # "special" for a condition kept in game code (`hasUniqueRequirements`:
+        # Long-Fusil, a character morph).
+        trigger = "special" if r.get("hasUniqueRequirements") else None
         if not requires and trigger is None:
             sys.exit(f"{gid} -> {result}: no requirement in the data")
         evolutions.append(
