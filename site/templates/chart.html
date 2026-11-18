@@ -42,7 +42,7 @@
     </div>
     {#- Below sm, client/chart.ts moves the loadout here: an overlay under the
         search bar, so it stays in view while scrolling. -#}
-    <div id="loadout-narrow" class="absolute right-0 top-full flex max-w-full overflow-x-auto rounded-bl-md bg-primary-800 pb-1.5 pl-1.5" hidden></div>
+    <div id="loadout-narrow" class="absolute right-0 top-full max-h-[35vh] max-w-full overflow-y-auto rounded-bl-md bg-primary-800 pb-1.5 pl-1.5" hidden></div>
   </div>
 
   {#- Item filter buttons -#}
@@ -76,16 +76,16 @@
     {%- endfor %}
   </div>
 
-  {#- Loadout: one row of small icons, filled by client/chart.ts. From sm up it
+  {#- Loadout: small icons that wrap onto more rows, filled by client/chart.ts. From sm up it
       sits here; below sm it moves into #loadout-narrow. -#}
   <div id="loadout-wide" class="mb-2 flex justify-end" hidden>
-    <div id="loadout" class="ml-auto flex shrink-0 items-center gap-1 sm:flex-wrap sm:justify-end sm:gap-1.5" hidden>
+    <div id="loadout" class="flex min-w-0 flex-wrap items-start justify-end gap-1 sm:gap-1.5" hidden>
       {%- for group in [
         {"key": "selected-w", "label": "Selected weapons", "cls": "ring-1 ring-inset ring-white/40"},
         {"key": "selected-p", "label": "Selected passives", "cls": "ring-1 ring-inset ring-white/40"},
         {"key": "all-p", "label": "All passives needed", "cls": ""},
       ] %}
-      <div data-loadout="{{ group.key }}" role="list" aria-label="{{ group.label }}" title="{{ group.label }}" class="flex shrink-0 items-center gap-0.5 rounded bg-base-600 p-px sm:p-0.5 {{ group.cls }}" hidden></div>
+      <div data-loadout="{{ group.key }}" role="list" aria-label="{{ group.label }}" title="{{ group.label }}" class="flex min-w-0 flex-wrap items-center gap-0.5 rounded bg-base-600 p-px sm:p-0.5 {{ group.cls }}" hidden></div>
       {%- endfor %}
     </div>
   </div>
