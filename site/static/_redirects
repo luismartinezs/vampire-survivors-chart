@@ -1,0 +1,5 @@
+# Cloudflare Workers static assets redirects (applied before any file is served).
+/warhammersurvivors /warhammersurvivors/40k 302
+/warhammersurvivors/ /warhammersurvivors/40k 302
+/warhammer40k /warhammersurvivors/40k 301
+/ageofsigmar /warhammersurvivors/ageofsigmar 301

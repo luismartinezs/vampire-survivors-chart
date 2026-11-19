@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Builds the production site and deploys dist/ to Cloudflare (wrangler.jsonc).
+# Needs CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in the environment, and
+# STATS_TOKEN / NEXT_PUBLIC_TRACK_URL (from .env.local locally) for /stats.
+# CI runs the same script (.github/workflows/deploy.yml) on push and daily.
+set -euo pipefail
+cd "$(dirname "$0")"
+
+if [[ -n "$(git status --porcelain)" && "${ALLOW_DIRTY:-}" != "1" ]]; then
+  echo "deploy: working tree is not clean; commit first (or ALLOW_DIRTY=1)" >&2
+  exit 1
+fi
+
+ANALYTICS=1 ./node_modules/.bin/tsx scripts/build.ts
+./node_modules/.bin/wrangler deploy
+
+# Smoke test the public routes.
+for path in / /warhammersurvivors/40k /warhammersurvivors/ageofsigmar /stats; do
+  status="$(curl -s -o /dev/null -w '%{http_code}' "https://www.vsevochart.com$path")"
+  echo "deploy: $path -> $status"
+  [[ "$status" == "200" ]] || { echo "deploy: smoke test failed for $path" >&2; exit 1; }
+done

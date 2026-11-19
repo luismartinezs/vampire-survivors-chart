@@ -1,0 +1,18 @@
+// The site: dist/ served as Cloudflare Workers static assets. There is no
+// Worker script, so every request is an asset request (free and unmetered).
+// Redirects and headers live in site/static/_redirects and _headers, which
+// Zola copies into dist/. Deploy: pnpm build && wrangler deploy (./deploy).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vsevochart",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./dist",
+    // /stats serves stats/index.html; /stats/ redirects to /stats (Vercel's trailingSlash: false).
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{ "pattern": "www.vsevochart.com", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false
+}

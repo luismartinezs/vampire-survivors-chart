@@ -1,0 +1,38 @@
+# Deploys the site to Cloudflare on every push to main, and daily so /stats
+# (rendered at build time from the tracker) stays fresh.
+# Repository secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, STATS_TOKEN,
+# NEXT_PUBLIC_TRACK_URL.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * *" # daily; /stats gets little traffic and D1 reads are capped
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # build.ts reads each chart's last data commit
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: ./deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          STATS_TOKEN: ${{ secrets.STATS_TOKEN }}
+          NEXT_PUBLIC_TRACK_URL: ${{ secrets.NEXT_PUBLIC_TRACK_URL }}

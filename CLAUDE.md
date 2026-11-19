@@ -7,7 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 pnpm dev        # Build (--dev), serve dist/ on :4173, rebuild on change (reload to see it)
 pnpm build      # Production build into dist/
-pnpm preview    # Serve dist/ like Vercel does (clean URLs, compression)
+pnpm preview    # Serve dist/ like production does (clean URLs, compression)
+./deploy        # Production build + wrangler deploy to Cloudflare + smoke test (needs CLOUDFLARE_API_TOKEN/ACCOUNT_ID)
 pnpm check      # Typecheck
 pnpm test       # Vitest (filter logic)
 
@@ -30,7 +31,7 @@ python3 scripts/engineering/og-warhammer.py
 
 ## Architecture Overview
 
-A static site of weapon evolution charts: Vampire Survivors at `/`, and Warhammer Survivors at `/warhammersurvivors` (redirects to 40K), with charts at `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar`. Only the Warhammer Survivors pages show the secondary navigation. The previous chart addresses redirect to the nested routes through Vercel permanent redirects. Zola renders every page to HTML at build time, and two small TypeScript modules add the interactivity. No framework runs in the browser and there is no server.
+A static site of weapon evolution charts: Vampire Survivors at `/`, and Warhammer Survivors at `/warhammersurvivors` (redirects to 40K), with charts at `/warhammersurvivors/40k` and `/warhammersurvivors/ageofsigmar`. Only the Warhammer Survivors pages show the secondary navigation. The previous chart addresses redirect to the nested routes through permanent redirects (`site/static/_redirects`). Zola renders every page to HTML at build time, and two small TypeScript modules add the interactivity. No framework runs in the browser and there is no server.
 
 Build pipeline (`scripts/build.ts`):
 
@@ -83,9 +84,9 @@ Icons are CSS background-image classes with base64-encoded lossless WebP data UR
 
 ### Analytics and deployment
 
-- Hosted on Vercel as static files (`vercel.json`: build command, `dist/`, headers). Env: `NEXT_PUBLIC_TRACK_URL` (tracker Worker origin, baked into the client), `STATS_TOKEN` (build-time stats fetch)
-- Ads and Umami are only emitted when `VERCEL_ENV=production` (or `ANALYTICS=1`)
-- `/stats` refreshes by redeploying: `.github/workflows/refresh-stats.yml` calls a Vercel deploy hook daily (secret `VERCEL_DEPLOY_HOOK_URL`)
+- Hosted on Cloudflare Workers static assets (`wrangler.jsonc`, no Worker script, so requests are free and unmetered; moved off Vercel on 2026-11-19 after its Hobby edge-request limit paused the site). Redirects and headers are `site/static/_redirects` and `_headers`. The apex `vsevochart.com` 301s to `www` through a zone redirect rule. Env: `NEXT_PUBLIC_TRACK_URL` (tracker Worker origin, baked into the client), `STATS_TOKEN` (build-time stats fetch)
+- Ads and Umami are only emitted when `ANALYTICS=1` (set by `./deploy`) or `VERCEL_ENV=production`
+- `.github/workflows/deploy.yml` runs `./deploy` on push to `main` and daily, which refreshes `/stats` (secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `STATS_TOKEN`, `NEXT_PUBLIC_TRACK_URL`)
 - Only the VS chart sends clicks to the tracker (`tracked` in `lib/charts.ts`): wire ids in `data/ids.ts` are VS-only, and Warhammer evolution ids would collide with VS ones
 - `tracker/` is a separate Cloudflare Worker + D1 click counter on the free plan: 10 ms CPU per request and 5M D1 rows read per day for the whole account. `/stats` only reads the small `clicks` table; never aggregate the `events` table per request, and don't run heavy queries against production D1 (one exploratory query blew the daily read quota)
 

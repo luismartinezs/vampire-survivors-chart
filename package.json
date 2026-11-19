@@ -27,6 +27,7 @@
     "tsx": "4.23.15",
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.7"
+    "vitest": "^4.0.7",
+    "wrangler": "4.103.0"
   }
 }
